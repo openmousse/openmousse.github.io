@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · OpenMousse</title>
+<meta name="description" content="How the OpenMousse app and server handle your data.">
+<link rel="icon" href="assets/icon.png">
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('om-lang'); } catch (e) {}
+    var lang = saved || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  })();
+</script>
+<style>
+  :root { --bg: #F1F3F4; --surface: #FFFFFF; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3; --cyan: #0F7A93; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0B0D10; --surface: #14171C; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33; --cyan: #5CCFE6; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+  html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
+  a { color: var(--cyan); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0 8px; }
+  header a.brand { color: var(--ink); font-weight: 700; text-decoration: none; }
+  .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+  h1 { font-size: 34px; margin: 24px 0 4px; } .updated { color: var(--ink2); margin: 0 0 24px; }
+  h2 { font-size: 21px; margin: 32px 0 8px; }
+  li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="/">OpenMousse</a>
+    <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
+  </header>
+
+  <div lang="en">
+    <h1>Privacy</h1>
+    <p class="updated">Last updated: September 25, 2026</p>
+
+    <p>OpenMousse is open-source software that you run on your own server. The OpenMousse iPhone app is a client for that server; it is published by Leo Zhou. This page explains what happens to your data.</p>
+
+    <h2>The short version</h2>
+    <ul>
+      <li>We don't run a service that stores your data. The app only talks to the server address you enter.</li>
+      <li>No accounts, no ads, no analytics or tracking SDKs in the app.</li>
+      <li>Your conversations, memory and health summaries are stored on your server, under your control.</li>
+    </ul>
+
+    <h2>What the app sends to your server</h2>
+    <ul>
+      <li>Messages, photos, files and voice notes you send in chat.</li>
+      <li>Apple Health daily summaries (activity, sleep, heart-rate measures and similar), only if you grant access. The app reads Health data; it never writes to it and never requests reproductive-health data. Health data is never used for advertising and is not shared with anyone by OpenMousse.</li>
+      <li>A push notification token, so your server can notify you when a reply is ready.</li>
+      <li>Your interface language, so the server can answer in it.</li>
+    </ul>
+
+    <h2>What leaves your server, by design</h2>
+    <ul>
+      <li><strong>Model providers.</strong> Your messages go to the AI model providers configured in your OpenClaw (for example Anthropic, OpenAI or Google), under your own accounts and their terms.</li>
+      <li><strong>Push notifications.</strong> Sent through Expo's push service and Apple Push Notification service. A notification carries a short title and a preview (for a chat reply: the conversation name and the first 140 characters).</li>
+      <li><strong>Voice notes.</strong> Transcribed by the service set in your server's configuration: OpenAI by default, or your own Whisper-compatible server.</li>
+      <li><strong>Memory tree (optional).</strong> If you connect Claude.ai, ChatGPT, Gemini or Notion to your memory tree, those services read and write it through the endpoint you set up.</li>
+    </ul>
+
+    <h2>Other services the app uses</h2>
+    <ul>
+      <li><strong>App updates.</strong> The app checks Expo's update service for new versions of its code. This request contains app and platform version details, not your content.</li>
+      <li><strong>TestFlight.</strong> If you install the TestFlight build, Apple may share crash reports and any feedback you choose to send with the developer, under TestFlight's terms.</li>
+    </ul>
+
+    <h2>Demo server</h2>
+    <p>A demo server used for Apple's app review holds no personal data. Chat there is answered by a demo assistant without tools; anything sent to it is deleted when the review ends.</p>
+
+    <h2>Your choices</h2>
+    <ul>
+      <li>Turn Apple Health access off in iOS Settings at any time; the app stops syncing.</li>
+      <li>Delete conversations, journal entries and memories in the app, or remove the server's data directory.</li>
+      <li>Use your own transcription server, or don't use voice input.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>OpenMousse is not directed to children under 13.</p>
+
+    <h2>Contact</h2>
+    <p><a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>. Changes to this page are tracked in the <a href="https://github.com/openmousse/openmousse.github.io">website repository</a>.</p>
+  </div>
+
+  <div lang="zh">
+    <h1>隐私政策</h1>
+    <p class="updated">最后更新：2026 年 9 月 25 日</p>
+
+    <p>OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是这个服务器的客户端，由 Leo Zhou 发布。本页说明你的数据会怎样被处理。</p>
+
+    <h2>简单说</h2>
+    <ul>
+      <li>我们不运营任何存你数据的服务。app 只和你填的服务器地址通信。</li>
+      <li>没有账号，没有广告，app 里没有统计或追踪 SDK。</li>
+      <li>你的对话、记忆和健康汇总都存在你自己的服务器上，由你控制。</li>
+    </ul>
+
+    <h2>app 发给你服务器的内容</h2>
+    <ul>
+      <li>你在对话里发的消息、照片、文件和语音。</li>
+      <li>Apple 健康的每日汇总（活动、睡眠、心率类指标等），只在你授权后同步。app 只读健康数据，从不写入，也从不申请生殖健康类数据。OpenMousse 不会把健康数据用于广告，也不会分享给任何人。</li>
+      <li>推送令牌，用来在回复好了时通知你。</li>
+      <li>你的界面语言，服务器按它回话。</li>
+    </ul>
+
+    <h2>按设计会离开你服务器的内容</h2>
+    <ul>
+      <li><strong>模型服务商。</strong>你的消息会发给你在 OpenClaw 里配置的模型服务商（比如 Anthropic、OpenAI、Google），用的是你自己的账号，遵循它们的条款。</li>
+      <li><strong>推送通知。</strong>经 Expo 推送服务和 Apple 推送服务发送。一条通知包含简短的标题和预览（对话回复就是对话名和回复的前 140 个字）。</li>
+      <li><strong>语音。</strong>由服务器配置里的转写服务处理：默认 OpenAI，也可以换成你自己的 Whisper 兼容服务。</li>
+      <li><strong>世界树（可选）。</strong>如果你把 Claude.ai、ChatGPT、Gemini 或 Notion 接到世界树，这些服务会通过你设置的地址读写它。</li>
+    </ul>
+
+    <h2>app 用到的其他服务</h2>
+    <ul>
+      <li><strong>app 更新。</strong>app 会向 Expo 的更新服务查询新版本代码，请求里只有 app 和系统版本之类的信息，不含你的内容。</li>
+      <li><strong>TestFlight。</strong>如果你装的是 TestFlight 版本，Apple 可能按 TestFlight 的条款，把崩溃报告和你主动提交的反馈分享给开发者。</li>
+    </ul>
+
+    <h2>演示服务器</h2>
+    <p>给 Apple 审核用的演示服务器不存任何个人数据。那里的对话由一个不带工具的演示助手回答，发给它的内容在审核结束后删除。</p>
+
+    <h2>你可以做的</h2>
+    <ul>
+      <li>随时在 iOS 设置里关掉 Apple 健康授权，app 就停止同步。</li>
+      <li>在 app 里删除对话、日志和记忆，或者直接删掉服务器的数据目录。</li>
+      <li>换成自己的转写服务，或者不用语音输入。</li>
+    </ul>
+
+    <h2>儿童</h2>
+    <p>OpenMousse 不面向 13 岁以下儿童。</p>
+
+    <h2>联系</h2>
+    <p><a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>。本页的修改记录在<a href="https://github.com/openmousse/openmousse.github.io">网站仓库</a>里。</p>
+  </div>
+</div>
+<script>
+  document.getElementById('lang').addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+    document.documentElement.setAttribute('data-lang', next);
+    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+    try { localStorage.setItem('om-lang', next); } catch (e) {}
+  });
+</script>
+</body>
+</html>
