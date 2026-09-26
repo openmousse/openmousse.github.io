@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenMousse · a personal assistant app for your OpenClaw</title>
-<meta name="description" content="OpenMousse turns your OpenClaw into a personal assistant on your phone: chat from your phone, one Agent for each part of your life, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
+<title>OpenMousse · a personal assistant app for your claw</title>
+<meta name="description" content="OpenMousse turns your claw into a personal assistant on your phone: one Agent for each part of your life, acting on your own data, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
 <meta property="og:title" content="OpenMousse">
-<meta property="og:description" content="Turn your OpenClaw into a personal assistant on your phone. Open source, self-hosted, one memory for every AI.">
+<meta property="og:description" content="Turn your claw into a personal assistant on your phone. Open source, self-hosted, one memory for every AI.">
 <meta property="og:image" content="https://openmousse.ai/assets/og.png">
 <meta property="og:url" content="https://openmousse.ai/">
 <meta name="twitter:card" content="summary_large_image">
@@ -94,6 +94,16 @@
   .blank { margin: 28px 0 0; padding: 18px 22px; border-radius: var(--radius); background: var(--gold-soft); }
   .blank p { margin: 0; }
 
+  .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .act .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .act h3 { margin: 0; font-size: 19px; }
+  .act dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; line-height: 1.55; }
+  .act dt { color: var(--ink2); font-weight: 600; white-space: nowrap; }
+  .act dd { margin: 0; }
+  .bubble { margin: auto 0 0; background: var(--surface2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15px; line-height: 1.55; }
+  .bubble small { display: block; margin-bottom: 3px; color: var(--ink2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
   .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
   .flow li { margin: 6px 0; }
@@ -115,7 +125,7 @@
 
   @media (max-width: 760px) {
     .top nav a.hide-sm { display: none; }
-    .grid, .grid.three, .flow { grid-template-columns: 1fr; }
+    .grid, .grid.three, .flow, .acts { grid-template-columns: 1fr; }
     .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
     .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
     .phone img { border-radius: 24px; }
@@ -144,10 +154,10 @@
 
   <div class="hero">
     <span class="eyebrow"><span lang="en">Open source · MIT · self-hosted</span><span lang="zh">开源 · MIT · 自托管</span></span>
-    <h1><span lang="en">Turn your OpenClaw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 OpenClaw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
+    <h1><span lang="en">Turn your claw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 claw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
     <p class="lede">
-      <span lang="en">Like Meta's Muse: chat with it from your phone, give each part of your life its own Agent, and let them come to you. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
-      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，生活的每一块交给一个 Agent，它们会主动来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
+      <span lang="en">Like Meta's Muse: chat with it from your phone and give each part of your life its own Agent. The Agents keep your data and come to you when something changes. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
+      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，生活的每一块交给一个 Agent。它们记着你的数据，看到变化就自己来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
     </p>
     <div class="cta">
       <a class="btn primary" href="#install"><span lang="en">Install on your server</span><span lang="zh">装到你的服务器</span></a>
@@ -162,9 +172,48 @@
     <div class="phone"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-fitness-dark.png"><img src="assets/en-fitness.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-fitness-dark.png"><img src="assets/zh-fitness.png" alt="" loading="lazy"></picture></div>
   </div>
 
+  <section id="acts">
+    <h2><span lang="en">It acts on its own, and it remembers</span><span lang="zh">它会自己动，也记得你的事</span></h2>
+    <p class="sub"><span lang="en">Every Agent keeps your data: training, meals, sleep, and whatever you mention in passing. When something changes, it comes to you with a concrete next step, not generic advice.</span><span lang="zh">每个 Agent 都存着你的数据：训练、饮食、睡眠，还有你随口跟它说的事。看到变化，它自己来找你，给的是具体的下一步，不是泛泛的建议。</span></p>
+    <div class="acts">
+      <article class="act">
+        <div class="head"><h3><span lang="en">You wake up</span><span lang="zh">起床</span></h3></div>
+        <dl>
+          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">Wake up, and your phone syncs Apple Health.</span><span lang="zh">醒来，手机同步了 Apple 健康。</span></dd>
+          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">How you slept, your heart-rate variability, what you trained this week.</span><span lang="zh">昨晚睡得怎样、心率变异性、这周练了什么。</span></dd>
+        </dl>
+        <p class="bubble"><small><span lang="en">Fitness Agent · 08:10</span><span lang="zh">健身 Agent · 08:10</span></small><span lang="en">7 hours of sleep, recovery 78. Pull B today as planned; keep the weights where they are.</span><span lang="zh">昨晚睡了 7 小时，恢复分 78。今天按计划练 Pull B，重量先不加。</span></p>
+      </article>
+      <article class="act">
+        <div class="head"><h3><span lang="en">Workout done</span><span lang="zh">练完了</span></h3></div>
+        <dl>
+          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">Tap “finish” in your training app.</span><span lang="zh">在训练软件里点了结束。</span></dd>
+          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">What you trained and what you've eaten today.</span><span lang="zh">今天练了什么、已经吃了多少。</span></dd>
+        </dl>
+        <p class="bubble"><small><span lang="en">Diet Agent · 16:22</span><span lang="zh">饮食 Agent · 16:22</span></small><span lang="en">Post-workout: 20 g protein powder, a banana, 25 g pistachios. You're still 40 g short on protein today.</span><span lang="zh">练后餐：蛋白粉 20 g、香蕉 1 根、开心果 25 g。今天蛋白质还差 40 g。</span></p>
+      </article>
+      <article class="act">
+        <div class="head"><h3><span lang="en">Back from the shops</span><span lang="zh">买完菜</span></h3></div>
+        <dl>
+          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">“Got chicken breast, broccoli and oat milk at M&amp;S today.”</span><span lang="zh">「今天在 M&amp;S 买了鸡胸、西兰花和燕麦奶。」</span></dd>
+          <dt><span lang="en">It records</span><span lang="zh">它记下</span></dt><dd><span lang="en">What's in your kitchen now.</span><span lang="zh">家里现在有什么。</span></dd>
+        </dl>
+        <p class="bubble"><small><span lang="en">Diet Agent · 18:30</span><span lang="zh">饮食 Agent · 18:30</span></small><span lang="en">Dinner: 150 g of the chicken you bought, with broccoli. That covers today's protein.</span><span lang="zh">晚饭用家里的鸡胸 150 g 配西兰花，正好补上今天的蛋白质。</span></p>
+      </article>
+      <article class="act">
+        <div class="head"><h3><span lang="en">Running low</span><span lang="zh">快吃完了</span></h3></div>
+        <dl>
+          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">What's left at home and how fast you go through it.</span><span lang="zh">家里还剩多少，你多久吃完一样东西。</span></dd>
+          <dt><span lang="en">It checks</span><span lang="zh">它去查</span></dt><dd><span lang="en">Which supermarket is near you, and what it has online.</span><span lang="zh">家附近是哪家超市，那里网上在卖什么。</span></dd>
+        </dl>
+        <p class="bubble"><small><span lang="en">Diet Agent · 20:00</span><span lang="zh">饮食 Agent · 20:00</span></small><span lang="en">One carton of oat milk left, and chicken for two meals. Pick up two oat milks and a pack of chicken at M&amp;S tomorrow.</span><span lang="zh">燕麦奶只剩一盒，鸡胸够两顿。明天路过 M&amp;S，带两盒燕麦奶、一盒鸡胸。</span></p>
+      </article>
+    </div>
+  </section>
+
   <section id="what">
     <h2><span lang="en">What OpenMousse is</span><span lang="zh">OpenMousse 是什么</span></h2>
-    <p class="sub"><span lang="en">It doesn't bring an agent of its own: your <a href="https://openclaw.ai">OpenClaw</a> already is one. OpenMousse adds three things around it.</span><span lang="zh">它不自带 agent：你的 <a href="https://openclaw.ai">OpenClaw</a> 本身就是。OpenMousse 在它周围加了三样东西。</span></p>
+    <p class="sub"><span lang="en">It doesn't bring an agent of its own. The claw on your machine (<a href="https://openclaw.ai">OpenClaw</a>, for example) already is one; OpenMousse adds three things around it.</span><span lang="zh">它不自带 agent。你机器上跑的 claw（比如 <a href="https://openclaw.ai">OpenClaw</a>）本身就是 agent，OpenMousse 在它周围加了三样东西。</span></p>
     <div class="grid three">
       <div class="card">
         <span class="dir">app/</span>
@@ -173,24 +222,24 @@
       </div>
       <div class="card">
         <span class="dir">server/</span>
-        <h3><span lang="en">A small server next to OpenClaw</span><span lang="zh">OpenClaw 旁边的一个小服务</span></h3>
-        <p><span lang="en">Handles the app's sign-in, relays chats and sends notifications. Ask for a new Agent in chat and it sets one up in OpenClaw. Every night it writes a digest for each Agent, so each one remembers yesterday.</span><span lang="zh">负责 app 的登录、对话转发和推送。你在对话里说要一个新 Agent，它就去 OpenClaw 里建好。每天夜里给每个 Agent 做一次日结，让它们记得昨天。</span></p>
+        <h3><span lang="en">A small server next to your claw</span><span lang="zh">claw 旁边的一个小服务</span></h3>
+        <p><span lang="en">Handles the app's sign-in, relays chats and sends notifications. Ask for a new Agent in chat and it sets one up in your claw. Every night it writes a digest for each Agent, so each one remembers yesterday.</span><span lang="zh">负责 app 的登录、对话转发和推送。你在对话里说要一个新 Agent，它就在你的 claw 里建好。每天夜里给每个 Agent 做一次日结，让它们记得昨天。</span></p>
       </div>
       <div class="card">
         <span class="dir">tree/</span>
         <h3><span lang="en">The memory tree</span><span lang="zh">世界树</span></h3>
-        <p><span lang="en">An MCP server holding one memory about you. Claude.ai, ChatGPT, Gemini, Notion and your claw all connect to it, so what one learns, the others know. It works without OpenClaw too.</span><span lang="zh">一个 MCP 服务，存着一份关于你的记忆。Claude.ai、ChatGPT、Gemini、Notion 和你的 claw 都接在这棵树上，一个平台知道了，其他平台也知道。没有 OpenClaw 也能单独用。</span></p>
+        <p><span lang="en">An MCP server holding one memory about you. Claude.ai, ChatGPT, Gemini, Notion and your claw all connect to it, so what one learns, the others know. It works on its own, without a claw.</span><span lang="zh">一个 MCP 服务，存着一份关于你的记忆。Claude.ai、ChatGPT、Gemini、Notion 和你的 claw 都接在这棵树上，一个平台知道了，其他平台也知道。不接 claw 也能单独用。</span></p>
       </div>
     </div>
 
     <div class="how">
       <div class="node"><b><span lang="en">Your iPhone</span><span lang="zh">你的 iPhone</span></b><span>OpenMousse app</span></div>
       <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="node home"><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b><span><span lang="en">OpenClaw (the agent) · OpenMousse server · memory tree</span><span lang="zh">OpenClaw（agent 本体）· OpenMousse 服务 · 世界树</span></span></div>
+      <div class="node home"><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b><span><span lang="en">Your claw (the agent) · OpenMousse server · memory tree</span><span lang="zh">你的 claw（agent 本体）· OpenMousse 服务 · 世界树</span></span></div>
       <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="node"><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span>Claude · ChatGPT · Kimi · …</span></div>
     </div>
-    <p class="caption"><span lang="en">The app only talks to your own server. OpenClaw runs the agent on your model account, and Claude.ai, ChatGPT and Gemini reach the memory tree over MCP.</span><span lang="zh">app 只连你自己的服务器。agent 由 OpenClaw 跑，用的是你的模型账号；Claude.ai、ChatGPT、Gemini 通过 MCP 读写世界树。</span></p>
+    <p class="caption"><span lang="en">The app only talks to your own server. Your claw runs the agent on your model account, and Claude.ai, ChatGPT and Gemini reach the memory tree over MCP.</span><span lang="zh">app 只连你自己的服务器。agent 由你的 claw 跑，用的是你的模型账号；Claude.ai、ChatGPT、Gemini 通过 MCP 读写世界树。</span></p>
 
     <div class="blank"><p><span lang="en"><strong>It starts blank.</strong> There are no life areas preset. Tell it “I want to track my sleep and my weekly runs” and it builds you an Agent. The author's own fitness, meals, sleep and job-hunt Agents are being turned into packs you can start from.</span><span lang="zh"><strong>装好是一块白板。</strong>没有预设的生活领域。你对它说「我想跟踪睡眠和每周跑步」，它就替你建一个 Agent。作者自己用的健身、饮食、睡眠、求职 Agent 正在做成功能包，以后可以直接拿来当模板。</span></p></div>
   </section>
@@ -221,7 +270,7 @@
 
   <section id="install">
     <h2><span lang="en">Install</span><span lang="zh">安装</span></h2>
-    <p class="sub"><span lang="en">You need a Linux machine running <a href="https://github.com/openclaw/openclaw">OpenClaw</a> with a model set up, and an iPhone. Then one command:</span><span lang="zh">需要一台装好 <a href="https://github.com/openclaw/openclaw">OpenClaw</a> 并配好模型的 Linux 机器，和一部 iPhone。然后一条命令：</span></p>
+    <p class="sub"><span lang="en">You need a Linux machine running a claw (such as <a href="https://github.com/openclaw/openclaw">OpenClaw</a>) with a model set up, and an iPhone. Then one command:</span><span lang="zh">需要一台跑着 claw（比如 <a href="https://github.com/openclaw/openclaw">OpenClaw</a>）、配好模型的 Linux 机器，和一部 iPhone。然后一条命令：</span></p>
     <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
     <p class="steps"><span lang="en">It asks four questions (language, where OpenClaw lives, time zone, what to call the assistant), sets up the server, the memory tree and the daily digest, and prints how to connect your phone. Running it again only fills in what's missing.</span><span lang="zh">它会问四个问题（语言、OpenClaw 在哪、时区、助手叫什么），装好服务端、世界树和日结，最后告诉你手机怎么连。再跑一遍只补缺的。</span></p>
   </section>
@@ -236,7 +285,7 @@
 
   <section>
     <div class="note">
-      <p><span lang="en"><strong>Not OpenMuse.</strong> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your OpenClaw and focuses on your life data, proactive Agents and a memory every AI shares.</span><span lang="zh"><strong>不是 OpenMuse。</strong>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你的 OpenClaw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span></p>
+      <p><span lang="en"><strong>Not OpenMuse.</strong> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your own claw and focuses on your life data, proactive Agents and a memory every AI shares.</span><span lang="zh"><strong>不是 OpenMuse。</strong>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你自己的 claw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span></p>
     </div>
   </section>
 
