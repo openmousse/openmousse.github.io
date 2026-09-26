@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenMousse · a personal assistant app for your claw</title>
-<meta name="description" content="OpenMousse turns your claw into a personal assistant on your phone: one Agent for each part of your life, acting on your own data, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
+<meta name="description" content="OpenMousse turns your claw into a personal assistant on your phone: Agents you build for your own needs, acting on your own data, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
 <meta property="og:title" content="OpenMousse">
 <meta property="og:description" content="Turn your claw into a personal assistant on your phone. Open source, self-hosted, one memory for every AI.">
 <meta property="og:image" content="https://openmousse.ai/assets/og.png">
@@ -91,8 +91,19 @@
   .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
   .how .arrow svg { display: block; width: 100%; height: 100%; }
   .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
-  .blank { margin: 28px 0 0; padding: 18px 22px; border-radius: var(--radius); background: var(--gold-soft); }
-  .blank p { margin: 0; }
+
+  .build { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+  .chat { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; }
+  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
+  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
+  .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
+  .msg.done strong { display: block; margin-bottom: 2px; }
+  .ideas-label { margin: 0 0 12px; color: var(--ink2); font-size: 15px; }
+  .ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .idea b { display: block; font-size: 16px; }
+  .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
 
   .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
@@ -125,7 +136,7 @@
 
   @media (max-width: 760px) {
     .top nav a.hide-sm { display: none; }
-    .grid, .grid.three, .flow, .acts { grid-template-columns: 1fr; }
+    .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
     .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
     .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
     .phone img { border-radius: 24px; }
@@ -156,8 +167,8 @@
     <span class="eyebrow"><span lang="en">Open source · MIT · self-hosted</span><span lang="zh">开源 · MIT · 自托管</span></span>
     <h1><span lang="en">Turn your claw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 claw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
     <p class="lede">
-      <span lang="en">Like Meta's Muse: chat with it from your phone and give each part of your life its own Agent. The Agents keep your data and come to you when something changes. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
-      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，生活的每一块交给一个 Agent。它们记着你的数据，看到变化就自己来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
+      <span lang="en">Like Meta's Muse: chat with it from your phone and build Agents for whatever you need. They keep your data and come to you when something changes. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
+      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，按你自己的需要建一个个 Agent。它们记着你的数据，看到变化就自己来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
     </p>
     <div class="cta">
       <a class="btn primary" href="#install"><span lang="en">Install on your server</span><span lang="zh">装到你的服务器</span></a>
@@ -171,6 +182,30 @@
     <div class="phone mid"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" alt="" loading="lazy"></picture></div>
     <div class="phone"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-fitness-dark.png"><img src="assets/en-fitness.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-fitness-dark.png"><img src="assets/zh-fitness.png" alt="" loading="lazy"></picture></div>
   </div>
+
+  <section id="build">
+    <h2><span lang="en">Build the Agents you actually need</span><span lang="zh"><span class="nw">你要什么 Agent，</span><span class="nw">就建什么 Agent</span></span></h2>
+    <p class="sub"><span lang="en">Everyone's life is different, so there are no preset templates. Say in chat what you want looked after. It asks a few questions, then builds you an Agent with its own memory, its own rules, its own dashboard and reminders.</span><span lang="zh">每个人的生活都不一样，所以这里没有预设模板。在对话里说一句你想让它管什么，它会问你几个问题，然后替你建好一个 Agent：有自己的记忆、自己的规矩、自己的看板和提醒。</span></p>
+    <div class="build">
+      <div class="chat">
+        <p class="msg me"><span lang="en">I'm preparing for the GRE. Build me a study Agent.</span><span lang="zh">我在准备 GRE，帮我建一个备考 Agent。</span></p>
+        <p class="msg it"><span lang="en">Sure. When's the test, how long can you study each day, and which word list are you using?</span><span lang="zh">好。哪天考？每天能学多久？单词书用哪本？</span></p>
+        <p class="msg me"><span lang="en">November 20, an hour a day, Barron's.</span><span lang="zh">11 月 20 号，每天一小时，用再要你命 3000。</span></p>
+        <p class="msg done"><strong><span lang="en">Done: your GRE Agent</span><span lang="zh">建好了：GRE 备考 Agent</span></strong><span lang="en">Every day at 07:30 it sends today's words and a reading passage. Send it a photo of your practice and it logs your mistakes. Every Sunday you get a review.</span><span lang="zh">每天 07:30 推今天的单词和一篇阅读；做完题拍照发给它，它记下错题；每周日给你一份复盘。</span></p>
+      </div>
+      <div>
+        <p class="ideas-label"><span lang="en">Everyone builds something different. For example:</span><span lang="zh">每个人建的都不一样，比如：</span></p>
+        <div class="ideas">
+        <div class="idea"><b><span lang="en">Cat care</span><span lang="zh">猫咪健康</span></b><span><span lang="en">Tracks weight and vaccines, and reminds you about flea treatment.</span><span lang="zh">记体重和疫苗，到时间提醒驱虫。</span></span></div>
+        <div class="idea"><b><span lang="en">Budget</span><span lang="zh">记账</span></b><span><span lang="en">Tell it what you spent; at month end it shows where the money went.</span><span lang="zh">你说花了什么它就记，月底告诉你钱去哪了。</span></span></div>
+        <div class="idea"><b><span lang="en">Marathon</span><span lang="zh">马拉松</span></b><span><span lang="en">Plans back from race day and adjusts next week after every run.</span><span lang="zh">从比赛日倒排计划，每跑完一次就调下一周。</span></span></div>
+        <div class="idea"><b><span lang="en">Renovation</span><span lang="zh">装修</span></b><span><span lang="en">Tracks the schedule and payments; send a photo and it logs progress.</span><span lang="zh">盯工期和付款节点，拍张照发给它就记进度。</span></span></div>
+        <div class="idea"><b><span lang="en">Visa</span><span lang="zh">签证</span></b><span><span lang="en">Keeps the document checklist and warns you before anything expires.</span><span lang="zh">列好材料清单，快过期的提前提醒你。</span></span></div>
+        <div class="idea"><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span><span lang="en">Keeps your highlights and thoughts, and brings them back days later.</span><span lang="zh">记下你的摘抄和想法，隔几天拿出来问你。</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="acts">
     <h2><span lang="en">It acts on its own, and it remembers</span><span lang="zh">它会自己动，也记得你的事</span></h2>
@@ -240,8 +275,6 @@
       <div class="node"><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span>Claude · ChatGPT · Kimi · …</span></div>
     </div>
     <p class="caption"><span lang="en">The app only talks to your own server. Your claw runs the agent on your model account, and Claude.ai, ChatGPT and Gemini reach the memory tree over MCP.</span><span lang="zh">app 只连你自己的服务器。agent 由你的 claw 跑，用的是你的模型账号；Claude.ai、ChatGPT、Gemini 通过 MCP 读写世界树。</span></p>
-
-    <div class="blank"><p><span lang="en"><strong>It starts blank.</strong> There are no life areas preset. Tell it “I want to track my sleep and my weekly runs” and it builds you an Agent. The author's own fitness, meals, sleep and job-hunt Agents are being turned into packs you can start from.</span><span lang="zh"><strong>装好是一块白板。</strong>没有预设的生活领域。你对它说「我想跟踪睡眠和每周跑步」，它就替你建一个 Agent。作者自己用的健身、饮食、睡眠、求职 Agent 正在做成功能包，以后可以直接拿来当模板。</span></p></div>
   </section>
 
   <section id="data">
