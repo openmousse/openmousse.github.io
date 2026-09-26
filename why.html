@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muse? Claws! · OpenMousse</title>
+<meta name="description" content="Muse is a claw in an app shell. OpenMousse gives you the same shell with your own claw inside: pick your model, keep your memory, build the features you need.">
+<meta property="og:title" content="Muse? Claws!">
+<meta property="og:description" content="Muse is a claw in an app shell. OpenMousse gives you the same shell, with your own claw inside.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/why.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icon.png">
+<script>
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem("om-lang"); } catch (e) {}
+  var lang = saved || (/^zh/i.test(navigator.language || "") ? "zh" : "en");
+  document.documentElement.setAttribute("data-lang", lang);
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+})();
+</script>
+<style>
+:root {
+  --pap: #F4EFE4; --card: #FBF8F1; --ink: #1F1B16; --ink-2: #5E564C; --mute: #8A8177;
+  --acc: #E8542F; --acc-soft: rgba(232,84,47,.10); --acc-mark: rgba(232,84,47,.20);
+  --line: rgba(31,27,22,.16); --shade: rgba(31,27,22,.08); --glow: rgba(232,84,47,.11);
+  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --pap: #171411; --card: #221E19; --ink: #F2ECE2; --ink-2: #C9BFB1; --mute: #A39A8E;
+    --acc: #FF6B45; --acc-soft: rgba(255,107,69,.14); --acc-mark: rgba(255,107,69,.28);
+    --line: rgba(242,236,226,.16); --shade: rgba(0,0,0,.35); --glow: rgba(255,107,69,.12);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pap: #171411; --card: #221E19; --ink: #F2ECE2; --ink-2: #C9BFB1; --mute: #A39A8E;
+  --acc: #FF6B45; --acc-soft: rgba(255,107,69,.14); --acc-mark: rgba(255,107,69,.28);
+  --line: rgba(242,236,226,.16); --shade: rgba(0,0,0,.35); --glow: rgba(255,107,69,.12);
+}
+html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--pap); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.8;
+       -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+html[data-lang="en"] body { line-height: 1.65; }
+.page { padding-inline: 20px; padding-block: 0 56px;
+        background: radial-gradient(1100px 720px at 92% -6%, var(--glow), transparent 62%) no-repeat; }
+.col { max-width: 760px; margin-inline: auto; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; border-radius: 6px; }
+
+.draft { margin-inline: -20px; padding: 8px 20px; background: var(--ink); color: var(--pap); font-size: 13px; line-height: 1.5; }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; text-decoration: none; letter-spacing: -.01em; }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
+.nav nav { display: flex; align-items: center; gap: 16px; font-size: 15px; font-weight: 600; }
+.nav nav a { text-decoration: none; }
+.lang { border: 1.5px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px;
+        padding: 4px 12px; font: 600 14px/1.3 var(--sans); cursor: pointer; }
+@media (max-width: 520px) { .nav .hide-sm { display: none; } }
+
+.chip { display: inline-block; background: var(--ink); color: var(--pap); font-size: 12px; font-weight: 700;
+        letter-spacing: .08em; line-height: 1; padding: 6px 12px; border-radius: 999px; }
+.chip.acc { background: var(--acc); color: #FFF8F2; }
+.dateline { margin-left: 10px; font-size: 13px; color: var(--mute); }
+
+.hero { padding-block: 28px 0; }
+.hero h1 { font-size: clamp(66px, 19.5vw, 138px); font-weight: 800; line-height: .98; letter-spacing: -.035em; margin: 18px 0 0; }
+.hero h1 span { display: block; }
+.hero h1 .l2 { color: var(--acc); }
+.lede { font-size: clamp(18px, 4.7vw, 21px); line-height: 1.72; font-weight: 500; max-width: 33em; margin: 22px 0 0; text-wrap: pretty; }
+.hero-fig { margin: 10px -10px 0; }
+.hero-fig figcaption { font-size: 14px; color: var(--mute); margin: 2px 10px 0; }
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 16px;
+       line-height: 1.2; text-decoration: none; border: 2px solid var(--ink); }
+.btn.primary { background: var(--ink); color: var(--pap); }
+.need { font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 14px 0 0; }
+
+.art svg { width: 100%; height: auto; display: block; font-family: var(--sans); }
+.wave { transform-box: fill-box; transform-origin: 0% 60%; animation: wave 1.8s ease-in-out .6s 1 both; }
+@keyframes wave { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-14deg); } 40% { transform: rotate(6deg); }
+                  60% { transform: rotate(-10deg); } 80% { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .wave { animation: none; } }
+
+.s { margin-top: 92px; }
+.s h2 { font-size: clamp(25px, 6.6vw, 36px); font-weight: 800; line-height: 1.3; letter-spacing: -.01em;
+        margin: 14px 0 18px; padding-left: 16px; border-left: 6px solid var(--acc); text-wrap: balance; }
+.s p { margin: 0 0 16px; max-width: 36em; }
+.k { color: var(--acc); font-weight: 700; }
+mark { background: var(--acc-mark); color: inherit; padding: 1px 4px; border-radius: 5px; }
+.quote { background: var(--ink); color: var(--pap); border-radius: 22px; padding: 20px 22px; margin: 20px 0;
+         font-size: clamp(18px, 4.8vw, 22px); font-weight: 700; line-height: 1.6; max-width: 34em; }
+.fig { margin: 24px -12px 10px; }
+.fig figcaption, .note { font-size: 14px; line-height: 1.65; color: var(--mute); }
+.fig figcaption { margin: 8px 12px 0; }
+.byline { font-size: 14px; color: var(--mute); margin: -8px 0 14px; }
+
+.pts { display: grid; gap: 12px; margin-top: 20px; }
+@media (min-width: 720px) { .pts { grid-template-columns: repeat(3, 1fr); } }
+.pts > div { padding: 16px 18px; background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; }
+.pts b { display: block; font-size: 17px; margin-bottom: 4px; }
+.pts > div > span { display: block; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
+
+.day { list-style: none; padding: 0; margin: 24px 0 0; position: relative; }
+.day::before { content: ""; position: absolute; left: 62px; top: 18px; bottom: 30px; border-left: 3px dotted var(--mute); opacity: .6; }
+.day li { display: grid; grid-template-columns: 50px 1fr; gap: 26px; align-items: start; margin-bottom: 12px; position: relative; }
+.day li::after { content: ""; position: absolute; left: 56px; top: 21px; width: 15px; height: 15px; border-radius: 50%;
+                 background: var(--acc); box-shadow: 0 0 0 4px var(--pap); }
+.day time { font-family: var(--mono); font-weight: 700; font-size: 15px; line-height: 1.4; padding-top: 16px; text-align: right;
+            font-variant-numeric: tabular-nums; }
+.day li > div { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 12px 16px; }
+.day b { display: block; font-size: 16px; line-height: 1.55; }
+.day q { display: block; font-size: 15px; line-height: 1.6; color: var(--ink-2); margin-top: 4px; }
+
+.shots { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 26px -20px 0; padding: 4px 20px 18px; }
+.shots figure { flex: 0 0 min(60%, 232px); scroll-snap-align: start; margin: 0; }
+.phone { border: 6px solid #111; border-radius: 34px; overflow: hidden; background: #111; box-shadow: 0 18px 40px var(--shade); }
+.phone img, .phone picture { display: block; width: 100%; height: auto; }
+.shots figcaption { font-size: 13px; color: var(--mute); margin-top: 8px; text-align: center; }
+
+.five { list-style: none; padding: 0; margin: 12px 0 0; }
+.five li { display: grid; grid-template-columns: 4.6em 1fr; gap: 14px; padding: 14px 0; border-bottom: 1.5px solid var(--line); }
+html[data-lang="en"] .five li { grid-template-columns: 6.6em 1fr; }
+.five li:first-child { border-top: 1.5px solid var(--line); }
+.five b { color: var(--acc); font-size: 17px; line-height: 1.7; }
+.five li > span { font-size: 16px; line-height: 1.7; }
+
+.tbl { overflow-x: auto; margin-top: 18px; }
+.cmp { width: 100%; border-collapse: collapse; font-size: 16px; }
+.cmp th, .cmp td { padding: 12px 10px; text-align: left; vertical-align: top; line-height: 1.5; border-bottom: 1.5px solid var(--line); }
+.cmp thead th { font-size: 14px; color: var(--mute); border-bottom: 2.5px solid var(--ink); }
+.cmp tbody th { color: var(--mute); font-weight: 500; white-space: nowrap; padding-left: 0; }
+.cmp td.o { color: var(--acc); font-weight: 700; }
+.cmp td:not(.o) { white-space: nowrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.flows { display: grid; gap: 12px; margin-top: 18px; }
+@media (min-width: 720px) { .flows { grid-template-columns: 1fr 1fr; } }
+.flows > div { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+.flows h3 { font-size: 16px; margin: 0 0 6px; }
+.flows ul { margin: 0; padding-left: 1.1em; font-size: 15px; line-height: 1.75; color: var(--ink-2); }
+.flows a { display: inline-block; margin-top: 8px; font-size: 15px; font-weight: 700; color: var(--acc); }
+
+.end .big { font-size: clamp(50px, 14vw, 100px); font-weight: 800; line-height: 1.02; letter-spacing: -.035em;
+            border: 0; padding: 0; margin: 16px 0 20px; }
+.three { margin: 0 0 22px; }
+.three div { font-size: clamp(20px, 5.4vw, 26px); font-weight: 800; padding: 12px 0; border-top: 2.5px solid var(--ink); }
+.three div:last-child { border-bottom: 2.5px solid var(--ink); }
+.cmd { margin-top: 24px; }
+.cmd .lab { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+.code { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; margin: 12px 0; overflow: hidden; }
+.code pre { margin: 0; padding: 14px 10px 12px 12px; font-family: var(--mono); font-size: clamp(11px, 2.95vw, 15px);
+            line-height: 1.5; white-space: pre; overflow-x: auto; }
+.copy { display: block; width: 100%; border: 0; border-top: 1.5px solid var(--line); background: transparent; color: var(--ink);
+        font: 700 14px/1.2 var(--sans); padding: 11px; cursor: pointer; }
+.copy:hover { background: var(--acc-soft); }
+.soon { font-size: 14px; color: var(--ink-2); }
+.shout { font-size: clamp(32px, 8.6vw, 52px); font-weight: 800; letter-spacing: -.02em; color: var(--acc); margin: 40px 0 0; }
+
+footer { margin-top: 88px; font-size: 14px; line-height: 1.7; color: var(--ink-2); }
+footer .nomuse { background: var(--acc-soft); border-radius: 18px; padding: 16px 18px; margin: 0 0 22px; }
+footer .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; padding-top: 16px;
+               border-top: 1.5px solid var(--line); color: var(--mute); }
+
+/* illustration colours -> theme tokens */
+.art [fill="#1F1B16"] { fill: var(--ink); }
+.art [fill="#8A8177"] { fill: var(--mute); }
+.art [fill="#E8542F"] { fill: var(--acc); }
+.art [fill="#F4EFE4"] { fill: var(--pap); }
+.art [fill="#FBF8F1"] { fill: var(--card); }
+.art [fill="rgba(232,84,47,.10)"] { fill: var(--acc-soft); }
+.art [fill="rgba(31,27,22,.08)"] { fill: var(--shade); }
+.art [fill="rgba(31,27,22,.12)"] { fill: var(--line); }
+.art [fill="rgba(31,27,22,.16)"] { fill: var(--line); }
+.art [stroke="#1F1B16"] { stroke: var(--ink); }
+.art [stroke="#8A8177"] { stroke: var(--mute); }
+.art [stroke="#E8542F"] { stroke: var(--acc); }
+.art [stroke="#F4EFE4"] { stroke: var(--pap); }
+.art [stroke="rgba(31,27,22,.16)"] { stroke: var(--line); }
+</style>
+</head>
+<body>
+<div class="page">
+<header class="nav col"><a class="brand" href="index.html"><img src="assets/icon.png" alt="" width="28" height="28">OpenMousse</a>
+<nav><a class="hide-sm" href="index.html"><span lang="zh">首页</span><span lang="en">Home</span></a><a class="hide-sm" href="index.html#install"><span lang="zh">安装</span><span lang="en">Install</span></a><a href="https://github.com/openmousse/openmousse">GitHub</a>
+<button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="zh">English</span><span lang="en">中文</span></button></nav></header>
+<main class="col">
+<section class="hero">
+  <span class="chip"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></span><span class="dateline"><span lang="zh">2026 年 9 月</span><span lang="en">September 2026</span></span>
+  <!-- 热点钩子：Muse 过气后把 h1 换成常青标题，比如「你的 claw，你的记忆，你的 app」 -->
+  <h1 id="hook"><span lang="zh"><span>Muse？</span><span class="l2">Claws！</span></span><span lang="en"><span>Muse?</span><span class="l2">Claws!</span></span></h1>
+  <p class="lede" lang="zh">Muse 是披着 app 外壳的 claw。OpenMousse 也给你这层壳，但里面住的是<mark>你自己的 claw</mark>：用你挑的模型，读你自己的记忆，做你要的功能。</p><p class="lede" lang="en">Muse is a claw in an app shell. OpenMousse gives you the same shell, but the claw inside is <mark>your own</mark>: the model you pick, your own memory, the features you want.</p>
+  <figure class="hero-fig art"><div lang="zh"><svg role="img" aria-label="一只寄居蟹从写着 muse 的旧壳里搬出来，住进了写着 openmousse 的新壳" viewBox="0 0 928 384" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="150" cy="336" rx="124" ry="9" fill="rgba(31,27,22,.08)"/>
+<g transform="rotate(-9 150 268)">
+  <rect x="40" y="206" width="220" height="124" rx="28" fill="#FBF8F1" stroke="#8A8177" stroke-width="4" stroke-dasharray="10 10"/>
+  <text x="150" y="282" text-anchor="middle" font-size="40" font-weight="700" fill="#8A8177" stroke="none">muse</text>
+</g>
+<text x="150" y="374" text-anchor="middle" font-size="22" font-weight="400" fill="#8A8177" stroke="none">Meta 的壳</text>
+<path d="M280 332 C332 346 388 348 440 340" stroke="#E8542F" stroke-width="6" stroke-dasharray="1 16" opacity=".75"/>
+<g transform="translate(280 40)">
+  <ellipse cx="330" cy="300" rx="226" ry="11" fill="rgba(31,27,22,.08)"/>
+  <path d="M262 250 L284 280 L296 300" stroke="#1F1B16" stroke-width="19"/><path d="M262 250 L284 280 L296 300" stroke="#E8542F" stroke-width="9"/><path d="M312 250 L334 280 L346 300" stroke="#1F1B16" stroke-width="19"/><path d="M312 250 L334 280 L346 300" stroke="#E8542F" stroke-width="9"/><path d="M362 250 L384 280 L396 300" stroke="#1F1B16" stroke-width="19"/><path d="M362 250 L384 280 L396 300" stroke="#E8542F" stroke-width="9"/>
+  <path d="M428 100 L452 34 M456 104 L490 46" stroke="#1F1B16" stroke-width="6"/>
+  <rect x="150" y="80" width="320" height="180" rx="34" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+  <rect x="166" y="96" width="288" height="148" rx="22" fill="rgba(232,84,47,.10)"/>
+  <text x="310" y="178" text-anchor="middle" font-size="44" font-weight="700" fill="#E8542F" stroke="none">openmousse</text>
+  <rect x="245" y="200" width="130" height="10" rx="5" fill="rgba(31,27,22,.16)"/>
+  <rect x="265" y="218" width="90" height="10" rx="5" fill="rgba(31,27,22,.12)"/>
+  <circle cx="452" cy="34" r="17" fill="#FFFFFF" stroke="#1F1B16" stroke-width="4"/><circle cx="457" cy="32" r="7" fill="#161310" stroke="none"/><circle cx="490" cy="46" r="17" fill="#FFFFFF" stroke="#1F1B16" stroke-width="4"/><circle cx="495" cy="44" r="7" fill="#161310" stroke="none"/>
+  <path d="M468 244 Q494 258 516 264" stroke="#1F1B16" stroke-width="25"/><path d="M468 244 Q494 258 516 264" stroke="#E8542F" stroke-width="15"/>
+  <path d="M0 -26 C30 -50 70 -56 92 -40 Q62 -20 38 -6 Q62 4 84 14 C64 34 22 38 0 24 Z" transform="translate(516 264) rotate(14) scale(.62)" fill="#E8542F" stroke="#1F1B16" stroke-width="8"/>
+  <g class="wave"><path d="M468 206 Q502 214 540 196" stroke="#1F1B16" stroke-width="32"/><path d="M468 206 Q502 214 540 196" stroke="#E8542F" stroke-width="22"/><path d="M0 -26 C30 -50 70 -56 92 -40 Q62 -20 38 -6 Q62 4 84 14 C64 34 22 38 0 24 Z" transform="translate(540 196) rotate(-22)" fill="#E8542F" stroke="#1F1B16" stroke-width="5"/></g>
+</g>
+</svg></div><div lang="en"><svg role="img" aria-label="A hermit crab moves out of an old shell labelled muse into a new one labelled openmousse" viewBox="0 0 928 384" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="150" cy="336" rx="124" ry="9" fill="rgba(31,27,22,.08)"/>
+<g transform="rotate(-9 150 268)">
+  <rect x="40" y="206" width="220" height="124" rx="28" fill="#FBF8F1" stroke="#8A8177" stroke-width="4" stroke-dasharray="10 10"/>
+  <text x="150" y="282" text-anchor="middle" font-size="40" font-weight="700" fill="#8A8177" stroke="none">muse</text>
+</g>
+<text x="150" y="374" text-anchor="middle" font-size="22" font-weight="400" fill="#8A8177" stroke="none">Meta's shell</text>
+<path d="M280 332 C332 346 388 348 440 340" stroke="#E8542F" stroke-width="6" stroke-dasharray="1 16" opacity=".75"/>
+<g transform="translate(280 40)">
+  <ellipse cx="330" cy="300" rx="226" ry="11" fill="rgba(31,27,22,.08)"/>
+  <path d="M262 250 L284 280 L296 300" stroke="#1F1B16" stroke-width="19"/><path d="M262 250 L284 280 L296 300" stroke="#E8542F" stroke-width="9"/><path d="M312 250 L334 280 L346 300" stroke="#1F1B16" stroke-width="19"/><path d="M312 250 L334 280 L346 300" stroke="#E8542F" stroke-width="9"/><path d="M362 250 L384 280 L396 300" stroke="#1F1B16" stroke-width="19"/><path d="M362 250 L384 280 L396 300" stroke="#E8542F" stroke-width="9"/>
+  <path d="M428 100 L452 34 M456 104 L490 46" stroke="#1F1B16" stroke-width="6"/>
+  <rect x="150" y="80" width="320" height="180" rx="34" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+  <rect x="166" y="96" width="288" height="148" rx="22" fill="rgba(232,84,47,.10)"/>
+  <text x="310" y="178" text-anchor="middle" font-size="44" font-weight="700" fill="#E8542F" stroke="none">openmousse</text>
+  <rect x="245" y="200" width="130" height="10" rx="5" fill="rgba(31,27,22,.16)"/>
+  <rect x="265" y="218" width="90" height="10" rx="5" fill="rgba(31,27,22,.12)"/>
+  <circle cx="452" cy="34" r="17" fill="#FFFFFF" stroke="#1F1B16" stroke-width="4"/><circle cx="457" cy="32" r="7" fill="#161310" stroke="none"/><circle cx="490" cy="46" r="17" fill="#FFFFFF" stroke="#1F1B16" stroke-width="4"/><circle cx="495" cy="44" r="7" fill="#161310" stroke="none"/>
+  <path d="M468 244 Q494 258 516 264" stroke="#1F1B16" stroke-width="25"/><path d="M468 244 Q494 258 516 264" stroke="#E8542F" stroke-width="15"/>
+  <path d="M0 -26 C30 -50 70 -56 92 -40 Q62 -20 38 -6 Q62 4 84 14 C64 34 22 38 0 24 Z" transform="translate(516 264) rotate(14) scale(.62)" fill="#E8542F" stroke="#1F1B16" stroke-width="8"/>
+  <g class="wave"><path d="M468 206 Q502 214 540 196" stroke="#1F1B16" stroke-width="32"/><path d="M468 206 Q502 214 540 196" stroke="#E8542F" stroke-width="22"/><path d="M0 -26 C30 -50 70 -56 92 -40 Q62 -20 38 -6 Q62 4 84 14 C64 34 22 38 0 24 Z" transform="translate(540 196) rotate(-22)" fill="#E8542F" stroke="#1F1B16" stroke-width="5"/></g>
+</g>
+</svg></div><figcaption><span lang="zh">寄居蟹会换壳：从别人的壳里搬出来，住进自己的。</span><span lang="en">Hermit crabs change shells: out of someone else's, into one of their own.</span></figcaption></figure>
+  <div class="ctas"><a class="btn primary" href="#install"><span lang="zh">自己搭一个</span><span lang="en">Build your own</span></a><a class="btn" href="https://github.com/openmousse/openmousse"><span lang="zh">看 GitHub</span><span lang="en">View on GitHub</span></a></div>
+  <p class="need" lang="zh">需要：一台跑着 <a href="https://openclaw.ai">OpenClaw</a> 的机器，加上随便哪一家的模型订阅。</p><p class="need" lang="en">You need a machine running <a href="https://openclaw.ai">OpenClaw</a>, plus a model plan from any provider.</p>
+</section>
+<section class="s" id="pain"><span class="chip"><span lang="zh">观察</span><span lang="en">Observation</span></span><h2><span lang="zh">每换一个平台，就得重新自我介绍一次</span><span lang="en">Every new platform, another self-introduction</span></h2><p lang="zh">你是不是也这样：根据需求换着用不同的 AI，每家都存了一份关于你的记忆，互相却不通。</p><p lang="en">Sound familiar? You switch between AIs for different jobs, and each one keeps its own memory of you, but they never talk to each other.</p><p class="quote" lang="zh">早上跟 ChatGPT 说早餐换成燕麦了，晚上问 Claude 明天吃什么，它一无所知。</p><p class="quote" lang="en">In the morning you tell ChatGPT you've switched to oats for breakfast. In the evening you ask Claude what to eat tomorrow, and it has no idea.</p><p lang="zh">Muse 把这件事做到了头：模型是它家的，记忆从零开始，数据进了它的云就带不走。拆开看，它就是一只 claw 套着 app 的壳，接了一堆 MCP，读着你早就存好的数据。问题在于<span class="k">太中心化</span>。</p><p lang="en">Muse takes this to the extreme: the model is Meta's, the memory starts from zero, and once your data is in their cloud it can't leave. Take it apart and it's a claw in an app shell, plugged into a pile of MCPs and reading data you'd already handed over. The problem is that it's <span class="k">centralized</span>.</p><figure class="fig art"><div lang="zh"><svg role="img" aria-label="你站在箱子外面；箱子上写着 muse · 全在它家，里面锁着：模型选不了、记忆冷启动、隐私搬不走" viewBox="0 0 928 420" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="12" y="84" width="188" height="80" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<path d="M86 162 L100 188 L114 162" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<rect x="88" y="158" width="24" height="7" fill="#FBF8F1"/>
+<text x="106" y="134" text-anchor="middle" font-size="26" font-weight="700" fill="#1F1B16" stroke="none">我的东西呢？</text>
+<circle cx="100" cy="242" r="32" fill="#1F1B16"/>
+<path d="M44 344 Q44 284 100 284 Q156 284 156 344 Z" fill="#1F1B16"/>
+<text x="100" y="386" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">你</text>
+<rect x="240" y="10" width="676" height="400" rx="34" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+<rect x="272" y="30" width="278" height="40" rx="20.0" fill="#1F1B16" stroke="#1F1B16" stroke-width="4"/><text x="411.0" y="57.92" text-anchor="middle" font-size="22" font-weight="700" fill="#F4EFE4" stroke="none">muse · 全在它家</text>
+<path d="M290 196 H888 M290 300 H888" stroke="rgba(31,27,22,.16)" stroke-width="2" stroke-dasharray="6 8"/>
+<g transform="translate(320 142) scale(1.1)"><rect x="-26" y="-26" width="52" height="52" rx="8" fill="#1F1B16"/><rect x="-11" y="-11" width="22" height="22" rx="3" fill="#F4EFE4"/><path d="M-12 -34 v8 M-12 26 v8 M-34 -12 h8 M26 -12 h8" stroke="#1F1B16" stroke-width="4"/><path d="M0 -34 v8 M0 26 v8 M-34 0 h8 M26 0 h8" stroke="#1F1B16" stroke-width="4"/><path d="M12 -34 v8 M12 26 v8 M-34 12 h8 M26 12 h8" stroke="#1F1B16" stroke-width="4"/></g><text x="378" y="138" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">模型选不了</text><text x="378" y="174" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">只能用它家的模型</text>
+<g transform="translate(320 246) scale(1.1)"><circle r="28" stroke="#1F1B16" stroke-width="4" stroke-dasharray="7 8"/><text x="0" y="11" text-anchor="middle" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">?</text></g><text x="378" y="242" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">记忆冷启动</text><text x="378" y="278" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">你跟 gpt 说过的，它一概不知</text>
+<g transform="translate(320 350) scale(1.1)"><path d="M-30 -20 H-8 L0 -12 H30 V22 H-30 Z" fill="#1F1B16"/><path d="M-30 -6 H30" stroke="#F4EFE4" stroke-width="3"/></g><text x="378" y="346" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">隐私搬不走</text><text x="378" y="382" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">数据进了它的云，想走也带不走</text>
+<path d="M220 230 v-22 a20 20 0 0 1 40 0 v22" stroke="#1F1B16" stroke-width="9"/>
+<rect x="208" y="224" width="64" height="54" rx="10" fill="#1F1B16"/>
+<circle cx="240" cy="246" r="7" fill="#F4EFE4"/><rect x="237" y="248" width="6" height="16" rx="3" fill="#F4EFE4"/>
+</svg></div><div lang="en"><svg role="img" aria-label="You stand outside a locked box labelled Muse, all in one house: can't pick the model, memory starts cold, your data can't move out" viewBox="0 0 928 420" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK JP, Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="12" y="74" width="188" height="96" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<path d="M86 168 L100 194 L114 168" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<rect x="88" y="164" width="24" height="7" fill="#FBF8F1"/>
+<text x="106" y="114" text-anchor="middle" font-size="25" font-weight="700" fill="#1F1B16" stroke="none">Where's</text><text x="106" y="146" text-anchor="middle" font-size="25" font-weight="700" fill="#1F1B16" stroke="none">my stuff?</text>
+<circle cx="100" cy="246" r="32" fill="#1F1B16"/>
+<path d="M44 348 Q44 288 100 288 Q156 288 156 348 Z" fill="#1F1B16"/>
+<text x="100" y="390" text-anchor="middle" font-size="26" font-weight="700" fill="#1F1B16" stroke="none">You</text>
+<rect x="240" y="10" width="676" height="400" rx="34" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+<rect x="272" y="30" width="327.5" height="40" rx="20.0" fill="#1F1B16" stroke="#1F1B16" stroke-width="4"/><text x="435.75" y="57.92" text-anchor="middle" font-size="22" font-weight="700" fill="#F4EFE4" stroke="none">Muse · all in one house</text>
+<path d="M290 196 H888 M290 300 H888" stroke="rgba(31,27,22,.16)" stroke-width="2" stroke-dasharray="6 8"/>
+<g transform="translate(320 142) scale(1.1)"><rect x="-26" y="-26" width="52" height="52" rx="8" fill="#1F1B16"/><rect x="-11" y="-11" width="22" height="22" rx="3" fill="#F4EFE4"/><path d="M-12 -34 v8 M-12 26 v8 M-34 -12 h8 M26 -12 h8" stroke="#1F1B16" stroke-width="4"/><path d="M0 -34 v8 M0 26 v8 M-34 0 h8 M26 0 h8" stroke="#1F1B16" stroke-width="4"/><path d="M12 -34 v8 M12 26 v8 M-34 12 h8 M26 12 h8" stroke="#1F1B16" stroke-width="4"/></g><text x="378" y="138" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">Can't pick the model</text><text x="378" y="174" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">Only their own model</text>
+<g transform="translate(320 246) scale(1.1)"><circle r="28" stroke="#1F1B16" stroke-width="4" stroke-dasharray="7 8"/><text x="0" y="11" text-anchor="middle" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">?</text></g><text x="378" y="242" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">Memory starts cold</text><text x="378" y="278" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">What you told ChatGPT? No idea.</text>
+<g transform="translate(320 350) scale(1.1)"><path d="M-30 -20 H-8 L0 -12 H30 V22 H-30 Z" fill="#1F1B16"/><path d="M-30 -6 H30" stroke="#F4EFE4" stroke-width="3"/></g><text x="378" y="346" text-anchor="start" font-size="30" font-weight="700" fill="#E8542F" stroke="none">Your data can't move out</text><text x="378" y="382" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">Once it's in their cloud, it stays</text>
+<path d="M220 230 v-22 a20 20 0 0 1 40 0 v22" stroke="#1F1B16" stroke-width="9"/>
+<rect x="208" y="224" width="64" height="54" rx="10" fill="#1F1B16"/>
+<circle cx="240" cy="246" r="7" fill="#F4EFE4"/><rect x="237" y="248" width="6" height="16" rx="3" fill="#F4EFE4"/>
+</svg></div></figure></section>
+<section class="s" id="phone"><span class="chip"><span lang="zh">下一代设备</span><span lang="en">The next device</span></span><h2><span lang="zh">手机为什么人人都在用？因为它不绑死你</span><span lang="en">Why does everyone use a phone? It doesn't lock you in</span></h2><p lang="zh">买安卓还是苹果都行，没有哪家逼你只用自家的软件；无数创作者做的 app，拼成了你每天的生活。下一代设备起码也得这样：</p><p lang="en">Android or iPhone, neither forces you to use only its own apps, and apps built by countless creators make up your day. The next device should do at least as well:</p><figure class="fig art"><div lang="zh"><svg role="img" aria-label="一部手机：模型是 SIM 卡，想用哪家插哪家；记忆是记忆卡，拔下来就能带走；功能是 app，自己装、自己做" viewBox="0 0 928 560" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="238" y="116" width="116" height="52" rx="9" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<path d="M266 124 H326 V160 H254 V136 Z" fill="#E8542F" stroke="#1F1B16" stroke-width="3"/>
+<rect x="273" y="133" width="24" height="18" rx="3" fill="#F4EFE4"/>
+<path d="M566 290 H660 L684 314 V414 H566 Z" fill="#E8542F" stroke="#1F1B16" stroke-width="4"/>
+<rect x="604" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="621" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="638" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="655" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/>
+<text x="634" y="374" text-anchor="middle" font-size="26" font-weight="700" fill="#F4EFE4" stroke="none">记忆</text>
+<rect x="344" y="8" width="240" height="544" rx="48" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+<rect x="424" y="26" width="80" height="14" rx="7" fill="#1F1B16"/>
+<rect x="356" y="88" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="434" y="88" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="512" y="88" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="356" y="166" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="434" y="166" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="512" y="166" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="356" y="244" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="434" y="244" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="512" y="244" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="356" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="434" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="512" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="356" y="400" width="60" height="60" rx="15" stroke="#E8542F" stroke-width="4" stroke-dasharray="8 7"/><text x="386" y="443" text-anchor="middle" font-size="40" font-weight="700" fill="#E8542F" stroke="none">+</text><rect x="434" y="400" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="512" y="400" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/>
+<rect x="424" y="524" width="80" height="8" rx="4" fill="#1F1B16" opacity=".45"/>
+<text x="222" y="134" text-anchor="end" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">模型 = SIM 卡</text><text x="222" y="172" text-anchor="end" font-size="24" font-weight="400" fill="#8A8177" stroke="none">想用哪家插哪家</text>
+<rect x="6" y="196" width="86" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="49.0" y="222.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">claude</text><rect x="100" y="196" width="60" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="130.0" y="222.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">gpt</text><rect x="168" y="196" width="62" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="199.0" y="222.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">kimi</text>
+<text x="708" y="348" text-anchor="start" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">记忆 = 记忆卡</text>
+<text x="708" y="386" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">拔下来就能带走</text><text x="708" y="418" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">到哪都认识你</text>
+<text x="222" y="408" text-anchor="end" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">功能 = app</text>
+<text x="222" y="446" text-anchor="end" font-size="24" font-weight="400" fill="#8A8177" stroke="none">按自己的需求</text><text x="222" y="478" text-anchor="end" font-size="24" font-weight="400" fill="#8A8177" stroke="none">自己装、自己做</text>
+<path d="M236 432 C280 430 318 428 346 428" stroke="#E8542F" stroke-width="4" stroke-dasharray="8 7"/>
+</svg></div><div lang="en"><svg role="img" aria-label="A phone: the model is the SIM card, the memory is the memory card, the features are apps" viewBox="0 0 928 560" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK JP, Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="286" y="116" width="120" height="52" rx="9" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<path d="M334 124 H394 V160 H322 V136 Z" fill="#E8542F" stroke="#1F1B16" stroke-width="3"/>
+<rect x="341" y="133" width="24" height="18" rx="3" fill="#F4EFE4"/>
+<path d="M282 290 H382 L406 314 V414 H282 Z" fill="#E8542F" stroke="#1F1B16" stroke-width="4"/>
+<rect x="318" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="335" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="352" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/><rect x="369" y="300" width="10" height="22" rx="2" fill="#F4EFE4"/>
+<text x="352" y="376" text-anchor="middle" font-size="21" font-weight="700" fill="#F4EFE4" stroke="none">memory</text>
+<rect x="60" y="8" width="240" height="544" rx="48" fill="#FBF8F1" stroke="#1F1B16" stroke-width="5"/>
+<rect x="140" y="26" width="80" height="14" rx="7" fill="#1F1B16"/>
+<rect x="72" y="88" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="150" y="88" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="228" y="88" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="72" y="166" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="150" y="166" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="228" y="166" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="72" y="244" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="150" y="244" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="228" y="244" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="72" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="150" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="228" y="322" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="72" y="400" width="60" height="60" rx="15" fill="#E8542F" opacity="0.95"/><rect x="150" y="400" width="60" height="60" rx="15" fill="#1F1B16" opacity="0.8"/><rect x="228" y="400" width="60" height="60" rx="15" stroke="#E8542F" stroke-width="4" stroke-dasharray="8 7"/><text x="258" y="443" text-anchor="middle" font-size="40" font-weight="700" fill="#E8542F" stroke="none">+</text>
+<rect x="140" y="524" width="80" height="8" rx="4" fill="#1F1B16" opacity=".45"/>
+<text x="446" y="132" text-anchor="start" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">Model = SIM card</text><text x="446" y="170" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">Plug in any provider</text>
+<rect x="446" y="190" width="86" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="489.0" y="216.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">claude</text><rect x="540" y="190" width="60" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="570.0" y="216.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">gpt</text><rect x="608" y="190" width="62" height="38" rx="19.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="3"/><text x="639.0" y="216.2" text-anchor="middle" font-size="20" font-weight="700" fill="#1F1B16" stroke="none">kimi</text>
+<text x="446" y="330" text-anchor="start" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">Memory = memory card</text>
+<text x="446" y="368" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">Pull it out, take it anywhere:</text><text x="446" y="400" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">every AI knows you</text>
+<text x="446" y="474" text-anchor="start" font-size="32" font-weight="700" fill="#1F1B16" stroke="none">Features = apps</text>
+<text x="446" y="512" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">Install what you need,</text><text x="446" y="544" text-anchor="start" font-size="24" font-weight="400" fill="#8A8177" stroke="none">or build your own</text>
+<path d="M436 466 C390 464 336 446 304 434" stroke="#E8542F" stroke-width="4" stroke-dasharray="8 7"/>
+</svg></div></figure><p lang="zh">模型自己挑，记忆带着走，功能按需求自己装、自己做。</p><p lang="en">Pick your own model, take your memory with you, and install or build the features you need.</p></section>
+<section class="s" id="tree"><span class="chip"><span lang="zh">记忆</span><span lang="en">Memory</span></span><h2><span lang="zh">模型可以换，功能可以换，但记忆只有一棵树</span><span lang="en">Models can change, features can change, but there's only one memory tree</span></h2><p lang="zh">所以第一步先解决记忆。世界树是跑在你自己服务器上的一个 MCP 服务：树干是从 ChatGPT、Claude、Gemini 的导出里提炼出来的你；Claude.ai、ChatGPT、Gemini、Notion 和你的 claw 都是树上的枝，开口前先读树，学到关于你的新事实就写回去，每条都带来源和日期。</p><p lang="en">So memory comes first. The memory tree is an MCP server on your own machine. Its trunk is you, distilled from your ChatGPT, Claude and Gemini exports. Claude.ai, ChatGPT, Gemini, Notion and your claw are its branches: they read the tree before answering and write back new facts about you, each stamped with its source and date.</p><figure class="fig art"><div lang="zh"><svg role="img" aria-label="世界树：树干是你的记忆，chatgpt、gemini、你的 claw、notion、claude.ai 是枝。早上跟 chatgpt 说早餐换成燕麦，写回树；晚上 claude 开口先读树，就知道了" viewBox="0 0 928 470" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#1F1B16" stroke-width="10">
+  <path d="M440 262 C380 236 282 204 196 174"/><path d="M450 256 C432 190 382 132 330 102"/>
+  <path d="M464 256 V62"/><path d="M478 256 C496 190 546 132 598 102"/><path d="M488 262 C548 236 646 204 732 174"/>
+</g>
+<g stroke="#1F1B16" stroke-width="7">
+  <path d="M390 408 C348 416 306 422 258 430"/><path d="M538 408 C580 416 622 422 670 430"/>
+  <path d="M424 412 C410 424 392 432 366 440"/><path d="M504 412 C518 424 536 432 562 440"/>
+</g>
+<path d="M398 250 C396 322 388 380 368 416 H560 C540 380 532 322 530 250 Z" fill="#1F1B16"/>
+<text x="464" y="304" text-anchor="middle" font-size="30" font-weight="700" fill="#F4EFE4" stroke="none">你的记忆</text>
+<rect x="30.0" y="143" width="164" height="54" rx="27.0" fill="#FBF8F1" stroke="#E8542F" stroke-width="4.5"/><text x="112.0" y="178.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">chatgpt</text><rect x="217.0" y="51" width="150" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="292.0" y="86.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">gemini</text><rect x="376.0" y="9" width="176" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="464.0" y="44.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">你的 claw</text>
+<rect x="561.0" y="51" width="150" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="636.0" y="86.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">notion</text><rect x="734.0" y="143" width="164" height="54" rx="27.0" fill="#FBF8F1" stroke="#E8542F" stroke-width="4.5"/><text x="816.0" y="178.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">claude.ai</text>
+<text x="112" y="232" text-anchor="middle" font-size="22" font-weight="400" fill="#1F1B16" stroke="none">早上跟 chatgpt 说</text><text x="816" y="232" text-anchor="middle" font-size="22" font-weight="400" fill="#1F1B16" stroke="none">晚上 claude 就知道</text>
+<path d="M112 250 C120 326 196 358 284 358" stroke="#E8542F" stroke-width="4" stroke-dasharray="9 8"/><path d="M0 0 L-16 -9 L-16 9 Z" transform="translate(292 358) rotate(0)" fill="#E8542F" stroke="none"/>
+<path d="M646 358 C736 358 808 326 816 258" stroke="#E8542F" stroke-width="4" stroke-dasharray="9 8"/><path d="M0 0 L-16 -9 L-16 9 Z" transform="translate(817 250) rotate(-85)" fill="#E8542F" stroke="none"/>
+<text x="188" y="318" text-anchor="start" font-size="22" font-weight="700" fill="#E8542F" stroke="none">写回树</text><text x="740" y="318" text-anchor="end" font-size="22" font-weight="700" fill="#E8542F" stroke="none">开口先读树</text>
+<rect x="296" y="334" width="336" height="48" rx="24" fill="#FBF8F1" stroke="#E8542F" stroke-width="4"/>
+<text x="464" y="365" text-anchor="middle" font-size="21" font-weight="400" fill="#1F1B16" stroke="none">早餐换成燕麦 · chatgpt · 9/24</text>
+<text x="464" y="464" text-anchor="middle" font-size="22" font-weight="400" fill="#8A8177" stroke="none">树根：一个 SQLite 文件，在你自己的服务器上</text>
+</svg></div><div lang="en"><svg role="img" aria-label="The memory tree: the trunk is your memory; chatgpt, gemini, your claw, notion and claude.ai are branches. ChatGPT writes back in the morning, Claude reads the tree first in the evening" viewBox="0 0 928 470" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK JP, Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="#1F1B16" stroke-width="10">
+  <path d="M440 262 C380 236 282 204 196 174"/><path d="M450 256 C432 190 382 132 330 102"/>
+  <path d="M464 256 V62"/><path d="M478 256 C496 190 546 132 598 102"/><path d="M488 262 C548 236 646 204 732 174"/>
+</g>
+<g stroke="#1F1B16" stroke-width="7">
+  <path d="M384 408 C342 416 300 422 252 430"/><path d="M544 408 C586 416 628 422 676 430"/>
+  <path d="M420 412 C406 424 388 432 362 440"/><path d="M508 412 C522 424 540 432 566 440"/>
+</g>
+<path d="M380 250 C378 322 370 380 350 416 H578 C558 380 550 322 548 250 Z" fill="#1F1B16"/>
+<text x="464" y="304" text-anchor="middle" font-size="28" font-weight="700" fill="#F4EFE4" stroke="none">Your memory</text>
+<rect x="30.0" y="143" width="164" height="54" rx="27.0" fill="#FBF8F1" stroke="#E8542F" stroke-width="4.5"/><text x="112.0" y="178.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">chatgpt</text><rect x="217.0" y="51" width="150" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="292.0" y="86.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">gemini</text><rect x="376.0" y="9" width="176" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="464.0" y="44.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">your claw</text>
+<rect x="561.0" y="51" width="150" height="54" rx="27.0" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><text x="636.0" y="86.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">notion</text><rect x="734.0" y="143" width="164" height="54" rx="27.0" fill="#FBF8F1" stroke="#E8542F" stroke-width="4.5"/><text x="816.0" y="178.64" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">claude.ai</text>
+<text x="24" y="232" text-anchor="start" font-size="22" font-weight="400" fill="#1F1B16" stroke="none">Morning: tell ChatGPT</text><text x="904" y="232" text-anchor="end" font-size="22" font-weight="400" fill="#1F1B16" stroke="none">Evening: Claude knows</text>
+<path d="M112 250 C120 326 180 358 252 358" stroke="#E8542F" stroke-width="4" stroke-dasharray="9 8"/><path d="M0 0 L-16 -9 L-16 9 Z" transform="translate(260 358) rotate(0)" fill="#E8542F" stroke="none"/>
+<path d="M676 358 C756 358 808 326 816 258" stroke="#E8542F" stroke-width="4" stroke-dasharray="9 8"/><path d="M0 0 L-16 -9 L-16 9 Z" transform="translate(817 250) rotate(-85)" fill="#E8542F" stroke="none"/>
+<text x="160" y="316" text-anchor="start" font-size="22" font-weight="700" fill="#E8542F" stroke="none">writes back</text><text x="768" y="316" text-anchor="end" font-size="22" font-weight="700" fill="#E8542F" stroke="none">reads first</text>
+<rect x="264" y="334" width="400" height="48" rx="24" fill="#FBF8F1" stroke="#E8542F" stroke-width="4"/>
+<text x="464" y="365" text-anchor="middle" font-size="21" font-weight="400" fill="#1F1B16" stroke="none">breakfast: oats · chatgpt · 9/24</text>
+<text x="464" y="464" text-anchor="middle" font-size="22" font-weight="400" fill="#8A8177" stroke="none">Roots: one SQLite file on your own server</text>
+</svg></div></figure><div class="pts"><div><b lang="zh">记忆在你手里</b><b lang="en">Your memory stays with you</b><span lang="zh">一个 SQLite 文件，想搬就搬，想删就删。</span><span lang="en">One SQLite file: move it or delete it whenever you like.</span></div><div><b lang="zh">树不花钱</b><b lang="en">The tree costs nothing</b><span lang="zh">它只存、只搜，不调用模型。</span><span lang="en">It only stores and searches. It never calls a model.</span></div><div><b lang="zh">接法很土</b><b lang="en">Low-tech setup</b><span lang="zh">每个平台一个专属地址，当自定义连接器加上，再加一句「对话开始先读我的档案」。</span><span lang="en">Each platform gets its own URL, added as a custom connector, plus one line: “read my profile at the start of every chat.”</span></div></div></section>
+<section class="s" id="day"><span class="chip"><span lang="zh">主动</span><span lang="en">Proactive</span></span><h2><span lang="zh">它们会自己动起来</span><span lang="en">They move on their own</span></h2><p lang="zh">有了记忆，agent 才能主动。下面是作者 9 月 24 日真实的一天，每一条都是 agent 自己推过来的，没人去问。</p><p lang="en">With memory in place, agents can speak first. Here is a real day from the author's life, 24 September: every message below was pushed by an agent, unprompted.</p><ol class="day"><li><time>08:00</time><div><b lang="zh">起床：看昨晚睡得怎样，出今天的训练建议</b><b lang="en">Wake-up: checks last night's sleep, writes today's training plan</b><q lang="zh">今天练 Pull B，按计划来，重量先不加</q><q lang="en">Pull B today, as planned. Keep the weights where they are.</q></div></li><li><time>13:30</time><div><b lang="zh">练前 90 分钟：现在该吃什么</b><b lang="en">90 minutes before training: what to eat now</b><q lang="zh">现在吃 1 根香蕉，练完 30 分钟内冲蛋白粉</q><q lang="en">A banana now, and a protein shake within 30 minutes after.</q></div></li><li><time>16:21</time><div><b lang="zh">练完：训练软件一存，自动复盘</b><b lang="en">Workout saved in the training app: an automatic review</b><q lang="zh">17 组做了 14 组，今晚 23:30 前睡，明天休息</q><q lang="en">14 of 17 sets done. In bed before 23:30 tonight, rest day tomorrow.</q></div></li><li><time>16:22</time><div><b lang="zh">练后餐：按今天已经吃的热量来配</b><b lang="en">Post-workout meal, based on what's been eaten today</b><q lang="zh">蛋白粉 20 g、香蕉 1 根、开心果 25 g</q><q lang="en">Protein powder 20 g, one banana, pistachios 25 g.</q></div></li><li><time>19:30</time><div><b lang="zh">晚饭：按剩下的额度算好份量</b><b lang="en">Dinner, portioned to what's left of the day's budget</b><q lang="zh">意面 80 g（生重）配西冷 80 g，蔬菜随意</q><q lang="en">Pasta 80 g (dry) with sirloin 80 g, vegetables as you like.</q></div></li></ol><div class="shots" lang="zh" role="list"><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/zh-today-dark.png"><img src="assets/zh-today.png" alt="「今天」页：睡眠、训练、三餐和提醒卡片" width="600" height="1298" loading="lazy"></picture></div><figcaption>今天</figcaption></figure><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" alt="和助手的对话" width="600" height="1298" loading="lazy"></picture></div><figcaption>对话</figcaption></figure><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/zh-fitness-dark.png"><img src="assets/zh-fitness.png" alt="健身 Agent 的看板" width="600" height="1298" loading="lazy"></picture></div><figcaption>健身看板</figcaption></figure></div><div class="shots" lang="en" role="list"><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/en-today-dark.png"><img src="assets/en-today.png" alt="Today page: sleep, training, meals and reminders" width="600" height="1298" loading="lazy"></picture></div><figcaption>Today</figcaption></figure><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" alt="A chat with the assistant" width="600" height="1298" loading="lazy"></picture></div><figcaption>Chat</figcaption></figure><figure role="listitem"><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/en-fitness-dark.png"><img src="assets/en-fitness.png" alt="The fitness Agent's dashboard" width="600" height="1298" loading="lazy"></picture></div><figcaption>Fitness board</figcaption></figure></div><p class="note" lang="zh">上面是 app 的截图，用的是演示数据。</p><p class="note" lang="en">The app screenshots above use demo data.</p></section>
+<section class="s" id="five"><span class="chip"><span lang="zh">五件事</span><span lang="en">Five things</span></span><h2><span lang="zh">作者交给 agent 的五件事</span><span lang="en">Five things the author handed to agents</span></h2><p class="byline" lang="zh">作者用两天时间，让 Fable 帮忙做了出来。</p><p class="byline" lang="en">The author built them in two days, with Fable's help.</p><ul class="five"><li><b lang="zh">健身</b><b lang="en">Fitness</b><span lang="zh">训练软件有 MCP，agent 实时看到练了什么：前一晚睡得好就照常练，练完按当天吃过的热量配练后餐。</span><span lang="en">The training app has an MCP server, so the agent sees each workout as it happens. After a good night's sleep, training goes ahead as planned; afterwards it suggests a post-workout meal from what's been eaten that day.</span></li><li><b lang="zh">饮食</b><b lang="en">Diet</b><span lang="zh">读记下的每一餐，摸清饮食习惯，帮忙备餐，也给其他 agent 提供数据。</span><span lang="en">It reads every logged meal, learns the eating habits, helps plan meals and shares the data with the other agents.</span></li><li><b lang="zh">健康</b><b lang="en">Health</b><span lang="zh">Apple Watch 的数据经 Apple 健康给到 agent，分析睡眠，留意心率。</span><span lang="en">Apple Watch data reaches the agent through Apple Health. It analyzes sleep and keeps an eye on heart rate.</span></li><li><b lang="zh">申请硕士</b><b lang="en">Grad school</b><span lang="zh">接上邮箱和 Google 表格，盯申请进度，提醒 ddl。</span><span lang="en">Connected to email and Google Sheets, it tracks every application and flags deadlines.</span></li><li><b lang="zh">求职</b><b lang="en">Job hunting</b><span lang="zh">给它 CV 和 cover letter，之后每个岗位只要丢一份 JD，它来改一版。</span><span lang="en">Given the CV and cover letter once, it tailors a version for each job description it's handed.</span></li></ul><p class="note" lang="zh">这五个 agent 正在整理成功能包，放进仓库。</p><p class="note" lang="en">These five agents are being turned into packs for the repo.</p></section>
+<section class="s" id="packs"><span class="chip"><span lang="zh">创作者</span><span lang="en">Creators</span></span><h2><span lang="zh">你的需求，也会有人需要</span><span lang="en">What you need, someone else needs too</span></h2><p lang="zh">每个人的需求不一样，但你的需求，这世界上总有人也有。手机因为有了做 app 的人才变得好用，agent 也一样：缺的是创作者，不是新的账单。</p><p lang="en">Everyone's needs are different, but whatever you need, someone out there needs it too. Phones got good because people built apps for them, and agents are the same: what's missing is creators, not another bill.</p><figure class="fig art"><div lang="zh"><svg role="img" aria-label="货架上摆着健身、饮食、健康、申请四个功能包，第五格是虚线框：你的？" viewBox="0 0 928 236" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="8" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="38" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="83" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">健身</text><rect x="184" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="214" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="259" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">饮食</text><rect x="360" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="390" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="435" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">健康</text><rect x="536" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="566" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="611" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">申请</text>
+<rect x="712" y="60" width="150" height="150" rx="22" fill="rgba(232,84,47,.10)" stroke="#E8542F" stroke-width="4" stroke-dasharray="10 10"/><rect x="742" y="60" width="90" height="22" rx="6" fill="#E8542F" opacity=".9"/><text x="787" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#E8542F" stroke="none">你的？</text>
+<path d="M0 226 H928" stroke="#1F1B16" stroke-width="6"/>
+
+</svg></div><div lang="en"><svg role="img" aria-label="A shelf with four packs, Fitness, Diet, Health and Applying, and an empty dashed fifth slot: Yours?" viewBox="0 0 928 236" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK JP, Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="8" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="38" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="83" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">Fitness</text><rect x="184" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="214" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="259" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">Diet</text><rect x="360" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="390" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="435" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">Health</text><rect x="536" y="60" width="150" height="150" rx="22" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/><rect x="566" y="60" width="90" height="22" rx="6" fill="#1F1B16" opacity=".9"/><text x="611" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#1F1B16" stroke="none">Applying</text>
+<rect x="712" y="60" width="150" height="150" rx="22" fill="rgba(232,84,47,.10)" stroke="#E8542F" stroke-width="4" stroke-dasharray="10 10"/><rect x="742" y="60" width="90" height="22" rx="6" fill="#E8542F" opacity=".9"/><text x="787" y="148" text-anchor="middle" font-size="28" font-weight="700" fill="#E8542F" stroke="none">Yours?</text>
+<path d="M0 226 H928" stroke="#1F1B16" stroke-width="6"/>
+
+</svg></div><figcaption><span lang="zh">一个功能包（pack）= 一个 agent 的说明书 + 数据表 + 看板卡片 + 触发器。还在做。</span><span lang="en">A pack = an agent's instructions + data tables + dashboard cards + triggers. Still in progress.</span></figcaption></figure></section>
+<section class="s" id="compare"><span class="chip"><span lang="zh">判断</span><span lang="en">Verdict</span></span><h2><span lang="zh">Muse 和自己搭，差在哪</span><span lang="en">Muse vs. building your own</span></h2><p lang="zh">除了 Meta 自带的用户基数，Muse 在技术上没有护城河：每家模型厂商都能很快做出同样的东西，就像当年手机厂商互相竞争。</p><p lang="en">Apart from Meta's user base, Muse has no technical moat: any model company could ship the same thing fast, just like the phone makers' race years ago.</p><div class="tbl"><table class="cmp"><thead><tr><th scope="col"><span class="sr"><span lang="zh">对比项</span><span lang="en">Item</span></span></th><th scope="col">Muse</th><th scope="col">OpenMousse</th></tr></thead><tbody><tr><th scope="row"><span lang="zh">模型</span><span lang="en">Model</span></th><td><span lang="zh">Meta 自家的</span><span lang="en">Meta's own</span></td><td class="o"><span lang="zh">你订阅的任何一家</span><span lang="en">Any provider you pay for</span></td></tr><tr><th scope="row"><span lang="zh">记忆</span><span lang="en">Memory</span></th><td><span lang="zh">从零开始认识你</span><span lang="en">Starts from zero</span></td><td class="o"><span lang="zh">你的世界树，带着三家的记忆起步</span><span lang="en">Your memory tree, seeded from three AIs</span></td></tr><tr><th scope="row"><span lang="zh">数据在哪</span><span lang="en">Your data</span></th><td><span lang="zh">Meta 的云</span><span lang="en">Meta's cloud</span></td><td class="o"><span lang="zh">你自己的机器</span><span lang="en">Your own machine</span></td></tr><tr><th scope="row"><span lang="zh">另外花钱</span><span lang="en">Extra cost</span></th><td><span lang="zh">待定</span><span lang="en">TBD</span></td><td class="o"><span lang="zh">不另收费，用你已有的机器和订阅*</span><span lang="en">Nothing extra: your own machine and plan*</span></td></tr><tr><th scope="row"><span lang="zh">护城河</span><span lang="en">Moat</span></th><td><span lang="zh">用户基数</span><span lang="en">User base</span></td><td class="o"><span lang="zh">开源、创作者、你的记忆</span><span lang="en">Open source, creators, your memory</span></td></tr></tbody></table></div><p class="note" lang="zh">* OpenAI、Anthropic、Kimi 的订阅现在都能给 claw 用，不走 API 计费。各家条款不同，请自行确认。</p><p class="note" lang="en">* OpenAI, Anthropic and Kimi subscriptions can currently run a claw instead of API billing. Terms differ by provider, so check yours.</p></section>
+<section class="s" id="how"><span class="chip"><span lang="zh">数据</span><span lang="en">Data</span></span><h2><span lang="zh">它是怎么搭起来的</span><span lang="en">How it fits together</span></h2><p lang="zh">Meta 把 agent 跑在自家服务器上，再套一个 app。OpenMousse 也套这个壳，但 agent 跑在你的机器上，用的是你自己的模型订阅。</p><p lang="en">Meta runs the agent on its own servers and wraps it in an app. OpenMousse wraps the same kind of shell, but the agent runs on your machine, on your own model plan.</p><figure class="fig art"><div lang="zh"><svg role="img" aria-label="你的手机上的 app，连到你的机器（openclaw、很薄的一层 server、世界树），再连到你自己的模型订阅（claude、gpt、kimi）" viewBox="0 0 928 364" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="14" y="60" width="230" height="250" rx="26" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<rect x="84" y="96" width="90" height="150" rx="16" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/>
+<rect x="112" y="106" width="34" height="6" rx="3" fill="#1F1B16"/>
+<text x="129" y="282" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">你的手机 · app</text>
+<rect x="300" y="24" width="330" height="330" rx="30" fill="rgba(232,84,47,.10)" stroke="#E8542F" stroke-width="5"/>
+<text x="465" y="66" text-anchor="middle" font-size="28" font-weight="700" fill="#E8542F" stroke="none">你的机器</text>
+<rect x="330" y="92" width="270" height="58" rx="29.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="129.28" text-anchor="middle" font-size="23" font-weight="700" fill="#1F1B16" stroke="none">openclaw · 你的 claws</text><rect x="330" y="162" width="270" height="58" rx="29.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="199.28" text-anchor="middle" font-size="23" font-weight="700" fill="#1F1B16" stroke="none">server · 很薄的一层 api</text>
+<rect x="330" y="232" width="270" height="58" rx="29.0" fill="#1F1B16" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="269.28" text-anchor="middle" font-size="23" font-weight="700" fill="#F4EFE4" stroke="none">tree · 记忆世界树</text>
+<text x="465" y="334" text-anchor="middle" font-size="24" font-weight="700" fill="#E8542F" stroke="none">agent 跑在这里</text>
+<rect x="684" y="60" width="230" height="250" rx="26" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<text x="799" y="104" text-anchor="middle" font-size="24" font-weight="700" fill="#1F1B16" stroke="none">你的模型订阅</text>
+<rect x="714" y="126" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="158.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">claude</text><rect x="714" y="186" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="218.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">gpt</text><rect x="714" y="246" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="278.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">kimi / …</text>
+<g stroke="#1F1B16" stroke-width="5"><path d="M250 186 H294"/><path d="M636 186 H678"/></g>
+
+</svg></div><div lang="en"><svg role="img" aria-label="The app on your phone talks to your machine (openclaw, a thin server, the memory tree), which uses your own model plans (claude, gpt, kimi)" viewBox="0 0 928 364" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans CJK JP, Noto Sans CJK SC" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="14" y="60" width="230" height="250" rx="26" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<rect x="84" y="96" width="90" height="150" rx="16" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/>
+<rect x="112" y="106" width="34" height="6" rx="3" fill="#1F1B16"/>
+<text x="129" y="282" text-anchor="middle" font-size="23" font-weight="700" fill="#1F1B16" stroke="none">Your phone · app</text>
+<rect x="300" y="24" width="330" height="330" rx="30" fill="rgba(232,84,47,.10)" stroke="#E8542F" stroke-width="5"/>
+<text x="465" y="66" text-anchor="middle" font-size="28" font-weight="700" fill="#E8542F" stroke="none">Your machine</text>
+<rect x="330" y="92" width="270" height="58" rx="29.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="128.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">openclaw · your claw</text><rect x="330" y="162" width="270" height="58" rx="29.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="198.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">server · thin API</text>
+<rect x="330" y="232" width="270" height="58" rx="29.0" fill="#1F1B16" stroke="#1F1B16" stroke-width="4"/><text x="465.0" y="268.92" text-anchor="middle" font-size="22" font-weight="700" fill="#F4EFE4" stroke="none">tree · your memory</text>
+<text x="465" y="334" text-anchor="middle" font-size="24" font-weight="700" fill="#E8542F" stroke="none">The agent runs here</text>
+<rect x="684" y="60" width="230" height="250" rx="26" fill="#FBF8F1" stroke="#1F1B16" stroke-width="4"/>
+<text x="799" y="104" text-anchor="middle" font-size="23" font-weight="700" fill="#1F1B16" stroke="none">Your model plans</text>
+<rect x="714" y="126" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="158.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">claude</text><rect x="714" y="186" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="218.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">gpt</text><rect x="714" y="246" width="170" height="50" rx="25.0" fill="#F4EFE4" stroke="#1F1B16" stroke-width="4"/><text x="799.0" y="278.92" text-anchor="middle" font-size="22" font-weight="700" fill="#1F1B16" stroke="none">kimi / …</text>
+<g stroke="#1F1B16" stroke-width="5"><path d="M250 186 H294"/><path d="M636 186 H678"/></g>
+
+</svg></div></figure><div class="flows"><div><h3><span lang="zh">存在你的服务器上</span><span lang="en">On your server</span></h3><ul><li><span lang="zh">对话、Agents 和它们的记忆</span><span lang="en">Conversations, Agents and their memory</span></li><li><span lang="zh">Apple 健康的每日汇总（你允许才会同步）</span><span lang="en">Apple Health daily summaries (only if you allow it)</span></li><li><span lang="zh">你发的文件和语音</span><span lang="en">Files and voice notes you send</span></li><li><span lang="zh">世界树</span><span lang="en">The memory tree</span></li></ul></div><div><h3><span lang="zh">按设计会出去的</span><span lang="en">What leaves it, by design</span></h3><ul><li><span lang="zh">发给你自己配置的模型服务商的消息</span><span lang="en">Messages to the model providers you configure</span></li><li><span lang="zh">经 Apple 和 Expo 的推送（标题和一段简短预览）</span><span lang="en">Push notifications via Apple and Expo (a title and a short preview)</span></li><li><span lang="zh">语音发给你配置的转写服务（默认 OpenAI，也可以用自己的 Whisper）</span><span lang="en">Voice notes to your transcription service (OpenAI by default, or your own Whisper)</span></li></ul><a href="privacy.html"><span lang="zh">隐私政策 →</span><span lang="en">Privacy policy →</span></a></div></div></section>
+<section class="s end" id="install">
+  <span class="chip acc"><span lang="zh">开始</span><span lang="en">Start</span></span>
+  <h2 class="big"><span lang="zh">自己搭一个！</span><span lang="en">Build your own!</span></h2>
+  <div class="three"><div><span lang="zh">用自己想用的模型</span><span lang="en">Use the models you want</span></div><div><span lang="zh">接上属于自己的记忆</span><span lang="en">Plug in your own memory</span></div><div><span lang="zh">开发出适合自己的功能</span><span lang="en">Build features that fit you</span></div></div>
+  <p lang="zh">OpenClaw 给 agent 指了一个方向，也长出了一个巨大的开源社区。为什么不再开一个 OpenMousse 社区，一起给个人 agent 做点贡献？</p><p lang="en">OpenClaw pointed the way for agents and grew a huge open-source community. Why not start an OpenMousse community and build personal agents together?</p>
+  <div class="cmd">
+    <p class="lab" lang="zh">需要一台装好 OpenClaw、配好模型的 Linux 机器。然后一条命令：</p><p class="lab" lang="en">You need a Linux machine with OpenClaw installed and a model set up. Then one command:</p>
+    <div class="code"><pre id="cmd">curl -fsSL https://openmousse.ai/install | bash</pre><button class="copy" type="button" id="copy"><span lang="zh">复制命令</span><span lang="en">Copy command</span></button></div>
+    <p class="lab" lang="zh">它会问四个问题（语言、OpenClaw 在哪、时区、助手叫什么），装好服务端、世界树和日结，最后告诉你手机怎么连。再跑一遍只补缺的。</p><p class="lab" lang="en">It asks four questions (language, where OpenClaw lives, time zone, what to call the assistant), sets up the server, the memory tree and the daily digest, and tells you how to connect your phone. Running it again only fills in what's missing.</p>
+  </div>
+  <div class="ctas"><a class="btn primary" href="index.html"><span lang="zh">OpenMousse 是什么</span><span lang="en">What OpenMousse is</span></a><a class="btn" href="https://github.com/openmousse/openmousse"><span lang="zh">看 GitHub</span><span lang="en">View on GitHub</span></a><span class="soon" lang="zh">iPhone app：TestFlight 公开测试马上开放。</span><span class="soon" lang="en">iPhone app: public TestFlight beta coming soon.</span></div>
+  <p class="shout">Let's OpenMousse!</p>
+</section>
+</main>
+<footer class="col">
+  <p class="nomuse"><span lang="zh"><b>不是 OpenMuse。</b>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你的 OpenClaw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span><span lang="en"><b>Not OpenMuse.</b> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your OpenClaw and focuses on your life data, proactive Agents and a memory every AI shares.</span></p>
+  <div class="foot"><span>OpenMousse · MIT · © 2026 Leo Zhou</span><span><a href="index.html"><span lang="zh">首页</span><span lang="en">Home</span></a> · <a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="privacy.html"><span lang="zh">隐私</span><span lang="en">Privacy</span></a> · hello@openmousse.ai</span></div>
+</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var lb = document.getElementById("lang");
+  if (lb) lb.addEventListener("click", function () {
+    var next = root.getAttribute("data-lang") === "zh" ? "en" : "zh";
+    root.setAttribute("data-lang", next);
+    root.lang = next === "zh" ? "zh-CN" : "en";
+    try { localStorage.setItem("om-lang", next); } catch (e) {}
+  });
+  var btn = document.getElementById("copy"), pre = document.getElementById("cmd");
+  if (!btn || !pre) return;
+  var label = btn.innerHTML;
+  function say(zh, en) { btn.textContent = root.getAttribute("data-lang") === "en" ? en : zh;
+                         setTimeout(function () { btn.innerHTML = label; }, 1800); }
+  function selectIt() {
+    var r = document.createRange(); r.selectNodeContents(pre);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    say("已选中，按复制键复制", "Selected: press copy");
+  }
+  btn.addEventListener("click", function () {
+    try { navigator.clipboard.writeText(pre.textContent).then(function () { say("已复制", "Copied"); }, selectIt); }
+    catch (e) { selectIt(); }
+  });
+})();
+</script>
+</body>
+</html>

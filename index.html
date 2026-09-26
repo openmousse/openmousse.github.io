@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenMousse · a personal agent app for your OpenClaw</title>
-<meta name="description" content="OpenMousse is the app for your OpenClaw: chat from your phone, one Agent for each part of your life, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
+<title>OpenMousse · a personal assistant app for your OpenClaw</title>
+<meta name="description" content="OpenMousse turns your OpenClaw into a personal assistant on your phone: chat from your phone, one Agent for each part of your life, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
 <meta property="og:title" content="OpenMousse">
-<meta property="og:description" content="A personal agent app for your OpenClaw. Open source, self-hosted, one memory for every AI.">
+<meta property="og:description" content="Turn your OpenClaw into a personal assistant on your phone. Open source, self-hosted, one memory for every AI.">
 <meta property="og:image" content="https://openmousse.ai/assets/og.png">
 <meta property="og:url" content="https://openmousse.ai/">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,11 +29,16 @@
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
       --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
       color-scheme: dark;
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+    --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -41,6 +46,7 @@
          font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
   html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
   a { color: var(--cyan); text-decoration: none; } a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
   header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--ink); }
@@ -70,11 +76,23 @@
   h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.01em; margin: 0 0 12px; }
   .sub { color: var(--ink2); max-width: 44em; margin: 0 0 28px; }
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
   .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
   .card h3 { margin: 0 0 8px; font-size: 19px; }
   .card p { margin: 0; color: var(--ink2); }
-  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
-  .dot.gold { background: var(--gold-fill); } .dot.cyan { background: var(--cyan); }
+  .card .dir { display: inline-block; margin-bottom: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface2);
+               color: var(--ink2); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  .how { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; align-items: center; gap: 12px; margin: 34px 0 0; }
+  .how .node { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; text-align: center; }
+  .how .node.home { background: var(--cyan-soft); border-color: var(--cyan); }
+  .how .node b { display: block; font-size: 16px; }
+  .how .node span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+  .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
+  .how .arrow svg { display: block; width: 100%; height: 100%; }
+  .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
+  .blank { margin: 28px 0 0; padding: 18px 22px; border-radius: var(--radius); background: var(--gold-soft); }
+  .blank p { margin: 0; }
 
   .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
@@ -85,6 +103,10 @@
   .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
   .steps { color: var(--ink2); margin-top: 16px; }
 
+  .why h2 { font-size: clamp(22px, 2.8vw, 26px); }
+  .why p { max-width: 44em; }
+  .why p + p { margin-top: 12px; }
+
   .note { background: var(--cyan-soft); border-radius: var(--radius); padding: 20px 24px; color: var(--ink); }
   .note p { margin: 0; }
 
@@ -93,10 +115,16 @@
 
   @media (max-width: 760px) {
     .top nav a.hide-sm { display: none; }
-    .grid, .flow { grid-template-columns: 1fr; }
-    .shots { gap: 10px; }
-    .phone { border-radius: 22px; padding: 5px; } .phone img { border-radius: 18px; }
-    .phone.mid { transform: translateY(-10px); }
+    .grid, .grid.three, .flow { grid-template-columns: 1fr; }
+    .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
+    .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
+    .phone img { border-radius: 24px; }
+    .phone.mid { transform: none; }
+    .how { grid-template-columns: 1fr; }
+    .how .arrow { justify-self: center; transform: rotate(90deg); }
+    .code { padding: 14px 12px 50px; font-size: clamp(11px, 2.9vw, 14px); }
+    pre { padding-right: 0; }
+    .copy { top: auto; bottom: 10px; right: 10px; }
     section { padding: 40px 0; }
   }
 </style>
@@ -106,7 +134,8 @@
   <header class="top">
     <a class="brand" href="/"><img src="assets/icon.png" alt="">OpenMousse</a>
     <nav>
-      <a class="hide-sm" href="#features"><span lang="en">Features</span><span lang="zh">功能</span></a>
+      <a class="hide-sm" href="#what"><span lang="en">What it is</span><span lang="zh">是什么</span></a>
+      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
       <a class="hide-sm" href="#install"><span lang="en">Install</span><span lang="zh">安装</span></a>
       <a href="https://github.com/openmousse/openmousse">GitHub</a>
       <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
@@ -115,10 +144,10 @@
 
   <div class="hero">
     <span class="eyebrow"><span lang="en">Open source · MIT · self-hosted</span><span lang="zh">开源 · MIT · 自托管</span></span>
-    <h1><span lang="en">A personal agent that lives on your own machine.</span><span lang="zh"><span class="nw">住在你自己机器上的</span><span class="nw">私人 agent。</span></span></h1>
+    <h1><span lang="en">Turn your OpenClaw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 OpenClaw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
     <p class="lede">
-      <span lang="en">OpenMousse is the app for your <a href="https://openclaw.ai">OpenClaw</a>: chat with it from your phone, give each part of your life its own Agent, and keep one memory that Claude, ChatGPT and Gemini all share.</span>
-      <span lang="zh">OpenMousse 是你的 <a href="https://openclaw.ai">OpenClaw</a> 的 app：在手机上直接跟它对话，生活的每一块交给一个 Agent，再用一份记忆把 Claude、ChatGPT、Gemini 串起来。</span>
+      <span lang="en">Like Meta's Muse: chat with it from your phone, give each part of your life its own Agent, and let them come to you. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
+      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，生活的每一块交给一个 Agent，它们会主动来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
     </p>
     <div class="cta">
       <a class="btn primary" href="#install"><span lang="en">Install on your server</span><span lang="zh">装到你的服务器</span></a>
@@ -133,27 +162,37 @@
     <div class="phone"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-fitness-dark.png"><img src="assets/en-fitness.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-fitness-dark.png"><img src="assets/zh-fitness.png" alt="" loading="lazy"></picture></div>
   </div>
 
-  <section id="features">
-    <h2><span lang="en">What you get</span><span lang="zh">你能得到什么</span></h2>
-    <p class="sub"><span lang="en">OpenMousse doesn't bring an agent of its own. It gives the OpenClaw you already run an app, Agents with their own dashboards, and a memory every AI can share.</span><span lang="zh">OpenMousse 不自带 agent。它给你已经在跑的 OpenClaw 一个 app、各自带看板的 Agents，和一份所有 AI 都能共用的记忆。</span></p>
-    <div class="grid">
+  <section id="what">
+    <h2><span lang="en">What OpenMousse is</span><span lang="zh">OpenMousse 是什么</span></h2>
+    <p class="sub"><span lang="en">It doesn't bring an agent of its own: your <a href="https://openclaw.ai">OpenClaw</a> already is one. OpenMousse adds three things around it.</span><span lang="zh">它不自带 agent：你的 <a href="https://openclaw.ai">OpenClaw</a> 本身就是。OpenMousse 在它周围加了三样东西。</span></p>
+    <div class="grid three">
       <div class="card">
-        <h3><span class="dot gold"></span><span lang="en">Your agent in your pocket</span><span lang="zh">口袋里的 agent</span></h3>
-        <p><span lang="en">Streaming chat, voice notes, photos and files, push notifications. Same skills, same chat channels, same model accounts as your OpenClaw.</span><span lang="zh">流式对话、语音输入、照片和文件、推送通知。skills、聊天渠道、模型账号都和你的 OpenClaw 是同一套。</span></p>
+        <span class="dir">app/</span>
+        <h3><span lang="en">An iPhone app</span><span lang="zh">一个 iPhone app</span></h3>
+        <p><span lang="en">Chat with your claw by text, voice, photos or files, and get a notification when it answers. Each Agent has its own page with a chat and a dashboard, and the Today page gathers what they suggest. There's a web version too, served by your own server.</span><span lang="zh">跟你的 claw 对话，文字、语音、照片、文件都行，回完推送给你。每个 Agent 有自己的页面，对话和看板在一起；「今天」页汇总它们给你的建议。也有网页版，由你自己的服务器提供。</span></p>
       </div>
       <div class="card">
-        <h3><span class="dot cyan"></span><span lang="en">An Agent for each part of your life</span><span lang="zh">生活的每一块，一个 Agent</span></h3>
-        <p><span lang="en">Fitness, meals, sleep, job applications… Each is a real OpenClaw agent with its own memory, skills and dashboard. Ask for one in chat and it gets built.</span><span lang="zh">健身、饮食、睡眠、求职……每个都是真正的 OpenClaw agent，有自己的记忆、skills 和看板。在对话里说一句就建好。</span></p>
+        <span class="dir">server/</span>
+        <h3><span lang="en">A small server next to OpenClaw</span><span lang="zh">OpenClaw 旁边的一个小服务</span></h3>
+        <p><span lang="en">Handles the app's sign-in, relays chats and sends notifications. Ask for a new Agent in chat and it sets one up in OpenClaw. Every night it writes a digest for each Agent, so each one remembers yesterday.</span><span lang="zh">负责 app 的登录、对话转发和推送。你在对话里说要一个新 Agent，它就去 OpenClaw 里建好。每天夜里给每个 Agent 做一次日结，让它们记得昨天。</span></p>
       </div>
       <div class="card">
-        <h3><span class="dot gold"></span><span lang="en">It comes to you</span><span lang="zh">它会主动找你</span></h3>
-        <p><span lang="en">A morning report, suggestion cards that refresh when new data arrives (a workout finished, a meal logged), and a daily digest so every Agent remembers yesterday.</span><span lang="zh">起床报告；新数据一到（练完、记了一餐）就更新的建议卡；每天的日结，让每个 Agent 记得昨天。</span></p>
-      </div>
-      <div class="card">
-        <h3><span class="dot cyan"></span><span lang="en">One memory for every AI</span><span lang="zh">所有 AI 共用一份记忆</span></h3>
-        <p><span lang="en">The memory tree is an MCP server that Claude.ai, ChatGPT, Gemini and Notion connect to. What one of them learns about you, the others know. It also works without OpenClaw.</span><span lang="zh">世界树是一个 MCP 服务，Claude.ai、ChatGPT、Gemini、Notion 都能接。一个平台知道了关于你的事，其他平台也知道。没有 OpenClaw 也能单独用。</span></p>
+        <span class="dir">tree/</span>
+        <h3><span lang="en">The memory tree</span><span lang="zh">世界树</span></h3>
+        <p><span lang="en">An MCP server holding one memory about you. Claude.ai, ChatGPT, Gemini, Notion and your claw all connect to it, so what one learns, the others know. It works without OpenClaw too.</span><span lang="zh">一个 MCP 服务，存着一份关于你的记忆。Claude.ai、ChatGPT、Gemini、Notion 和你的 claw 都接在这棵树上，一个平台知道了，其他平台也知道。没有 OpenClaw 也能单独用。</span></p>
       </div>
     </div>
+
+    <div class="how">
+      <div class="node"><b><span lang="en">Your iPhone</span><span lang="zh">你的 iPhone</span></b><span>OpenMousse app</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="node home"><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b><span><span lang="en">OpenClaw (the agent) · OpenMousse server · memory tree</span><span lang="zh">OpenClaw（agent 本体）· OpenMousse 服务 · 世界树</span></span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="node"><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span>Claude · ChatGPT · Kimi · …</span></div>
+    </div>
+    <p class="caption"><span lang="en">The app only talks to your own server. OpenClaw runs the agent on your model account, and Claude.ai, ChatGPT and Gemini reach the memory tree over MCP.</span><span lang="zh">app 只连你自己的服务器。agent 由 OpenClaw 跑，用的是你的模型账号；Claude.ai、ChatGPT、Gemini 通过 MCP 读写世界树。</span></p>
+
+    <div class="blank"><p><span lang="en"><strong>It starts blank.</strong> There are no life areas preset. Tell it “I want to track my sleep and my weekly runs” and it builds you an Agent. The author's own fitness, meals, sleep and job-hunt Agents are being turned into packs you can start from.</span><span lang="zh"><strong>装好是一块白板。</strong>没有预设的生活领域。你对它说「我想跟踪睡眠和每周跑步」，它就替你建一个 Agent。作者自己用的健身、饮食、睡眠、求职 Agent 正在做成功能包，以后可以直接拿来当模板。</span></p></div>
   </section>
 
   <section id="data">
@@ -182,9 +221,17 @@
 
   <section id="install">
     <h2><span lang="en">Install</span><span lang="zh">安装</span></h2>
-    <p class="sub"><span lang="en">You need a Linux machine running <a href="https://github.com/openclaw/openclaw">OpenClaw</a> with a model set up. Then one command:</span><span lang="zh">需要一台装好 <a href="https://github.com/openclaw/openclaw">OpenClaw</a> 并配好模型的 Linux 机器。然后一条命令：</span></p>
+    <p class="sub"><span lang="en">You need a Linux machine running <a href="https://github.com/openclaw/openclaw">OpenClaw</a> with a model set up, and an iPhone. Then one command:</span><span lang="zh">需要一台装好 <a href="https://github.com/openclaw/openclaw">OpenClaw</a> 并配好模型的 Linux 机器，和一部 iPhone。然后一条命令：</span></p>
     <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
     <p class="steps"><span lang="en">It asks four questions (language, where OpenClaw lives, time zone, what to call the assistant), sets up the server, the memory tree and the daily digest, and prints how to connect your phone. Running it again only fills in what's missing.</span><span lang="zh">它会问四个问题（语言、OpenClaw 在哪、时区、助手叫什么），装好服务端、世界树和日结，最后告诉你手机怎么连。再跑一遍只补缺的。</span></p>
+  </section>
+
+  <section id="why">
+    <div class="card why">
+      <h2><span lang="en">Why OpenMousse</span><span lang="zh">为什么做 OpenMousse</span></h2>
+      <p><span lang="en">When Meta's Muse was everywhere, the author wrote a post about it: Muse is a claw in an app shell, and the trouble is that it's centralized. You can't pick the model, the memory starts from zero, and your data can't leave. OpenMousse is the answer to that post.</span><span lang="zh">Muse 刷屏的那几天，作者写了一篇文章：Muse 其实是一只套着 app 外壳的 claw，问题在于太中心化，模型选不了，记忆从零开始，数据也带不走。OpenMousse 就是那篇文章的回答。</span></p>
+      <p><a href="why.html"><span lang="en">Read “Muse? Claws!” (in Chinese for now) →</span><span lang="zh">读《Muse？Claws！》→</span></a></p>
+    </div>
   </section>
 
   <section>
@@ -196,7 +243,7 @@
   <footer>
     <div class="row">
       <span>OpenMousse · MIT · © 2026 Leo Zhou</span>
-      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a> · <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a></span>
+      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a> · <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a></span>
     </div>
   </footer>
 </div>
