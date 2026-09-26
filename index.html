@@ -92,15 +92,28 @@
   .how .arrow svg { display: block; width: 100%; height: 100%; }
   .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
 
-  .build { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
-  .chat { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
-  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; }
+  .chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  /* Wide screens: the conversation on the left, the Agent's plan beside it. Narrow: the plan sits inline, between the two halves. */
+  .build { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 10px 24px; }
+  .build > .thread { grid-column: 1; }
+  .build > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  .thread { display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
   .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
   .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
   .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
   .msg.done strong { display: block; margin-bottom: 2px; }
-  .ideas-label { margin: 0 0 12px; color: var(--ink2); font-size: 15px; }
-  .ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .plan-title { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .plan dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .plan dt { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; font-size: 15px; font-weight: 600; }
+  .plan dt::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-fill); }
+  .plan dd { margin: 0 0 0 15px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
+  .plan ul { margin: 0; padding: 0; list-style: none; }
+  .plan li + li { margin-top: 3px; }
+  .plan b { color: var(--ink); font-weight: 600; }
+  .ideas-label { margin: 28px 0 12px; color: var(--ink2); font-size: 15px; }
+  .ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
   .idea b { display: block; font-size: 16px; }
   .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
@@ -137,6 +150,10 @@
   @media (max-width: 760px) {
     .top nav a.hide-sm { display: none; }
     .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
+    .build { grid-template-rows: none; }
+    .build > .thread, .build > .plan { grid-column: auto; grid-row: auto; }
+    .plan { padding: 14px; }
+    .ideas { grid-template-columns: 1fr 1fr; }
     .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
     .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
     .phone img { border-radius: 24px; }
@@ -185,25 +202,58 @@
 
   <section id="build">
     <h2><span lang="en">Build the Agents you actually need</span><span lang="zh"><span class="nw">你要什么 Agent，</span><span class="nw">就建什么 Agent</span></span></h2>
-    <p class="sub"><span lang="en">Everyone's life is different, so there are no preset templates. Say in chat what you want looked after. It asks a few questions, then builds you an Agent with its own memory, its own rules, its own dashboard and reminders.</span><span lang="zh">每个人的生活都不一样，所以这里没有预设模板。在对话里说一句你想让它管什么，它会问你几个问题，然后替你建好一个 Agent：有自己的记忆、自己的规矩、自己的看板和提醒。</span></p>
-    <div class="build">
-      <div class="chat">
+    <p class="sub"><span lang="en">Everyone's life is different, so there are no preset templates. Say in chat what you want looked after. It asks a few questions, then suggests what data to keep, which apps to connect, how the Agent can get stronger, and how it works with your other Agents. Say yes, and it builds an Agent with its own memory, its own rules, its own dashboard and reminders.</span><span lang="zh">每个人的生活都不一样，所以这里没有预设模板。在对话里说一句你想让它管什么，它会问你几个问题，再按你的需要给出建议：要记哪些数据、能接入哪些渠道、以后怎么加强、怎么和你别的 Agent 联动。你点头，它就建好一个 Agent：有自己的记忆、自己的规矩、自己的看板和提醒。</span></p>
+    <div class="chat build">
+      <div class="thread">
         <p class="msg me"><span lang="en">I'm preparing for the GRE. Build me a study Agent.</span><span lang="zh">我在准备 GRE，帮我建一个备考 Agent。</span></p>
         <p class="msg it"><span lang="en">Sure. When's the test, how long can you study each day, and which word list are you using?</span><span lang="zh">好。哪天考？每天能学多久？单词书用哪本？</span></p>
         <p class="msg me"><span lang="en">November 20, an hour a day, Barron's.</span><span lang="zh">11 月 20 号，每天一小时，用再要你命 3000。</span></p>
-        <p class="msg done"><strong><span lang="en">Done: your GRE Agent</span><span lang="zh">建好了：GRE 备考 Agent</span></strong><span lang="en">Every day at 07:30 it sends today's words and a reading passage. Send it a photo of your practice and it logs your mistakes. Every Sunday you get a review.</span><span lang="zh">每天 07:30 推今天的单词和一篇阅读；做完题拍照发给它，它记下错题；每周日给你一份复盘。</span></p>
+        <p class="msg it"><span lang="en">Based on that, here's what I'd suggest:</span><span lang="zh">按你的情况，我建议这样搭：</span></p>
       </div>
-      <div>
-        <p class="ideas-label"><span lang="en">Everyone builds something different. For example:</span><span lang="zh">每个人建的都不一样，比如：</span></p>
-        <div class="ideas">
-        <div class="idea"><b><span lang="en">Cat care</span><span lang="zh">猫咪健康</span></b><span><span lang="en">Tracks weight and vaccines, and reminds you about flea treatment.</span><span lang="zh">记体重和疫苗，到时间提醒驱虫。</span></span></div>
-        <div class="idea"><b><span lang="en">Budget</span><span lang="zh">记账</span></b><span><span lang="en">Tell it what you spent; at month end it shows where the money went.</span><span lang="zh">你说花了什么它就记，月底告诉你钱去哪了。</span></span></div>
-        <div class="idea"><b><span lang="en">Marathon</span><span lang="zh">马拉松</span></b><span><span lang="en">Plans back from race day and adjusts next week after every run.</span><span lang="zh">从比赛日倒排计划，每跑完一次就调下一周。</span></span></div>
-        <div class="idea"><b><span lang="en">Renovation</span><span lang="zh">装修</span></b><span><span lang="en">Tracks the schedule and payments; send a photo and it logs progress.</span><span lang="zh">盯工期和付款节点，拍张照发给它就记进度。</span></span></div>
-        <div class="idea"><b><span lang="en">Visa</span><span lang="zh">签证</span></b><span><span lang="en">Keeps the document checklist and warns you before anything expires.</span><span lang="zh">列好材料清单，快过期的提前提醒你。</span></span></div>
-        <div class="idea"><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span><span lang="en">Keeps your highlights and thoughts, and brings them back days later.</span><span lang="zh">记下你的摘抄和想法，隔几天拿出来问你。</span></span></div>
-        </div>
+      <div class="plan">
+        <p class="plan-title"><span lang="en">GRE Agent · suggested setup</span><span lang="zh">GRE 备考 Agent · 建议方案</span></p>
+        <dl>
+          <div>
+            <dt><span lang="en">Data to keep</span><span lang="zh">要记的数据</span></dt>
+            <dd><span lang="en">The words you study each day and how many stick, your mistakes by question type, and every practice test score.</span><span lang="zh">每天背了哪些词、记住多少，错题和题型，每次模考的分数。</span></dd>
+          </div>
+          <div>
+            <dt><span lang="en">Apps to connect</span><span lang="zh">接入渠道</span></dt>
+            <dd><ul>
+              <li><b><span lang="en">Calendar</span><span lang="zh">日历</span></b><span lang="en">: finds a free hour each day and books it.</span><span lang="zh">：找出每天空着的一小时，排进去。</span></li>
+              <li><b><span lang="en">Apple Health</span><span lang="zh">Apple 健康</span></b><span lang="en">: after a bad night's sleep, fewer new words.</span><span lang="zh">：睡得不好的那天，少排新词。</span></li>
+              <li><b><span lang="en">Email</span><span lang="zh">邮箱</span></b><span lang="en">: logs your registration and score notices as they arrive.</span><span lang="zh">：报名确认和出分通知，一到就记下。</span></li>
+            </ul></dd>
+          </div>
+          <div>
+            <dt><span lang="en">Make it stronger</span><span lang="zh">还能加强</span></dt>
+            <dd><ul>
+              <li><span lang="en">Four weeks out, a full practice test every Saturday.</span><span lang="zh">考前四周，每周六加一套整卷模考。</span></li>
+              <li><span lang="en">An essay a week, scored against the official rubric.</span><span lang="zh">每周写一篇作文，按官方评分标准打分。</span></li>
+            </ul></dd>
+          </div>
+          <div>
+            <dt><span lang="en">With your other Agents</span><span lang="zh">和其他 Agent 联动</span></dt>
+            <dd><ul>
+              <li><b><span lang="en">Fitness Agent</span><span lang="zh">健身 Agent</span></b><span lang="en">: eases off training the week before the test and reminds you to sleep early.</span><span lang="zh">：考前一周训练减量，提醒你早点睡。</span></li>
+              <li><b><span lang="en">Reading Agent</span><span lang="zh">读书 Agent</span></b><span lang="en">: passages you liked go on your reading list.</span><span lang="zh">：阅读题里喜欢的文章，存进书单。</span></li>
+            </ul></dd>
+          </div>
+        </dl>
       </div>
+      <div class="thread">
+        <p class="msg me"><span lang="en">All of it.</span><span lang="zh">都要。</span></p>
+        <p class="msg done"><strong><span lang="en">Done: your GRE Agent</span><span lang="zh">建好了：GRE 备考 Agent</span></strong><span lang="en">Every day at 07:30 it sends today's words and a reading passage, and your study hour is on your calendar. Send it a photo of your practice and it logs your mistakes. Every Sunday you get a review.</span><span lang="zh">每天 07:30 推今天的单词和一篇阅读，学习时段已经排进日历；做完题拍照发给它，它记下错题；每周日给你一份复盘。</span></p>
+      </div>
+    </div>
+    <p class="ideas-label"><span lang="en">Everyone builds something different. For example:</span><span lang="zh">每个人建的都不一样，比如：</span></p>
+    <div class="ideas">
+      <div class="idea"><b><span lang="en">Cat care</span><span lang="zh">猫咪健康</span></b><span><span lang="en">Tracks weight and vaccines, and reminds you about flea treatment.</span><span lang="zh">记体重和疫苗，到时间提醒驱虫。</span></span></div>
+      <div class="idea"><b><span lang="en">Budget</span><span lang="zh">记账</span></b><span><span lang="en">Tell it what you spent; at month end it shows where the money went.</span><span lang="zh">你说花了什么它就记，月底告诉你钱去哪了。</span></span></div>
+      <div class="idea"><b><span lang="en">Marathon</span><span lang="zh">马拉松</span></b><span><span lang="en">Plans back from race day and adjusts next week after every run.</span><span lang="zh">从比赛日倒排计划，每跑完一次就调下一周。</span></span></div>
+      <div class="idea"><b><span lang="en">Renovation</span><span lang="zh">装修</span></b><span><span lang="en">Tracks the schedule and payments; send a photo and it logs progress.</span><span lang="zh">盯工期和付款节点，拍张照发给它就记进度。</span></span></div>
+      <div class="idea"><b><span lang="en">Visa</span><span lang="zh">签证</span></b><span><span lang="en">Keeps the document checklist and warns you before anything expires.</span><span lang="zh">列好材料清单，快过期的提前提醒你。</span></span></div>
+      <div class="idea"><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span><span lang="en">Keeps your highlights and thoughts, and brings them back days later.</span><span lang="zh">记下你的摘抄和想法，隔几天拿出来问你。</span></span></div>
     </div>
   </section>
 
