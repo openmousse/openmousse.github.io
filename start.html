@@ -342,6 +342,12 @@
   <section class="faq" id="faq">
     <h2><span lang="en">FAQ</span><span lang="zh">常见问题</span></h2>
     <details>
+      <summary><span lang="en">Something isn't working</span><span lang="zh">哪里不对劲</span></summary>
+      <p><span lang="en">Run the self-check on the server. It goes through every piece (the server, reaching it from the phone, your claw and its model, the memory tree, the nightly digest, notifications) and prints ✓ or ✗ with the command that fixes each one. There are no tokens or keys in its output, so you can send all of it to whoever is helping you:</span><span lang="zh">在服务器上跑一下自检。它把每一块都查一遍（服务、手机连不连得上、你的 claw 和模型、世界树、每晚的日结、推送），打出 ✓ 或 ✗，每条后面写怎么修。输出里没有令牌和密钥，可以整段发给帮你的人：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="bash ~/.openmousse/repo/check.sh"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>bash ~/.openmousse/repo/check.sh</pre></div>
+      <p><span lang="en">Installed before this command existed? Run the install command again first; it pulls the latest version.</span><span lang="zh">装的时候还没有这个命令的话，先再跑一遍安装命令，它会拉到最新的。</span></p>
+    </details>
+    <details>
       <summary><span lang="en">I lost the phone token</span><span lang="zh">手机令牌丢了</span></summary>
       <p><span lang="en">Make a new one on the server. It is also shown only once:</span><span lang="zh">在服务器上生成一个新的，同样只显示一次：</span></p>
       <div class="code"><button class="copy" type="button" data-copy="~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2</pre></div>
