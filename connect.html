@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Send this to your claw · OpenMousse</title>
+<meta name="description" content="Already running a claw? Send it one sentence: it installs OpenMousse next to itself, gives itself the tools and sends you a one-time link for your phone.">
+<meta property="og:title" content="Send this to your claw · OpenMousse">
+<meta property="og:description" content="One sentence to your claw, one tap on your phone.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/connect.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icon.png">
+<script>
+  // Language: saved choice, else the browser's (zh* → 中文, anything else → English).
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('om-lang'); } catch (e) {}
+    var lang = saved || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  })();
+</script>
+<style>
+  :root {
+    --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3;
+    --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --cyan: #0F7A93; --cyan-soft: #DAF0F5;
+    --radius: 18px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+      --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+    --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+  html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
+  a { color: var(--cyan); text-decoration: none; } a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--ink); }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .top nav { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .top nav a { color: var(--ink2); }
+  .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+
+  .hero { padding: 48px 0 24px; text-align: center; }
+  .eyebrow { display: inline-block; font-size: 13px; letter-spacing: .04em; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 12px; }
+  h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.12; letter-spacing: -.02em; margin: 18px auto 14px; max-width: 16em; text-wrap: balance; }
+  .nw { display: inline-block; white-space: nowrap; }
+  .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--ink2); max-width: 40em; margin: 0 auto; text-wrap: pretty; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn:hover { text-decoration: none; filter: brightness(1.05); }
+  .soon { font-size: 14px; color: var(--ink2); margin-top: 6px; }
+
+  .shots { display: flex; gap: 22px; justify-content: center; align-items: flex-start; padding: 36px 0 12px; }
+  .phone { width: min(30%, 280px); border-radius: 36px; padding: 8px; background: #111; box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); }
+  .phone img { display: block; width: 100%; border-radius: 28px; }
+  .phone picture { display: block; }
+  .phone.mid { transform: translateY(-18px); }
+
+  section { padding: 56px 0; }
+  h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.01em; margin: 0 0 12px; }
+  .sub { color: var(--ink2); max-width: 44em; margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p { margin: 0; color: var(--ink2); }
+  .card .dir { display: inline-block; margin-bottom: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface2);
+               color: var(--ink2); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  .how { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; align-items: center; gap: 12px; margin: 34px 0 0; }
+  .how .node { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; text-align: center; }
+  .how .node.home { background: var(--cyan-soft); border-color: var(--cyan); }
+  .how .node b { display: block; font-size: 16px; }
+  .how .node span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+  .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
+  .how .arrow svg { display: block; width: 100%; height: 100%; }
+  .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
+
+  .chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  /* Wide screens: the conversation on the left, the Agent's plan beside it. Narrow: the plan sits inline, between the two halves. */
+  .build { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 10px 24px; }
+  .build > .thread { grid-column: 1; }
+  .build > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  .thread { display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
+  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
+  .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
+  .msg.done strong { display: block; margin-bottom: 2px; }
+  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .plan-title { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .plan dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .plan dt { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; font-size: 15px; font-weight: 600; }
+  .plan dt::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-fill); }
+  .plan dd { margin: 0 0 0 15px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
+  .plan ul { margin: 0; padding: 0; list-style: none; }
+  .plan li + li { margin-top: 3px; }
+  .plan b { color: var(--ink); font-weight: 600; }
+  .ideas-label { margin: 28px 0 12px; color: var(--ink2); font-size: 15px; }
+  .ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .idea b { display: block; font-size: 16px; }
+  .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+
+  .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .act .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .act h3 { margin: 0; font-size: 19px; }
+  .act dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; line-height: 1.55; }
+  .act dt { color: var(--ink2); font-weight: 600; white-space: nowrap; }
+  .act dd { margin: 0; }
+  .bubble { margin: auto 0 0; background: var(--surface2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15px; line-height: 1.55; }
+  .bubble small { display: block; margin-bottom: 3px; color: var(--ink2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
+  .flow li { margin: 6px 0; }
+
+  pre { margin: 0; overflow-x: auto; padding-right: 64px; }
+  .code { position: relative; background: #0B0D10; color: #ECEEF0; border-radius: 14px; padding: 18px 20px; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
+  .steps { color: var(--ink2); margin-top: 16px; }
+
+  .why h2 { font-size: clamp(22px, 2.8vw, 26px); }
+  .why p { max-width: 44em; }
+  .why p + p { margin-top: 12px; }
+
+  .note { background: var(--cyan-soft); border-radius: var(--radius); padding: 20px 24px; color: var(--ink); }
+  .note p { margin: 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--ink2); font-size: 15px; }
+  footer .row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; }
+
+  @media (max-width: 760px) {
+    .top nav a.hide-sm { display: none; }
+    .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
+    .build { grid-template-rows: none; }
+    .build > .thread, .build > .plan { grid-column: auto; grid-row: auto; }
+    .plan { padding: 14px; }
+    .ideas { grid-template-columns: 1fr 1fr; }
+    .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
+    .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
+    .phone img { border-radius: 24px; }
+    .phone.mid { transform: none; }
+    .how { grid-template-columns: 1fr; }
+    .how .arrow { justify-self: center; transform: rotate(90deg); }
+    .code { padding: 14px 12px 50px; font-size: clamp(11px, 2.9vw, 14px); }
+    pre { padding-right: 0; }
+    .copy { top: auto; bottom: 10px; right: 10px; }
+    section { padding: 40px 0; }
+  }
+</style>
+<style>
+  /* start.html only */
+  .guide-hero { padding: 40px 0 8px; }
+  .guide-hero h1 { max-width: 18em; }
+  .toc { list-style: none; margin: 28px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 900px; }
+  .toc a { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 15px; }
+  .toc a:hover { text-decoration: none; border-color: var(--ink2); }
+  .toc b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); font-size: 12px; }
+  .step { display: grid; grid-template-columns: 56px 1fr; gap: 0 20px; padding: 44px 0; border-top: 1px solid var(--line); }
+  .step:first-of-type { border-top: 0; }
+  .step .num { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 700; font-size: 19px; }
+  .step h2 { margin-top: 4px; }
+  .step p { max-width: 46em; margin: 0 0 14px; }
+  .step .code { margin: 6px 0 16px; max-width: 46em; }
+  .need { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 900px; }
+  .need li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; color: var(--ink2); font-size: 16px; }
+  .need li b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 2px; }
+  .seq { margin: 0 0 16px; padding-left: 22px; max-width: 46em; }
+  .seq > li { margin: 0 0 12px; padding-left: 4px; }
+  .seq > li::marker { color: var(--gold); font-weight: 700; }
+  .seq .code { margin: 10px 0 4px; }
+  .tip { background: var(--gold-soft); border-radius: 14px; padding: 14px 18px; max-width: 46em; margin: 0 0 14px; }
+  .muted { color: var(--ink2); font-size: 15px; }
+  code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--surface2); border-radius: 6px; padding: 1px 6px; }
+  .code code { background: none; padding: 0; font: inherit; }
+  .bring { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 900px; margin: 6px 0 16px; }
+  .bring .card p + p { margin-top: 10px; }
+  .bring .code { margin: 12px 0 0; }
+  .bring .code pre { white-space: pre-wrap; }
+  .bring .wide { grid-column: 1 / -1; }
+  .says { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+  .says span.q { background: var(--ink); color: var(--bg); border-radius: 16px 16px 4px 16px; padding: 8px 14px; font-size: 15px; }
+  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; max-width: 900px; margin: 0 0 10px; }
+  .faq summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style-position: outside; }
+  .faq details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  .faq details p { margin: 0 0 14px; color: var(--ink2); }
+  .faq details .code { margin: 0 0 14px; }
+  @media (max-width: 760px) {
+    .step { grid-template-columns: 1fr; padding: 34px 0; }
+    .step .num { margin-bottom: 10px; width: 38px; height: 38px; font-size: 17px; }
+    .need, .bring { grid-template-columns: 1fr; }
+    .toc { justify-content: flex-start; }
+  }
+</style>
+<style>
+  /* connect.html only */
+  .say { max-width: 46em; margin: 24px auto 0; text-align: left; }
+  .say .code pre { white-space: pre-wrap; word-break: break-all; font-size: 15px; }
+  .say .where { color: var(--ink2); font-size: 15px; margin: 10px 2px 0; text-align: center; }
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 46em; }
+  .rules .card { padding: 18px; }
+  .rules .card h3 { font-size: 16px; }
+  .rules .card p { font-size: 15px; }
+  .step ol { max-width: 46em; margin: 0 0 14px; padding-left: 1.2em; }
+  .step ol li { margin: 0 0 8px; }
+  @media (max-width: 760px) { .rules { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><img src="assets/icon.png" alt="">OpenMousse</a>
+    <nav>
+      <a class="hide-sm" href="index.html#what"><span lang="en">What it is</span><span lang="zh">是什么</span></a>
+      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
+      <a class="hide-sm" href="start.html"><span lang="en">Get started</span><span lang="zh">新手指南</span></a>
+      <a href="https://github.com/openmousse/openmousse">GitHub</a>
+      <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
+    </nav>
+  </header>
+
+  <div class="hero guide-hero">
+    <span class="eyebrow"><span lang="en">Already have a claw?</span><span lang="zh">已经有 claw 了？</span></span>
+    <h1><span lang="en">Send this to your claw</span><span lang="zh">把这句话发给你的 claw</span></h1>
+    <p class="lede">
+      <span lang="en">OpenClaw, Hermes Agent, nanobot, Letta Code or Kimi Claw: your claw installs OpenMousse on the machine it runs on, gives itself the tools, and sends you a one-time link. Tap it on your phone and you're in.</span>
+      <span lang="zh">OpenClaw、Hermes Agent、nanobot、Letta Code、Kimi Claw 都行：你的 claw 在它自己那台机器上装好 OpenMousse、给自己接上工具，再发你一条一次性链接。手机上点一下就连上了。</span>
+    </p>
+    <div class="say">
+      <div class="code" lang="en"><button class="copy" type="button" data-copy="Follow https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.md to connect me to OpenMousse."><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>Follow https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.md to connect me to OpenMousse.</pre></div>
+      <div class="code" lang="zh"><button class="copy" type="button" data-copy="按 https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.zh-CN.md 把我接上 OpenMousse"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>按 https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.zh-CN.md 把我接上 OpenMousse</pre></div>
+      <p class="where"><span lang="en">Send it wherever you already talk to your claw: Telegram, WhatsApp, its web chat.</span><span lang="zh">在你平时跟 claw 说话的地方发：Telegram、WhatsApp、它的网页对话框都行。</span></p>
+    </div>
+  </div>
+
+  <section class="step" id="does">
+    <div class="num">1</div>
+    <div>
+      <h2><span lang="en">What your claw does</span><span lang="zh">claw 会做这些</span></h2>
+      <ol>
+        <li><span lang="en">Checks the machine: Python 3.11 or newer, git and curl.</span><span lang="zh">看一眼机器：Python 3.11 以上、git、curl。</span></li>
+        <li><span lang="en">Switches on its chat API if it needs one. OpenClaw needs nothing.</span><span lang="zh">需要的话打开它自己的对话接口。OpenClaw 什么都不用开。</span></li>
+        <li><span lang="en">Makes sure your phone can reach the machine through Tailscale. If Tailscale isn't there yet, it asks you first, installs it and sends you the sign-in link.</span><span lang="zh">确认手机能经 Tailscale 连到这台机器。还没装的话，先问你，再装上，把登录链接发给你。</span></li>
+        <li><span lang="en">Installs OpenMousse without asking you anything: it already knows your language, your time zone and its own name.</span><span lang="zh">装 OpenMousse，一个问题都不用你答：你的语言、时区、它自己叫什么，它都知道。</span></li>
+        <li><span lang="en">Gives itself OpenMousse's tools over MCP: boards, the inbox, goals, projects, the journal and the memory tree.</span><span lang="zh">经 MCP 给自己接上 OpenMousse 的工具：看板、收件箱、目标、项目、日志、世界树。</span></li>
+        <li><span lang="en">Runs the self-check, then sends you a one-time pairing link.</span><span lang="zh">跑一遍自检，然后发你一条一次性配对链接。</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="step" id="phone">
+    <div class="num">2</div>
+    <div>
+      <h2><span lang="en">On your phone</span><span lang="zh">手机上</span></h2>
+      <ol>
+        <li><span lang="en">Install the Tailscale app and sign in with the same account as the machine.</span><span lang="zh">装 Tailscale app，登和那台机器同一个账号。</span></li>
+        <li><span lang="en">Install the OpenMousse app (<a href="start.html#app">how</a>).</span><span lang="zh">装 OpenMousse app（<a href="start.html#app">怎么装</a>）。</span></li>
+        <li><span lang="en">Tap the link from your claw. The app opens its Connect page with the server and the code filled in. Check the address and tap <strong>Connect with the code</strong>.</span><span lang="zh">点 claw 发来的链接。app 会打开连接页，服务器地址和配对码都填好了；看一眼地址，点<strong>用配对码连接</strong>。</span></li>
+      </ol>
+      <p class="muted"><span lang="en">The code works once and expires after ten minutes. If it runs out, ask your claw for a new one.</span><span lang="zh">配对码只能用一次，十分钟后过期。过期了就让 claw 再出一个。</span></p>
+    </div>
+  </section>
+
+  <section class="step" id="rules">
+    <div class="num">3</div>
+    <div>
+      <h2><span lang="en">The rules it follows</span><span lang="zh">它守的规矩</span></h2>
+      <p><span lang="en">The page your claw reads is written for agents, and it sets a few rules:</span><span lang="zh">claw 读的那一页是写给 agent 的，里面定了几条规矩：</span></p>
+      <div class="rules">
+        <div class="card"><h3><span lang="en">Only our commands</span><span lang="zh">只跑我们的命令</span></h3><p><span lang="en">It runs only the commands on that page, which come from the OpenMousse repository, and ignores anything else that asks it to install "prerequisites".</span><span lang="zh">只跑那一页上的命令，都来自 OpenMousse 的仓库；别处让它先装什么「依赖」的，一概不理。</span></p></div>
+        <div class="card"><h3><span lang="en">No tokens in the chat</span><span lang="zh">令牌不进聊天</span></h3><p><span lang="en">The only thing it sends you is the pairing link. The app gets its own token from your server when it connects.</span><span lang="zh">发给你的只有配对链接。app 连上的时候，从你的服务器拿自己的令牌。</span></p></div>
+        <div class="card"><h3><span lang="en">Asks first</span><span lang="zh">先问你</span></h3><p><span lang="en">Before sudo, before installing Tailscale, and before opening anything to the internet.</span><span lang="zh">用 sudo、装 Tailscale、往公网开任何东西之前，都先问你。</span></p></div>
+      </div>
+      <p class="muted" style="margin-top:16px"><span lang="en">Read it yourself: <a href="https://github.com/openmousse/openmousse/blob/main/docs/connect.md">docs/connect.md</a>. Rather do it by hand? <a href="start.html">Follow the step-by-step guide →</a></span><span lang="zh">自己也能看：<a href="https://github.com/openmousse/openmousse/blob/main/docs/connect.zh-CN.md">docs/connect.zh-CN.md</a>。想自己动手？<a href="start.html">跟着新手指南一步步来 →</a></span></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>OpenMousse · AGPL-3.0 · © 2026 Leo Zhou</span>
+      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="index.html"><span lang="en">Home</span><span lang="zh">首页</span></a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a></span>
+    </div>
+  </footer>
+</div>
+<script>
+  document.getElementById('lang').addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+    document.documentElement.setAttribute('data-lang', next);
+    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+    try { localStorage.setItem('om-lang', next); } catch (e) {}
+  });
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-copy');
+      var done = function () { var t = b.innerHTML; b.textContent = '✓'; setTimeout(function () { b.innerHTML = t; }, 1200); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
+    });
+  });
+</script>
+</body>
+</html>
