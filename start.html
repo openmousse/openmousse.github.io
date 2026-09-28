@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get started · OpenMousse</title>
+<meta name="description" content="Install OpenMousse on your own server, connect your iPhone, bring your data in and build your first Agent. Step by step.">
+<meta property="og:title" content="Get started · OpenMousse">
+<meta property="og:description" content="From zero to your first message on your phone: server, phone, data, first Agent.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/start.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icon.png">
+<script>
+  // Language: saved choice, else the browser's (zh* → 中文, anything else → English).
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('om-lang'); } catch (e) {}
+    var lang = saved || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  })();
+</script>
+<style>
+  :root {
+    --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3;
+    --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --cyan: #0F7A93; --cyan-soft: #DAF0F5;
+    --radius: 18px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+      --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+    --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+  html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
+  a { color: var(--cyan); text-decoration: none; } a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--ink); }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .top nav { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .top nav a { color: var(--ink2); }
+  .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+
+  .hero { padding: 48px 0 24px; text-align: center; }
+  .eyebrow { display: inline-block; font-size: 13px; letter-spacing: .04em; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 12px; }
+  h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.12; letter-spacing: -.02em; margin: 18px auto 14px; max-width: 16em; text-wrap: balance; }
+  .nw { display: inline-block; white-space: nowrap; }
+  .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--ink2); max-width: 40em; margin: 0 auto; text-wrap: pretty; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn:hover { text-decoration: none; filter: brightness(1.05); }
+  .soon { font-size: 14px; color: var(--ink2); margin-top: 6px; }
+
+  .shots { display: flex; gap: 22px; justify-content: center; align-items: flex-start; padding: 36px 0 12px; }
+  .phone { width: min(30%, 280px); border-radius: 36px; padding: 8px; background: #111; box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); }
+  .phone img { display: block; width: 100%; border-radius: 28px; }
+  .phone picture { display: block; }
+  .phone.mid { transform: translateY(-18px); }
+
+  section { padding: 56px 0; }
+  h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.01em; margin: 0 0 12px; }
+  .sub { color: var(--ink2); max-width: 44em; margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; }
+  .card p { margin: 0; color: var(--ink2); }
+  .card .dir { display: inline-block; margin-bottom: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface2);
+               color: var(--ink2); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  .how { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; align-items: center; gap: 12px; margin: 34px 0 0; }
+  .how .node { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; text-align: center; }
+  .how .node.home { background: var(--cyan-soft); border-color: var(--cyan); }
+  .how .node b { display: block; font-size: 16px; }
+  .how .node span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+  .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
+  .how .arrow svg { display: block; width: 100%; height: 100%; }
+  .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
+
+  .chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  /* Wide screens: the conversation on the left, the Agent's plan beside it. Narrow: the plan sits inline, between the two halves. */
+  .build { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 10px 24px; }
+  .build > .thread { grid-column: 1; }
+  .build > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  .thread { display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
+  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
+  .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
+  .msg.done strong { display: block; margin-bottom: 2px; }
+  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .plan-title { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .plan dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .plan dt { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; font-size: 15px; font-weight: 600; }
+  .plan dt::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-fill); }
+  .plan dd { margin: 0 0 0 15px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
+  .plan ul { margin: 0; padding: 0; list-style: none; }
+  .plan li + li { margin-top: 3px; }
+  .plan b { color: var(--ink); font-weight: 600; }
+  .ideas-label { margin: 28px 0 12px; color: var(--ink2); font-size: 15px; }
+  .ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .idea b { display: block; font-size: 16px; }
+  .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+
+  .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .act .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .act h3 { margin: 0; font-size: 19px; }
+  .act dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; line-height: 1.55; }
+  .act dt { color: var(--ink2); font-weight: 600; white-space: nowrap; }
+  .act dd { margin: 0; }
+  .bubble { margin: auto 0 0; background: var(--surface2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15px; line-height: 1.55; }
+  .bubble small { display: block; margin-bottom: 3px; color: var(--ink2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
+  .flow li { margin: 6px 0; }
+
+  pre { margin: 0; overflow-x: auto; padding-right: 64px; }
+  .code { position: relative; background: #0B0D10; color: #ECEEF0; border-radius: 14px; padding: 18px 20px; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
+  .steps { color: var(--ink2); margin-top: 16px; }
+
+  .why h2 { font-size: clamp(22px, 2.8vw, 26px); }
+  .why p { max-width: 44em; }
+  .why p + p { margin-top: 12px; }
+
+  .note { background: var(--cyan-soft); border-radius: var(--radius); padding: 20px 24px; color: var(--ink); }
+  .note p { margin: 0; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--ink2); font-size: 15px; }
+  footer .row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; }
+
+  @media (max-width: 760px) {
+    .top nav a.hide-sm { display: none; }
+    .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
+    .build { grid-template-rows: none; }
+    .build > .thread, .build > .plan { grid-column: auto; grid-row: auto; }
+    .plan { padding: 14px; }
+    .ideas { grid-template-columns: 1fr 1fr; }
+    .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
+    .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
+    .phone img { border-radius: 24px; }
+    .phone.mid { transform: none; }
+    .how { grid-template-columns: 1fr; }
+    .how .arrow { justify-self: center; transform: rotate(90deg); }
+    .code { padding: 14px 12px 50px; font-size: clamp(11px, 2.9vw, 14px); }
+    pre { padding-right: 0; }
+    .copy { top: auto; bottom: 10px; right: 10px; }
+    section { padding: 40px 0; }
+  }
+</style>
+<style>
+  /* start.html only */
+  .guide-hero { padding: 40px 0 8px; }
+  .guide-hero h1 { max-width: 18em; }
+  .toc { list-style: none; margin: 28px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 900px; }
+  .toc a { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 15px; }
+  .toc a:hover { text-decoration: none; border-color: var(--ink2); }
+  .toc b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); font-size: 12px; }
+  .step { display: grid; grid-template-columns: 56px 1fr; gap: 0 20px; padding: 44px 0; border-top: 1px solid var(--line); }
+  .step:first-of-type { border-top: 0; }
+  .step .num { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 700; font-size: 19px; }
+  .step h2 { margin-top: 4px; }
+  .step p { max-width: 46em; margin: 0 0 14px; }
+  .step .code { margin: 6px 0 16px; max-width: 46em; }
+  .need { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 900px; }
+  .need li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; color: var(--ink2); font-size: 16px; }
+  .need li b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 2px; }
+  .seq { margin: 0 0 16px; padding-left: 22px; max-width: 46em; }
+  .seq > li { margin: 0 0 12px; padding-left: 4px; }
+  .seq > li::marker { color: var(--gold); font-weight: 700; }
+  .seq .code { margin: 10px 0 4px; }
+  .tip { background: var(--gold-soft); border-radius: 14px; padding: 14px 18px; max-width: 46em; margin: 0 0 14px; }
+  .muted { color: var(--ink2); font-size: 15px; }
+  code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--surface2); border-radius: 6px; padding: 1px 6px; }
+  .code code { background: none; padding: 0; font: inherit; }
+  .bring { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 900px; margin: 6px 0 16px; }
+  .bring .card p + p { margin-top: 10px; }
+  .bring .code { margin: 12px 0 0; }
+  .bring .code pre { white-space: pre-wrap; }
+  .says { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+  .says span.q { background: var(--ink); color: var(--bg); border-radius: 16px 16px 4px 16px; padding: 8px 14px; font-size: 15px; }
+  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; max-width: 900px; margin: 0 0 10px; }
+  .faq summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style-position: outside; }
+  .faq details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  .faq details p { margin: 0 0 14px; color: var(--ink2); }
+  .faq details .code { margin: 0 0 14px; }
+  @media (max-width: 760px) {
+    .step { grid-template-columns: 1fr; padding: 34px 0; }
+    .step .num { margin-bottom: 10px; width: 38px; height: 38px; font-size: 17px; }
+    .need, .bring { grid-template-columns: 1fr; }
+    .toc { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><img src="assets/icon.png" alt="">OpenMousse</a>
+    <nav>
+      <a class="hide-sm" href="index.html#what"><span lang="en">What it is</span><span lang="zh">是什么</span></a>
+      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
+      <a class="hide-sm" href="start.html" aria-current="page"><span lang="en">Get started</span><span lang="zh">新手指南</span></a>
+      <a href="https://github.com/openmousse/openmousse">GitHub</a>
+      <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
+    </nav>
+  </header>
+
+  <div class="hero guide-hero">
+    <span class="eyebrow"><span lang="en">Getting started</span><span lang="zh">新手指南</span></span>
+    <h1><span lang="en">From zero to your first message on your phone</span><span lang="zh"><span class="nw">从零开始，</span><span class="nw">到在手机上跟它说第一句话</span></span></h1>
+    <p class="lede">
+      <span lang="en">OpenMousse starts empty: there are no preset Agents, and it builds whatever you ask for. Work through the six steps below, one at a time.</span>
+      <span lang="zh">OpenMousse 一开始是空的：没有预设的 Agent，你说要什么，它就建什么。按下面六步走，每一步做完再往下。</span>
+    </p>
+    <ol class="toc">
+      <li><a href="#need"><b>1</b><span lang="en">What you need</span><span lang="zh">准备好这几样</span></a></li>
+      <li><a href="#install"><b>2</b><span lang="en">Install the server</span><span lang="zh">装服务</span></a></li>
+      <li><a href="#reach"><b>3</b><span lang="en">Reach it from your phone</span><span lang="zh">让手机连得上</span></a></li>
+      <li><a href="#app"><b>4</b><span lang="en">Install the app</span><span lang="zh">装 app，连上</span></a></li>
+      <li><a href="#data"><b>5</b><span lang="en">Bring your data in</span><span lang="zh">把你的数据带进来</span></a></li>
+      <li><a href="#first"><b>6</b><span lang="en">Say the first thing</span><span lang="zh">跟它说第一件事</span></a></li>
+      <li><a href="#faq"><b>?</b><span lang="en">FAQ</span><span lang="zh">常见问题</span></a></li>
+    </ol>
+  </div>
+
+  <section class="step" id="need">
+    <div class="num">1</div>
+    <div>
+      <h2><span lang="en">What you need</span><span lang="zh">准备好这几样</span></h2>
+      <ul class="need">
+        <li><b><span lang="en">A Linux machine that stays on</span><span lang="zh">一台一直开着的 Linux 机器</span></b><span lang="en">A small box at home or a VPS. Ubuntu or Debian is easiest; it needs systemd, git and Python 3.11 or newer.</span><span lang="zh">家里的小主机或者一台 VPS 都行。Ubuntu / Debian 最省事，要有 systemd、git 和 Python 3.11 以上。</span></li>
+        <li><b><span lang="en">OpenClaw, set up</span><span lang="zh">装好 OpenClaw</span></b><span lang="en"><code>openclaw onboard</code> done, the Gateway running, a model configured. The model runs on your own account (a Claude or ChatGPT subscription, or an API key), set up in OpenClaw. <a href="https://openclaw.ai">openclaw.ai →</a></span><span lang="zh">跑过 <code>openclaw onboard</code>，Gateway 在跑，模型配好了。模型用你自己的账号（Claude 或 ChatGPT 的订阅，或者 API key），在 OpenClaw 里配。<a href="https://openclaw.ai">openclaw.ai →</a></span></li>
+        <li><b><span lang="en">An iPhone</span><span lang="zh">一部 iPhone</span></b><span lang="en">The app runs there and gets notifications when your Agents have something for you.</span><span lang="zh">app 装在上面，Agent 有事会推送到这里。</span></li>
+        <li><b><span lang="en">A Tailscale account</span><span lang="zh">一个 Tailscale 账号</span></b><span lang="en">Free. It lets your phone reach the server from anywhere without opening it to the internet. <a href="https://tailscale.com">tailscale.com →</a></span><span lang="zh">免费。手机在哪都能连上你的服务器，又不用把服务器暴露到公网。<a href="https://tailscale.com">tailscale.com →</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="step" id="install">
+    <div class="num">2</div>
+    <div>
+      <h2><span lang="en">Install the server</span><span lang="zh">装服务</span></h2>
+      <p><span lang="en">On the server, run:</span><span lang="zh">在服务器上跑这一条：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
+      <p><span lang="en">It asks four questions: language, where OpenClaw lives (the folder with <code>openclaw.json</code>, usually <code>~/.openclaw</code>), your time zone, and what to call the assistant. Then it sets up the server, the memory tree and the nightly digest, and adds a few rules and skills to your OpenClaw. It backs up <code>openclaw.json</code> before changing it, checks it afterwards, and restarts the Gateway (or tells you to).</span><span lang="zh">它会问四个问题：语言、OpenClaw 装在哪（有 <code>openclaw.json</code> 的那个文件夹，一般是 <code>~/.openclaw</code>）、你的时区、助手叫什么。然后装好服务、世界树和每晚的日结，给你的 OpenClaw 加上几条规矩和 skill。改 <code>openclaw.json</code> 之前先备份，改完检查一遍，再重启 Gateway（重启不了会提示你）。</span></p>
+      <div class="tip"><span lang="en">At the end it prints the server address and a <strong>phone token, shown only once</strong>. Copy it somewhere; you'll need it in step 4.</span><span lang="zh">最后会打印服务地址和一个<strong>手机令牌，只显示这一次</strong>。先复制下来，第 4 步要用。</span></div>
+    </div>
+  </section>
+
+  <section class="step" id="reach">
+    <div class="num">3</div>
+    <div>
+      <h2><span lang="en">Reach it from your phone</span><span lang="zh">让手机连得上</span></h2>
+      <p><span lang="en">Unless the machine is already on Tailscale, the server only listens on the machine itself at first. The easiest way in is Tailscale:</span><span lang="zh">机器还没在 Tailscale 里的话，服务一开始只听本机，外面连不上。最省事的是 Tailscale：</span></p>
+      <ol class="seq">
+        <li><span lang="en">Install Tailscale on the server and sign in:</span><span lang="zh">服务器上装 Tailscale，登录：</span>
+          <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up</pre></div></li>
+        <li><span lang="en">On the iPhone, install Tailscale from the App Store and sign in with the same account.</span><span lang="zh">iPhone 上从 App Store 装 Tailscale，登同一个账号。</span></li>
+        <li><span lang="en">Run the install command from step 2 again. It moves the server onto the Tailscale address and tells you what to enter in the app, something like <code>http://100.x.y.z:8080</code>.</span><span lang="zh">再跑一遍第 2 步的安装命令。它会改成听 Tailscale 地址，并告诉你 app 里填什么，像 <code>http://100.x.y.z:8080</code> 这样。</span></li>
+      </ol>
+      <p class="muted"><span lang="en">If the server was already on Tailscale in step 2, the installer used that address straight away and only the phone side is left. Rather not use Tailscale? Put <code>127.0.0.1:8080</code> behind HTTPS with Caddy, nginx or <code>tailscale serve</code>, and enter that address in the app.</span><span lang="zh">第 2 步时服务器已经在 Tailscale 里的话，安装器直接就用了这个地址，只剩手机那一头。不想用 Tailscale：用 Caddy、nginx 或 <code>tailscale serve</code> 把 <code>127.0.0.1:8080</code> 反代成 HTTPS，app 里填那个地址。</span></p>
+    </div>
+  </section>
+
+  <section class="step" id="app">
+    <div class="num">4</div>
+    <div>
+      <h2><span lang="en">Install the app and connect</span><span lang="zh">装 app，连上</span></h2>
+      <ol class="seq">
+        <li><span lang="en">Install OpenMousse with TestFlight. The public link goes here when it opens; until then, ask for an invite in <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a>. You can also build <code>app/</code> yourself (it needs an Apple developer account).</span><span lang="zh">用 TestFlight 装 OpenMousse。公开测试链接开放后放在这里；在那之前，到 <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a> 留言要邀请。也可以自己构建 <code>app/</code>（要 Apple 开发者账号）。</span></li>
+        <li><span lang="en">Open the app. On the connect screen, enter the <strong>Server address</strong> from step 3 and, as the <strong>Access token</strong>, the phone token from step 2.</span><span lang="zh">打开 app，在连接页填<strong>服务器地址</strong>（第 3 步给的）和<strong>接入令牌</strong>（第 2 步的手机令牌）。</span></li>
+        <li><span lang="en">Allow notifications. Your Agents come to you when something changes.</span><span lang="zh">允许通知。Agent 看到变化会来找你。</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="step" id="data">
+    <div class="num">5</div>
+    <div>
+      <h2><span lang="en">Bring your data in</span><span lang="zh">把你的数据带进来</span></h2>
+      <p><span lang="en">At first it knows nothing about you. Each of these helps it catch up. Skip any of them and come back later.</span><span lang="zh">它一开始对你一无所知。下面几样能让它快点认识你，每一样都能跳过、以后再做。</span></p>
+      <div class="bring">
+        <div class="card">
+          <h3><span lang="en">Move your memories from other AIs</span><span lang="zh">从别的 AI 搬记忆</span></h3>
+          <p><span lang="en">Send this to ChatGPT, Claude and Gemini, then paste each answer into the main chat. It files what it learns into your memory tree, which you can review and prune under Me → Memory tree.</span><span lang="zh">在 ChatGPT、Claude、Gemini 里各发一次下面这段话，把回答整段贴到主对话里。它会整理进你的世界树，在「我 → 世界树」里能看、能删。</span></p>
+          <div class="code" lang="en"><button class="copy" type="button" data-copy="List everything you remember about me, one item per line: my background, what I'm working on, my habits and preferences, and decisions I've made. Facts only, no commentary.">Copy</button><pre>List everything you remember about me, one item per line: my background, what I'm working on, my habits and preferences, and decisions I've made. Facts only, no commentary.</pre></div>
+          <div class="code" lang="zh"><button class="copy" type="button" data-copy="把你记得的关于我的事，逐条列出来：我的背景、在做的事、习惯和偏好、定过的决定。只列事实，不要评价。">复制</button><pre>把你记得的关于我的事，逐条列出来：我的背景、在做的事、习惯和偏好、定过的决定。只列事实，不要评价。</pre></div>
+        </div>
+        <div class="card">
+          <h3><span lang="en">Let it interview you</span><span lang="zh">让它问你</span></h3>
+          <p><span lang="en">In the main chat, say “Ask me a few questions to get to know me.” It asks a few at a time and remembers your answers.</span><span lang="zh">在主对话里说「问我几个问题，认识一下我」。它一次问几个，你答完它就记下来。</span></p>
+        </div>
+        <div class="card">
+          <h3><span lang="en">Apple Health</span><span lang="zh">Apple 健康</span></h3>
+          <p><span lang="en">Once connected, the app asks to read Apple Health. Allow it and the first sync reads back a year: sleep, heart rate, steps, workouts and more. Sleep reports and the recovery score come from here. Say no and everything else still works.</span><span lang="zh">连上以后，app 会请你授权读取 Apple 健康。允许的话，第一次同步往回读一年：睡眠、心率、步数、训练等等，睡眠报告和恢复分就从这里算。不允许也能用，只是这几样没有数据。</span></p>
+        </div>
+        <div class="card">
+          <h3><span lang="en">Files</span><span lang="zh">文件</span></h3>
+          <p><span lang="en">PDFs, Word files, spreadsheets, slides and photos: send them in the chat and it reads them.</span><span lang="zh">PDF、Word、表格、PPT、照片，在对话里直接发，它会读。</span></p>
+        </div>
+      </div>
+      <p><span lang="en">Later, each time you build an Agent, it first tells you what data that Agent will keep and where it comes from.</span><span lang="zh">之后每建一个 Agent，它都会先告诉你这个 Agent 要记哪些数据、从哪来。</span></p>
+    </div>
+  </section>
+
+  <section class="step" id="first">
+    <div class="num">6</div>
+    <div>
+      <h2><span lang="en">Say the first thing</span><span lang="zh">跟它说第一件事</span></h2>
+      <p><span lang="en">There are no preset Agents. In the main chat, say what you want looked after, for example:</span><span lang="zh">这里没有预设的 Agent。在主对话里说一句你想让它管什么，比如：</span></p>
+      <div class="says" lang="en"><span class="q">Help me sleep better</span><span class="q">I'm preparing for the GRE</span><span class="q">Track my spending</span><span class="q">Keep an eye on my visa paperwork</span></div>
+      <div class="says" lang="zh"><span class="q">帮我把睡眠调好</span><span class="q">我在准备 GRE</span><span class="q">帮我记账</span><span class="q">盯着我的签证材料</span></div>
+      <p><span lang="en">It asks a few questions, then proposes a setup: what data to keep, what to connect, what goes on its dashboard, and how it works with your other Agents. Say yes and it's built. Not sure yet? When you add an Agent, tap “Not sure yet? Talk it through”.</span><span lang="zh">它会先问几个问题，再给你一份方案：记哪些数据、接哪些渠道、看板放什么、和别的 Agent 怎么配合。你点同意，它就建好。还没想好？新建 Agent 时点「还没想好？先聊聊」。</span></p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <h2><span lang="en">FAQ</span><span lang="zh">常见问题</span></h2>
+    <details>
+      <summary><span lang="en">I lost the phone token</span><span lang="zh">手机令牌丢了</span></summary>
+      <p><span lang="en">Make a new one on the server. It is also shown only once:</span><span lang="zh">在服务器上生成一个新的，同样只显示一次：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2</pre></div>
+    </details>
+    <details>
+      <summary><span lang="en">The app can't connect</span><span lang="zh">app 连不上</span></summary>
+      <p><span lang="en">Check three things: Tailscale is on and signed in to the same account on both the server and the phone; the address in the app is the one the installer printed (<code>http://100.…:8080</code>, not <code>127.0.0.1</code>); and the server is running:</span><span lang="zh">看三样：服务器和手机上的 Tailscale 都开着、登的是同一个账号；app 里填的是安装器最后给的地址（<code>http://100.…:8080</code>，不是 <code>127.0.0.1</code>）；服务在跑：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="systemctl --user status openmousse-server"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>systemctl --user status openmousse-server
+journalctl --user -u openmousse-server -f</pre></div>
+    </details>
+    <details>
+      <summary><span lang="en">The installer says venv is missing</span><span lang="zh">安装时说缺 venv</span></summary>
+      <p><span lang="en">On Ubuntu or Debian, install it and run the install command again:</span><span lang="zh">Ubuntu / Debian 上装一下，再跑一遍安装命令：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="sudo apt install python3-venv"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>sudo apt install python3-venv</pre></div>
+    </details>
+    <details>
+      <summary><span lang="en">The server stops when I log out</span><span lang="zh">一登出，服务就停了</span></summary>
+      <p><span lang="en">Let your user services keep running after you log out (the installer tries this and tells you if it couldn't):</span><span lang="zh">让你的用户服务在登出后继续跑（安装器会试着开，开不了会提示）：</span></p>
+      <div class="code"><button class="copy" type="button" data-copy="sudo loginctl enable-linger $USER"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>sudo loginctl enable-linger $USER</pre></div>
+    </details>
+    <details>
+      <summary><span lang="en">How do I update?</span><span lang="zh">怎么更新</span></summary>
+      <p><span lang="en">Run the install command again. It pulls the latest code, fills in anything missing and restarts the server. Your data stays as it is.</span><span lang="zh">再跑一遍安装命令。它会拉最新的代码、补上缺的，再重启服务；你的数据不动。</span></p>
+    </details>
+    <details>
+      <summary><span lang="en">Can I change the model?</span><span lang="zh">能换模型吗</span></summary>
+      <p><span lang="en">Yes. Each chat can use its own model (top right of the chat). The default model and the fallback order live in OpenClaw; Me → Models &amp; billing in the app shows what's in use.</span><span lang="zh">能。每个对话右上角能单独换；默认模型和回退顺序在 OpenClaw 里配，app 里「我 → 模型与计费」能看到现在用的是什么。</span></p>
+    </details>
+    <details>
+      <summary><span lang="en">Where is my data?</span><span lang="zh">数据存在哪</span></summary>
+      <p><span lang="en">On your server: the app's data in <code>~/.openmousse/data</code>, the memory tree in <code>~/.mousse-tree</code>, and each Agent's memory in its OpenClaw workspace. What leaves your machine, and why, is in the <a href="privacy.html">privacy policy</a>.</span><span lang="zh">都在你的服务器上：app 的数据在 <code>~/.openmousse/data</code>，世界树在 <code>~/.mousse-tree</code>，每个 Agent 的记忆在它的 OpenClaw 工作区里。哪些会离开你的机器、为什么，见<a href="privacy.html">隐私政策</a>。</span></p>
+    </details>
+    <details>
+      <summary><span lang="en">Can Claude and ChatGPT use the same memory?</span><span lang="zh">能让 Claude、ChatGPT 也用同一份记忆吗</span></summary>
+      <p><span lang="en">Yes, through the memory tree. It needs a public HTTPS address before Claude.ai and ChatGPT can reach it; the steps are in the <a href="https://github.com/openmousse/openmousse/tree/main/tree">memory tree README</a>.</span><span lang="zh">能，靠世界树。它要有一个公网 HTTPS 地址，Claude.ai 和 ChatGPT 才连得上；步骤见<a href="https://github.com/openmousse/openmousse/tree/main/tree">世界树的说明</a>。</span></p>
+    </details>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>OpenMousse · MIT · © 2026 Leo Zhou</span>
+      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="index.html"><span lang="en">Home</span><span lang="zh">首页</span></a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a></span>
+    </div>
+  </footer>
+</div>
+<script>
+  document.getElementById('lang').addEventListener('click', function () {
+    var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+    document.documentElement.setAttribute('data-lang', next);
+    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
+    try { localStorage.setItem('om-lang', next); } catch (e) {}
+  });
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-copy');
+      var done = function () { var t = b.innerHTML; b.textContent = '✓'; setTimeout(function () { b.innerHTML = t; }, 1200); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
+    });
+  });
+</script>
+</body>
+</html>
