@@ -195,6 +195,7 @@
   .bring .card p + p { margin-top: 10px; }
   .bring .code { margin: 12px 0 0; }
   .bring .code pre { white-space: pre-wrap; }
+  .bring .wide { grid-column: 1 / -1; }
   .says { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
   .says span.q { background: var(--ink); color: var(--bg); border-radius: 16px 16px 4px 16px; padding: 8px 14px; font-size: 15px; }
   .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; max-width: 900px; margin: 0 0 10px; }
@@ -316,6 +317,11 @@
           <h3><span lang="en">Files</span><span lang="zh">文件</span></h3>
           <p><span lang="en">PDFs, Word files, spreadsheets, slides and photos: send them in the chat and it reads them.</span><span lang="zh">PDF、Word、表格、PPT、照片，在对话里直接发，它会读。</span></p>
         </div>
+        <div class="card wide">
+          <h3><span lang="en">Let your other AIs share this memory</span><span lang="zh">让你别的 AI 也用这份记忆</span></h3>
+          <p><span lang="en">Claude, ChatGPT, Gemini, DeepSeek, Qwen, Kimi: anything that speaks MCP can connect to your memory tree. In the app, open Me → Memory tree → Connect your AI. Each AI gets its own address and a few steps; paste the one-line instruction into its custom instructions and it reads the tree before answering and writes back what you tell it about yourself. Whatever you mention in one of them, the others know too.</span><span lang="zh">Claude、ChatGPT、Gemini、DeepSeek、通义千问、Kimi，支持 MCP 的都能接到你的世界树。在 app 里打开「我 → 世界树 → 接到你的 AI」：每个 AI 一个地址，照着几步接上，再把那一句指令贴进它的自定义指令。之后它回答前会先读这棵树，你说起自己的新事它会写回来；在哪边说过的，别的都知道。</span></p>
+          <p><span lang="en">These apps connect from their own clouds, so the tree needs a public HTTPS address first: answer yes when the installer asks, or follow the steps the app shows.</span><span lang="zh">它们是从自己的云来连的，所以世界树先要有一个公网 HTTPS 地址：安装时问到就回答要，或者照 app 里的提示开。</span></p>
+        </div>
       </div>
       <p><span lang="en">Later, each time you build an Agent, it first tells you what data that Agent will keep and where it comes from.</span><span lang="zh">之后每建一个 Agent，它都会先告诉你这个 Agent 要记哪些数据、从哪来。</span></p>
     </div>
@@ -368,8 +374,8 @@ journalctl --user -u openmousse-server -f</pre></div>
       <p><span lang="en">On your server: the app's data in <code>~/.openmousse/data</code>, the memory tree in <code>~/.mousse-tree</code>, and each Agent's memory in its OpenClaw workspace. What leaves your machine, and why, is in the <a href="privacy.html">privacy policy</a>.</span><span lang="zh">都在你的服务器上：app 的数据在 <code>~/.openmousse/data</code>，世界树在 <code>~/.mousse-tree</code>，每个 Agent 的记忆在它的 OpenClaw 工作区里。哪些会离开你的机器、为什么，见<a href="privacy.html">隐私政策</a>。</span></p>
     </details>
     <details>
-      <summary><span lang="en">Can Claude and ChatGPT use the same memory?</span><span lang="zh">能让 Claude、ChatGPT 也用同一份记忆吗</span></summary>
-      <p><span lang="en">Yes, through the memory tree. It needs a public HTTPS address before Claude.ai and ChatGPT can reach it; the steps are in the <a href="https://github.com/openmousse/openmousse/tree/main/tree">memory tree README</a>.</span><span lang="zh">能，靠世界树。它要有一个公网 HTTPS 地址，Claude.ai 和 ChatGPT 才连得上；步骤见<a href="https://github.com/openmousse/openmousse/tree/main/tree">世界树的说明</a>。</span></p>
+      <summary><span lang="en">Can ChatGPT, DeepSeek and the rest use the same memory?</span><span lang="zh">能让 ChatGPT、DeepSeek 这些也用同一份记忆吗</span></summary>
+      <p><span lang="en">Yes, any AI that speaks MCP, through the memory tree. The app walks you through it under Me → Memory tree → Connect your AI; when an app's web version can't add custom MCP servers yet (Qwen, Kimi), use its command-line tool (Qwen Code, Kimi Code) or any MCP client set up with its model. Details are in the <a href="https://github.com/openmousse/openmousse/tree/main/tree">memory tree README</a>.</span><span lang="zh">能，支持 MCP 的都行，靠世界树。app 里「我 → 世界树 → 接到你的 AI」会一步步带你接；网页版还不能加自定义 MCP 的（通义千问、Kimi），用它家的命令行工具（Qwen Code、Kimi Code），或者任何支持 MCP 的客户端配上它的模型。细节见<a href="https://github.com/openmousse/openmousse/tree/main/tree">世界树的说明</a>。</span></p>
     </details>
   </section>
 
