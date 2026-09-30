@@ -4,13 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenMousse · a personal assistant app for your claw</title>
-<meta name="description" content="OpenMousse turns your claw into a personal assistant on your phone: Agents you build for your own needs, acting on your own data, and one memory that Claude, ChatGPT and Gemini share. Open source, self-hosted.">
+<meta name="description" content="OpenMousse turns the claw on your own server into a personal assistant on your phone: Agents you build for each part of your life, that come to you when something changes, share one memory with every AI you use, and ask before doing anything you can't undo. Open source, self-hosted.">
 <meta property="og:title" content="OpenMousse">
-<meta property="og:description" content="Turn your claw into a personal assistant on your phone. Open source, self-hosted, one memory for every AI.">
+<meta property="og:description" content="Turn your claw into a personal assistant on your phone. Agents for your life, one memory for every AI, nothing irreversible without your OK. Open source, self-hosted.">
 <meta property="og:image" content="https://openmousse.ai/assets/og.png">
 <meta property="og:url" content="https://openmousse.ai/">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1F3F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0D10" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
 <script>
   // Language: saved choice, else the browser's (zh* → 中文, anything else → English).
   (function () {
@@ -22,366 +25,929 @@
   })();
 </script>
 <style>
+  /* Colors are the app's own (app/src/theme.tsx): ink field, gold ring = the assistant, cyan = data and progress. */
   :root {
-    --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3;
-    --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --cyan: #0F7A93; --cyan-soft: #DAF0F5;
-    --radius: 18px;
+    --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --ink3: #646C76; --line: #DCE0E3;
+    --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --on-gold: #2A1E06;
+    --cyan: #0F7A93; --cyan-soft: #DAF0F5; --dot: #5CCFE6;
+    --good: #22794F; --good-soft: #DDF1E7; --warn: #9A6408; --warn-soft: #FAEBCF;
+    --field: #14171C; --field2: #1E2329; --field-ink: #ECEEF0; --field-ink2: #98A1AB; --field-line: #2A3038;
+    --t-cyan: #0C6F86; --t-cyan-bg: #DAF0F5; --t-gold: #8A5F12; --t-gold-bg: #F5EAD3;
+    --t-green: #20744B; --t-green-bg: #DDF1E7; --t-purple: #6A4BA8; --t-purple-bg: #ECE6F7;
+    --t-pink: #A83A6B; --t-pink-bg: #F8E3EC; --t-orange: #A04F18; --t-orange-bg: #FBE6D6;
+    --shadow: 0 1px 2px rgb(16 18 22 / .05), 0 14px 34px -20px rgb(16 18 22 / .30);
+    --glass: rgb(241 243 244 / .84);
+    --r: 20px; --header-h: 60px;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    --sans-zh: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+      --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --ink3: #858E98; --line: #252A31;
       --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+      --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F;
+      --field: #050607; --field2: #14171C; --field-line: #252A31;
+      --t-cyan: #5CCFE6; --t-cyan-bg: #10303A; --t-gold: #DDB56A; --t-gold-bg: #30271A;
+      --t-green: #55C795; --t-green-bg: #12301F; --t-purple: #B9A4F4; --t-purple-bg: #29213F;
+      --t-pink: #F291BC; --t-pink-bg: #3A1A2A; --t-orange: #F2A56E; --t-orange-bg: #3A2416;
+      --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 14px 34px -20px rgb(0 0 0 / .9);
+      --glass: rgb(11 13 16 / .8);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
+    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --ink3: #858E98; --line: #252A31;
     --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+    --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F;
+    --field: #050607; --field2: #14171C; --field-line: #252A31;
+    --t-cyan: #5CCFE6; --t-cyan-bg: #10303A; --t-gold: #DDB56A; --t-gold-bg: #30271A;
+    --t-green: #55C795; --t-green-bg: #12301F; --t-purple: #B9A4F4; --t-purple-bg: #29213F;
+    --t-pink: #F291BC; --t-pink-bg: #3A1A2A; --t-orange: #F2A56E; --t-orange-bg: #3A2416;
+    --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 14px 34px -20px rgb(0 0 0 / .9);
+    --glass: rgb(11 13 16 / .8);
     color-scheme: dark;
   }
+
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  html[data-lang="zh"] body { font-family: var(--sans-zh); }
   html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
-  a { color: var(--cyan); text-decoration: none; } a:hover { text-decoration: underline; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-  header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--ink); }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 8px; }
+  img { max-width: 100%; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+  .nw { display: inline-block; white-space: nowrap; }
+  .ic { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.2em; }
+  .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  /* Header */
+  header.top { position: sticky; top: 0; z-index: 30; padding-top: env(safe-area-inset-top, 0px); background: var(--glass);
+               -webkit-backdrop-filter: saturate(1.5) blur(14px); backdrop-filter: saturate(1.5) blur(14px); border-bottom: 1px solid var(--line); }
+  header.top .wrap { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; letter-spacing: -.01em; color: var(--ink); }
+  .brand:hover { text-decoration: none; }
   .brand img { width: 30px; height: 30px; border-radius: 8px; }
-  .top nav { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .top nav { display: flex; align-items: center; gap: 22px; font-size: 15px; }
   .top nav a { color: var(--ink2); }
+  .top nav a:hover { color: var(--ink); text-decoration: none; }
   .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
 
-  .hero { padding: 48px 0 24px; text-align: center; }
-  .eyebrow { display: inline-block; font-size: 13px; letter-spacing: .04em; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 12px; }
-  h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.12; letter-spacing: -.02em; margin: 18px auto 14px; max-width: 16em; text-wrap: balance; }
-  .nw { display: inline-block; white-space: nowrap; }
-  .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--ink2); max-width: 40em; margin: 0 auto; text-wrap: pretty; }
-  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 8px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+  /* Hero */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 5vw, 64px); align-items: center;
+          padding-block: clamp(32px, 5vw, 64px) clamp(8px, 2vw, 24px); }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .03em; color: var(--t-gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 12px; }
+  h1 { font-size: clamp(36px, 4.9vw, 58px); line-height: 1.06; letter-spacing: -.03em; font-weight: 800; margin: 18px 0 16px; text-wrap: balance; }
+  .define { display: flex; align-items: baseline; gap: 10px; margin: 0 0 18px; font-size: 15.5px; line-height: 1.5; color: var(--ink2); }
+  .define b { flex: none; font: 600 13.5px/1.5 var(--mono); color: var(--t-gold); background: var(--gold-soft); padding: 1px 8px; border-radius: 6px; }
+  html[data-lang="zh"] h1 { letter-spacing: -.01em; line-height: 1.18; }
+  .lede { font-size: clamp(17px, 1.8vw, 20px); line-height: 1.6; color: var(--ink2); margin: 0; max-width: 32em; text-wrap: pretty; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 16px; line-height: 1.25;
+         border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+  .btn:hover { text-decoration: none; border-color: var(--ink3); }
   .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .btn:hover { text-decoration: none; filter: brightness(1.05); }
-  .soon { font-size: 14px; color: var(--ink2); margin-top: 6px; }
+  .btn.primary:hover { opacity: .88; }
+  .soon { font-size: 14px; color: var(--ink3); margin: 16px 0 0; }
+  .hero-art { position: relative; width: 100%; max-width: 500px; justify-self: center; aspect-ratio: 1 / 1.12; }
+  .halo { position: absolute; left: -8%; top: -4%; width: 116%; height: 108%; overflow: visible; pointer-events: none; }
+  .halo .h-ring { fill: none; stroke: var(--gold-fill); stroke-width: 5.5; opacity: .28; }
+  .halo .h-dot { fill: var(--dot); }
+  .phone { position: absolute; width: 47%; border-radius: clamp(22px, 3.4vw, 38px); padding: 2.2%; background: #0B0D10;
+           box-shadow: 0 36px 70px -34px rgb(0 0 0 / .6), inset 0 0 0 1px rgb(255 255 255 / .07); }
+  .phone picture, .phone img { display: block; width: 100%; }
+  .phone img { border-radius: clamp(17px, 2.7vw, 31px); }
+  .phone.back { left: 3%; top: 10%; transform: rotate(-6deg); }
+  .phone.front { right: 3%; top: 1%; transform: rotate(4deg); }
 
-  .shots { display: flex; gap: 22px; justify-content: center; align-items: flex-start; padding: 36px 0 12px; }
-  .phone { width: min(30%, 280px); border-radius: 36px; padding: 8px; background: #111; box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); }
-  .phone img { display: block; width: 100%; border-radius: 28px; }
-  .phone picture { display: block; }
-  .phone.mid { transform: translateY(-18px); }
+  /* Sections */
+  .sec { padding-block: clamp(44px, 6vw, 80px); scroll-margin-top: var(--header-h); }
+  .sec-head { max-width: 46rem; margin-bottom: clamp(28px, 4vw, 44px); }
+  h2 { font-size: clamp(28px, 3.6vw, 42px); line-height: 1.12; letter-spacing: -.022em; font-weight: 780; margin: 0 0 14px; text-wrap: balance; }
+  html[data-lang="zh"] h2 { letter-spacing: -.005em; line-height: 1.24; }
+  .sub { font-size: clamp(16.5px, 1.6vw, 18.5px); color: var(--ink2); margin: 0; max-width: 40em; text-wrap: pretty; }
+  h3 { font-size: 20px; line-height: 1.3; letter-spacing: -.01em; margin: 0 0 8px; }
 
-  section { padding: 56px 0; }
-  h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.01em; margin: 0 0 12px; }
-  .sub { color: var(--ink2); max-width: 44em; margin: 0 0 28px; }
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .grid.three { grid-template-columns: repeat(3, 1fr); }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .card h3 { margin: 0 0 8px; font-size: 19px; }
-  .card p { margin: 0; color: var(--ink2); }
-  .card .dir { display: inline-block; margin-bottom: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface2);
-               color: var(--ink2); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-
-  .how { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; align-items: center; gap: 12px; margin: 34px 0 0; }
-  .how .node { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; text-align: center; }
-  .how .node.home { background: var(--cyan-soft); border-color: var(--cyan); }
-  .how .node b { display: block; font-size: 16px; }
-  .how .node span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
-  .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
-  .how .arrow svg { display: block; width: 100%; height: 100%; }
-  .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
-
-  .chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
-  /* Wide screens: the conversation on the left, the Agent's plan beside it. Narrow: the plan sits inline, between the two halves. */
-  .build { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 10px 24px; }
-  .build > .thread { grid-column: 1; }
-  .build > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
+  /* Build an Agent */
+  .convo { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(16px, 2.4vw, 24px);
+           display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 12px 28px; }
+  .convo > .thread { grid-column: 1; }
+  .convo > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
   .thread { display: flex; flex-direction: column; gap: 10px; }
-  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
-  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
-  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
-  .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
-  .msg.done strong { display: block; margin-bottom: 2px; }
-  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
-  .plan-title { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--ink2); }
-  .plan dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
-  .plan dt { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; font-size: 15px; font-weight: 600; }
-  .plan dt::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-fill); }
-  .plan dd { margin: 0 0 0 15px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
-  .plan ul { margin: 0; padding: 0; list-style: none; }
-  .plan li + li { margin-top: 3px; }
+  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 18px; font-size: 15.5px; line-height: 1.5; text-wrap: pretty; }
+  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 5px; }
+  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 5px; }
+  .msg.done { align-self: stretch; max-width: none; background: var(--cyan-soft); border-bottom-left-radius: 5px; }
+  .msg.done strong { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .msg.done strong .ic { color: var(--cyan); }
+  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+  .plan-title { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; font-size: 14px; font-weight: 650; color: var(--t-gold); }
+  .plan dl { margin: 0; display: grid; gap: 14px; }
+  .plan dt { font-size: 15px; font-weight: 650; margin-bottom: 3px; }
+  .plan dd { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
+  .plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 3px; }
   .plan b { color: var(--ink); font-weight: 600; }
-  .ideas-label { margin: 28px 0 12px; color: var(--ink2); font-size: 15px; }
-  .ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
-  .idea b { display: block; font-size: 16px; }
-  .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+  .ideas-label { margin: 36px 0 14px; font-size: 15px; color: var(--ink2); }
+  .agents { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .agent { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .badge { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--tb); color: var(--tf); }
+  .badge .ic { width: 20px; height: 20px; }
+  .agent b { display: block; font-size: 16px; line-height: 1.3; }
+  .agent span span, .agent > span > span { display: block; }
+  .agent .what { display: block; margin-top: 3px; font-size: 14px; line-height: 1.45; color: var(--ink2); }
+  .t-cyan { --tb: var(--t-cyan-bg); --tf: var(--t-cyan); }
+  .t-gold { --tb: var(--t-gold-bg); --tf: var(--t-gold); }
+  .t-green { --tb: var(--t-green-bg); --tf: var(--t-green); }
+  .t-purple { --tb: var(--t-purple-bg); --tf: var(--t-purple); }
+  .t-pink { --tb: var(--t-pink-bg); --tf: var(--t-pink); }
+  .t-orange { --tb: var(--t-orange-bg); --tf: var(--t-orange); }
 
-  .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-  .act .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .act h3 { margin: 0; font-size: 19px; }
-  .act dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; line-height: 1.55; }
-  .act dt { color: var(--ink2); font-weight: 600; white-space: nowrap; }
-  .act dd { margin: 0; }
-  .bubble { margin: auto 0 0; background: var(--surface2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15px; line-height: 1.55; }
-  .bubble small { display: block; margin-bottom: 3px; color: var(--ink2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  /* A day: the dial is the app icon, its dot is the time of day */
+  .day { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: clamp(32px, 5vw, 64px); align-items: start; }
+  .dial-wrap { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 28px); }
+  .dial { position: relative; }
+  .dial svg { display: block; width: 100%; height: auto; }
+  .dial .face { fill: var(--field); stroke: var(--field-line); stroke-width: 1; }
+  .dial .ring { fill: none; stroke: var(--gold-fill); stroke-width: 11; }
+  .dial .quiet { fill: none; stroke: var(--field); stroke-width: 11; opacity: .5; }
+  .dial .tick { stroke: var(--field-ink2); stroke-width: 1.2; stroke-linecap: round; opacity: .5; }
+  .dial .tick.major { stroke-width: 1.8; opacity: .95; }
+  .dial .hour { fill: var(--field-ink2); font: 600 9px var(--sans); text-anchor: middle; dominant-baseline: central; }
+  .dial .notch { fill: var(--field); }
+  .dial .spot { fill: var(--dot); stroke: var(--field); stroke-width: 3; }
+  .dial .hand { transform-box: view-box; transform-origin: 110px 110px; transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
+  .dial-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+                 pointer-events: none; color: var(--field-ink); }
+  .dial-time { font: 700 clamp(26px, 2.6vw, 32px)/1 var(--sans); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .dial-title { margin-top: 8px; font-size: 13.5px; line-height: 1.35; color: var(--field-ink2); max-width: 8.5em; }
+  .dial-note { margin: 14px 4px 0; font-size: 13.5px; line-height: 1.5; color: var(--ink3); text-align: center; text-wrap: pretty; }
+  .moments { list-style: none; margin: 0; padding: 0; }
+  .moment { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px clamp(20px, 3vw, 36px); padding-block: 32px; border-top: 1px solid var(--line); }
+  .moment:first-child { border-top: 0; padding-top: 4px; }
+  .m-time { display: inline-flex; align-items: center; gap: 8px; font: 600 14px/1 var(--mono); color: var(--gold); font-variant-numeric: tabular-nums; }
+  .m-time::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold-fill); }
+  .moment.is-now .m-time { color: var(--cyan); }
+  .moment.is-now .m-time::before { background: var(--dot); }
+  .moment h3 { font-size: 22px; margin: 12px 0 8px; }
+  .moment p { margin: 0; }
+  .m-text > p { color: var(--ink2); font-size: 16px; line-height: 1.6; text-wrap: pretty; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; line-height: 1; padding: 6px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink2); }
+  .chip .ic { width: 14px; height: 14px; }
 
-  .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
-  .flow li { margin: 6px 0; }
+  /* App surfaces drawn in the app's own vernacular */
+  .ui-stack { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .ui { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; box-shadow: var(--shadow); font-size: 15px; line-height: 1.5; }
+  .n-head { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink3); }
+  .n-head img { width: 20px; height: 20px; border-radius: 5px; }
+  .n-app { font-weight: 600; color: var(--ink2); }
+  .n-when { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .n-title { font-weight: 650; margin-top: 8px; }
+  .tag, .pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; line-height: 1; padding: 5px 9px; border-radius: 999px; white-space: nowrap; }
+  .tag { background: var(--tb); color: var(--tf); }
+  .pill { background: var(--gold-soft); color: var(--t-gold); }
+  .tag .ic, .pill .ic { width: 13px; height: 13px; }
+  .ok-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .ok-title { font-weight: 650; font-size: 16px; margin: 10px 0 8px; }
+  .kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; margin: 0; font-size: 14.5px; }
+  .kv dt { color: var(--ink3); }
+  .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .why { display: flex; gap: 7px; align-items: flex-start; margin: 10px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--ink2); }
+  .why .ic { margin-top: 1px; width: 15px; height: 15px; color: var(--t-gold); }
+  .acts { display: flex; gap: 8px; margin-top: 12px; }
+  .b { flex: 1; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 9px 10px; font-size: 14.5px; font-weight: 600; line-height: 1.2; text-align: center; background: var(--surface2); color: var(--ink); }
+  .b.go { background: var(--gold-fill); color: var(--on-gold); }
+  .b.sm { flex: none; padding: 6px 11px; font-size: 13px; border-radius: 10px; }
+  .ui-stack > .msg.me { max-width: 90%; }
+  .who { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink3); margin-bottom: 6px; }
+  .who.mine { justify-content: flex-end; margin: 10px 0 6px; }
+  .av { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--tb); color: var(--tf); }
+  .ui .msg { font-size: 14.5px; max-width: 92%; }
+  .fchat { display: flex; flex-direction: column; }
+  .msg.agentmsg { align-self: flex-end; background: var(--gold-soft); color: var(--ink); border-bottom-right-radius: 5px; }
+  .foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--ink2); }
+  .foot .acts { margin: 0; gap: 6px; }
+  .checks { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+  .checks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 9px; font-size: 14.5px; line-height: 1.45; }
+  .checks .ic { width: 18px; height: 18px; margin-top: 1px; }
+  .checks .ok .ic { color: var(--good); }
+  .checks .miss .ic { color: var(--warn); }
+  .checks small { display: block; margin-top: 2px; color: var(--ink3); font-size: 12.5px; }
+  .pantry { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .pantry td { padding: 6px 0; border-top: 1px solid var(--line); }
+  .pantry td + td { text-align: right; color: var(--ink3); font-variant-numeric: tabular-nums; padding-left: 10px; white-space: nowrap; }
+  .digest { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 
-  pre { margin: 0; overflow-x: auto; padding-right: 64px; }
-  .code { position: relative; background: #0B0D10; color: #ECEEF0; border-radius: 14px; padding: 18px 20px; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
-  .steps { color: var(--ink2); margin-top: 16px; }
+  /* Two-column feature sections */
+  .split { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .split.rev { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); }
+  .points { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 16px; }
+  .points li { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 14px; }
+  .pi { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); color: var(--gold); }
+  .pi .ic { width: 19px; height: 19px; }
+  .points b { display: block; font-size: 16.5px; }
+  .points .d { display: block; margin-top: 2px; color: var(--ink2); font-size: 15.5px; line-height: 1.55; text-wrap: pretty; }
 
-  .why h2 { font-size: clamp(22px, 2.8vw, 26px); }
-  .why p { max-width: 44em; }
-  .why p + p { margin-top: 12px; }
+  /* Sentinel */
+  .sent { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1.25fr); align-items: center; }
+  .s-node { border-radius: 16px; padding: 14px; font-size: 14px; line-height: 1.45; }
+  .s-node b { display: flex; align-items: center; gap: 7px; font-size: 15.5px; margin-bottom: 4px; }
+  .s-node.box { background: var(--surface); border: 1.5px dashed var(--ink3); color: var(--ink2); }
+  .s-node.box b { color: var(--ink); }
+  .s-node.gate { background: var(--field); border: 1px solid var(--field-line); color: var(--field-ink2); }
+  .s-node.gate b { color: var(--field-ink); }
+  .s-node.gate .ic { color: var(--gold-fill); }
+  .s-arrow { display: grid; place-items: center; color: var(--ink3); }
+  .s-arrow svg { width: 26px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .s-arrow.down { display: none; }
+  .s-fork { position: relative; align-self: stretch; }
+  .s-fork::before { content: ""; position: absolute; left: 2px; width: 12px; top: 50%; border-top: 1.8px solid var(--ink3); }
+  .s-fork::after { content: ""; position: absolute; left: 14px; right: 2px; top: 25%; bottom: 25%; border: 1.8px solid var(--ink3); border-right: 0; border-radius: 9px 0 0 9px; }
+  .s-outs { display: grid; grid-auto-rows: 1fr; gap: 12px; }
+  .s-out { border-radius: 14px; padding: 12px 14px; font-size: 14px; line-height: 1.45; color: var(--ink2); }
+  .s-out b { display: flex; align-items: center; gap: 6px; font-size: 14.5px; margin-bottom: 3px; }
+  .s-out.pass { background: var(--good-soft); }
+  .s-out.pass b { color: var(--good); }
+  .s-out.hold { background: var(--gold-soft); }
+  .s-out.hold b { color: var(--t-gold); }
+  .s-cap { margin: 16px 0 0; font-size: 14px; color: var(--ink3); text-align: center; }
 
-  .note { background: var(--cyan-soft); border-radius: var(--radius); padding: 20px 24px; color: var(--ink); }
-  .note p { margin: 0; }
+  /* Memory tree */
+  .mem { display: flex; flex-direction: column; align-items: center; }
+  .mem-apps { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 30rem; }
+  .app-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .app-chip.mine { background: var(--gold-soft); border-color: transparent; color: var(--t-gold); }
+  .mem-link { display: flex; flex-direction: column; align-items: center; gap: 5px; padding-block: 8px; color: var(--ink3); font: 12.5px/1.2 var(--mono); }
+  .mem-link::before, .mem-link::after { content: ""; height: 16px; border-left: 1.5px dashed var(--ink3); }
+  .mem-core { display: flex; align-items: center; gap: 14px; background: var(--field); color: var(--field-ink); border: 1px solid var(--field-line); border-radius: 20px; padding: 12px 22px 12px 12px; }
+  .mem-core svg { width: 50px; height: 50px; flex: none; }
+  .mem-core b { display: block; font-size: 17px; }
+  .mem-core .s { display: block; font-size: 13.5px; color: var(--field-ink2); }
+  .lens-ring { fill: none; stroke: var(--gold-fill); }
+  .lens-dot { fill: var(--dot); }
+  .note { width: 100%; max-width: 30rem; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; font-size: 14.5px; }
+  .note-name { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); font: 12.5px/1.35 var(--mono); color: var(--ink3); }
+  .props { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; margin: 0; padding: 12px 14px; background: var(--bg); font-size: 13.5px; }
+  .props dt { color: var(--ink3); font: 12.5px/1.6 var(--mono); }
+  .props dd { margin: 0; }
+  .props .lnk { color: var(--t-purple); }
+  .note-body { padding: 12px 14px 14px; margin: 0; }
 
-  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--ink2); font-size: 15px; }
-  footer .row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; }
+  /* Also in the app */
+  .more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 0; list-style: none;
+          background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .feat { background: var(--surface); padding: 20px; }
+  .feat > .ic { width: 22px; height: 22px; color: var(--cyan); }
+  .feat b { display: block; margin: 12px 0 4px; font-size: 16px; }
+  .feat p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
 
-  @media (max-width: 760px) {
+  /* Yours */
+  .arch { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.6fr) 48px minmax(0, 1fr); align-items: center; }
+  .a-node { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; text-align: center; }
+  .a-node > .ic { width: 26px; height: 26px; color: var(--ink2); }
+  .a-node b { display: block; margin-top: 8px; font-size: 16px; }
+  .a-node .s { display: block; margin-top: 2px; font-size: 14px; color: var(--ink2); }
+  .a-node.home { background: var(--field); border-color: var(--field-line); color: var(--field-ink); padding: 20px; }
+  .a-node.home > .ic { color: var(--gold-fill); }
+  .a-parts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+  .a-part { font-size: 13px; line-height: 1; padding: 7px 10px; border-radius: 999px; background: var(--field2); color: var(--field-ink); border: 1px solid var(--field-line); }
+  .a-part.claw { background: var(--gold-fill); color: var(--on-gold); border-color: transparent; font-weight: 650; }
+  .a-arrow { display: grid; place-items: center; color: var(--ink3); }
+  .a-arrow svg { width: 38px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .arch-cap { margin: 16px auto 0; max-width: 46em; font-size: 14.5px; color: var(--ink2); text-align: center; text-wrap: pretty; }
+  .cols2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+  .data { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 20px 44px; margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 2.6vw, 28px); }
+  .data h3 { display: flex; align-items: center; gap: 9px; font-size: 18px; margin-bottom: 12px; }
+  .data h3 .ic { color: var(--gold); }
+  .data ul { margin: 0; padding-left: 20px; display: grid; gap: 7px; color: var(--ink2); font-size: 15.5px; line-height: 1.55; }
+  .data li::marker { color: var(--ink3); }
+  .data p { margin: 16px 0 0; font-size: 15.5px; }
+  .col { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
+  .col h3 { display: flex; align-items: center; gap: 9px; font-size: 18px; margin-bottom: 10px; }
+  .col h3 .ic { color: var(--gold); }
+  .col p { margin: 0; color: var(--ink2); font-size: 15.5px; line-height: 1.6; text-wrap: pretty; }
+  .col p + p { margin-top: 12px; }
+
+  /* Install */
+  .inst { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 2.4vw, 26px); }
+  .card h3 { display: flex; align-items: center; gap: 9px; font-size: 19px; }
+  .card h3 .ic { color: var(--gold); }
+  .card p { margin: 0; color: var(--ink2); font-size: 15.5px; text-wrap: pretty; }
+  .card .go { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-weight: 600; }
+  .code { position: relative; margin: 14px 0; background: #0B0D10; color: #ECEEF0; border: 1px solid #252A31; border-radius: 14px; padding: 16px 18px; font: 14px/1.6 var(--mono); }
+  .code pre { margin: 0; overflow-x: auto; padding-right: 64px; }
+  .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font: 13px/1.4 var(--sans); cursor: pointer; }
+  .inst-foot { margin: 20px 0 0; font-size: 15.5px; }
+
+  /* Why */
+  .why-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 36px; align-items: end; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 3vw, 32px); }
+  .why-card h2 { font-size: clamp(22px, 2.6vw, 28px); }
+  .why-card p { margin: 0; color: var(--ink2); max-width: 44em; text-wrap: pretty; }
+  .aside-note { margin: 18px 0 0; font-size: 14.5px; color: var(--ink3); max-width: 62em; text-wrap: pretty; }
+  .aside-note strong { color: var(--ink2); }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px 48px; color: var(--ink2); font-size: 15px; }
+  footer .row { display: flex; gap: 12px 18px; flex-wrap: wrap; justify-content: space-between; }
+
+  @media (max-width: 1000px) {
+    .agents { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .day { grid-template-columns: 220px minmax(0, 1fr); }
+    .moment { grid-template-columns: minmax(0, 1fr); }
+    .sent { grid-template-columns: minmax(0, 1fr); max-width: 30rem; margin-inline: auto; }
+    .s-arrow.right, .s-fork { display: none; }
+    .s-arrow.down { display: grid; height: 34px; }
+    .s-arrow.down svg { width: 16px; height: 26px; }
+    .s-outs { grid-auto-rows: auto; }
+  }
+  @media (max-width: 860px) {
     .top nav a.hide-sm { display: none; }
-    .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
-    .build { grid-template-rows: none; }
-    .build > .thread, .build > .plan { grid-column: auto; grid-row: auto; }
-    .plan { padding: 14px; }
-    .ideas { grid-template-columns: 1fr 1fr; }
-    .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
-    .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
-    .phone img { border-radius: 24px; }
-    .phone.mid { transform: none; }
-    .how { grid-template-columns: 1fr; }
-    .how .arrow { justify-self: center; transform: rotate(90deg); }
-    .code { padding: 14px 12px 50px; font-size: clamp(11px, 2.9vw, 14px); }
-    pre { padding-right: 0; }
-    .copy { top: auto; bottom: 10px; right: 10px; }
-    section { padding: 40px 0; }
+    .hero { grid-template-columns: minmax(0, 1fr); }
+    .hero-art { max-width: 430px; }
+    .convo { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+    .convo > .thread, .convo > .plan { grid-column: auto; grid-row: auto; }
+    .day { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    /* On a phone the dial shrinks into a bar that sticks under the header while you read the day */
+    .dial-wrap { top: calc(env(safe-area-inset-top, 0px) + var(--header-h)); z-index: 5; margin-inline: -20px; padding: 10px 20px;
+                 background: var(--glass); -webkit-backdrop-filter: saturate(1.5) blur(14px); backdrop-filter: saturate(1.5) blur(14px); border-bottom: 1px solid var(--line); }
+    .dial { display: flex; align-items: center; gap: 12px; }
+    .dial svg { width: 46px; height: 46px; }
+    .dial .ring, .dial .quiet { stroke-width: 20; }
+    .dial .notch { display: none; }
+    .dial .spot { transform-box: fill-box; transform-origin: center; transform: scale(1.8); stroke-width: 0; }
+    .dial .tick, .dial .hour { display: none; }
+    .dial-center { position: static; flex-direction: row; align-items: baseline; gap: 10px; color: var(--ink); }
+    .dial-time { font-size: 22px; }
+    .dial-title { margin: 0; max-width: none; font-size: 15px; color: var(--ink2); }
+    .dial-note { display: none; }
+    .moment:first-child { padding-top: 28px; }
+    .split, .split.rev, .inst, .cols2, .data, .why-card { grid-template-columns: minmax(0, 1fr); }
+    .split.rev .mem { order: 2; }
+    .why-card { align-items: start; }
+    .why-card .btn { justify-self: start; }
+    .arch { grid-template-columns: minmax(0, 1fr); max-width: 30rem; margin-inline: auto; }
+    .a-arrow { height: 44px; }
+    .a-arrow svg { transform: rotate(90deg); }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16.5px; }
+    .halo { left: 0; width: 100%; }
+    .agent { flex-direction: column; gap: 10px; }
+    .more { grid-template-columns: minmax(0, 1fr); }
+    .feat { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 0 14px; padding: 16px; }
+    .feat > .ic { grid-row: span 2; margin-top: 3px; }
+    .feat b { margin: 0 0 2px; }
+    .phone { width: 49%; }
+    .phone.back { left: 1%; }
+    .phone.front { right: 1%; }
+    .inst .card { padding: 18px; }
+    .code { padding: 14px 12px 50px; font-size: clamp(10px, 2.75vw, 14px); }
+    .card .code { margin-inline: -18px; border-radius: 0; border-inline: 0; padding-inline: 16px; }
+    .code pre { padding-right: 0; }
+    .copy { top: auto; bottom: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .dial .hand { transition: none; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
+<!-- Icons: Lucide (https://lucide.dev), ISC License, the same set the OpenMousse app uses. -->
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+<symbol id="i-audio-lines" viewBox="0 0 24 24"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+<symbol id="i-calendar-check-2" viewBox="0 0 24 24"><path d="M 19 3 L 5 3"/><path d="M 21 13 L 21 5"/><path d="M 21 5 A2 2 0 0 0 19 3"/><path d="M 3 19 A2 2 0 0 0 5 21"/><path d="M 3 5 L 3 19"/><path d="M 5 3 A2 2 0 0 0 3 5"/><path d="m16 19 2 2 4-4"/><path d="M16 2v3"/><path d="M3 9h18"/><path d="M5 21 L12.5 21"/><path d="M8 2v3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol>
+<symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+<symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol>
+<symbol id="i-footprints" viewBox="0 0 24 24"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+<symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+<symbol id="i-heart-pulse" viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+<symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+<symbol id="i-key-round" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+<symbol id="i-list-todo" viewBox="0 0 24 24"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
+<symbol id="i-moon-star" viewBox="0 0 24 24"><path d="M18 5h4"/><path d="M20 3v4"/><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
+<symbol id="i-notebook-pen" viewBox="0 0 24 24"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></symbol>
+<symbol id="i-paw-print" viewBox="0 0 24 24"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></symbol>
+<symbol id="i-share-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-shopping-cart" viewBox="0 0 24 24"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol>
+<symbol id="i-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-terminal" viewBox="0 0 24 24"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></symbol>
+<symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+<symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+</defs></svg>
+
+<header class="top">
+  <div class="wrap">
     <a class="brand" href="/"><img src="assets/icon.png" alt="">OpenMousse</a>
     <nav>
-      <a class="hide-sm" href="#what"><span lang="en">What it is</span><span lang="zh">是什么</span></a>
-      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
+      <a class="hide-sm" href="#agents">Agents</a>
+      <a class="hide-sm" href="#day"><span lang="en">A day</span><span lang="zh">一天</span></a>
       <a class="hide-sm" href="#install"><span lang="en">Install</span><span lang="zh">安装</span></a>
-      <a class="hide-sm" href="start.html"><span lang="en">Get started</span><span lang="zh">新手指南</span></a>
+      <a class="hide-sm" href="start.html"><span lang="en">Guide</span><span lang="zh">新手指南</span></a>
+      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
       <a href="https://github.com/openmousse/openmousse">GitHub</a>
       <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <div class="hero">
-    <span class="eyebrow"><span lang="en">Open source · AGPL-3.0 · self-hosted</span><span lang="zh">开源 · AGPL-3.0 · 自托管</span></span>
-    <h1><span lang="en">Turn your claw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 claw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
-    <p class="lede">
-      <span lang="en">Like Meta's Muse: chat with it from your phone and build Agents for whatever you need. They keep your data and come to you when something changes. The difference is that the agent runs on your own machine, with your own model account, and the memory is yours.</span>
-      <span lang="zh">像 Meta 的 Muse 一样：在手机上跟它对话，按你自己的需要建一个个 Agent。它们记着你的数据，看到变化就自己来找你。不同的是，agent 跑在你自己的机器上，用你自己的模型账号，记忆也是你自己的。</span>
-    </p>
-    <div class="cta">
-      <a class="btn primary" href="#install"><span lang="en">Install on your server</span><span lang="zh">装到你的服务器</span></a>
-      <a class="btn" href="https://github.com/openmousse/openmousse"><span lang="en">View on GitHub</span><span lang="zh">看 GitHub</span></a>
+<main>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <span class="eyebrow"><span lang="en">Open source · AGPL-3.0 · self-hosted</span><span lang="zh">开源 · AGPL-3.0 · 自托管</span></span>
+      <h1><span lang="en">Turn your claw into a personal assistant on your phone.</span><span lang="zh"><span class="nw">把你的 claw，</span><span class="nw">变成手机上的私人助理。</span></span></h1>
+      <p class="define"><b>claw</b><span><span lang="en">An AI agent that runs on your own machine, such as <a href="https://openclaw.ai">OpenClaw</a>.</span><span lang="zh">跑在你自己机器上的 AI agent，比如 <a href="https://openclaw.ai">OpenClaw</a>。</span></span></p>
+      <p class="lede">
+        <span lang="en">Like Meta's Muse, on your own machine. Say what you want looked after and it builds an Agent for it. Your Agents keep your data, come to you when something changes, and ask before doing anything you can't undo.</span>
+        <span lang="zh">像 Meta 的 Muse，但跑在你自己的机器上。说一句想让它管什么，它就建一个 Agent：记着你的数据，有变化自己来找你，撤不回的事先问你。</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#install"><span lang="en">Install on your server</span><span lang="zh">装到你的服务器</span></a>
+        <a class="btn" href="connect.html"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Send one sentence to your claw</span><span lang="zh">发一句话给你的 claw</span></a>
+      </div>
+      <p class="soon"><span lang="en">iPhone app: public TestFlight beta coming soon. The web version is served by your own server.</span><span lang="zh">iPhone app：TestFlight 公开测试马上开放。网页版由你自己的服务器提供。</span></p>
     </div>
-    <p class="soon"><span lang="en">iPhone app: public TestFlight beta coming soon.</span><span lang="zh">iPhone app：TestFlight 公开测试马上开放。</span></p>
-  </div>
+    <div class="hero-art">
+      <svg class="halo" viewBox="0 0 116 121" aria-hidden="true"><circle class="h-ring" cx="58" cy="60.5" r="52"/><circle class="h-dot" cx="108.2" cy="47.1" r="4.6"/></svg>
+      <div class="phone back">
+        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-today-dark.png"><img src="assets/en-today.png" alt="The Today page: a workout card and a meal plan from two Agents"></picture>
+        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-today-dark.png"><img src="assets/zh-today.png" alt="「今天」页：两个 Agent 给的训练卡和三餐建议"></picture>
+      </div>
+      <div class="phone front">
+        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" alt="Chatting with the assistant about fitting a workout into a packed day"></picture>
+        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" alt="跟助手聊：会开满的一天还能不能练腿"></picture>
+      </div>
+    </div>
+  </section>
 
-  <div class="shots" aria-hidden="true">
-    <div class="phone"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-today-dark.png"><img src="assets/en-today.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-today-dark.png"><img src="assets/zh-today.png" alt="" loading="lazy"></picture></div>
-    <div class="phone mid"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" alt="" loading="lazy"></picture></div>
-    <div class="phone"><picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-fitness-dark.png"><img src="assets/en-fitness.png" alt="" loading="lazy"></picture><picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-fitness-dark.png"><img src="assets/zh-fitness.png" alt="" loading="lazy"></picture></div>
-  </div>
-
-  <section id="build">
-    <h2><span lang="en">Build the Agents you actually need</span><span lang="zh"><span class="nw">你要什么 Agent，</span><span class="nw">就建什么 Agent</span></span></h2>
-    <p class="sub"><span lang="en">Everyone's life is different, so there are no preset templates. Say in chat what you want looked after. It asks a few questions, then suggests what data to keep, which apps to connect, how the Agent can get stronger, and how it works with your other Agents. Say yes, and it builds an Agent with its own memory, its own rules, its own dashboard and reminders.</span><span lang="zh">每个人的生活都不一样，所以这里没有预设模板。在对话里说一句你想让它管什么，它会问你几个问题，再按你的需要给出建议：要记哪些数据、能接入哪些渠道、以后怎么加强、怎么和你别的 Agent 联动。你点头，它就建好一个 Agent：有自己的记忆、自己的规矩、自己的看板和提醒。</span></p>
-    <div class="chat build">
+  <section class="sec wrap" id="agents">
+    <div class="sec-head">
+      <h2><span lang="en">Build the Agents you actually need</span><span lang="zh"><span class="nw">你要什么 Agent，</span><span class="nw">就建什么 Agent</span></span></h2>
+      <p class="sub"><span lang="en">There are no preset templates. Say what you want looked after. It asks a few questions, suggests a setup, and builds the Agent once you say yes: its own memory, its own rules, its own dashboard and reminders.</span><span lang="zh">没有预设模板。说一句你想让它管什么，它问你几个问题、给一份方案，你点头它就建好：有自己的记忆、自己的规矩、自己的看板和提醒。</span></p>
+    </div>
+    <div class="convo">
       <div class="thread">
         <p class="msg me"><span lang="en">I'm preparing for the GRE. Build me a study Agent.</span><span lang="zh">我在准备 GRE，帮我建一个备考 Agent。</span></p>
         <p class="msg it"><span lang="en">Sure. When's the test, how long can you study each day, and which word list are you using?</span><span lang="zh">好。哪天考？每天能学多久？单词书用哪本？</span></p>
         <p class="msg me"><span lang="en">November 20, an hour a day, Barron's.</span><span lang="zh">11 月 20 号，每天一小时，用再要你命 3000。</span></p>
-        <p class="msg it"><span lang="en">Based on that, here's what I'd suggest:</span><span lang="zh">按你的情况，我建议这样搭：</span></p>
+        <p class="msg it"><span lang="en">Here's what I'd set up:</span><span lang="zh">按你的情况，我建议这样搭：</span></p>
       </div>
       <div class="plan">
-        <p class="plan-title"><span lang="en">GRE Agent · suggested setup</span><span lang="zh">GRE 备考 Agent · 建议方案</span></p>
+        <p class="plan-title"><svg class="ic"><use href="#i-sparkles"/></svg><span lang="en">GRE Agent · suggested setup</span><span lang="zh">GRE 备考 Agent · 建议方案</span></p>
         <dl>
           <div>
             <dt><span lang="en">Data to keep</span><span lang="zh">要记的数据</span></dt>
-            <dd><span lang="en">The words you study each day and how many stick, your mistakes by question type, and every practice test score.</span><span lang="zh">每天背了哪些词、记住多少，错题和题型，每次模考的分数。</span></dd>
+            <dd><span lang="en">The words you study each day and how many stick, your mistakes by question type, every practice test score.</span><span lang="zh">每天背了哪些词、记住多少，错题和题型，每次模考的分数。</span></dd>
           </div>
           <div>
             <dt><span lang="en">Apps to connect</span><span lang="zh">接入渠道</span></dt>
             <dd><ul>
-              <li><b><span lang="en">Calendar</span><span lang="zh">日历</span></b><span lang="en">: finds a free hour each day and books it.</span><span lang="zh">：找出每天空着的一小时，排进去。</span></li>
+              <li><b><span lang="en">Calendar</span><span lang="zh">日历</span></b><span lang="en">: books a free hour every day.</span><span lang="zh">：找出每天空着的一小时，排进去。</span></li>
               <li><b><span lang="en">Apple Health</span><span lang="zh">Apple 健康</span></b><span lang="en">: after a bad night's sleep, fewer new words.</span><span lang="zh">：睡得不好的那天，少排新词。</span></li>
-              <li><b><span lang="en">Email</span><span lang="zh">邮箱</span></b><span lang="en">: logs your registration and score notices as they arrive.</span><span lang="zh">：报名确认和出分通知，一到就记下。</span></li>
+              <li><b><span lang="en">Email</span><span lang="zh">邮箱</span></b><span lang="en">: logs registration and score notices as they arrive.</span><span lang="zh">：报名确认和出分通知，一到就记下。</span></li>
             </ul></dd>
           </div>
           <div>
             <dt><span lang="en">Make it stronger</span><span lang="zh">还能加强</span></dt>
             <dd><ul>
-              <li><span lang="en">Four weeks out, a full practice test every Saturday.</span><span lang="zh">考前四周，每周六加一套整卷模考。</span></li>
-              <li><span lang="en">An essay a week, scored against the official rubric.</span><span lang="zh">每周写一篇作文，按官方评分标准打分。</span></li>
+              <li><span lang="en">Four weeks out, a full practice test every Saturday.</span><span lang="zh">考前四周，每周六一套整卷模考。</span></li>
+              <li><span lang="en">An essay a week, scored against the official rubric.</span><span lang="zh">每周一篇作文，按官方评分标准打分。</span></li>
             </ul></dd>
           </div>
           <div>
             <dt><span lang="en">With your other Agents</span><span lang="zh">和其他 Agent 联动</span></dt>
             <dd><ul>
-              <li><b><span lang="en">Fitness Agent</span><span lang="zh">健身 Agent</span></b><span lang="en">: eases off training the week before the test and reminds you to sleep early.</span><span lang="zh">：考前一周训练减量，提醒你早点睡。</span></li>
-              <li><b><span lang="en">Reading Agent</span><span lang="zh">读书 Agent</span></b><span lang="en">: passages you liked go on your reading list.</span><span lang="zh">：阅读题里喜欢的文章，存进书单。</span></li>
+              <li><b><span lang="en">Fitness</span><span lang="zh">健身</span></b><span lang="en">: eases off training the week before the test.</span><span lang="zh">：考前一周训练减量，提醒你早点睡。</span></li>
+              <li><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span lang="en">: passages you liked go on your reading list.</span><span lang="zh">：阅读题里喜欢的文章，存进书单。</span></li>
             </ul></dd>
           </div>
         </dl>
       </div>
       <div class="thread">
         <p class="msg me"><span lang="en">All of it.</span><span lang="zh">都要。</span></p>
-        <p class="msg done"><strong><span lang="en">Done: your GRE Agent</span><span lang="zh">建好了：GRE 备考 Agent</span></strong><span lang="en">Every day at 07:30 it sends today's words and a reading passage, and your study hour is on your calendar. Send it a photo of your practice and it logs your mistakes. Every Sunday you get a review.</span><span lang="zh">每天 07:30 推今天的单词和一篇阅读，学习时段已经排进日历；做完题拍照发给它，它记下错题；每周日给你一份复盘。</span></p>
+        <p class="msg done"><strong><svg class="ic"><use href="#i-circle-check"/></svg><span lang="en">Done: your GRE Agent</span><span lang="zh">建好了：GRE 备考 Agent</span></strong><span lang="en">Every day at 07:30 it sends today's words and a reading passage, and your study hour is on your calendar. Send it a photo of your practice and it logs your mistakes. Every Sunday you get a review.</span><span lang="zh">每天 07:30 推今天的单词和一篇阅读，学习时段已经排进日历；做完题拍照发给它，它记下错题；每周日给你一份复盘。</span></p>
       </div>
     </div>
     <p class="ideas-label"><span lang="en">Everyone builds something different. For example:</span><span lang="zh">每个人建的都不一样，比如：</span></p>
-    <div class="ideas">
-      <div class="idea"><b><span lang="en">Cat care</span><span lang="zh">猫咪健康</span></b><span><span lang="en">Tracks weight and vaccines, and reminds you about flea treatment.</span><span lang="zh">记体重和疫苗，到时间提醒驱虫。</span></span></div>
-      <div class="idea"><b><span lang="en">Budget</span><span lang="zh">记账</span></b><span><span lang="en">Tell it what you spent; at month end it shows where the money went.</span><span lang="zh">你说花了什么它就记，月底告诉你钱去哪了。</span></span></div>
-      <div class="idea"><b><span lang="en">Marathon</span><span lang="zh">马拉松</span></b><span><span lang="en">Plans back from race day and adjusts next week after every run.</span><span lang="zh">从比赛日倒排计划，每跑完一次就调下一周。</span></span></div>
-      <div class="idea"><b><span lang="en">Renovation</span><span lang="zh">装修</span></b><span><span lang="en">Tracks the schedule and payments; send a photo and it logs progress.</span><span lang="zh">盯工期和付款节点，拍张照发给它就记进度。</span></span></div>
-      <div class="idea"><b><span lang="en">Visa</span><span lang="zh">签证</span></b><span><span lang="en">Keeps the document checklist and warns you before anything expires.</span><span lang="zh">列好材料清单，快过期的提前提醒你。</span></span></div>
-      <div class="idea"><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span><span lang="en">Keeps your highlights and thoughts, and brings them back days later.</span><span lang="zh">记下你的摘抄和想法，隔几天拿出来问你。</span></span></div>
+    <ul class="agents">
+      <li class="agent"><span class="badge t-orange"><svg class="ic"><use href="#i-paw-print"/></svg></span><span><b><span lang="en">Cat care</span><span lang="zh">猫咪健康</span></b><span class="what"><span lang="en">Tracks weight and vaccines, and reminds you about flea treatment.</span><span lang="zh">记体重和疫苗，到时间提醒驱虫。</span></span></span></li>
+      <li class="agent"><span class="badge t-green"><svg class="ic"><use href="#i-wallet"/></svg></span><span><b><span lang="en">Budget</span><span lang="zh">记账</span></b><span class="what"><span lang="en">Tell it what you spent; at month end it shows where the money went.</span><span lang="zh">你说花了什么它就记，月底告诉你钱去哪了。</span></span></span></li>
+      <li class="agent"><span class="badge t-cyan"><svg class="ic"><use href="#i-footprints"/></svg></span><span><b><span lang="en">Marathon</span><span lang="zh">马拉松</span></b><span class="what"><span lang="en">Plans back from race day and adjusts next week after every run.</span><span lang="zh">从比赛日倒排计划，每跑完一次就调下一周。</span></span></span></li>
+      <li class="agent"><span class="badge t-gold"><svg class="ic"><use href="#i-house"/></svg></span><span><b><span lang="en">Renovation</span><span lang="zh">装修</span></b><span class="what"><span lang="en">Tracks the schedule and payments; send a photo and it logs progress.</span><span lang="zh">盯工期和付款节点，拍张照发给它就记进度。</span></span></span></li>
+      <li class="agent"><span class="badge t-purple"><svg class="ic"><use href="#i-plane"/></svg></span><span><b><span lang="en">Visa</span><span lang="zh">签证</span></b><span class="what"><span lang="en">Keeps the document checklist and warns you before anything expires.</span><span lang="zh">列好材料清单，快过期的提前提醒你。</span></span></span></li>
+      <li class="agent"><span class="badge t-pink"><svg class="ic"><use href="#i-book-open"/></svg></span><span><b><span lang="en">Reading</span><span lang="zh">读书</span></b><span class="what"><span lang="en">Keeps your highlights and thoughts, and brings them back days later.</span><span lang="zh">记下你的摘抄和想法，隔几天拿出来问你。</span></span></span></li>
+      <li class="agent"><span class="badge t-cyan"><svg class="ic"><use href="#i-briefcase"/></svg></span><span><b><span lang="en">Job hunt</span><span lang="zh">求职</span></b><span class="what"><span lang="en">Every application and deadline in one list; tailors your CV for each one.</span><span lang="zh">每份申请和截止放一张表，按岗位改你的简历。</span></span></span></li>
+      <li class="agent"><span class="badge t-purple"><svg class="ic"><use href="#i-moon"/></svg></span><span><b><span lang="en">Sleep</span><span lang="zh">睡眠</span></b><span class="what"><span lang="en">Reads last night from Apple Health and tells you what changed.</span><span lang="zh">每天早上读 Apple 健康，告诉你昨晚哪里不一样。</span></span></span></li>
+    </ul>
+  </section>
+
+  <section class="sec wrap" id="day">
+    <div class="sec-head">
+      <h2><span lang="en">A day with OpenMousse</span><span lang="zh">有它的一天</span></h2>
+      <p class="sub"><span lang="en">Each Agent keeps its own data and watches for changes. When something needs you, it comes to you with a concrete next step. Here is one ordinary day.</span><span lang="zh">每个 Agent 管着自己那摊数据，盯着变化。需要你的时候，它带着具体的下一步来找你。下面是普通的一天。</span></p>
+    </div>
+    <div class="day">
+      <div class="dial-wrap" aria-hidden="true">
+        <div class="dial" id="dial">
+          <svg viewBox="0 0 220 220">
+            <rect class="face" x="0.5" y="0.5" width="219" height="219" rx="52"/>
+            <line class="tick major" x1="110.00" y1="25.00" x2="110.00" y2="15.00"/>
+            <line class="tick" x1="132.52" y1="25.96" x2="133.81" y2="21.13"/>
+            <line class="tick" x1="153.50" y1="34.66" x2="156.00" y2="30.33"/>
+            <line class="tick" x1="171.52" y1="48.48" x2="175.05" y2="44.95"/>
+            <line class="tick" x1="185.34" y1="66.50" x2="189.67" y2="64.00"/>
+            <line class="tick" x1="194.04" y1="87.48" x2="198.87" y2="86.19"/>
+            <line class="tick major" x1="195.00" y1="110.00" x2="205.00" y2="110.00"/>
+            <line class="tick" x1="194.04" y1="132.52" x2="198.87" y2="133.81"/>
+            <line class="tick" x1="185.34" y1="153.50" x2="189.67" y2="156.00"/>
+            <line class="tick" x1="171.52" y1="171.52" x2="175.05" y2="175.05"/>
+            <line class="tick" x1="153.50" y1="185.34" x2="156.00" y2="189.67"/>
+            <line class="tick" x1="132.52" y1="194.04" x2="133.81" y2="198.87"/>
+            <line class="tick major" x1="110.00" y1="195.00" x2="110.00" y2="205.00"/>
+            <line class="tick" x1="87.48" y1="194.04" x2="86.19" y2="198.87"/>
+            <line class="tick" x1="66.50" y1="185.34" x2="64.00" y2="189.67"/>
+            <line class="tick" x1="48.48" y1="171.52" x2="44.95" y2="175.05"/>
+            <line class="tick" x1="34.66" y1="153.50" x2="30.33" y2="156.00"/>
+            <line class="tick" x1="25.96" y1="132.52" x2="21.13" y2="133.81"/>
+            <line class="tick major" x1="25.00" y1="110.00" x2="15.00" y2="110.00"/>
+            <line class="tick" x1="25.96" y1="87.48" x2="21.13" y2="86.19"/>
+            <line class="tick" x1="34.66" y1="66.50" x2="30.33" y2="64.00"/>
+            <line class="tick" x1="48.48" y1="48.48" x2="44.95" y2="44.95"/>
+            <line class="tick" x1="66.50" y1="34.66" x2="64.00" y2="30.33"/>
+            <line class="tick" x1="87.48" y1="25.96" x2="86.19" y2="21.13"/>
+            <text class="hour" x="110.00" y="53.00">00</text>
+            <text class="hour" x="167.00" y="110.00">06</text>
+            <text class="hour" x="110.00" y="167.00">12</text>
+            <text class="hour" x="53.00" y="110.00">18</text>
+            <circle class="ring" cx="110" cy="110" r="74"/>
+            <path class="quiet" d="M 90.85 38.52 A 74 74 0 0 1 178.37 138.32"/>
+            <circle class="notch" cx="176.79" cy="141.86" r="2.6"/>
+            <circle class="notch" cx="100.34" cy="183.37" r="2.6"/>
+            <circle class="notch" cx="38.12" cy="127.59" r="2.6"/>
+            <circle class="notch" cx="38.96" cy="89.29" r="2.6"/>
+            <circle class="notch" cx="75.83" cy="44.36" r="2.6"/>
+            <circle class="notch" cx="171.53" cy="68.89" r="2.6"/>
+            <g class="hand" style="transform: rotate(115.5deg)"><circle class="spot" cx="110" cy="36" r="10"/></g>
+          </svg>
+          <div class="dial-center"><span class="dial-time">07:42</span><span class="dial-title"><span lang="en">You wake up</span><span lang="zh">起床</span></span></div>
+        </div>
+        <p class="dial-note"><span lang="en">The darker stretch of the ring is quiet hours: notifications still arrive, without a sound.</span><span lang="zh">环上暗的一段是静音时段：通知照样来，只是不响。</span></p>
+      </div>
+
+      <ol class="moments">
+        <li class="moment" data-time="07:42">
+          <div class="m-text">
+            <span class="m-time">07:42</span>
+            <h3><span lang="en">You wake up</span><span lang="zh">起床</span></h3>
+            <p><span lang="en">Your phone syncs Apple Health. It looks at how you slept, what's on today, what's due and what came in overnight, and sends one morning report.</span><span lang="zh">手机同步了 Apple 健康。它看你昨晚睡得怎样、今天有什么安排、什么快到期、夜里来了什么邮件，合成一条起床报告发给你。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-heart-pulse"/></svg><span lang="en">Apple Health</span><span lang="zh">Apple 健康</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-calendar-check-2"/></svg><span lang="en">Calendar</span><span lang="zh">日程</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-mail"/></svg><span lang="en">Email</span><span lang="zh">邮件</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <div class="ui">
+              <div class="n-head"><img src="assets/icon.png" alt=""><span class="n-app">Mousse</span><span class="n-when"><span lang="en">now</span><span lang="zh">现在</span></span></div>
+              <p class="n-title"><span lang="en">Morning report</span><span lang="zh">起床报告</span></p>
+              <p><span lang="en">Slept 7h12, recovery 78. Legs at 18:30, 45 minutes. Design review at 09:30. Council tax is due Friday, and a parcel arrives today.</span><span lang="zh">睡了 7 小时 12 分，恢复分 78。今晚 18:30 练腿，45 分钟。09:30 设计评审。市政税周五到期，今天有个快递到。</span></p>
+            </div>
+          </div>
+        </li>
+
+        <li class="moment" data-time="12:30">
+          <div class="m-text">
+            <span class="m-time">12:30</span>
+            <h3><span lang="en">You hand off an errand</span><span lang="zh">交代一件事</span></h3>
+            <p><span lang="en">You ask for a table on Saturday. Errands compares a few places and fills in the booking, then stops before sending it, because the form carries your name and phone number.</span><span lang="zh">你说要订周六的位子。代办比了几家、把预订表填好，停在提交之前：表里有你的名字和手机号。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</li>
+              <li class="chip"><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Inbox</span><span lang="zh">收件箱</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <p class="msg me"><span lang="en">Table for two near Shoreditch on Saturday evening, under £40 a head.</span><span lang="zh">周六晚上，Shoreditch 附近订两个人的位子，人均 40 镑以内。</span></p>
+            <div class="ui">
+              <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Needs your OK</span><span lang="zh">等你点头</span></span><span class="tag t-orange"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></span></div>
+              <p class="ok-title"><span lang="en">Submit a booking at The Copper Pot</span><span lang="zh">提交 The Copper Pot 的预订</span></p>
+              <dl class="kv">
+                <dt><span lang="en">When</span><span lang="zh">时间</span></dt><dd><span lang="en">Sat 27 Sep, 19:30</span><span lang="zh">9 月 27 日周六 19:30</span></dd>
+                <dt><span lang="en">Guests</span><span lang="zh">人数</span></dt><dd>2</dd>
+                <dt><span lang="en">Name</span><span lang="zh">姓名</span></dt><dd><span lang="en">Alex</span><span lang="zh">林夏</span> · 07700 900123</dd>
+              </dl>
+              <p class="why"><svg class="ic"><use href="#i-shield-check"/></svg><span lang="en">Held by Sentinel: it would send your name and phone number.</span><span lang="zh">Sentinel 扣下的：会发出你的名字和手机号。</span></p>
+              <div class="acts"><span class="b go"><span lang="en">Let it through once</span><span lang="zh">放行这一次</span></span><span class="b"><span lang="en">Decline</span><span lang="zh">不用了</span></span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="moment" data-time="17:05">
+          <div class="m-text">
+            <span class="m-time">17:05</span>
+            <h3><span lang="en">Your groceries arrive</span><span lang="zh">买的菜到了</span></h3>
+            <p><span lang="en">The order confirmation lands in your email. Diet adds everything to what's at home and plans dinner around what runs out first.</span><span lang="zh">订单确认进了邮箱。饮食 Agent 把东西记进家里的库存，晚饭先用快过期的。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-mail"/></svg><span lang="en">Email</span><span lang="zh">邮件</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-shopping-cart"/></svg><span lang="en">What's at home</span><span lang="zh">家里库存</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Meal log</span><span lang="zh">饮食记录</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <div class="ui">
+              <div class="n-head"><img src="assets/icon.png" alt=""><span class="n-app">Mousse</span><span class="n-when">17:05</span></div>
+              <p class="n-title"><span lang="en">Dinner from what's at home</span><span lang="zh">晚饭就用家里的</span></p>
+              <p><span lang="en">Tonight: 150 g of the chicken with broccoli and rice. That covers the 40 g of protein you're still short today.</span><span lang="zh">今晚：鸡胸 150 g 配西兰花和米饭，正好补上今天还差的 40 g 蛋白质。</span></p>
+            </div>
+            <div class="ui">
+              <div class="ok-head"><span class="tag t-green"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Diet · at home</span><span lang="zh">饮食 · 家里有什么</span></span></div>
+              <table class="pantry">
+                <tr><td><span lang="en">Chicken breast, 2 packs</span><span lang="zh">鸡胸，2 盒</span></td><td><span lang="en">use by Sun</span><span lang="zh">周日前吃完</span></td></tr>
+                <tr><td><span lang="en">Broccoli</span><span lang="zh">西兰花</span></td><td><span lang="en">use by Fri</span><span lang="zh">周五前吃完</span></td></tr>
+                <tr><td><span lang="en">Oat milk, 3 cartons</span><span lang="zh">燕麦奶，3 盒</span></td><td><span lang="en">about 9 days</span><span lang="zh">够喝 9 天左右</span></td></tr>
+              </table>
+            </div>
+          </div>
+        </li>
+
+        <li class="moment" data-time="19:05">
+          <div class="m-text">
+            <span class="m-time">19:05</span>
+            <h3><span lang="en">A friend asks about you</span><span lang="zh">朋友来问</span></h3>
+            <p><span lang="en">Mia wants to know if you're free on Saturday. Your card agent answers within what her tier allows. Friends see busy or free, never the details.</span><span lang="zh">Mia 问你周六有没有空。名片 agent 按她那一档回答：朋友只看得到忙闲，看不到具体安排。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-users"/></svg><span lang="en">Friends</span><span lang="zh">朋友</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-user-round"/></svg><span lang="en">Card agent</span><span lang="zh">名片 agent</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-calendar-check-2"/></svg><span lang="en">Busy or free</span><span lang="zh">只给忙闲</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <div class="ui fchat">
+              <div class="who"><span class="av t-pink">M</span>Mia</div>
+              <p class="msg it"><span lang="en">Free on Saturday evening? Thinking of a film.</span><span lang="zh">周六晚上有空吗？想去看电影。</span></p>
+              <div class="who mine"><span lang="en">Your card agent</span><span lang="zh">你的名片 agent</span></div>
+              <p class="msg agentmsg"><span lang="en">Busy from 19:30. Earlier in the evening is free.</span><span lang="zh">19:30 以后有安排，之前有空。</span></p>
+              <div class="foot"><span><span lang="en">You see every answer</span><span lang="zh">每条回答你都看得到</span></span><span class="acts"><span class="b sm"><span lang="en">Fine</span><span lang="zh">可以</span></span><span class="b sm"><span lang="en">Rewrite</span><span lang="zh">重写</span></span><span class="b sm"><span lang="en">Withdraw</span><span lang="zh">收回</span></span></span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="moment" data-time="22:10">
+          <div class="m-text">
+            <span class="m-time">22:10</span>
+            <h3><span lang="en">You think out loud</span><span lang="zh">睡前讲一讲</span></h3>
+            <p><span lang="en">You explain tonight's lecture in Feynman mode. It plays a curious outsider, then checks what you said against the slides. What you missed goes into tomorrow's review, and the note goes into your vault.</span><span lang="zh">你用费曼模式把今晚的课讲一遍。它先当一个好奇的外行追问，再拿课件对你讲的：漏掉的加进明天的复习，笔记存进你的库里。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-audio-lines"/></svg><span lang="en">Podcast</span><span lang="zh">播客</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-graduation-cap"/></svg><span lang="en">Course slides</span><span lang="zh">课件</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-notebook-pen"/></svg><span lang="en">Obsidian vault</span><span lang="zh">Obsidian 库</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <div class="ui">
+              <div class="ok-head"><span class="tag t-purple"><svg class="ic"><use href="#i-audio-lines"/></svg><span lang="en">Podcast · Feynman check</span><span lang="zh">播客 · 费曼对照</span></span><span class="n-when" style="font-size:13px;color:var(--ink3)">14:32</span></div>
+              <p class="ok-title"><span lang="en">The endowment effect</span><span lang="zh">禀赋效应</span></p>
+              <ul class="checks">
+                <li class="ok"><svg class="ic"><use href="#i-circle-check"/></svg><span><span lang="en">Owning something makes it feel worth more.</span><span lang="zh">东西一旦是自己的，就觉得更值钱。</span><small><span lang="en">Right · slide 12</span><span lang="zh">对 · 第 12 页</span></small></span></li>
+                <li class="miss"><svg class="ic"><use href="#i-circle-alert"/></svg><span><span lang="en">In the mug study, sellers asked about twice what buyers offered.</span><span lang="zh">马克杯实验里，卖方要价大约是买方出价的两倍。</span><small><span lang="en">Missed · slide 14 · added to review</span><span lang="zh">漏了 · 第 14 页 · 已加进复习</span></small></span></li>
+              </ul>
+              <div class="foot"><span><span lang="en">Keep “Taking a behavioural economics course” in your memory?</span><span lang="zh">把「在上行为经济学」记进世界树？</span></span><span class="acts"><span class="b sm go"><span lang="en">Keep</span><span lang="zh">记下</span></span></span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="moment" data-time="03:45">
+          <div class="m-text">
+            <span class="m-time">03:45</span>
+            <h3><span lang="en">While you sleep</span><span lang="zh">你睡着的时候</span></h3>
+            <p><span lang="en">Every Agent writes down its day, so tomorrow it remembers. Then it looks back over the week, and something you keep asking for becomes a proposal. Nothing changes until you say yes.</span><span lang="zh">每个 Agent 把今天记下来，明天接得上。然后回看这一周，你反复要的东西变成一条提议；你不点头，什么都不变。</span></p>
+            <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-moon-star"/></svg><span lang="en">Daily digest</span><span lang="zh">日结</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-sparkles"/></svg><span lang="en">Proposals</span><span lang="zh">提议</span></li>
+            </ul>
+          </div>
+          <div class="ui-stack">
+            <div class="ui">
+              <div class="n-head"><svg class="ic" style="color:var(--ink3)"><use href="#i-moon-star"/></svg><span class="n-app"><span lang="en">Daily digest</span><span lang="zh">日结</span></span><span class="n-when">03:45</span></div>
+              <div class="digest">
+                <span class="tag t-cyan"><svg class="ic"><use href="#i-check"/></svg><span lang="en">Fitness</span><span lang="zh">健身</span></span>
+                <span class="tag t-green"><svg class="ic"><use href="#i-check"/></svg><span lang="en">Diet</span><span lang="zh">饮食</span></span>
+                <span class="tag t-orange"><svg class="ic"><use href="#i-check"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></span>
+                <span class="tag t-purple"><svg class="ic"><use href="#i-check"/></svg><span lang="en">Study</span><span lang="zh">学习</span></span>
+              </div>
+            </div>
+            <div class="ui">
+              <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-sparkles"/></svg><span lang="en">Proposal</span><span lang="zh">提议</span></span><span class="tag t-purple"><svg class="ic"><use href="#i-graduation-cap"/></svg><span lang="en">Study</span><span lang="zh">学习</span></span></div>
+              <p class="ok-title"><span lang="en">Add a skill: summarise papers the way you like</span><span lang="zh">加一个 skill：按你的习惯总结论文</span></p>
+              <p class="why"><svg class="ic"><use href="#i-list-todo"/></svg><span lang="en">You asked for the same five-part summary on Monday, Wednesday and Thursday.</span><span lang="zh">周一、周三、周四，你都要了同样五段式的总结。</span></p>
+              <div class="acts"><span class="b go"><span lang="en">Add it</span><span lang="zh">加上</span></span><span class="b"><span lang="en">Not now</span><span lang="zh">先不用</span></span></div>
+            </div>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <section id="acts">
-    <h2><span lang="en">It acts on its own, and it remembers</span><span lang="zh">它会自己动，也记得你的事</span></h2>
-    <p class="sub"><span lang="en">Every Agent keeps your data: training, meals, sleep, and whatever you mention in passing. When something changes, it comes to you with a concrete next step, not generic advice.</span><span lang="zh">每个 Agent 都存着你的数据：训练、饮食、睡眠，还有你随口跟它说的事。看到变化，它自己来找你，给的是具体的下一步，不是泛泛的建议。</span></p>
-    <div class="acts">
-      <article class="act">
-        <div class="head"><h3><span lang="en">You wake up</span><span lang="zh">起床</span></h3></div>
-        <dl>
-          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">Wake up, and your phone syncs Apple Health.</span><span lang="zh">醒来，手机同步了 Apple 健康。</span></dd>
-          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">How you slept, your heart-rate variability, what you trained this week.</span><span lang="zh">昨晚睡得怎样、心率变异性、这周练了什么。</span></dd>
-        </dl>
-        <p class="bubble"><small><span lang="en">Fitness Agent · 08:10</span><span lang="zh">健身 Agent · 08:10</span></small><span lang="en">7 hours of sleep, recovery 78. Pull B today as planned; keep the weights where they are.</span><span lang="zh">昨晚睡了 7 小时，恢复分 78。今天按计划练 Pull B，重量先不加。</span></p>
-      </article>
-      <article class="act">
-        <div class="head"><h3><span lang="en">Workout done</span><span lang="zh">练完了</span></h3></div>
-        <dl>
-          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">Tap “finish” in your training app.</span><span lang="zh">在训练软件里点了结束。</span></dd>
-          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">What you trained and what you've eaten today.</span><span lang="zh">今天练了什么、已经吃了多少。</span></dd>
-        </dl>
-        <p class="bubble"><small><span lang="en">Diet Agent · 16:22</span><span lang="zh">饮食 Agent · 16:22</span></small><span lang="en">Post-workout: 20 g protein powder, a banana, 25 g pistachios. You're still 40 g short on protein today.</span><span lang="zh">练后餐：蛋白粉 20 g、香蕉 1 根、开心果 25 g。今天蛋白质还差 40 g。</span></p>
-      </article>
-      <article class="act">
-        <div class="head"><h3><span lang="en">Back from the shops</span><span lang="zh">买完菜</span></h3></div>
-        <dl>
-          <dt><span lang="en">You</span><span lang="zh">你</span></dt><dd><span lang="en">“Got chicken breast, broccoli and oat milk at M&amp;S today.”</span><span lang="zh">「今天在 M&amp;S 买了鸡胸、西兰花和燕麦奶。」</span></dd>
-          <dt><span lang="en">It records</span><span lang="zh">它记下</span></dt><dd><span lang="en">What's in your kitchen now.</span><span lang="zh">家里现在有什么。</span></dd>
-        </dl>
-        <p class="bubble"><small><span lang="en">Diet Agent · 18:30</span><span lang="zh">饮食 Agent · 18:30</span></small><span lang="en">Dinner: 150 g of the chicken you bought, with broccoli. That covers today's protein.</span><span lang="zh">晚饭用家里的鸡胸 150 g 配西兰花，正好补上今天的蛋白质。</span></p>
-      </article>
-      <article class="act">
-        <div class="head"><h3><span lang="en">Running low</span><span lang="zh">快吃完了</span></h3></div>
-        <dl>
-          <dt><span lang="en">It knows</span><span lang="zh">它知道</span></dt><dd><span lang="en">What's left at home and how fast you go through it.</span><span lang="zh">家里还剩多少，你多久吃完一样东西。</span></dd>
-          <dt><span lang="en">It checks</span><span lang="zh">它去查</span></dt><dd><span lang="en">Which supermarket is near you, and what it has online.</span><span lang="zh">家附近是哪家超市，那里网上在卖什么。</span></dd>
-        </dl>
-        <p class="bubble"><small><span lang="en">Diet Agent · 20:00</span><span lang="zh">饮食 Agent · 20:00</span></small><span lang="en">One carton of oat milk left, and chicken for two meals. Pick up two oat milks and a pack of chicken at M&amp;S tomorrow.</span><span lang="zh">燕麦奶只剩一盒，鸡胸够两顿。明天路过 M&amp;S，带两盒燕麦奶、一盒鸡胸。</span></p>
-      </article>
+  <section class="sec wrap" id="ok">
+    <div class="split">
+      <div>
+        <h2><span lang="en">Nothing you can't undo, without your OK</span><span lang="zh">撤不回的事，都要你点头</span></h2>
+        <p class="sub"><span lang="en">What you asked for and can undo, it just does. Anything it came up with itself, or that can't be taken back, waits in one inbox: approve it, decline it, or reply to change it.</span><span lang="zh">你让做的、能撤回的，它直接做。它自己想到的，或者做了就收不回的，都进同一个收件箱：点同意、点不用，或者回一句让它改。</span></p>
+        <ul class="points">
+          <li><span class="pi"><svg class="ic"><use href="#i-inbox"/></svg></span><span><b><span lang="en">One inbox</span><span lang="zh">一个收件箱</span></b><span class="d"><span lang="en">Sending, paying, booking, new reminders, changes to your records or to its own setup: each waits for a tap.</span><span lang="zh">发给别人、花钱、预订、新的提醒、改你的记录或它自己的配置，每一件都等你点一下。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-shield-check"/></svg></span><span><b><span lang="en">Errands go through Sentinel</span><span lang="zh">代办只走 Sentinel</span></b><span class="d"><span lang="en">The errand Agent works in a sandbox with a single way out, and Sentinel decides what gets through.</span><span lang="zh">代办在沙箱里干活，出门只有一条路，过不过由 Sentinel 说了算。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-key-round"/></svg></span><span><b><span lang="en">It never sees your passwords</span><span lang="zh">它看不到你的密码</span></b><span class="d"><span lang="en">The agent only holds placeholders. Sentinel swaps in the real one on the way out, and only for the site it belongs to.</span><span lang="zh">agent 手里只有占位符。出门时 Sentinel 才换成真的，而且只对它所属的网站。</span></span></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sent">
+          <div class="s-node box"><b><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></b><span lang="en">In a sandbox, with no network of its own</span><span lang="zh">在沙箱里，自己上不了网</span></div>
+          <div class="s-arrow right" aria-hidden="true"><svg viewBox="0 0 26 16"><path d="M2 8 H23 M18 3 L23 8 L18 13"/></svg></div>
+          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
+          <div class="s-node gate"><b><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</b><span lang="en">The only way out</span><span lang="zh">唯一的出口</span></div>
+          <div class="s-fork" aria-hidden="true"></div>
+          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
+          <div class="s-outs">
+            <div class="s-out pass"><b><svg class="ic"><use href="#i-globe"/></svg><span lang="en">Passes</span><span lang="zh">放行</span></b><span lang="en">Reading pages, searching, comparing prices</span><span lang="zh">看网页、搜索、比价</span></div>
+            <div class="s-out hold"><b><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Held for you</span><span lang="zh">扣下等你</span></b><span lang="en">Submitting, sending, logging in, or anything carrying your private details</span><span lang="zh">提交、发送、登录，或者带着你私事的请求</span></div>
+          </div>
+        </div>
+        <p class="s-cap"><span lang="en">Held requests go out only after you tap “Let it through once”.</span><span lang="zh">扣下的请求，要你点「放行这一次」才发出去。</span></p>
+      </div>
     </div>
   </section>
 
-  <section id="what">
-    <h2><span lang="en">What OpenMousse is</span><span lang="zh">OpenMousse 是什么</span></h2>
-    <p class="sub"><span lang="en">It doesn't bring an agent of its own. The claw on your machine (<a href="https://openclaw.ai">OpenClaw</a>, for example) already is one; OpenMousse adds three things around it.</span><span lang="zh">它不自带 agent。你机器上跑的 claw（比如 <a href="https://openclaw.ai">OpenClaw</a>）本身就是 agent，OpenMousse 在它周围加了三样东西。</span></p>
-    <div class="grid three">
-      <div class="card">
-        <span class="dir">app/</span>
-        <h3><span lang="en">An iPhone app</span><span lang="zh">一个 iPhone app</span></h3>
-        <p><span lang="en">Chat with your claw by text, voice, photos or files, and get a notification when it answers. Each Agent has its own page with a chat and a dashboard, and the Today page gathers what they suggest. There's a web version too, served by your own server.</span><span lang="zh">跟你的 claw 对话，文字、语音、照片、文件都行，回完推送给你。每个 Agent 有自己的页面，对话和看板在一起；「今天」页汇总它们给你的建议。也有网页版，由你自己的服务器提供。</span></p>
+  <section class="sec wrap" id="memory">
+    <div class="split rev">
+      <div class="mem">
+        <div class="mem-apps">
+          <span class="app-chip">Claude</span><span class="app-chip">ChatGPT</span><span class="app-chip">Gemini</span><span class="app-chip">Notion</span><span class="app-chip">Claude Code</span><span class="app-chip mine"><span lang="en">Your Agents</span><span lang="zh">你的 Agents</span></span>
+        </div>
+        <div class="mem-link"><span lang="en">read and write over MCP</span><span lang="zh">通过 MCP 读写</span></div>
+        <div class="mem-core">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="lens-ring" cx="50" cy="50" r="30" stroke-width="9"/><circle class="lens-dot" cx="71.2" cy="28.8" r="8"/></svg>
+          <span><b><span lang="en">Memory tree</span><span lang="zh">世界树</span></b><span class="s"><span lang="en">One memory, hung on branches</span><span lang="zh">一份记忆，按枝挂好</span></span></span>
+        </div>
+        <div class="mem-link"><span lang="en">kept as notes in your vault</span><span lang="zh">存成你库里的笔记</span></div>
+        <div class="note">
+          <div class="note-name"><svg class="ic"><use href="#i-file-text"/></svg><span lang="en">2026-09-21 Trains after work.md</span><span lang="zh">2026-09-21 喜欢下班后练.md</span></div>
+          <dl class="props">
+            <dt>branch</dt><dd class="lnk"><span lang="en">[[Fitness]]</span><span lang="zh">[[健身]]</span></dd>
+            <dt>source</dt><dd>chatgpt</dd>
+            <dt>status</dt><dd>active</dd>
+          </dl>
+          <p class="note-body"><span lang="en">Prefers training after work. Squats feel heavy after a short night.</span><span lang="zh">喜欢下班后练。前一晚睡得少，深蹲会觉得沉。</span></p>
+        </div>
       </div>
-      <div class="card">
-        <span class="dir">server/</span>
-        <h3><span lang="en">A small server next to your claw</span><span lang="zh">claw 旁边的一个小服务</span></h3>
-        <p><span lang="en">Handles the app's sign-in, relays chats and sends notifications. Ask for a new Agent in chat and it sets one up in your claw. Every night it writes a digest for each Agent, so each one remembers yesterday.</span><span lang="zh">负责 app 的登录、对话转发和推送。你在对话里说要一个新 Agent，它就在你的 claw 里建好。每天夜里给每个 Agent 做一次日结，让它们记得昨天。</span></p>
-      </div>
-      <div class="card">
-        <span class="dir">tree/</span>
-        <h3><span lang="en">The memory tree</span><span lang="zh">世界树</span></h3>
-        <p><span lang="en">An MCP server holding one memory about you. Claude.ai, ChatGPT, Gemini, Notion and your claw all connect to it, so what one learns, the others know. It works on its own, without a claw.</span><span lang="zh">一个 MCP 服务，存着一份关于你的记忆。Claude.ai、ChatGPT、Gemini、Notion 和你的 claw 都接在这棵树上，一个平台知道了，其他平台也知道。不接 claw 也能单独用。</span></p>
+      <div>
+        <h2><span lang="en">One memory for every AI you use</span><span lang="zh">你用的所有 AI，共用一份记忆</span></h2>
+        <p class="sub"><span lang="en">The memory tree keeps what matters about you as notes in your own Obsidian vault, one note per memory, hung on branches like Body, Study and Work. Claude, ChatGPT, Gemini, Notion, Claude Code and your Agents all read and write it over MCP. What one learns, the others know.</span><span lang="zh">世界树把关于你的重要的事存成你自己 Obsidian 库里的笔记，一条记忆一篇，挂在「身体」「学业」「工作」这些枝上。Claude、ChatGPT、Gemini、Notion、Claude Code 和你的 Agents 都通过 MCP 读写它：一个知道了，其他的都知道。</span></p>
+        <ul class="points">
+          <li><span class="pi"><svg class="ic"><use href="#i-eye"/></svg></span><span><b><span lang="en">You can see all of it</span><span lang="zh">全都看得见</span></b><span class="d"><span lang="en">Browse by branch or by the app that saved it. Confirm, forget or move any memory.</span><span lang="zh">按枝看，或者按是哪个 app 记的看。每一条都能确认、忘掉、换一根枝。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-sparkles"/></svg></span><span><b><span lang="en">Pruned once a week</span><span lang="zh">每周修剪一次</span></b><span class="d"><span lang="en">It proposes what to merge and what to archive. You tick what happens.</span><span lang="zh">它提出哪些合并、哪些归档，你勾了才动。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-plug"/></svg></span><span><b><span lang="en">Works on its own</span><span lang="zh">也能单独用</span></b><span class="d"><span lang="en">No claw needed: install only the memory tree and connect your AI apps to it.</span><span lang="zh">不装 claw 也行：只装世界树，把你的 AI app 接上去。</span></span></span></li>
+        </ul>
       </div>
     </div>
-
-    <div class="how">
-      <div class="node"><b><span lang="en">Your iPhone</span><span lang="zh">你的 iPhone</span></b><span>OpenMousse app</span></div>
-      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="node home"><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b><span><span lang="en">Your claw (the agent) · OpenMousse server · memory tree</span><span lang="zh">你的 claw（agent 本体）· OpenMousse 服务 · 世界树</span></span></div>
-      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="node"><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span>Claude · ChatGPT · Kimi · …</span></div>
-    </div>
-    <p class="caption"><span lang="en">The app only talks to your own server. Your claw runs the agent on your model account, and Claude.ai, ChatGPT and Gemini reach the memory tree over MCP.</span><span lang="zh">app 只连你自己的服务器。agent 由你的 claw 跑，用的是你的模型账号；Claude.ai、ChatGPT、Gemini 通过 MCP 读写世界树。</span></p>
   </section>
 
-  <section id="data">
-    <h2><span lang="en">Your data stays with you</span><span lang="zh">数据留在你这里</span></h2>
-    <div class="flow">
-      <div class="card">
-        <h3><span lang="en">On your server</span><span lang="zh">存在你的服务器上</span></h3>
+  <section class="sec wrap" id="more">
+    <div class="sec-head">
+      <h2><span lang="en">Also in the app</span><span lang="zh">app 里还有</span></h2>
+    </div>
+    <ul class="more">
+      <li class="feat"><svg class="ic"><use href="#i-brain"/></svg><b>Zen</b><p><span lang="en">Drop a thought the moment it comes. Nothing answers until you pick a few and tap Talk.</span><span lang="zh">想到什么先丢进来，谁也不回。挑几条点「聊聊」，它才开口。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-bookmark"/></svg><b><span lang="en">Saved</span><span lang="zh">收藏</span></b><p><span lang="en">Keep links, files and screenshots from other apps. The text stays even if the page is taken down.</span><span lang="zh">别的 app 里的链接、文件、截图存进来；原文删了，这里也还在。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-folder-kanban"/></svg><b><span lang="en">Projects</span><span lang="zh">项目</span></b><p><span lang="en">Things with an end get a card: goal, deadlines, next step, and a summary when it's done.</span><span lang="zh">有终点的事一张卡：目标、截止、下一步，做完了留一份总结。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-target"/></svg><b><span lang="en">Goals</span><span lang="zh">目标</span></b><p><span lang="en">Long-term goals by area. Numbers like your weight, it reads for itself.</span><span lang="zh">按领域放长期目标，体重这类数字它自己去读。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-calendar-check-2"/></svg><b><span lang="en">To remember</span><span lang="zh">要记得的</span></b><p><span lang="en">Every deadline from course sites, email and applications, each shown once, next to your calendar.</span><span lang="zh">课程网站、邮件、申请里的截止都收在一起，一件事只出现一次，挨着你的日程。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-graduation-cap"/></svg><b><span lang="en">Study desk</span><span lang="zh">学习台</span></b><p><span lang="en">Course materials become notes, flashcards and a quiz, with a chat that answers from them.</span><span lang="zh">课件变成笔记、闪卡和小测，旁边的对话只按这些材料回答。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-share-2"/></svg><b><span lang="en">Share</span><span lang="zh">分享</span></b><p><span lang="en">Turn a reply into a link page or a clean image. Addresses, names and body numbers are hidden first.</span><span lang="zh">一条回复做成链接页或干净的图片；住址、人名、身体数据先打码。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-bell"/></svg><b><span lang="en">Notifications</span><span lang="zh">通知</span></b><p><span lang="en">Three levels: ring, quiet, none. Focus time holds everything until you're done.</span><span lang="zh">三档：响、静音、不推。专注时段里的全部先压着。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-smartphone"/></svg><b><span lang="en">Widgets</span><span lang="zh">小组件</span></b><p><span lang="en">Recovery, the next meal and what's next today on your Home Screen, and a countdown on your Lock Screen.</span><span lang="zh">主屏幕上看恢复分、下一餐、今天接下来是什么；锁屏上有倒计时。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-list-todo"/></svg><b><span lang="en">Background tasks</span><span lang="zh">后台任务</span></b><p><span lang="en">Hand off a long job. A card shows its progress, and it reports back when it's done.</span><span lang="zh">长活派出去，卡片上看进度，做完回来汇报。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-plug"/></svg><b><span lang="en">Connectors</span><span lang="zh">连接器</span></b><p><span lang="en">Connect Notion, Linear or any MCP app in a tap. Each tool runs automatically, asks you first, or stays off.</span><span lang="zh">Notion、Linear 或任何 MCP 应用点一下就连；每个工具可以自动、先问我、或者关掉。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-message-circle"/></svg><b><span lang="en">Chat</span><span lang="zh">对话</span></b><p><span lang="en">Text, voice, photos and files. Cut in while it's replying, quote any line, search any day.</span><span lang="zh">文字、语音、照片、文件都行。它回着也能插话，能引用，能按天搜。</span></p></li>
+    </ul>
+  </section>
+
+  <section class="sec wrap" id="yours">
+    <div class="sec-head">
+      <h2><span lang="en">Your machine, your model, your data</span><span lang="zh">你的机器，你的模型，你的数据</span></h2>
+      <p class="sub"><span lang="en">OpenMousse brings no agent of its own. It installs next to the claw you already run and adds the app, the Agents and the memory tree around it.</span><span lang="zh">OpenMousse 不自带 agent。它装在你已经在跑的 claw 旁边，在外面加上 app、Agents 和世界树。</span></p>
+    </div>
+    <div class="arch">
+      <div class="a-node"><svg class="ic"><use href="#i-smartphone"/></svg><b><span lang="en">Your phone</span><span lang="zh">你的手机</span></b><span class="s"><span lang="en">OpenMousse app, or the web version</span><span lang="zh">OpenMousse app 或网页版</span></span></div>
+      <div class="a-arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13"/></svg></div>
+      <div class="a-node home"><svg class="ic"><use href="#i-server"/></svg><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b>
+        <div class="a-parts"><span class="a-part claw"><span lang="en">Your claw (the agent)</span><span lang="zh">你的 claw（agent 本体）</span></span><span class="a-part"><span lang="en">OpenMousse server</span><span lang="zh">OpenMousse 服务</span></span><span class="a-part"><span lang="en">Memory tree</span><span lang="zh">世界树</span></span><span class="a-part">Sentinel</span></div>
+      </div>
+      <div class="a-arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13"/></svg></div>
+      <div class="a-node"><svg class="ic"><use href="#i-key-round"/></svg><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span class="s">Claude · ChatGPT · Gemini · Kimi · …</span></div>
+    </div>
+    <p class="arch-cap"><span lang="en">Apart from signing in to the TestFlight app with your email, the app only talks to your own server. AI apps reach the memory tree over MCP, and a friend's server talks to yours only with signed messages.</span><span lang="zh">除了 TestFlight 版要用邮箱登录，app 只连你自己的服务器。AI app 通过 MCP 连世界树；朋友的服务器和你的之间，只走签过名的消息。</span></p>
+    <div class="cols2">
+      <div class="col">
+        <h3><svg class="ic"><use href="#i-plug"/></svg><span lang="en">Any claw</span><span lang="zh">任何 claw</span></h3>
+        <p><span lang="en">OpenClaw, Hermes Agent, nanobot, Letta Code, Kimi Claw, or any agent with an OpenAI-compatible API.</span><span lang="zh">OpenClaw、Hermes Agent、nanobot、Letta Code、Kimi Claw，或者任何有 OpenAI 兼容接口的 agent。</span></p>
+      </div>
+      <div class="col">
+        <h3><svg class="ic"><use href="#i-key-round"/></svg><span lang="en">Your own model account</span><span lang="zh">你自己的模型账号</span></h3>
+        <p><span lang="en">Your claw runs on your own account, and a Claude or ChatGPT subscription works. Every reply shows which model answered.</span><span lang="zh">claw 用的是你自己的账号，Claude、ChatGPT 的订阅都行。每条回复都标着是哪个模型答的。</span></p>
+      </div>
+    </div>
+    <div class="data">
+      <div>
+        <h3><svg class="ic"><use href="#i-server"/></svg><span lang="en">Stays on your server</span><span lang="zh">留在你的服务器上</span></h3>
         <ul>
           <li><span lang="en">Conversations, Agents and their memory</span><span lang="zh">对话、Agents 和它们的记忆</span></li>
-          <li><span lang="en">Apple Health daily summaries (only if you allow it)</span><span lang="zh">Apple 健康的每日汇总（你允许才会同步）</span></li>
-          <li><span lang="en">Files and voice notes you send</span><span lang="zh">你发的文件和语音</span></li>
-          <li><span lang="en">The memory tree</span><span lang="zh">世界树</span></li>
+          <li><span lang="en">The memory tree, as notes in your vault</span><span lang="zh">世界树，也就是你库里的那些笔记</span></li>
+          <li><span lang="en">Apple Health daily summaries, only if you allow it</span><span lang="zh">Apple 健康的每日汇总，你允许才同步</span></li>
+          <li><span lang="en">Files, photos and voice notes you send</span><span lang="zh">你发的文件、照片和语音</span></li>
         </ul>
+      </div>
+      <div>
+        <h3><svg class="ic"><use href="#i-arrow-up-right"/></svg><span lang="en">What leaves it, by design</span><span lang="zh">按设计会出去的</span></h3>
+        <ul>
+          <li><span lang="en">Messages to the model providers you set up</span><span lang="zh">发给你配置的模型服务商的消息</span></li>
+          <li><span lang="en">Push notifications through Apple and Expo: a title and a short preview</span><span lang="zh">经 Apple 和 Expo 的推送：标题和一小段预览</span></li>
+          <li><span lang="en">Voice notes to your transcription service (OpenAI by default, or your own Whisper)</span><span lang="zh">发给转写服务的语音（默认 OpenAI，也可以用自己的 Whisper）</span></li>
+          <li><span lang="en">Whatever you connect yourself: AI apps reading the memory tree, a friend's server, Notion</span><span lang="zh">你自己接上的：读世界树的 AI app、朋友的服务器、Notion</span></li>
+          <li><span lang="en">In the TestFlight app only, your account: email, an optional name and the claws you've connected (assistant name, server address, kind, last seen). Never tokens, chats or memory. Builds you make yourself and the web version have no account.</span><span lang="zh">只有 TestFlight 版有账号：邮箱、可选的名字、连过的 claw（助手名、服务器地址、类型、最近在线），不存令牌、对话、记忆。自己打包的版本和网页版没有账号。</span></li>
+        </ul>
+        <p><a href="privacy.html"><span lang="en">Privacy policy →</span><span lang="zh">隐私政策 →</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="install">
+    <div class="sec-head">
+      <h2><span lang="en">Install</span><span lang="zh">安装</span></h2>
+      <p class="sub"><span lang="en">You need a Linux machine running a claw with a model set up, and an iPhone. The web version works in any browser.</span><span lang="zh">需要一台跑着 claw、配好模型的 Linux 机器，和一部 iPhone；网页版在任何浏览器里都能用。</span></p>
+    </div>
+    <div class="inst">
+      <div class="card">
+        <h3><svg class="ic"><use href="#i-send"/></svg><span lang="en">Already have a claw? Send it one sentence.</span><span lang="zh">已经有 claw？发它一句话。</span></h3>
+        <p><span lang="en">It installs OpenMousse next to itself, gives itself the tools over MCP, and sends you a one-time pairing link. Tap it on your phone and you're in.</span><span lang="zh">它自己在旁边装好 OpenMousse、通过 MCP 给自己接上工具，再发你一条一次性的配对链接。手机上点一下就连上了。</span></p>
+        <a class="go" href="connect.html"><span lang="en">Get the sentence</span><span lang="zh">拿这句话</span><svg class="ic"><use href="#i-arrow-right"/></svg></a>
       </div>
       <div class="card">
-        <h3><span lang="en">What leaves it, by design</span><span lang="zh">按设计会出去的</span></h3>
-        <ul>
-          <li><span lang="en">Messages to the model providers you configure</span><span lang="zh">发给你自己配置的模型服务商的消息</span></li>
-          <li><span lang="en">Push notifications via Apple and Expo (a title and a short preview)</span><span lang="zh">经 Apple 和 Expo 的推送（标题和一段简短预览）</span></li>
-          <li><span lang="en">Voice notes to your transcription service (OpenAI by default, or your own Whisper)</span><span lang="zh">语音发给你配置的转写服务（默认 OpenAI，也可以用自己的 Whisper）</span></li>
-        </ul>
-        <p style="margin-top:10px"><a href="privacy.html"><span lang="en">Privacy policy →</span><span lang="zh">隐私政策 →</span></a></p>
+        <h3><svg class="ic"><use href="#i-terminal"/></svg><span lang="en">Or run one command on the server</span><span lang="zh">或者在服务器上跑一条命令</span></h3>
+        <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
+        <p><span lang="en">It asks a few questions (language, which claw, time zone, what to call the assistant), sets up the server, the memory tree and the nightly digest, then shows how to connect your phone. Running it again only fills in what's missing.</span><span lang="zh">它会问几个问题（语言、用哪个 claw、时区、助手叫什么），装好服务端、世界树和每晚的日结，最后告诉你手机怎么连。再跑一遍只补缺的。</span></p>
       </div>
     </div>
+    <p class="inst-foot"><a href="start.html"><span lang="en">First time? The step-by-step guide covers the server, your phone, your data and your first Agent →</span><span lang="zh">第一次装？跟着新手指南一步步来：服务器、手机、你的数据、第一个 Agent →</span></a></p>
   </section>
 
-  <section id="install">
-    <h2><span lang="en">Install</span><span lang="zh">安装</span></h2>
-    <p class="sub"><span lang="en">You need a Linux machine running a claw (such as <a href="https://github.com/openclaw/openclaw">OpenClaw</a>) with a model set up, and an iPhone. Then one command:</span><span lang="zh">需要一台跑着 claw（比如 <a href="https://github.com/openclaw/openclaw">OpenClaw</a>）、配好模型的 Linux 机器，和一部 iPhone。然后一条命令：</span></p>
-    <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
-    <p class="steps"><span lang="en">It asks four questions (language, where OpenClaw lives, time zone, what to call the assistant), sets up the server, the memory tree and the daily digest, and prints how to connect your phone. Running it again only fills in what's missing.</span><span lang="zh">它会问四个问题（语言、OpenClaw 在哪、时区、助手叫什么），装好服务端、世界树和日结，最后告诉你手机怎么连。再跑一遍只补缺的。</span></p>
-    <p><a href="connect.html"><span lang="en">Already have a claw? Send it one sentence and it sets OpenMousse up for you →</span><span lang="zh">已经有 claw 了？发它一句话，它替你把 OpenMousse 装好 →</span></a></p>
-    <p><a href="start.html"><span lang="en">First time? Follow the step-by-step guide: server, phone, your data, your first Agent →</span><span lang="zh">第一次装？跟着新手指南一步步来：服务器、手机、你的数据、第一个 Agent →</span></a></p>
-  </section>
-
-  <section id="why">
-    <div class="card why">
-      <h2><span lang="en">Why OpenMousse</span><span lang="zh">为什么做 OpenMousse</span></h2>
-      <p><span lang="en">When Meta's Muse was everywhere, the author wrote a post about it: Muse is a claw in an app shell, and the trouble is that it's centralized. You can't pick the model, the memory starts from zero, and your data can't leave. OpenMousse is the answer to that post.</span><span lang="zh">Muse 刷屏的那几天，作者写了一篇文章：Muse 其实是一只套着 app 外壳的 claw，问题在于太中心化，模型选不了，记忆从零开始，数据也带不走。OpenMousse 就是那篇文章的回答。</span></p>
-      <p><a href="why.html"><span lang="en">Read “Muse? Claws!” (in Chinese for now) →</span><span lang="zh">读《Muse？Claws！》→</span></a></p>
+  <section class="sec wrap" id="why">
+    <div class="why-card">
+      <div>
+        <h2><span lang="en">Why OpenMousse</span><span lang="zh">为什么做 OpenMousse</span></h2>
+        <p><span lang="en">When Meta's Muse was everywhere, the author wrote a post about it: Muse is a claw in an app shell, and the trouble is that it's centralized. You can't pick the model, the memory starts from zero, and your data can't leave. OpenMousse is the answer to that post.</span><span lang="zh">Muse 刷屏的那几天，作者写了一篇文章：Muse 其实是一只套着 app 外壳的 claw，问题在于太中心化，模型选不了，记忆从零开始，数据也带不走。OpenMousse 就是那篇文章的回答。</span></p>
+      </div>
+      <a class="btn" href="why.html"><span lang="en">Read “Muse? Claws!”</span><span lang="zh">读《Muse？Claws！》</span><svg class="ic"><use href="#i-arrow-right"/></svg></a>
     </div>
+    <p class="aside-note"><span lang="en"><strong>Not OpenMuse.</strong> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your own claw and focuses on your life data, proactive Agents and a memory every AI shares.</span><span lang="zh"><strong>不是 OpenMuse。</strong>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你自己的 claw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span></p>
   </section>
+</main>
 
-  <section>
-    <div class="note">
-      <p><span lang="en"><strong>Not OpenMuse.</strong> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your own claw and focuses on your life data, proactive Agents and a memory every AI shares.</span><span lang="zh"><strong>不是 OpenMuse。</strong>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你自己的 claw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span></p>
-    </div>
-  </section>
+<footer class="wrap">
+  <div class="row">
+    <span>OpenMousse · AGPL-3.0 · © 2026 Leo Zhou</span>
+    <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="start.html"><span lang="en">Guide</span><span lang="zh">新手指南</span></a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a> · <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a></span>
+  </div>
+</footer>
 
-  <footer>
-    <div class="row">
-      <span>OpenMousse · AGPL-3.0 · © 2026 Leo Zhou</span>
-      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a> · <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a></span>
-    </div>
-  </footer>
-</div>
 <script>
   document.getElementById('lang').addEventListener('click', function () {
     var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
@@ -393,9 +959,44 @@
     b.addEventListener('click', function () {
       var text = b.getAttribute('data-copy');
       var done = function () { var t = b.innerHTML; b.textContent = '✓'; setTimeout(function () { b.innerHTML = t; }, 1200); };
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
+      var select = function () {
+        var r = document.createRange(); r.selectNodeContents(b.parentNode.querySelector('pre'));
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      };
+      try { navigator.clipboard.writeText(text).then(done, select); } catch (e) { select(); }
     });
   });
+  // The dial's dot follows the moment you're reading. Angles only grow, so 22:10 → 03:45 keeps turning forward.
+  (function () {
+    var dial = document.getElementById('dial');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.moment'));
+    if (!dial || !items.length) return;
+    var hand = dial.querySelector('.hand'), time = dial.querySelector('.dial-time');
+    var titles = { en: dial.querySelector('.dial-title [lang="en"]'), zh: dial.querySelector('.dial-title [lang="zh"]') };
+    var angles = [], prev = -Infinity, current = -1;
+    items.forEach(function (li) {
+      var p = li.getAttribute('data-time').split(':');
+      var a = (Number(p[0]) * 60 + Number(p[1])) / 1440 * 360;
+      while (a < prev) a += 360;
+      angles.push(a); prev = a;
+    });
+    function show(i) {
+      if (i === current || i < 0) return;
+      current = i;
+      var li = items[i];
+      hand.style.transform = 'rotate(' + angles[i] + 'deg)';
+      time.textContent = li.getAttribute('data-time');
+      titles.en.textContent = li.querySelector('h3 [lang="en"]').textContent;
+      titles.zh.textContent = li.querySelector('h3 [lang="zh"]').textContent;
+      items.forEach(function (x, j) { x.classList.toggle('is-now', j === i); });
+    }
+    show(0);
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) show(items.indexOf(e.target)); });
+    }, { rootMargin: '-38% 0px -58% 0px' });
+    items.forEach(function (li) { io.observe(li); });
+  })();
 </script>
 </body>
 </html>
