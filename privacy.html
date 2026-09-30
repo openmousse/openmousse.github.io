@@ -41,15 +41,15 @@
 
   <div lang="en">
     <h1>Privacy</h1>
-    <p class="updated">Last updated: September 25, 2026</p>
+    <p class="updated">Last updated: September 30, 2026</p>
 
-    <p>OpenMousse is open-source software that you run on your own server. The OpenMousse iPhone app is a client for that server; it is published by Leo Zhou. This page explains what happens to your data.</p>
+    <p>OpenMousse is open-source software that you run on your own server. The OpenMousse iPhone app is a client for that server; it is published by Leo Zhou. Your server also serves a web version of the same app. This page explains what happens to your data.</p>
 
     <h2>The short version</h2>
     <ul>
-      <li>We don't run a service that stores your data. The app only talks to the server address you enter.</li>
-      <li>No accounts, no ads, no analytics or tracking SDKs in the app.</li>
-      <li>Your conversations, memory and health summaries are stored on your server, under your control.</li>
+      <li>Your conversations, memory and health summaries are stored on your server, under your control. We never receive them.</li>
+      <li>The TestFlight app asks you to sign in with your email. That account holds your email, an optional name and the list of claws you connect, and nothing else. The web version and builds you make yourself have no account.</li>
+      <li>No ads, no analytics or tracking SDKs in the app.</li>
     </ul>
 
     <h2>What the app sends to your server</h2>
@@ -66,6 +66,17 @@
       <li><strong>Push notifications.</strong> Sent through Expo's push service and Apple Push Notification service. A notification carries a short title and a preview (for a chat reply: the conversation name and the first 140 characters).</li>
       <li><strong>Voice notes.</strong> Transcribed by the service set in your server's configuration: OpenAI by default, or your own Whisper-compatible server.</li>
       <li><strong>Memory tree (optional).</strong> If you connect Claude.ai, ChatGPT, Gemini or Notion to your memory tree, those services read and write it through the endpoint you set up.</li>
+      <li><strong>Connectors (optional).</strong> If you connect an app such as Notion under Settings → Connectors, your server keeps its sign-in token, and your claw reads or writes that app through your server.</li>
+      <li><strong>Shares and friends (optional).</strong> A share link shows a snapshot of what you chose to share to anyone who has the link; private details such as addresses and family names are greyed out. If you add friends, your server exchanges signed messages with theirs.</li>
+    </ul>
+
+    <h2>Your account (TestFlight app)</h2>
+    <p>The OpenMousse app from TestFlight asks you to sign in once, with a 6-digit code sent to your email. The account lets the project see who uses the app and with which claws.</p>
+    <ul>
+      <li><strong>What it holds.</strong> Your email address, an optional name, and the claws you connect: the assistant's name, the server address, the claw's kind and name, and when it was last seen. Never tokens, chats, memory, health data or connector credentials.</li>
+      <li><strong>Who handles it.</strong> Supabase hosts the account in the EU (Ireland); Resend sends the sign-in code email. Supabase also keeps standard sign-in records, such as sign-in times and IP addresses.</li>
+      <li><strong>How long.</strong> Until you delete the account: Settings → your account → Delete account removes it and its list of claws. Nothing on your server changes. You can also email us for a copy of what we hold, or to delete it for you.</li>
+      <li><strong>No account.</strong> The web version and builds you make yourself don't sign in to anything; they talk only to your server.</li>
     </ul>
 
     <h2>Other services the app uses</h2>
@@ -82,6 +93,7 @@
       <li>Turn Apple Health access off in iOS Settings at any time; the app stops syncing.</li>
       <li>Delete conversations, journal entries and memories in the app, or remove the server's data directory.</li>
       <li>Use your own transcription server, or don't use voice input.</li>
+      <li>Delete your account in the app: Settings → your account → Delete account.</li>
     </ul>
 
     <h2>Children</h2>
@@ -93,15 +105,15 @@
 
   <div lang="zh">
     <h1>隐私政策</h1>
-    <p class="updated">最后更新：2026 年 9 月 25 日</p>
+    <p class="updated">最后更新：2026 年 9 月 30 日</p>
 
-    <p>OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是这个服务器的客户端，由 Leo Zhou 发布。本页说明你的数据会怎样被处理。</p>
+    <p>OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是这个服务器的客户端，由 Leo Zhou 发布；你的服务器也提供同一个 app 的网页版。本页说明你的数据会怎样被处理。</p>
 
     <h2>简单说</h2>
     <ul>
-      <li>我们不运营任何存你数据的服务。app 只和你填的服务器地址通信。</li>
-      <li>没有账号，没有广告，app 里没有统计或追踪 SDK。</li>
-      <li>你的对话、记忆和健康汇总都存在你自己的服务器上，由你控制。</li>
+      <li>你的对话、记忆和健康汇总都存在你自己的服务器上，由你控制，我们收不到。</li>
+      <li>TestFlight 版的 app 会请你用邮箱登录。账号里只有你的邮箱、可选的名字和你连过的 claw 列表。网页版和自己构建的版本没有账号。</li>
+      <li>没有广告，app 里没有统计或追踪 SDK。</li>
     </ul>
 
     <h2>app 发给你服务器的内容</h2>
@@ -118,6 +130,17 @@
       <li><strong>推送通知。</strong>经 Expo 推送服务和 Apple 推送服务发送。一条通知包含简短的标题和预览（对话回复就是对话名和回复的前 140 个字）。</li>
       <li><strong>语音。</strong>由服务器配置里的转写服务处理：默认 OpenAI，也可以换成你自己的 Whisper 兼容服务。</li>
       <li><strong>世界树（可选）。</strong>如果你把 Claude.ai、ChatGPT、Gemini 或 Notion 接到世界树，这些服务会通过你设置的地址读写它。</li>
+      <li><strong>连接器（可选）。</strong>你在「设置 → 连接器」里接了 Notion 这类应用的话，它的登录令牌存在你的服务器上，你的 claw 经你的服务器读写那个应用。</li>
+      <li><strong>分享和朋友（可选）。</strong>分享链接会把你选中内容的快照给有链接的人看，住址、家人名字这类私事显示成灰条。加了朋友的话，你的服务器和朋友的服务器之间互发签过名的消息。</li>
+    </ul>
+
+    <h2>你的账号（TestFlight 版）</h2>
+    <p>从 TestFlight 装的 OpenMousse app 会请你登录一次：往你的邮箱发一个 6 位验证码。有了账号，项目才知道谁在用这个 app、接的是哪些 claw。</p>
+    <ul>
+      <li><strong>存什么。</strong>你的邮箱、可选的名字，和你连过的 claw：助手名、服务器地址、claw 的类型和名字、最近在线的时间。从不存令牌、对话、记忆、健康数据和连接器的凭据。</li>
+      <li><strong>谁经手。</strong>账号放在 Supabase 的欧盟区（爱尔兰）；登录验证码的邮件由 Resend 发出。Supabase 还会留常规的登录记录，比如登录时间和 IP 地址。</li>
+      <li><strong>存多久。</strong>一直到你删掉账号：「设置 → 账号 → 删除账号」会删掉账号和它记着的 claw 列表，你服务器上的东西一样不动。也可以发邮件给我们，要一份我们存的内容，或者让我们替你删。</li>
+      <li><strong>没有账号的。</strong>网页版和你自己构建的版本不登录任何东西，只连你自己的服务器。</li>
     </ul>
 
     <h2>app 用到的其他服务</h2>
@@ -134,6 +157,7 @@
       <li>随时在 iOS 设置里关掉 Apple 健康授权，app 就停止同步。</li>
       <li>在 app 里删除对话、日志和记忆，或者直接删掉服务器的数据目录。</li>
       <li>换成自己的转写服务，或者不用语音输入。</li>
+      <li>在 app 里删掉账号：「设置 → 账号 → 删除账号」。</li>
     </ul>
 
     <h2>儿童</h2>
