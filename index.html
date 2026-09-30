@@ -119,7 +119,7 @@
   .halo .h-dot { fill: var(--dot); }
   .phone { position: absolute; width: 47%; border-radius: clamp(22px, 3.4vw, 38px); padding: 2.2%; background: #0B0D10;
            box-shadow: 0 36px 70px -34px rgb(0 0 0 / .6), inset 0 0 0 1px rgb(255 255 255 / .07); }
-  .phone picture, .phone img { display: block; width: 100%; }
+  .phone picture, .phone img { display: block; width: 100%; height: auto; }
   .phone img { border-radius: clamp(17px, 2.7vw, 31px); }
   .phone.back { left: 3%; top: 10%; transform: rotate(-6deg); }
   .phone.front { right: 3%; top: 1%; transform: rotate(4deg); }
@@ -270,29 +270,9 @@
   .portrait .t .ic { width: 11px; height: 11px; }
 
   /* Study desk */
-  .desk { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
-  .desk-bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--bg); font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .desk-bar { display: flex; align-items: center; gap: 12px; padding: 9px 14px; border-bottom: 1px solid var(--line); background: var(--bg); font-size: 13px; font-weight: 600; color: var(--ink2); }
   .dots { display: inline-flex; gap: 6px; }
   .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
-  .desk-body { display: grid; grid-template-columns: 210px minmax(0, 1.05fr) minmax(0, 1fr); }
-  .desk-courses { padding: 14px; border-right: 1px solid var(--line); }
-  .dc-title { margin: 0 0 6px; font-size: 13.5px; font-weight: 650; }
-  .dc-title.muted { margin-top: 14px; color: var(--ink2); font-weight: 600; }
-  .desk-courses ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
-  .desk-courses li { padding: 6px 8px; border-radius: 8px; font-size: 13.5px; color: var(--ink2); }
-  .desk-courses li.on { background: var(--t-purple-bg); color: var(--t-purple); font-weight: 600; }
-  .dc-add { margin: 14px 0 0; padding: 6px 8px; border: 1px dashed var(--ink3); border-radius: 8px; font-size: 13.5px; color: var(--ink2); text-align: center; }
-  .desk-main { display: flex; flex-direction: column; gap: 14px; padding: 14px 18px; border-right: 1px solid var(--line); }
-  .desk-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
-  .desk-tabs > span { padding: 5px 10px; border-radius: 999px; background: var(--surface2); font-size: 13px; color: var(--ink2); }
-  .desk-tabs > span.on { background: var(--ink); color: var(--bg); }
-  .flash { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); }
-  .fq { margin: 0; font-size: 17px; font-weight: 650; line-height: 1.45; text-wrap: pretty; }
-  .fa-row { align-self: stretch; display: flex; align-items: center; justify-content: space-between; }
-  .desk-chat { display: flex; flex-direction: column; gap: 8px; padding: 14px; }
-  .desk-chat .msg { font-size: 14px; max-width: 94%; }
-  .srcs { display: flex; flex-wrap: wrap; gap: 6px; }
-  .src { padding: 4px 8px; border-radius: 8px; background: var(--cyan-soft); color: var(--t-cyan); font-size: 12px; }
   .loop-lead { margin: 30px 0 14px; font-size: 16px; font-weight: 600; }
   .loop { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
   .loop li { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
@@ -300,6 +280,50 @@
   .loop b { font-size: 16px; line-height: 1.3; }
   .loop .d { font-size: 14.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
   .loop-cap { margin: 16px 0 0; font-size: 15px; color: var(--ink2); }
+
+  /* Zen: a dark band in both themes, the page going quiet the way the app does in focus time */
+  .band { --bg: #0B0D10; --surface: #171A20; --surface2: #20252C; --ink: #ECEEF0; --ink2: #A6AEB7; --ink3: #858E98; --line: #2A3038;
+          --gold: #DDB56A; --gold-soft: #30271A; --t-gold: #DDB56A; --cyan: #5CCFE6; --cyan-soft: #10303A;
+          --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 24px 48px -24px rgb(0 0 0 / .9);
+          color-scheme: dark; background: #0E1115; color: var(--ink); border-block: 1px solid #1B1F25; scroll-margin-top: var(--header-h); overflow-x: clip; }
+  .zen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .grow { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 18px; }
+  .grow li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 14px; }
+  .grow .num { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+  .grow b { display: block; font-size: 17px; }
+  .grow .d { display: block; margin-top: 3px; color: var(--ink2); font-size: 15.5px; line-height: 1.6; text-wrap: pretty; }
+  .zen-art { position: relative; width: 100%; max-width: 460px; justify-self: center; padding-bottom: 12%; }
+  .zen-ring { position: absolute; left: -6%; top: 2%; width: 112%; height: auto; fill: none; stroke: var(--gold-fill); stroke-width: 3; opacity: .22; }
+  .phone.solo { position: relative; width: 62%; margin-left: 4%; transform: rotate(-3deg); }
+  .draft { position: absolute; right: 0; bottom: 0; width: 64%; transform: rotate(1.5deg); }
+  .draft .ok-title { font-size: 15.5px; }
+  .draft-pts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; line-height: 1.45; }
+  .draft-pts li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
+  .draft-pts li::before { content: none; }
+  .draft-pts .t { padding: 2px 6px; border-radius: 6px; background: var(--surface2); }
+  .draft-row { margin: 8px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--ink2); }
+  .draft-row b { display: block; font-size: 12px; font-weight: 650; color: var(--ink3); text-transform: uppercase; letter-spacing: .04em; }
+  html[data-lang="zh"] .draft-row b { text-transform: none; letter-spacing: 0; }
+  .zen-more { list-style: none; margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .zen-more li { display: flex; flex-direction: column; gap: 6px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+  .zen-more .ic { width: 20px; height: 20px; color: var(--gold); }
+  .zen-more b { font-size: 16px; margin-top: 4px; }
+  .zen-more .d { font-size: 14.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
+
+  /* Study desk: adding a course, the real desk, what's in it */
+  .add-lead { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+  .adder { list-style: none; margin: 0 0 22px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: none; }
+  .adder li { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+  .adder .num { width: 24px; height: 24px; font-size: 12.5px; }
+  .adder b { font-size: 15px; line-height: 1.3; }
+  .adder .d { font-size: 13.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
+  .desk-shot { margin: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow); background: var(--surface); }
+  .desk-shot img, .desk-shot picture { display: block; width: 100%; height: auto; }
+  .desk-feats { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .desk-feats li { display: flex; flex-direction: column; gap: 6px; padding: 16px; }
+  .desk-feats .ic { width: 20px; height: 20px; color: var(--cyan); }
+  .desk-feats b { font-size: 16px; margin-top: 4px; }
+  .desk-feats .d { font-size: 14.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
 
   /* Two-column feature sections */
   .split { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
@@ -415,6 +439,8 @@
     .top nav a.hide-md { display: none; }
   }
   @media (max-width: 1000px) {
+    .zen-more, .desk-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .adder { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .loop { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .loop li + li::before { display: none; }
     .desk-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -431,6 +457,8 @@
     .s-outs { grid-auto-rows: auto; }
   }
   @media (max-width: 860px) {
+    .zen { grid-template-columns: minmax(0, 1fr); }
+    .zen-art { max-width: 400px; }
     .top nav a.hide-sm { display: none; }
     .hero { grid-template-columns: minmax(0, 1fr); }
     .hero-art { max-width: 430px; }
@@ -461,6 +489,13 @@
   }
   @media (max-width: 560px) {
     body { font-size: 16.5px; }
+    .zen-more, .desk-feats { grid-template-columns: minmax(0, 1fr); }
+    .adder { grid-template-columns: minmax(0, 1fr); }
+    .adder li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 2px 12px; }
+    .adder .num { grid-row: span 2; }
+    .desk-feats li { padding: 12px 4px; }
+    .draft { width: 78%; }
+    .phone.solo { width: 70%; }
     .loop { grid-template-columns: minmax(0, 1fr); }
     .desk-body { grid-template-columns: minmax(0, 1fr); }
     .desk-main { border-right: 0; border-bottom: 1px solid var(--line); padding: 14px; }
@@ -488,6 +523,7 @@
 <body>
 <!-- Icons: Lucide (https://lucide.dev), ISC License, the same set the OpenMousse app uses. -->
 <svg class="sprite" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-arrow-left-right" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></symbol>
 <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
 <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
 <symbol id="i-audio-lines" viewBox="0 0 24 24"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></symbol>
@@ -523,6 +559,7 @@
 <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
 <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol>
 <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
 <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></symbol>
 <symbol id="i-share-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></symbol>
@@ -544,6 +581,7 @@
     <nav>
       <a class="hide-sm" href="#agents">Agents</a>
       <a class="hide-sm" href="#day"><span lang="en">A day</span><span lang="zh">一天</span></a>
+      <a class="hide-sm" href="#zen">Zen</a>
       <a class="hide-sm" href="#friends"><span lang="en">Friends</span><span lang="zh">朋友</span></a>
       <a class="hide-sm" href="#study"><span lang="en">Study</span><span lang="zh">学习台</span></a>
       <a class="hide-sm" href="#install"><span lang="en">Install</span><span lang="zh">安装</span></a>
@@ -574,12 +612,12 @@
     <div class="hero-art">
       <svg class="halo" viewBox="0 0 116 121" aria-hidden="true"><circle class="h-ring" cx="58" cy="60.5" r="52"/><circle class="h-dot" cx="108.2" cy="47.1" r="4.6"/></svg>
       <div class="phone back">
-        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-today-dark.png"><img src="assets/en-today.png" alt="The Today page: a workout card and a meal plan from two Agents"></picture>
-        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-today-dark.png"><img src="assets/zh-today.png" alt="「今天」页：两个 Agent 给的训练卡和三餐建议"></picture>
+        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-today-dark.png"><img src="assets/en-today.png" width="600" height="1298" alt="The Today page: a workout card and a meal plan from two Agents"></picture>
+        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-today-dark.png"><img src="assets/zh-today.png" width="600" height="1298" alt="「今天」页：两个 Agent 给的训练卡和三餐建议"></picture>
       </div>
       <div class="phone front">
-        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" alt="Chatting with the assistant about fitting a workout into a packed day"></picture>
-        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" alt="跟助手聊：会开满的一天还能不能练腿"></picture>
+        <picture lang="en"><source media="(prefers-color-scheme: dark)" srcset="assets/en-chat-dark.png"><img src="assets/en-chat.png" width="600" height="1298" alt="Chatting with the assistant about fitting a workout into a packed day"></picture>
+        <picture lang="zh"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-chat-dark.png"><img src="assets/zh-chat.png" width="600" height="1298" alt="跟助手聊：会开满的一天还能不能练腿"></picture>
       </div>
     </div>
   </section>
@@ -829,6 +867,43 @@
     </div>
   </section>
 
+  <section class="band" id="zen">
+    <div class="sec wrap">
+      <div class="zen">
+        <div class="zen-copy">
+          <h2><span lang="en">Zen: a quiet place to think</span><span lang="zh">Zen：一个安静想事的地方</span></h2>
+          <p class="sub"><span lang="en">Drop a thought the moment it comes: a sentence, a few keywords, a voice note, a photo, a link. Nothing reads it and nothing answers, so it costs nothing and stays out of every Agent's memory. When you're ready, pick a few, and it thinks with you instead of for you.</span><span lang="zh">想到什么先扔进来：一句话、几个关键词、一段语音、一张照片、一个链接。谁也不看、谁也不回，不花额度，也不进任何 Agent 的记忆。等你想好了挑几条叫它，它陪你想，不替你想。</span></p>
+          <ol class="grow">
+            <li><span class="num">1</span><span><b><span lang="en">Drop it</span><span lang="zh">扔进来</span></b><span class="d"><span lang="en">Every thought is a note in your Obsidian vault, filed by its #keywords. Change it there and the app follows.</span><span lang="zh">每一条都是你 Obsidian 库里的一篇笔记，按 #关键词 归好。在 Obsidian 里改，app 里也跟着变。</span></span></span></li>
+            <li><span class="num">2</span><span><b><span lang="en">Talk it through</span><span lang="zh">聊聊</span></b><span class="d"><span lang="en">Pick a few and tap Talk. It asks before it concludes, and a “just note” line stays hidden from it until you finish.</span><span lang="zh">挑几条点「聊聊」。它先问，不急着下结论；「只记下」的话它看不到，等你想完了再一起用。</span></span></span></li>
+            <li><span class="num">3</span><span><b><span lang="en">Finish it</span><span lang="zh">想完了</span></b><span class="d"><span lang="en">It drafts the note: a title, one line, each point with the thoughts it came from, what's still open, what's next. You edit it and save it to your vault. To-dos go on your schedule, and one line can go into your memory.</span><span lang="zh">它起草一篇笔记：标题、一句话、每个要点连着它来自哪几条想法、还没想清的、下一步。你改完存进库；要做的进日程，值得记的一句可以进世界树。</span></span></span></li>
+          </ol>
+        </div>
+        <div class="zen-art">
+          <svg class="zen-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44"/></svg>
+          <div class="phone solo"><picture lang="en"><img src="assets/en-zen-dark.png" width="600" height="1298" alt="Zen in the app: thoughts with keywords, a voice note, a topic being thought about" loading="lazy"></picture><picture lang="zh"><img src="assets/zh-zen-dark.png" width="600" height="1298" alt="app 里的 Zen：带关键词的想法、一段语音、一个正在想的主题" loading="lazy"></picture></div>
+          <div class="ui draft">
+            <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-notebook-pen"/></svg><span lang="en">Done thinking · draft</span><span lang="zh">想完了 · 草稿</span></span><span class="n-when"><span lang="en">3 thoughts</span><span lang="zh">3 条想法</span></span></div>
+            <p class="ok-title"><span lang="en">Owning raises value. Design can use that honestly.</span><span lang="zh">拥有感会抬高价值，设计可以坦诚地用它</span></p>
+            <ul class="draft-pts">
+              <li><span lang="en">Feeling it's yours raises the price: the flat, the mug study.</span><span lang="zh">觉得是自己的，要价就高：看房、马克杯实验。</span><span class="t">2</span></li>
+              <li><span lang="en">Honest use: show people what they already have.</span><span lang="zh">坦诚的用法：让人看到自己已经有什么。</span><span class="t">1</span></li>
+            </ul>
+            <p class="draft-row"><b><span lang="en">Still open</span><span lang="zh">还没想清</span></b><span lang="en">Is Mia's café habit, or ownership?</span><span lang="zh">Mia 的老顾客是习惯，还是拥有感？</span></p>
+            <p class="draft-row"><b><span lang="en">Next</span><span lang="zh">下一步</span></b><span lang="en">Sketch the “what you already have” screen</span><span lang="zh">画「你已经有什么」那一屏</span></p>
+            <div class="acts"><span class="b go"><span lang="en">Save to vault</span><span lang="zh">存进库</span></span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="zen-more">
+        <li><svg class="ic"><use href="#i-moon"/></svg><b><span lang="en">Focus time</span><span lang="zh">冥想时间</span></b><span class="d"><span lang="en">25, 45 or 90 minutes. Notifications are held and handed over at the end. No tabs, cards or badges, just words, and it can turn on an iPhone Focus too.</span><span lang="zh">25、45 或 90 分钟。推送全压住，结束时一次给你；没有 tab、卡片和角标，只剩字。还能顺带打开 iPhone 的专注模式。</span></span></li>
+        <li><svg class="ic"><use href="#i-bookmark"/></svg><b><span lang="en">Saved</span><span lang="zh">收藏</span></b><span class="d"><span lang="en">Links, files and screenshots from other apps. The text is kept even if the page is taken down, and nothing calls a model until you decide what to do with it.</span><span lang="zh">别的 app 里的链接、文件、截图。原文删了这里也还在；你决定怎么处理之前，不调模型。</span></span></li>
+        <li><svg class="ic"><use href="#i-audio-lines"/></svg><b><span lang="en">Podcast</span><span lang="zh">播客</span></b><span class="d"><span lang="en">Or say it out loud: alone, with a host, in Feynman mode or with friends. The recording becomes a note.</span><span lang="zh">也可以说出来：自己讲、有主持人、费曼，或者和朋友一起。录完理成一篇笔记。</span></span></li>
+        <li><svg class="ic"><use href="#i-search"/></svg><b><span lang="en">Find it again</span><span lang="zh">都找得到</span></b><span class="d"><span lang="en">Search thoughts, saved items and talks at once, or flip back through them by day.</span><span lang="zh">想法、收藏、聊过的一起搜，也能按日期往回翻。</span></span></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="sec wrap" id="friends">
     <div class="sec-head">
       <h2><span lang="en">Take an idea further with friends</span><span lang="zh">一个想法，拉上朋友聊深</span></h2>
@@ -891,37 +966,26 @@
   <section class="sec wrap" id="study">
     <div class="sec-head">
       <h2><span lang="en">A study desk built around your courses</span><span lang="zh">按你的课，定制一个学习台</span></h2>
-      <p class="sub"><span lang="en">Add any course, from its slides, readings and recordings or straight from your course site, and tell it how you like to learn. Each session gets its own notes, flashcards, a quiz and an explainer video, with a chat that answers only from that session's materials.</span><span lang="zh">任何一门课都能加：课件、阅读材料、录播，或者直接接课程网站；再告诉它你喜欢怎么学。每节课有自己的笔记、闪卡、小测和讲解视频，旁边的对话只按这节课的材料回答。</span></p>
+      <p class="sub"><span lang="en">Start a course from whatever you have and tell it how you like to learn. Each session gets its own notes and study path, with flashcards, a quiz and an explainer video if you want them, and a chat that answers only from that session's materials.</span><span lang="zh">手上有什么就从什么开始加课，再告诉它你喜欢怎么学。每节课有自己的学习页和学习路线，闪卡、小测、讲解视频要就加，旁边的对话只按这节课的材料回答。</span></p>
     </div>
-    <div class="desk">
-      <div class="desk-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span lang="en">Study desk</span><span lang="zh">学习台</span></div>
-      <div class="desk-body">
-        <div class="desk-courses">
-          <p class="dc-title"><span lang="en">Behavioural Economics</span><span lang="zh">行为经济学</span></p>
-          <ul>
-            <li><span lang="en">S01 Heuristics</span><span lang="zh">S01 启发式</span></li>
-            <li><span lang="en">S02 Prospect theory</span><span lang="zh">S02 前景理论</span></li>
-            <li class="on"><span lang="en">S03 Endowment effect</span><span lang="zh">S03 禀赋效应</span></li>
-            <li><span lang="en">S04 Nudges</span><span lang="zh">S04 助推</span></li>
-          </ul>
-          <p class="dc-title muted"><span lang="en">Corporate Strategy</span><span lang="zh">公司战略</span></p>
-          <p class="dc-add"><span lang="en">+ Add a course</span><span lang="zh">+ 加一门课</span></p>
-        </div>
-        <div class="desk-main">
-          <div class="desk-tabs"><span><span lang="en">Notes</span><span lang="zh">笔记</span></span><span><span lang="en">Slides</span><span lang="zh">课件</span></span><span class="on"><span lang="en">Flashcards</span><span lang="zh">闪卡</span></span><span><span lang="en">Quiz</span><span lang="zh">小测</span></span><span><span lang="en">Video</span><span lang="zh">视频</span></span></div>
-          <div class="flash">
-            <span class="tag t-purple"><svg class="ic"><use href="#i-audio-lines"/></svg><span lang="en">Missed in last night's Feynman check</span><span lang="zh">昨晚费曼对照漏掉的</span></span>
-            <p class="fq"><span lang="en">In the mug study, why did sellers ask about twice what buyers offered?</span><span lang="zh">马克杯实验里，为什么卖方要价是买方出价的两倍左右？</span></p>
-            <div class="fa-row"><span class="b sm"><span lang="en">Show answer</span><span lang="zh">看答案</span></span><span class="t">4 / 12</span></div>
-          </div>
-        </div>
-        <div class="desk-chat">
-          <p class="msg me"><span lang="en">How is this different from loss aversion?</span><span lang="zh">这和损失厌恶有什么不一样？</span></p>
-          <p class="msg it"><span lang="en">It's loss aversion applied to what you own: giving up the mug feels like a loss (slide 12). It's the idea from your week 2 note on prospect theory, in a new setting.</span><span lang="zh">就是把损失厌恶用在自己拥有的东西上：让出杯子像是一种损失（第 12 页）。和你第 2 周写的前景理论笔记是同一个道理，换了个场景。</span></p>
-          <div class="srcs"><span class="src"><span lang="en">slide 12</span><span lang="zh">课件第 12 页</span></span><span class="src"><span lang="en">your note · week 2</span><span lang="zh">你的笔记 · 第 2 周</span></span></div>
-        </div>
-      </div>
-    </div>
+    <p class="add-lead"><span lang="en">Adding a course</span><span lang="zh">加一门课</span></p>
+    <ol class="adder">
+      <li><span class="num">1</span><b><span lang="en">Tell it about the course</span><span lang="zh">说说这门课</span></b><span class="d"><span lang="en">The name, how it's examined, how you like to learn.</span><span lang="zh">课名、怎么考、你喜欢怎么学。</span></span></li>
+      <li><span class="num">2</span><b><span lang="en">Show what you have</span><span lang="zh">你手上有什么</span></b><span class="d"><span lang="en">A syllabus, slides, your course site (Canvas, Moodle, Blackboard) or nothing yet. It tells you where to find the rest.</span><span lang="zh">大纲、课件、课程网站（Canvas、Moodle、Blackboard），或者还什么都没有。缺的它告诉你去哪拿。</span></span></li>
+      <li><span class="num">3</span><b><span lang="en">Check each session</span><span lang="zh">核对每一节</span></b><span class="d"><span lang="en">Sessions, dates, readings and deadlines, laid out for you to fix in chat.</span><span lang="zh">每一节、日期、阅读、截止都列出来，哪里不对在对话里说。</span></span></li>
+      <li><span class="num">4</span><b><span lang="en">Add the files</span><span lang="zh">放材料</span></b><span class="d"><span lang="en">Drop them in. It sorts them into sessions and flags what's missing.</span><span lang="zh">拖进来就行，它按节归好，缺什么会标出来。</span></span></li>
+      <li><span class="num">5</span><b><span lang="en">Build</span><span lang="zh">生成</span></b><span class="d"><span lang="en">Notes and a study path for every session that's complete.</span><span lang="zh">材料齐了的每一节，出学习页和学习路线。</span></span></li>
+    </ol>
+    <figure class="desk-shot">
+      <div class="desk-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span></div>
+      <picture lang="en"><source media="(max-width: 560px) and (prefers-color-scheme: dark)" srcset="assets/en-desk-self-m-dark.png" width="800" height="989"><source media="(max-width: 560px)" srcset="assets/en-desk-self-m.png" width="800" height="989"><source media="(prefers-color-scheme: dark)" srcset="assets/en-desk-self-dark.png"><img src="assets/en-desk-self.png" alt="The study desk on a computer: a review note from a Feynman check, and the self-test with your answer beside the reference" loading="lazy" width="1600" height="975"></picture><picture lang="zh"><source media="(max-width: 560px) and (prefers-color-scheme: dark)" srcset="assets/zh-desk-self-m-dark.png" width="800" height="989"><source media="(max-width: 560px)" srcset="assets/zh-desk-self-m.png" width="800" height="989"><source media="(prefers-color-scheme: dark)" srcset="assets/zh-desk-self-dark.png"><img src="assets/zh-desk-self.png" alt="电脑上的学习台：费曼对照留下的复习，自测题里你的答案和参考答案并排" loading="lazy" width="1600" height="975"></picture>
+    </figure>
+    <ul class="desk-feats">
+      <li><svg class="ic"><use href="#i-list-todo"/></svg><b><span lang="en">Study path</span><span lang="zh">学习路线</span></b><span class="d"><span lang="en">Each session opens on 5–8 steps pointing at the slide pages, note sections, readings and lecture moments to go through. Tick them off as you go.</span><span lang="zh">每节课一打开就是 5–8 步，指到该看的课件页、学习页小节、阅读和录播时间点，做完一步勾一步。</span></span></li>
+      <li><svg class="ic"><use href="#i-circle-check"/></svg><b><span lang="en">Self-test</span><span lang="zh">自测</span></b><span class="d"><span lang="en">Write your answer first, then reveal the reference beside it. Mark it right, close or missed, or ask it to check yours.</span><span lang="zh">先写自己的答案，再和参考答案并排对照；自己判对了、差一点、没答上，或者让它看看你的答案。</span></span></li>
+      <li><svg class="ic"><use href="#i-circle-alert"/></svg><b><span lang="en">Review</span><span lang="zh">复习</span></b><span class="d"><span lang="en">Whatever you got wrong or left out in a Feynman check waits at the top of that session until you've gone over it.</span><span lang="zh">费曼对照里讲错、讲漏的，挂在那一节最上面，复习过了再划掉。</span></span></li>
+      <li><svg class="ic"><use href="#i-smartphone"/></svg><b><span lang="en">On your phone</span><span lang="zh">手机上</span></b><span class="d"><span lang="en">Review, flashcards, the quiz and the path from the study Agent's card. Long reading stays on the big screen.</span><span lang="zh">从学习 Agent 的卡片进去：复习、闪卡、小测、学习路线打勾。长篇阅读留在电脑上。</span></span></li>
+    </ul>
     <p class="loop-lead"><span lang="en">What you learn at the desk doesn't stay there:</span><span lang="zh">在学习台学到的，不会只留在学习台：</span></p>
     <ol class="loop">
       <li><span class="pi"><svg class="ic"><use href="#i-brain"/></svg></span><b><span lang="en">Think it over</span><span lang="zh">想一想</span></b><span class="d"><span lang="en">Jot what clicked, or didn't, in Zen. When you talk it through, it brings in the session's slides and your older notes.</span><span lang="zh">课上想到的、没想通的，先丢进 Zen。点「聊聊」时，它会带上这节课的课件和你以前的笔记。</span></span></li>
@@ -1000,8 +1064,8 @@
       <h2><span lang="en">Also in the app</span><span lang="zh">app 里还有</span></h2>
     </div>
     <ul class="more">
-      <li class="feat"><svg class="ic"><use href="#i-brain"/></svg><b>Zen</b><p><span lang="en">Drop a thought the moment it comes. Nothing answers until you pick a few and tap Talk.</span><span lang="zh">想到什么先丢进来，谁也不回。挑几条点「聊聊」，它才开口。</span></p></li>
-      <li class="feat"><svg class="ic"><use href="#i-bookmark"/></svg><b><span lang="en">Saved</span><span lang="zh">收藏</span></b><p><span lang="en">Keep links, files and screenshots from other apps. The text stays even if the page is taken down.</span><span lang="zh">别的 app 里的链接、文件、截图存进来；原文删了，这里也还在。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-arrow-left-right"/></svg><b><span lang="en">Handoffs</span><span lang="zh">转交</span></b><p><span lang="en">Ask the main chat anything. It passes the question to the Agent that knows and brings the answer back.</span><span lang="zh">什么都可以问主对话。它转给懂这件事的 Agent，再把答案带回来。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-key-round"/></svg><b><span lang="en">Devices</span><span lang="zh">设备</span></b><p><span lang="en">Add an iPad or a computer with a one-time pairing link, and remove any device from Settings.</span><span lang="zh">用一次性配对链接加上 iPad 或电脑，在设置里随时移除任何一台。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-folder-kanban"/></svg><b><span lang="en">Projects</span><span lang="zh">项目</span></b><p><span lang="en">Things with an end get a card: goal, deadlines, next step, and a summary when it's done.</span><span lang="zh">有终点的事一张卡：目标、截止、下一步，做完了留一份总结。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-target"/></svg><b><span lang="en">Goals</span><span lang="zh">目标</span></b><p><span lang="en">Long-term goals by area. Numbers like your weight, it reads for itself.</span><span lang="zh">按领域放长期目标，体重这类数字它自己去读。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-calendar-check-2"/></svg><b><span lang="en">To remember</span><span lang="zh">要记得的</span></b><p><span lang="en">Every deadline from course sites, email and applications, each shown once, next to your calendar.</span><span lang="zh">课程网站、邮件、申请里的截止都收在一起，一件事只出现一次，挨着你的日程。</span></p></li>
