@@ -287,6 +287,9 @@
           --shadow: 0 1px 2px rgb(0 0 0 / .5), 0 24px 48px -24px rgb(0 0 0 / .9);
           color-scheme: dark; background: #0E1115; color: var(--ink); border-block: 1px solid #1B1F25; scroll-margin-top: var(--header-h); overflow-x: clip; }
   .zen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .kicker { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 14px; font: 700 13px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+  .kicker .ic { width: 16px; height: 16px; }
+  .polish { font-style: normal; color: var(--gold); }
   .grow { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 18px; }
   .grow li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 14px; }
   .grow .num { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
@@ -296,7 +299,8 @@
   .zen-ring { position: absolute; left: -6%; top: 2%; width: 112%; height: auto; fill: none; stroke: var(--gold-fill); stroke-width: 3; opacity: .22; }
   .phone.solo { position: relative; width: 62%; margin-left: 4%; transform: rotate(-3deg); }
   .draft { position: absolute; right: 0; bottom: 0; width: 64%; transform: rotate(1.5deg); }
-  .draft .ok-title { font-size: 15.5px; }
+  .draft .ok-title { font-size: 15.5px; margin-bottom: 2px; }
+  .draft-from { margin: 0 0 10px; font-size: 12.5px; color: var(--ink3); }
   .draft-pts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; line-height: 1.45; }
   .draft-pts li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
   .draft-pts li::before { content: none; }
@@ -548,6 +552,7 @@
 <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
 <symbol id="i-key-round" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
 <symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
 <symbol id="i-list-todo" viewBox="0 0 24 24"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></symbol>
 <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
 <symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></symbol>
@@ -871,20 +876,22 @@
     <div class="sec wrap">
       <div class="zen">
         <div class="zen-copy">
-          <h2><span lang="en">Zen: a quiet place to think</span><span lang="zh">Zen：一个安静想事的地方</span></h2>
-          <p class="sub"><span lang="en">Drop a thought the moment it comes: a sentence, a few keywords, a voice note, a photo, a link. Nothing reads it and nothing answers, so it costs nothing and stays out of every Agent's memory. When you're ready, pick a few, and it thinks with you instead of for you.</span><span lang="zh">想到什么先扔进来：一句话、几个关键词、一段语音、一张照片、一个链接。谁也不看、谁也不回，不花额度，也不进任何 Agent 的记忆。等你想好了挑几条叫它，它陪你想，不替你想。</span></p>
+          <p class="kicker"><svg class="ic"><use href="#i-lightbulb"/></svg>Zen</p>
+          <h2><span lang="en">A flash of an idea? Got it. <em class="polish">Polish it later.</em></span><span lang="zh"><span class="nw">灵光一闪？</span><span class="nw">记下了！</span><em class="polish nw">回头再打磨。</em></span></h2>
+          <p class="sub"><span lang="en">Type it, say it, snap it or paste it. It becomes a note in your own vault, and nothing reads it or answers until you come back to it.</span><span lang="zh">打一行字、说一段语音、拍一张照、贴一个链接都行。它变成你自己库里的一篇笔记，谁也不看、谁也不回，等你回头再来。</span></p>
           <ol class="grow">
-            <li><span class="num">1</span><span><b><span lang="en">Drop it</span><span lang="zh">扔进来</span></b><span class="d"><span lang="en">Every thought is a note in your Obsidian vault, filed by its #keywords. Change it there and the app follows.</span><span lang="zh">每一条都是你 Obsidian 库里的一篇笔记，按 #关键词 归好。在 Obsidian 里改，app 里也跟着变。</span></span></span></li>
-            <li><span class="num">2</span><span><b><span lang="en">Talk it through</span><span lang="zh">聊聊</span></b><span class="d"><span lang="en">Pick a few and tap Talk. It asks before it concludes, and a “just note” line stays hidden from it until you finish.</span><span lang="zh">挑几条点「聊聊」。它先问，不急着下结论；「只记下」的话它看不到，等你想完了再一起用。</span></span></span></li>
-            <li><span class="num">3</span><span><b><span lang="en">Finish it</span><span lang="zh">想完了</span></b><span class="d"><span lang="en">It drafts the note: a title, one line, each point with the thoughts it came from, what's still open, what's next. You edit it and save it to your vault. To-dos go on your schedule, and one line can go into your memory.</span><span lang="zh">它起草一篇笔记：标题、一句话、每个要点连着它来自哪几条想法、还没想清的、下一步。你改完存进库；要做的进日程，值得记的一句可以进世界树。</span></span></span></li>
+            <li><span class="num">1</span><span><b><span lang="en">A flash of an idea</span><span lang="zh">灵光一闪</span></b><span class="d"><span lang="en">Catch it in a second: a line, a few #keywords, a voice note, a photo, a link. Voice turns into text, and the recording stays too.</span><span lang="zh">一秒记下：一句话、几个 #关键词、一段语音、一张照片、一个链接。语音自动转成字，原声也留着。</span></span></span></li>
+            <li><span class="num">2</span><span><b><span lang="en">Got it</span><span lang="zh">记下了</span></b><span class="d"><span lang="en">It's a note in your Obsidian vault, filed by keyword. Nothing reads it, so it costs nothing and stays out of every Agent's memory.</span><span lang="zh">它是你 Obsidian 库里的一篇笔记，按关键词归好。谁也不看，不花额度，也不进任何 Agent 的记忆。</span></span></span></li>
+            <li><span class="num">3</span><span><b><span lang="en">Polish it later</span><span lang="zh">回头再打磨</span></b><span class="d"><span lang="en">Days later, pick a few and talk them through; it asks before it concludes. Tap Done and it drafts the note: a title, one line, each point with the thoughts it came from, what's still open, what's next. You edit it and save it to your vault, and to-dos go on your schedule.</span><span lang="zh">过几天挑几条点「聊聊」，它先问，不急着下结论。点「想完了」，它起草一篇笔记：标题、一句话、每个要点连着它来自哪几条想法、还没想清的、下一步。你改完存进库，要做的进日程。</span></span></span></li>
           </ol>
         </div>
         <div class="zen-art">
           <svg class="zen-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44"/></svg>
           <div class="phone solo"><picture lang="en"><img src="assets/en-zen-dark.png" width="600" height="1298" alt="Zen in the app: thoughts with keywords, a voice note, a topic being thought about" loading="lazy"></picture><picture lang="zh"><img src="assets/zh-zen-dark.png" width="600" height="1298" alt="app 里的 Zen：带关键词的想法、一段语音、一个正在想的主题" loading="lazy"></picture></div>
           <div class="ui draft">
-            <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-notebook-pen"/></svg><span lang="en">Done thinking · draft</span><span lang="zh">想完了 · 草稿</span></span><span class="n-when"><span lang="en">3 thoughts</span><span lang="zh">3 条想法</span></span></div>
+            <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-notebook-pen"/></svg><span lang="en">Done thinking · draft</span><span lang="zh">想完了 · 草稿</span></span></div>
             <p class="ok-title"><span lang="en">Owning raises value. Design can use that honestly.</span><span lang="zh">拥有感会抬高价值，设计可以坦诚地用它</span></p>
+            <p class="draft-from"><span lang="en">From 3 thoughts over 3 days</span><span lang="zh">来自 3 天里的 3 条想法</span></p>
             <ul class="draft-pts">
               <li><span lang="en">Feeling it's yours raises the price: the flat, the mug study.</span><span lang="zh">觉得是自己的，要价就高：看房、马克杯实验。</span><span class="t">2</span></li>
               <li><span lang="en">Honest use: show people what they already have.</span><span lang="zh">坦诚的用法：让人看到自己已经有什么。</span><span class="t">1</span></li>
@@ -896,7 +903,7 @@
         </div>
       </div>
       <ul class="zen-more">
-        <li><svg class="ic"><use href="#i-moon"/></svg><b><span lang="en">Focus time</span><span lang="zh">冥想时间</span></b><span class="d"><span lang="en">25, 45 or 90 minutes. Notifications are held and handed over at the end. No tabs, cards or badges, just words, and it can turn on an iPhone Focus too.</span><span lang="zh">25、45 或 90 分钟。推送全压住，结束时一次给你；没有 tab、卡片和角标，只剩字。还能顺带打开 iPhone 的专注模式。</span></span></li>
+        <li><svg class="ic"><use href="#i-moon"/></svg><b><span lang="en">Focus time</span><span lang="zh">冥想时间</span></b><span class="d"><span lang="en">When it's time to polish: 25, 45 or 90 minutes with notifications held until the end. No tabs, cards or badges, just words, and it can turn on an iPhone Focus too.</span><span lang="zh">打磨的时候：25、45 或 90 分钟，推送全压住，结束时一次给你；没有 tab、卡片和角标，只剩字。还能顺带打开 iPhone 的专注模式。</span></span></li>
         <li><svg class="ic"><use href="#i-bookmark"/></svg><b><span lang="en">Saved</span><span lang="zh">收藏</span></b><span class="d"><span lang="en">Links, files and screenshots from other apps. The text is kept even if the page is taken down, and nothing calls a model until you decide what to do with it.</span><span lang="zh">别的 app 里的链接、文件、截图。原文删了这里也还在；你决定怎么处理之前，不调模型。</span></span></li>
         <li><svg class="ic"><use href="#i-audio-lines"/></svg><b><span lang="en">Podcast</span><span lang="zh">播客</span></b><span class="d"><span lang="en">Or say it out loud: alone, with a host, in Feynman mode or with friends. The recording becomes a note.</span><span lang="zh">也可以说出来：自己讲、有主持人、费曼，或者和朋友一起。录完理成一篇笔记。</span></span></li>
         <li><svg class="ic"><use href="#i-search"/></svg><b><span lang="en">Find it again</span><span lang="zh">都找得到</span></b><span class="d"><span lang="en">Search thoughts, saved items and talks at once, or flip back through them by day.</span><span lang="zh">想法、收藏、聊过的一起搜，也能按日期往回翻。</span></span></li>
