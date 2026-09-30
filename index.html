@@ -339,7 +339,7 @@
   .points b { display: block; font-size: 16.5px; }
   .points .d { display: block; margin-top: 2px; color: var(--ink2); font-size: 15.5px; line-height: 1.55; text-wrap: pretty; }
 
-  /* Sentinel */
+  /* Doorman */
   .sent { display: grid; grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr) 30px minmax(0, 1.25fr); align-items: center; }
   .s-node { border-radius: 16px; padding: 14px; font-size: 14px; line-height: 1.45; }
   .s-node b { display: flex; align-items: center; gap: 7px; font-size: 15.5px; margin-bottom: 4px; }
@@ -770,7 +770,7 @@
               <li class="chip"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Diet</span><span lang="zh">饮食</span></li>
               <li class="chip"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></li>
               <li class="chip"><svg class="ic"><use href="#i-wallet"/></svg><span lang="en">Budget</span><span lang="zh">记账</span></li>
-              <li class="chip"><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</li>
+              <li class="chip"><svg class="ic"><use href="#i-shield-check"/></svg>Doorman</li>
             </ul>
           </div>
           <div class="ui-stack">
@@ -783,7 +783,7 @@
                 <dt><span lang="en">Delivery</span><span lang="zh">送达</span></dt><dd><span lang="en">Today 17:00–18:00, when you're home</span><span lang="zh">今天 17:00–18:00，那时你在家</span></dd>
                 <dt><span lang="en">Budget</span><span lang="zh">预算</span></dt><dd><span lang="en">£57 left for groceries this month after this</span><span lang="zh">这单之后，本月买菜还剩 £57</span></dd>
               </dl>
-              <p class="why"><svg class="ic"><use href="#i-shield-check"/></svg><span lang="en">Held by Sentinel: checkout pays with your card.</span><span lang="zh">Sentinel 扣下的：结账要用你的卡。</span></p>
+              <p class="why"><svg class="ic"><use href="#i-shield-check"/></svg><span lang="en">Held by Doorman: checkout pays with your card.</span><span lang="zh">Doorman 扣下的：结账要用你的卡。</span></p>
               <div class="acts"><span class="b go"><span lang="en">Let it through once</span><span lang="zh">放行这一次</span></span><span class="b"><span lang="en">Change something</span><span lang="zh">改一下</span></span></div>
             </div>
           </div>
@@ -1044,8 +1044,8 @@
         <p class="sub"><span lang="en">What you asked for and can undo, it just does. Anything it came up with itself, or that can't be taken back, waits in one inbox: approve it, decline it, or reply to change it.</span><span lang="zh">你让做的、能撤回的，它直接做。它自己想到的，或者做了就收不回的，都进同一个收件箱：点同意、点不用，或者回一句让它改。</span></p>
         <ul class="points">
           <li><span class="pi"><svg class="ic"><use href="#i-inbox"/></svg></span><span><b><span lang="en">One inbox</span><span lang="zh">一个收件箱</span></b><span class="d"><span lang="en">Sending, paying, booking, new reminders, changes to your records or to its own setup: each waits for a tap.</span><span lang="zh">发给别人、花钱、预订、新的提醒、改你的记录或它自己的配置，每一件都等你点一下。</span></span></span></li>
-          <li><span class="pi"><svg class="ic"><use href="#i-shield-check"/></svg></span><span><b><span lang="en">Errands go through Sentinel</span><span lang="zh">代办只走 Sentinel</span></b><span class="d"><span lang="en">The errand Agent works in a sandbox with a single way out, and Sentinel decides what gets through.</span><span lang="zh">代办在沙箱里干活，出门只有一条路，过不过由 Sentinel 说了算。</span></span></span></li>
-          <li><span class="pi"><svg class="ic"><use href="#i-key-round"/></svg></span><span><b><span lang="en">It never sees your passwords</span><span lang="zh">它看不到你的密码</span></b><span class="d"><span lang="en">The agent only holds placeholders. Sentinel swaps in the real one on the way out, and only for the site it belongs to.</span><span lang="zh">agent 手里只有占位符。出门时 Sentinel 才换成真的，而且只对它所属的网站。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-shield-check"/></svg></span><span><b><span lang="en">Errands go through Doorman</span><span lang="zh">代办只走 Doorman</span></b><span class="d"><span lang="en">The errand Agent works in a sandbox with a single way out, and Doorman decides what gets through.</span><span lang="zh">代办在沙箱里干活，出门只有一条路，过不过由 Doorman 说了算。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-key-round"/></svg></span><span><b><span lang="en">It never sees your passwords</span><span lang="zh">它看不到你的密码</span></b><span class="d"><span lang="en">The agent only holds placeholders. Doorman swaps in the real one on the way out, and only for the site it belongs to.</span><span lang="zh">agent 手里只有占位符。出门时 Doorman 才换成真的，而且只对它所属的网站。</span></span></span></li>
         </ul>
       </div>
       <div>
@@ -1053,7 +1053,7 @@
           <div class="s-node box"><b><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></b><span lang="en">In a sandbox, with no network of its own</span><span lang="zh">在沙箱里，自己上不了网</span></div>
           <div class="s-arrow right" aria-hidden="true"><svg viewBox="0 0 26 16"><path d="M2 8 H23 M18 3 L23 8 L18 13"/></svg></div>
           <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
-          <div class="s-node gate"><b><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</b><span lang="en">The only way out</span><span lang="zh">唯一的出口</span></div>
+          <div class="s-node gate"><b><svg class="ic"><use href="#i-shield-check"/></svg>Doorman</b><span lang="en">The only way out</span><span lang="zh">唯一的出口</span></div>
           <div class="s-fork" aria-hidden="true"></div>
           <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
           <div class="s-outs">
@@ -1095,7 +1095,7 @@
       <div class="a-node"><svg class="ic"><use href="#i-smartphone"/></svg><b><span lang="en">Your phone</span><span lang="zh">你的手机</span></b><span class="s"><span lang="en">OpenMousse app, or the web version</span><span lang="zh">OpenMousse app 或网页版</span></span></div>
       <div class="a-arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13"/></svg></div>
       <div class="a-node home"><svg class="ic"><use href="#i-server"/></svg><b><span lang="en">Your server</span><span lang="zh">你的服务器</span></b>
-        <div class="a-parts"><span class="a-part claw"><span lang="en">Your claw (the agent)</span><span lang="zh">你的 claw（agent 本体）</span></span><span class="a-part"><span lang="en">OpenMousse server</span><span lang="zh">OpenMousse 服务</span></span><span class="a-part"><span lang="en">Memory tree</span><span lang="zh">世界树</span></span><span class="a-part">Sentinel</span></div>
+        <div class="a-parts"><span class="a-part claw"><span lang="en">Your claw (the agent)</span><span lang="zh">你的 claw（agent 本体）</span></span><span class="a-part"><span lang="en">OpenMousse server</span><span lang="zh">OpenMousse 服务</span></span><span class="a-part"><span lang="en">Memory tree</span><span lang="zh">世界树</span></span><span class="a-part">Doorman</span></div>
       </div>
       <div class="a-arrow" aria-hidden="true"><svg viewBox="0 0 38 16"><path d="M6 8 H32 M27 3 L32 8 L27 13 M11 3 L6 8 L11 13"/></svg></div>
       <div class="a-node"><svg class="ic"><use href="#i-key-round"/></svg><b><span lang="en">Your model account</span><span lang="zh">你的模型账号</span></b><span class="s">Claude · ChatGPT · Gemini · Kimi · …</span></div>
