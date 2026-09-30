@@ -30,7 +30,7 @@
     --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --ink3: #646C76; --line: #DCE0E3;
     --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --on-gold: #2A1E06;
     --cyan: #0F7A93; --cyan-soft: #DAF0F5; --dot: #5CCFE6;
-    --good: #22794F; --good-soft: #DDF1E7; --warn: #9A6408; --warn-soft: #FAEBCF;
+    --good: #22794F; --good-soft: #DDF1E7; --warn: #9A6408; --warn-soft: #FAEBCF; --rec: #B83A30;
     --field: #14171C; --field2: #1E2329; --field-ink: #ECEEF0; --field-ink2: #98A1AB; --field-line: #2A3038;
     --t-cyan: #0C6F86; --t-cyan-bg: #DAF0F5; --t-gold: #8A5F12; --t-gold-bg: #F5EAD3;
     --t-green: #20744B; --t-green-bg: #DDF1E7; --t-purple: #6A4BA8; --t-purple-bg: #ECE6F7;
@@ -47,7 +47,7 @@
     :root:not([data-theme="light"]) {
       --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --ink3: #858E98; --line: #252A31;
       --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
-      --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F;
+      --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F; --rec: #EC7A70;
       --field: #050607; --field2: #14171C; --field-line: #252A31;
       --t-cyan: #5CCFE6; --t-cyan-bg: #10303A; --t-gold: #DDB56A; --t-gold-bg: #30271A;
       --t-green: #55C795; --t-green-bg: #12301F; --t-purple: #B9A4F4; --t-purple-bg: #29213F;
@@ -60,7 +60,7 @@
   :root[data-theme="dark"] {
     --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --ink3: #858E98; --line: #252A31;
     --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
-    --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F;
+    --good: #55C795; --good-soft: #12301F; --warn: #E5AD4E; --warn-soft: #33270F; --rec: #EC7A70;
     --field: #050607; --field2: #14171C; --field-line: #252A31;
     --t-cyan: #5CCFE6; --t-cyan-bg: #10303A; --t-gold: #DDB56A; --t-gold-bg: #30271A;
     --t-green: #55C795; --t-green-bg: #12301F; --t-purple: #B9A4F4; --t-purple-bg: #29213F;
@@ -112,6 +112,7 @@
   .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .btn.primary:hover { opacity: .88; }
   .soon { font-size: 14px; color: var(--ink3); margin: 16px 0 0; }
+  .hero { overflow-x: clip; }
   .hero-art { position: relative; width: 100%; max-width: 500px; justify-self: center; aspect-ratio: 1 / 1.12; }
   .halo { position: absolute; left: -8%; top: -4%; width: 116%; height: 108%; overflow: visible; pointer-events: none; }
   .halo .h-ring { fill: none; stroke: var(--gold-fill); stroke-width: 5.5; opacity: .28; }
@@ -240,6 +241,65 @@
   .pantry td { padding: 6px 0; border-top: 1px solid var(--line); }
   .pantry td + td { text-align: right; color: var(--ink3); font-variant-numeric: tabular-nums; padding-left: 10px; white-space: nowrap; }
   .digest { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .relay { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 9px 12px; border: 1px dashed var(--ink3); border-radius: 14px; font-size: 13.5px; color: var(--ink2); }
+  .relay .arrow { width: 15px; height: 15px; color: var(--ink3); }
+  .relay-what { margin-left: 2px; }
+
+  /* Friends */
+  .steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+  .step { display: flex; flex-direction: column; gap: 12px; padding: clamp(16px, 2.2vw, 22px); border: 1px solid var(--line); border-radius: var(--r); }
+  .step-head { display: flex; align-items: center; gap: 10px; }
+  .step-head h3 { margin: 0; font-size: 19px; }
+  .num { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); font: 700 14px/1 var(--mono); }
+  .step-text { margin: 0; color: var(--ink2); font-size: 15.5px; line-height: 1.55; text-wrap: pretty; }
+  .step > .ui { margin-top: auto; }
+  .sum { margin: 0; font-size: 14.5px; line-height: 1.55; }
+  .redact { display: inline-block; border-radius: 3px; background: var(--surface2); color: transparent; line-height: 1.1; user-select: none; }
+  .rec { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: 600 13px/1 var(--mono); color: var(--rec); font-variant-numeric: tabular-nums; }
+  .rec::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rec); }
+  .outline { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+  .lines { list-style: none; margin: 12px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); display: grid; gap: 8px; font-size: 14.5px; line-height: 1.45; }
+  .lines li { display: grid; grid-template-columns: 2.6em auto minmax(0, 1fr); gap: 8px; align-items: baseline; }
+  .lines b { font-size: 13px; }
+  .t { display: inline-flex; align-items: center; gap: 3px; font: 12px/1 var(--mono); color: var(--ink3); font-variant-numeric: tabular-nums; }
+  .pname { color: var(--ink); font-size: 14.5px; }
+  .portrait { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 14px; margin: 10px 0 0; font-size: 14.5px; line-height: 1.45; }
+  .portrait dt { color: var(--ink3); font-size: 13px; padding-top: 1px; }
+  .portrait dd { margin: 0; }
+  .portrait .t { margin-left: 6px; color: var(--cyan); vertical-align: 1px; }
+  .portrait .t .ic { width: 11px; height: 11px; }
+
+  /* Study desk */
+  .desk { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden; }
+  .desk-bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--bg); font-size: 13px; font-weight: 600; color: var(--ink2); }
+  .dots { display: inline-flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .desk-body { display: grid; grid-template-columns: 210px minmax(0, 1.05fr) minmax(0, 1fr); }
+  .desk-courses { padding: 14px; border-right: 1px solid var(--line); }
+  .dc-title { margin: 0 0 6px; font-size: 13.5px; font-weight: 650; }
+  .dc-title.muted { margin-top: 14px; color: var(--ink2); font-weight: 600; }
+  .desk-courses ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .desk-courses li { padding: 6px 8px; border-radius: 8px; font-size: 13.5px; color: var(--ink2); }
+  .desk-courses li.on { background: var(--t-purple-bg); color: var(--t-purple); font-weight: 600; }
+  .dc-add { margin: 14px 0 0; padding: 6px 8px; border: 1px dashed var(--ink3); border-radius: 8px; font-size: 13.5px; color: var(--ink2); text-align: center; }
+  .desk-main { display: flex; flex-direction: column; gap: 14px; padding: 14px 18px; border-right: 1px solid var(--line); }
+  .desk-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+  .desk-tabs > span { padding: 5px 10px; border-radius: 999px; background: var(--surface2); font-size: 13px; color: var(--ink2); }
+  .desk-tabs > span.on { background: var(--ink); color: var(--bg); }
+  .flash { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--bg); }
+  .fq { margin: 0; font-size: 17px; font-weight: 650; line-height: 1.45; text-wrap: pretty; }
+  .fa-row { align-self: stretch; display: flex; align-items: center; justify-content: space-between; }
+  .desk-chat { display: flex; flex-direction: column; gap: 8px; padding: 14px; }
+  .desk-chat .msg { font-size: 14px; max-width: 94%; }
+  .srcs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .src { padding: 4px 8px; border-radius: 8px; background: var(--cyan-soft); color: var(--t-cyan); font-size: 12px; }
+  .loop-lead { margin: 30px 0 14px; font-size: 16px; font-weight: 600; }
+  .loop { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .loop li { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+  .loop li + li::before { content: ""; position: absolute; left: -18px; top: 50%; width: 8px; height: 8px; border-top: 1.8px solid var(--ink3); border-right: 1.8px solid var(--ink3); transform: translateY(-50%) rotate(45deg); }
+  .loop b { font-size: 16px; line-height: 1.3; }
+  .loop .d { font-size: 14.5px; line-height: 1.5; color: var(--ink2); text-wrap: pretty; }
+  .loop-cap { margin: 16px 0 0; font-size: 15px; color: var(--ink2); }
 
   /* Two-column feature sections */
   .split { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
@@ -347,15 +407,21 @@
   .why-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 36px; align-items: end; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 3vw, 32px); }
   .why-card h2 { font-size: clamp(22px, 2.6vw, 28px); }
   .why-card p { margin: 0; color: var(--ink2); max-width: 44em; text-wrap: pretty; }
-  .aside-note { margin: 18px 0 0; font-size: 14.5px; color: var(--ink3); max-width: 62em; text-wrap: pretty; }
-  .aside-note strong { color: var(--ink2); }
 
   footer { border-top: 1px solid var(--line); padding-block: 28px 48px; color: var(--ink2); font-size: 15px; }
   footer .row { display: flex; gap: 12px 18px; flex-wrap: wrap; justify-content: space-between; }
 
+  @media (max-width: 1080px) {
+    .top nav a.hide-md { display: none; }
+  }
   @media (max-width: 1000px) {
+    .loop { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .loop li + li::before { display: none; }
+    .desk-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .desk-courses { display: none; }
     .agents { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps { grid-template-columns: minmax(0, 1fr); max-width: 36rem; }
     .day { grid-template-columns: 220px minmax(0, 1fr); }
     .moment { grid-template-columns: minmax(0, 1fr); }
     .sent { grid-template-columns: minmax(0, 1fr); max-width: 30rem; margin-inline: auto; }
@@ -395,6 +461,9 @@
   }
   @media (max-width: 560px) {
     body { font-size: 16.5px; }
+    .loop { grid-template-columns: minmax(0, 1fr); }
+    .desk-body { grid-template-columns: minmax(0, 1fr); }
+    .desk-main { border-right: 0; border-bottom: 1px solid var(--line); padding: 14px; }
     .halo { left: 0; width: 100%; }
     .agent { flex-direction: column; gap: 10px; }
     .more { grid-template-columns: minmax(0, 1fr); }
@@ -432,6 +501,7 @@
 <symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol>
 <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol>
 <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
 <symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></symbol>
 <symbol id="i-footprints" viewBox="0 0 24 24"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/></symbol>
@@ -441,14 +511,17 @@
 <symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
 <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
 <symbol id="i-key-round" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+<symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
 <symbol id="i-list-todo" viewBox="0 0 24 24"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><rect x="3" y="4" width="6" height="6" rx="1"/></symbol>
 <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
 <symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
 <symbol id="i-moon-star" viewBox="0 0 24 24"><path d="M18 5h4"/><path d="M20 3v4"/><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
 <symbol id="i-notebook-pen" viewBox="0 0 24 24"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></symbol>
 <symbol id="i-paw-print" viewBox="0 0 24 24"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></symbol>
 <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
 <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></symbol>
 <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
 <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></symbol>
@@ -459,7 +532,7 @@
 <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
 <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
 <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></symbol>
-<symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+<symbol id="i-tree-deciduous" viewBox="0 0 24 24"><path d="M8 19a4 4 0 0 1-2.24-7.32A3.5 3.5 0 0 1 9 6.03V6a3 3 0 1 1 6 0v.04a3.5 3.5 0 0 1 3.24 5.65A4 4 0 0 1 16 19Z"/><path d="M12 19v3"/></symbol>
 <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
 <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
 <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
@@ -471,9 +544,11 @@
     <nav>
       <a class="hide-sm" href="#agents">Agents</a>
       <a class="hide-sm" href="#day"><span lang="en">A day</span><span lang="zh">一天</span></a>
+      <a class="hide-sm" href="#friends"><span lang="en">Friends</span><span lang="zh">朋友</span></a>
+      <a class="hide-sm" href="#study"><span lang="en">Study</span><span lang="zh">学习台</span></a>
       <a class="hide-sm" href="#install"><span lang="en">Install</span><span lang="zh">安装</span></a>
-      <a class="hide-sm" href="start.html"><span lang="en">Guide</span><span lang="zh">新手指南</span></a>
-      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
+      <a class="hide-sm hide-md" href="start.html"><span lang="en">Guide</span><span lang="zh">新手指南</span></a>
+      <a class="hide-sm hide-md" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
       <a href="https://github.com/openmousse/openmousse">GitHub</a>
       <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
     </nav>
@@ -613,7 +688,6 @@
             <circle class="notch" cx="176.79" cy="141.86" r="2.6"/>
             <circle class="notch" cx="100.34" cy="183.37" r="2.6"/>
             <circle class="notch" cx="38.12" cy="127.59" r="2.6"/>
-            <circle class="notch" cx="38.96" cy="89.29" r="2.6"/>
             <circle class="notch" cx="75.83" cy="44.36" r="2.6"/>
             <circle class="notch" cx="171.53" cy="68.89" r="2.6"/>
             <g class="hand" style="transform: rotate(115.5deg)"><circle class="spot" cx="110" cy="36" r="10"/></g>
@@ -647,26 +721,27 @@
         <li class="moment" data-time="12:30">
           <div class="m-text">
             <span class="m-time">12:30</span>
-            <h3><span lang="en">You hand off an errand</span><span lang="zh">交代一件事</span></h3>
-            <p><span lang="en">You ask for a table on Saturday. Errands compares a few places and fills in the booking, then stops before sending it, because the form carries your name and phone number.</span><span lang="zh">你说要订周六的位子。代办比了几家、把预订表填好，停在提交之前：表里有你的名字和手机号。</span></p>
+            <h3><span lang="en">Your Agents sort it out together</span><span lang="zh">几个 Agent 自己商量好</span></h3>
+            <p><span lang="en">Diet sees the oat milk is nearly gone and the chicken covers two more meals, so it asks Errands to restock. Errands checks what's left in your grocery budget and when you'll be home, fills the basket, and stops at checkout for your OK.</span><span lang="zh">饮食 Agent 看到燕麦奶快喝完、鸡胸只够两顿，转给代办去补货。代办问了记账 Agent 这个月买菜还剩多少、看了日程你几点在家，装好购物车，停在结账前等你点头。</span></p>
             <ul class="chips">
+              <li class="chip"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Diet</span><span lang="zh">饮食</span></li>
               <li class="chip"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></li>
+              <li class="chip"><svg class="ic"><use href="#i-wallet"/></svg><span lang="en">Budget</span><span lang="zh">记账</span></li>
               <li class="chip"><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</li>
-              <li class="chip"><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Inbox</span><span lang="zh">收件箱</span></li>
             </ul>
           </div>
           <div class="ui-stack">
-            <p class="msg me"><span lang="en">Table for two near Shoreditch on Saturday evening, under £40 a head.</span><span lang="zh">周六晚上，Shoreditch 附近订两个人的位子，人均 40 镑以内。</span></p>
+            <div class="relay"><span class="tag t-green"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Diet</span><span lang="zh">饮食</span></span><svg class="ic arrow"><use href="#i-arrow-right"/></svg><span class="tag t-orange"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></span><span class="relay-what"><span lang="en">Restock oat milk and chicken</span><span lang="zh">补燕麦奶和鸡胸</span></span></div>
             <div class="ui">
               <div class="ok-head"><span class="pill"><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Needs your OK</span><span lang="zh">等你点头</span></span><span class="tag t-orange"><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></span></div>
-              <p class="ok-title"><span lang="en">Submit a booking at The Copper Pot</span><span lang="zh">提交 The Copper Pot 的预订</span></p>
+              <p class="ok-title"><span lang="en">Check out this week's groceries · £42.60</span><span lang="zh">结账：这周的买菜单 · £42.60</span></p>
               <dl class="kv">
-                <dt><span lang="en">When</span><span lang="zh">时间</span></dt><dd><span lang="en">Sat 27 Sep, 19:30</span><span lang="zh">9 月 27 日周六 19:30</span></dd>
-                <dt><span lang="en">Guests</span><span lang="zh">人数</span></dt><dd>2</dd>
-                <dt><span lang="en">Name</span><span lang="zh">姓名</span></dt><dd><span lang="en">Alex</span><span lang="zh">林夏</span> · 07700 900123</dd>
+                <dt><span lang="en">Basket</span><span lang="zh">购物车</span></dt><dd><span lang="en">14 items, with oat milk ×2 and chicken breast ×2</span><span lang="zh">14 样，含燕麦奶 ×2、鸡胸 ×2</span></dd>
+                <dt><span lang="en">Delivery</span><span lang="zh">送达</span></dt><dd><span lang="en">Today 17:00–18:00, when you're home</span><span lang="zh">今天 17:00–18:00，那时你在家</span></dd>
+                <dt><span lang="en">Budget</span><span lang="zh">预算</span></dt><dd><span lang="en">£57 left for groceries this month after this</span><span lang="zh">这单之后，本月买菜还剩 £57</span></dd>
               </dl>
-              <p class="why"><svg class="ic"><use href="#i-shield-check"/></svg><span lang="en">Held by Sentinel: it would send your name and phone number.</span><span lang="zh">Sentinel 扣下的：会发出你的名字和手机号。</span></p>
-              <div class="acts"><span class="b go"><span lang="en">Let it through once</span><span lang="zh">放行这一次</span></span><span class="b"><span lang="en">Decline</span><span lang="zh">不用了</span></span></div>
+              <p class="why"><svg class="ic"><use href="#i-shield-check"/></svg><span lang="en">Held by Sentinel: checkout pays with your card.</span><span lang="zh">Sentinel 扣下的：结账要用你的卡。</span></p>
+              <div class="acts"><span class="b go"><span lang="en">Let it through once</span><span lang="zh">放行这一次</span></span><span class="b"><span lang="en">Change something</span><span lang="zh">改一下</span></span></div>
             </div>
           </div>
         </li>
@@ -674,10 +749,9 @@
         <li class="moment" data-time="17:05">
           <div class="m-text">
             <span class="m-time">17:05</span>
-            <h3><span lang="en">Your groceries arrive</span><span lang="zh">买的菜到了</span></h3>
-            <p><span lang="en">The order confirmation lands in your email. Diet adds everything to what's at home and plans dinner around what runs out first.</span><span lang="zh">订单确认进了邮箱。饮食 Agent 把东西记进家里的库存，晚饭先用快过期的。</span></p>
+            <h3><span lang="en">The groceries arrive</span><span lang="zh">菜送到了</span></h3>
+            <p><span lang="en">Diet already knows what came. It adds everything to what's at home and plans dinner around what runs out first.</span><span lang="zh">送来了什么，饮食 Agent 已经知道。它把东西记进家里的库存，晚饭先用快过期的。</span></p>
             <ul class="chips">
-              <li class="chip"><svg class="ic"><use href="#i-mail"/></svg><span lang="en">Email</span><span lang="zh">邮件</span></li>
               <li class="chip"><svg class="ic"><use href="#i-shopping-cart"/></svg><span lang="en">What's at home</span><span lang="zh">家里库存</span></li>
               <li class="chip"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Meal log</span><span lang="zh">饮食记录</span></li>
             </ul>
@@ -686,37 +760,15 @@
             <div class="ui">
               <div class="n-head"><img src="assets/icon.png" alt=""><span class="n-app">Mousse</span><span class="n-when">17:05</span></div>
               <p class="n-title"><span lang="en">Dinner from what's at home</span><span lang="zh">晚饭就用家里的</span></p>
-              <p><span lang="en">Tonight: 150 g of the chicken with broccoli and rice. That covers the 40 g of protein you're still short today.</span><span lang="zh">今晚：鸡胸 150 g 配西兰花和米饭，正好补上今天还差的 40 g 蛋白质。</span></p>
+              <p><span lang="en">The delivery is in. Tonight: 150 g of chicken with broccoli and rice, which covers the 40 g of protein you're still short today.</span><span lang="zh">菜到了。今晚：鸡胸 150 g 配西兰花和米饭，正好补上今天还差的 40 g 蛋白质。</span></p>
             </div>
             <div class="ui">
               <div class="ok-head"><span class="tag t-green"><svg class="ic"><use href="#i-utensils"/></svg><span lang="en">Diet · at home</span><span lang="zh">饮食 · 家里有什么</span></span></div>
               <table class="pantry">
-                <tr><td><span lang="en">Chicken breast, 2 packs</span><span lang="zh">鸡胸，2 盒</span></td><td><span lang="en">use by Sun</span><span lang="zh">周日前吃完</span></td></tr>
+                <tr><td><span lang="en">Chicken breast, 3 packs</span><span lang="zh">鸡胸，3 盒</span></td><td><span lang="en">use by Sun</span><span lang="zh">周日前吃完</span></td></tr>
                 <tr><td><span lang="en">Broccoli</span><span lang="zh">西兰花</span></td><td><span lang="en">use by Fri</span><span lang="zh">周五前吃完</span></td></tr>
                 <tr><td><span lang="en">Oat milk, 3 cartons</span><span lang="zh">燕麦奶，3 盒</span></td><td><span lang="en">about 9 days</span><span lang="zh">够喝 9 天左右</span></td></tr>
               </table>
-            </div>
-          </div>
-        </li>
-
-        <li class="moment" data-time="19:05">
-          <div class="m-text">
-            <span class="m-time">19:05</span>
-            <h3><span lang="en">A friend asks about you</span><span lang="zh">朋友来问</span></h3>
-            <p><span lang="en">Mia wants to know if you're free on Saturday. Your card agent answers within what her tier allows. Friends see busy or free, never the details.</span><span lang="zh">Mia 问你周六有没有空。名片 agent 按她那一档回答：朋友只看得到忙闲，看不到具体安排。</span></p>
-            <ul class="chips">
-              <li class="chip"><svg class="ic"><use href="#i-users"/></svg><span lang="en">Friends</span><span lang="zh">朋友</span></li>
-              <li class="chip"><svg class="ic"><use href="#i-user-round"/></svg><span lang="en">Card agent</span><span lang="zh">名片 agent</span></li>
-              <li class="chip"><svg class="ic"><use href="#i-calendar-check-2"/></svg><span lang="en">Busy or free</span><span lang="zh">只给忙闲</span></li>
-            </ul>
-          </div>
-          <div class="ui-stack">
-            <div class="ui fchat">
-              <div class="who"><span class="av t-pink">M</span>Mia</div>
-              <p class="msg it"><span lang="en">Free on Saturday evening? Thinking of a film.</span><span lang="zh">周六晚上有空吗？想去看电影。</span></p>
-              <div class="who mine"><span lang="en">Your card agent</span><span lang="zh">你的名片 agent</span></div>
-              <p class="msg agentmsg"><span lang="en">Busy from 19:30. Earlier in the evening is free.</span><span lang="zh">19:30 以后有安排，之前有空。</span></p>
-              <div class="foot"><span><span lang="en">You see every answer</span><span lang="zh">每条回答你都看得到</span></span><span class="acts"><span class="b sm"><span lang="en">Fine</span><span lang="zh">可以</span></span><span class="b sm"><span lang="en">Rewrite</span><span lang="zh">重写</span></span><span class="b sm"><span lang="en">Withdraw</span><span lang="zh">收回</span></span></span></div>
             </div>
           </div>
         </li>
@@ -725,7 +777,7 @@
           <div class="m-text">
             <span class="m-time">22:10</span>
             <h3><span lang="en">You think out loud</span><span lang="zh">睡前讲一讲</span></h3>
-            <p><span lang="en">You explain tonight's lecture in Feynman mode. It plays a curious outsider, then checks what you said against the slides. What you missed goes into tomorrow's review, and the note goes into your vault.</span><span lang="zh">你用费曼模式把今晚的课讲一遍。它先当一个好奇的外行追问，再拿课件对你讲的：漏掉的加进明天的复习，笔记存进你的库里。</span></p>
+            <p><span lang="en">Podcast picks a topic from today's lecture: explain the endowment effect before Thursday's seminar. It plays a curious outsider, then checks what you said against the slides. What you missed goes into tomorrow's review.</span><span lang="zh">播客从今天的课里挑了个题：周四讨论课之前，把禀赋效应讲一遍。它先当好奇的外行追问，再拿课件对你讲的：漏掉的，加进明天的复习。</span></p>
             <ul class="chips">
               <li class="chip"><svg class="ic"><use href="#i-audio-lines"/></svg><span lang="en">Podcast</span><span lang="zh">播客</span></li>
               <li class="chip"><svg class="ic"><use href="#i-graduation-cap"/></svg><span lang="en">Course slides</span><span lang="zh">课件</span></li>
@@ -777,33 +829,107 @@
     </div>
   </section>
 
-  <section class="sec wrap" id="ok">
-    <div class="split">
-      <div>
-        <h2><span lang="en">Nothing you can't undo, without your OK</span><span lang="zh">撤不回的事，都要你点头</span></h2>
-        <p class="sub"><span lang="en">What you asked for and can undo, it just does. Anything it came up with itself, or that can't be taken back, waits in one inbox: approve it, decline it, or reply to change it.</span><span lang="zh">你让做的、能撤回的，它直接做。它自己想到的，或者做了就收不回的，都进同一个收件箱：点同意、点不用，或者回一句让它改。</span></p>
-        <ul class="points">
-          <li><span class="pi"><svg class="ic"><use href="#i-inbox"/></svg></span><span><b><span lang="en">One inbox</span><span lang="zh">一个收件箱</span></b><span class="d"><span lang="en">Sending, paying, booking, new reminders, changes to your records or to its own setup: each waits for a tap.</span><span lang="zh">发给别人、花钱、预订、新的提醒、改你的记录或它自己的配置，每一件都等你点一下。</span></span></span></li>
-          <li><span class="pi"><svg class="ic"><use href="#i-shield-check"/></svg></span><span><b><span lang="en">Errands go through Sentinel</span><span lang="zh">代办只走 Sentinel</span></b><span class="d"><span lang="en">The errand Agent works in a sandbox with a single way out, and Sentinel decides what gets through.</span><span lang="zh">代办在沙箱里干活，出门只有一条路，过不过由 Sentinel 说了算。</span></span></span></li>
-          <li><span class="pi"><svg class="ic"><use href="#i-key-round"/></svg></span><span><b><span lang="en">It never sees your passwords</span><span lang="zh">它看不到你的密码</span></b><span class="d"><span lang="en">The agent only holds placeholders. Sentinel swaps in the real one on the way out, and only for the site it belongs to.</span><span lang="zh">agent 手里只有占位符。出门时 Sentinel 才换成真的，而且只对它所属的网站。</span></span></span></li>
-        </ul>
-      </div>
-      <div>
-        <div class="sent">
-          <div class="s-node box"><b><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></b><span lang="en">In a sandbox, with no network of its own</span><span lang="zh">在沙箱里，自己上不了网</span></div>
-          <div class="s-arrow right" aria-hidden="true"><svg viewBox="0 0 26 16"><path d="M2 8 H23 M18 3 L23 8 L18 13"/></svg></div>
-          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
-          <div class="s-node gate"><b><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</b><span lang="en">The only way out</span><span lang="zh">唯一的出口</span></div>
-          <div class="s-fork" aria-hidden="true"></div>
-          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
-          <div class="s-outs">
-            <div class="s-out pass"><b><svg class="ic"><use href="#i-globe"/></svg><span lang="en">Passes</span><span lang="zh">放行</span></b><span lang="en">Reading pages, searching, comparing prices</span><span lang="zh">看网页、搜索、比价</span></div>
-            <div class="s-out hold"><b><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Held for you</span><span lang="zh">扣下等你</span></b><span lang="en">Submitting, sending, logging in, or anything carrying your private details</span><span lang="zh">提交、发送、登录，或者带着你私事的请求</span></div>
+  <section class="sec wrap" id="friends">
+    <div class="sec-head">
+      <h2><span lang="en">Take an idea further with friends</span><span lang="zh">一个想法，拉上朋友聊深</span></h2>
+      <p class="sub"><span lang="en">Something clicks while you're chatting, a thought lands in Zen, or an article you saved won't leave your head. Send a friend the gist, talk it over, or record a podcast together. What comes out of it stays with you, including what your friend thinks.</span><span lang="zh">和主对话聊着聊着冒出新想法，Zen 里记下一个巧思，或者收藏的一篇文章一直在脑子里转：把要点发给朋友聊一聊，或者约一期播客一起录。聊出来的东西都留在你这里，连同朋友是怎么想的。</span></p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-head"><span class="num">1</span><h3><span lang="en">Send the gist</span><span lang="zh">把要点发过去</span></h3></div>
+        <p class="step-text"><span lang="en">Ask for a summary of a chat, a Zen note or an article you saved, then share it with a friend. Private bits are hidden first, and you choose what to show.</span><span lang="zh">让它把一段对话、一篇 Zen 笔记或一篇收藏的文章总结成要点，分享给朋友。私事先打上码，要露哪句你自己点。</span></p>
+        <div class="ui">
+          <div class="ok-head"><span class="tag t-pink"><svg class="ic"><use href="#i-share-2"/></svg><span lang="en">Share with Mia</span><span lang="zh">分享给 Mia</span></span><span class="n-when"><span lang="en">from Zen</span><span lang="zh">来自 Zen</span></span></div>
+          <p class="ok-title"><span lang="en">Why what we own feels worth more</span><span lang="zh">为什么自己的东西总觉得更值钱</span></p>
+          <p class="sum"><span lang="en">Owning something raises what we'd ask for it, not what we'd pay. It came up while I was choosing between the two flats on <span class="redact" title="hidden">▇▇▇▇▇▇</span>.</span><span lang="zh">东西一旦是自己的，要价会涨，愿意出的价不变。是在挑 <span class="redact" title="已打码">▇▇▇▇</span> 那两套房子时想到的。</span></p>
+          <div class="acts"><span class="b go"><span lang="en">Send</span><span lang="zh">发送</span></span></div>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-head"><span class="num">2</span><h3><span lang="en">Talk it over</span><span lang="zh">聊一聊</span></h3></div>
+        <p class="step-text"><span lang="en">Mia replies in Friends. If she asks a follow-up while you're busy, your card agent answers within what her tier allows, and you see every answer.</span><span lang="zh">Mia 在朋友聊天里回你。你忙的时候她追问，名片 agent 按她那一档先答，每条你都看得到。</span></p>
+        <div class="ui fchat">
+          <div class="who"><span class="av t-pink">M</span>Mia</div>
+          <p class="msg it"><span lang="en">Does it hold for things you buy to resell? My café restocks every week.</span><span lang="zh">那买来转卖的东西呢？我的咖啡店每周都要进货。</span></p>
+          <p class="msg me"><span lang="en">Good question. Podcast on Thursday?</span><span lang="zh">好问题。周四约一期播客？</span></p>
+          <p class="msg it"><span lang="en">Deal.</span><span lang="zh">行。</span></p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-head"><span class="num">3</span><h3><span lang="en">Record a podcast together</span><span lang="zh">约一期播客</span></h3></div>
+        <p class="step-text"><span lang="en">It drafts an outline from your chat. On the day, one phone in the room is enough: it tells your voices apart, gives each of you minutes, and saves your part to your vault.</span><span lang="zh">它从你们的聊天里拟好提纲。录的时候一台手机放中间就行：按声音分出谁在说，每人一份纪要，你说的部分存进你的库里。</span></p>
+        <div class="ui">
+          <div class="ok-head"><span class="tag t-purple"><svg class="ic"><use href="#i-mic"/></svg><span lang="en">Podcast · with Mia</span><span lang="zh">播客 · 和 Mia</span></span><span class="rec">18:42</span></div>
+          <ol class="outline">
+            <li><span lang="en">Where the effect shows up</span><span lang="zh">这个效应出现在哪</span></li>
+            <li><span lang="en">Stock you buy to resell</span><span lang="zh">买来转卖的货</span></li>
+            <li><span lang="en">Pricing the café's new menu</span><span lang="zh">咖啡店新菜单怎么定价</span></li>
+          </ol>
+          <ul class="lines">
+            <li><b>Mia</b><span class="t">12:03</span><span><span lang="en">For stock it flips. I want it gone, so I price it lower.</span><span lang="zh">进的货正好反过来，我想赶紧卖掉，价格就定得低。</span></span></li>
+            <li><b><span lang="en">You</span><span lang="zh">你</span></b><span class="t">12:31</span><span><span lang="en">So it depends on whether you mean to keep it.</span><span lang="zh">所以关键在你打不打算留着它。</span></span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-head"><span class="num">4</span><h3><span lang="en">Remember what your friend thinks</span><span lang="zh">记住朋友怎么想</span></h3></div>
+        <p class="step-text"><span lang="en">After each episode your Agents note what Mia thinks, what she's working on, what she cares about and what to ask her next time, each tied to her own words. Next time you record, the host picks up where you left off.</span><span lang="zh">每录完一期，你的 Agents 给 Mia 记几条：她的看法、在做的事、在意的、下次想问她的，每条都连着她的原话。下次再录，主持人会从上次接着聊。</span></p>
+        <div class="ui">
+          <div class="who"><span class="av t-pink">M</span><b class="pname">Mia</b><span class="n-when"><span lang="en">3 episodes together</span><span lang="zh">一起录过 3 期</span></span></div>
+          <dl class="portrait">
+            <dt><span lang="en">Thinks</span><span lang="zh">看法</span></dt><dd><span lang="en">Owning matters less for stock you mean to sell.</span><span lang="zh">打算卖掉的货，拥有感就没那么重。</span><span class="t"><svg class="ic"><use href="#i-play"/></svg>12:03</span></dd>
+            <dt><span lang="en">Working on</span><span lang="zh">在做的事</span></dt><dd><span lang="en">A new menu for the café, and its prices.</span><span lang="zh">咖啡店的新菜单和定价。</span><span class="t"><svg class="ic"><use href="#i-play"/></svg>07:41</span></dd>
+            <dt><span lang="en">Cares about</span><span lang="zh">在意的</span></dt><dd><span lang="en">Keeping prices fair for her regulars.</span><span lang="zh">对老顾客的价格要公道。</span><span class="t"><svg class="ic"><use href="#i-play"/></svg>21:10</span></dd>
+            <dt><span lang="en">Ask next time</span><span lang="zh">下次问问</span></dt><dd><span lang="en">How the new menu sold in its first week.</span><span lang="zh">新菜单第一周卖得怎么样。</span></dd>
+          </dl>
+          <p class="why"><svg class="ic"><use href="#i-eye-off"/></svg><span lang="en">Only you see this. Mia's minutes tell her that notes are kept.</span><span lang="zh">只有你看得到；Mia 那份纪要里写明了会记。</span></p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="sec wrap" id="study">
+    <div class="sec-head">
+      <h2><span lang="en">A study desk built around your courses</span><span lang="zh">按你的课，定制一个学习台</span></h2>
+      <p class="sub"><span lang="en">Add any course, from its slides, readings and recordings or straight from your course site, and tell it how you like to learn. Each session gets its own notes, flashcards, a quiz and an explainer video, with a chat that answers only from that session's materials.</span><span lang="zh">任何一门课都能加：课件、阅读材料、录播，或者直接接课程网站；再告诉它你喜欢怎么学。每节课有自己的笔记、闪卡、小测和讲解视频，旁边的对话只按这节课的材料回答。</span></p>
+    </div>
+    <div class="desk">
+      <div class="desk-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span lang="en">Study desk</span><span lang="zh">学习台</span></div>
+      <div class="desk-body">
+        <div class="desk-courses">
+          <p class="dc-title"><span lang="en">Behavioural Economics</span><span lang="zh">行为经济学</span></p>
+          <ul>
+            <li><span lang="en">S01 Heuristics</span><span lang="zh">S01 启发式</span></li>
+            <li><span lang="en">S02 Prospect theory</span><span lang="zh">S02 前景理论</span></li>
+            <li class="on"><span lang="en">S03 Endowment effect</span><span lang="zh">S03 禀赋效应</span></li>
+            <li><span lang="en">S04 Nudges</span><span lang="zh">S04 助推</span></li>
+          </ul>
+          <p class="dc-title muted"><span lang="en">Corporate Strategy</span><span lang="zh">公司战略</span></p>
+          <p class="dc-add"><span lang="en">+ Add a course</span><span lang="zh">+ 加一门课</span></p>
+        </div>
+        <div class="desk-main">
+          <div class="desk-tabs"><span><span lang="en">Notes</span><span lang="zh">笔记</span></span><span><span lang="en">Slides</span><span lang="zh">课件</span></span><span class="on"><span lang="en">Flashcards</span><span lang="zh">闪卡</span></span><span><span lang="en">Quiz</span><span lang="zh">小测</span></span><span><span lang="en">Video</span><span lang="zh">视频</span></span></div>
+          <div class="flash">
+            <span class="tag t-purple"><svg class="ic"><use href="#i-audio-lines"/></svg><span lang="en">Missed in last night's Feynman check</span><span lang="zh">昨晚费曼对照漏掉的</span></span>
+            <p class="fq"><span lang="en">In the mug study, why did sellers ask about twice what buyers offered?</span><span lang="zh">马克杯实验里，为什么卖方要价是买方出价的两倍左右？</span></p>
+            <div class="fa-row"><span class="b sm"><span lang="en">Show answer</span><span lang="zh">看答案</span></span><span class="t">4 / 12</span></div>
           </div>
         </div>
-        <p class="s-cap"><span lang="en">Held requests go out only after you tap “Let it through once”.</span><span lang="zh">扣下的请求，要你点「放行这一次」才发出去。</span></p>
+        <div class="desk-chat">
+          <p class="msg me"><span lang="en">How is this different from loss aversion?</span><span lang="zh">这和损失厌恶有什么不一样？</span></p>
+          <p class="msg it"><span lang="en">It's loss aversion applied to what you own: giving up the mug feels like a loss (slide 12). It's the idea from your week 2 note on prospect theory, in a new setting.</span><span lang="zh">就是把损失厌恶用在自己拥有的东西上：让出杯子像是一种损失（第 12 页）。和你第 2 周写的前景理论笔记是同一个道理，换了个场景。</span></p>
+          <div class="srcs"><span class="src"><span lang="en">slide 12</span><span lang="zh">课件第 12 页</span></span><span class="src"><span lang="en">your note · week 2</span><span lang="zh">你的笔记 · 第 2 周</span></span></div>
+        </div>
       </div>
     </div>
+    <p class="loop-lead"><span lang="en">What you learn at the desk doesn't stay there:</span><span lang="zh">在学习台学到的，不会只留在学习台：</span></p>
+    <ol class="loop">
+      <li><span class="pi"><svg class="ic"><use href="#i-brain"/></svg></span><b><span lang="en">Think it over</span><span lang="zh">想一想</span></b><span class="d"><span lang="en">Jot what clicked, or didn't, in Zen. When you talk it through, it brings in the session's slides and your older notes.</span><span lang="zh">课上想到的、没想通的，先丢进 Zen。点「聊聊」时，它会带上这节课的课件和你以前的笔记。</span></span></li>
+      <li><span class="pi"><svg class="ic"><use href="#i-audio-lines"/></svg></span><b><span lang="en">Explain it back</span><span lang="zh">讲回来</span></b><span class="d"><span lang="en">Explain the session out loud in Feynman mode. It checks you against the slides, and what you missed becomes flashcards.</span><span lang="zh">用费曼模式把这节课讲一遍。它拿课件对你讲的，漏掉的变成闪卡。</span></span></li>
+      <li><span class="pi"><svg class="ic"><use href="#i-users"/></svg></span><b><span lang="en">Talk it through with friends</span><span lang="zh">和朋友聊</span></b><span class="d"><span lang="en">Share a session's summary. Classmates can read the study notes you mark as shareable, and a podcast together before the exam leaves each of you with minutes.</span><span lang="zh">把一节课的要点分享出去；同学能看你标了可分享的学习笔记。考前约同学录一期播客，每人一份纪要。</span></span></li>
+      <li><span class="pi"><svg class="ic"><use href="#i-tree-deciduous"/></svg></span><b><span lang="en">Keep what matters</span><span lang="zh">留下该留的</span></b><span class="d"><span lang="en">Your own takeaways go into your vault, not the raw slides. The memory tree learns what you're studying and what you keep missing, so every AI you use knows it too.</span><span lang="zh">你自己的心得进库，课件原文不进。世界树记住你在学什么、哪里老出错，你用的每个 AI 也都知道。</span></span></li>
+    </ol>
+    <p class="loop-cap"><span lang="en">And the next session starts from what you already know.</span><span lang="zh">下一节课，就从你已经懂的地方接着讲。</span></p>
   </section>
 
   <section class="sec wrap" id="memory">
@@ -840,6 +966,35 @@
     </div>
   </section>
 
+  <section class="sec wrap" id="ok">
+    <div class="split">
+      <div>
+        <h2><span lang="en">Nothing you can't undo, without your OK</span><span lang="zh">撤不回的事，都要你点头</span></h2>
+        <p class="sub"><span lang="en">What you asked for and can undo, it just does. Anything it came up with itself, or that can't be taken back, waits in one inbox: approve it, decline it, or reply to change it.</span><span lang="zh">你让做的、能撤回的，它直接做。它自己想到的，或者做了就收不回的，都进同一个收件箱：点同意、点不用，或者回一句让它改。</span></p>
+        <ul class="points">
+          <li><span class="pi"><svg class="ic"><use href="#i-inbox"/></svg></span><span><b><span lang="en">One inbox</span><span lang="zh">一个收件箱</span></b><span class="d"><span lang="en">Sending, paying, booking, new reminders, changes to your records or to its own setup: each waits for a tap.</span><span lang="zh">发给别人、花钱、预订、新的提醒、改你的记录或它自己的配置，每一件都等你点一下。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-shield-check"/></svg></span><span><b><span lang="en">Errands go through Sentinel</span><span lang="zh">代办只走 Sentinel</span></b><span class="d"><span lang="en">The errand Agent works in a sandbox with a single way out, and Sentinel decides what gets through.</span><span lang="zh">代办在沙箱里干活，出门只有一条路，过不过由 Sentinel 说了算。</span></span></span></li>
+          <li><span class="pi"><svg class="ic"><use href="#i-key-round"/></svg></span><span><b><span lang="en">It never sees your passwords</span><span lang="zh">它看不到你的密码</span></b><span class="d"><span lang="en">The agent only holds placeholders. Sentinel swaps in the real one on the way out, and only for the site it belongs to.</span><span lang="zh">agent 手里只有占位符。出门时 Sentinel 才换成真的，而且只对它所属的网站。</span></span></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sent">
+          <div class="s-node box"><b><svg class="ic"><use href="#i-send"/></svg><span lang="en">Errands</span><span lang="zh">代办</span></b><span lang="en">In a sandbox, with no network of its own</span><span lang="zh">在沙箱里，自己上不了网</span></div>
+          <div class="s-arrow right" aria-hidden="true"><svg viewBox="0 0 26 16"><path d="M2 8 H23 M18 3 L23 8 L18 13"/></svg></div>
+          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
+          <div class="s-node gate"><b><svg class="ic"><use href="#i-shield-check"/></svg>Sentinel</b><span lang="en">The only way out</span><span lang="zh">唯一的出口</span></div>
+          <div class="s-fork" aria-hidden="true"></div>
+          <div class="s-arrow down" aria-hidden="true"><svg viewBox="0 0 16 26"><path d="M8 2 V23 M3 18 L8 23 L13 18"/></svg></div>
+          <div class="s-outs">
+            <div class="s-out pass"><b><svg class="ic"><use href="#i-globe"/></svg><span lang="en">Passes</span><span lang="zh">放行</span></b><span lang="en">Reading pages, searching, comparing prices</span><span lang="zh">看网页、搜索、比价</span></div>
+            <div class="s-out hold"><b><svg class="ic"><use href="#i-inbox"/></svg><span lang="en">Held for you</span><span lang="zh">扣下等你</span></b><span lang="en">Submitting, sending, logging in, or anything carrying your private details</span><span lang="zh">提交、发送、登录，或者带着你私事的请求</span></div>
+          </div>
+        </div>
+        <p class="s-cap"><span lang="en">Held requests go out only after you tap “Let it through once”.</span><span lang="zh">扣下的请求，要你点「放行这一次」才发出去。</span></p>
+      </div>
+    </div>
+  </section>
+
   <section class="sec wrap" id="more">
     <div class="sec-head">
       <h2><span lang="en">Also in the app</span><span lang="zh">app 里还有</span></h2>
@@ -850,8 +1005,8 @@
       <li class="feat"><svg class="ic"><use href="#i-folder-kanban"/></svg><b><span lang="en">Projects</span><span lang="zh">项目</span></b><p><span lang="en">Things with an end get a card: goal, deadlines, next step, and a summary when it's done.</span><span lang="zh">有终点的事一张卡：目标、截止、下一步，做完了留一份总结。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-target"/></svg><b><span lang="en">Goals</span><span lang="zh">目标</span></b><p><span lang="en">Long-term goals by area. Numbers like your weight, it reads for itself.</span><span lang="zh">按领域放长期目标，体重这类数字它自己去读。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-calendar-check-2"/></svg><b><span lang="en">To remember</span><span lang="zh">要记得的</span></b><p><span lang="en">Every deadline from course sites, email and applications, each shown once, next to your calendar.</span><span lang="zh">课程网站、邮件、申请里的截止都收在一起，一件事只出现一次，挨着你的日程。</span></p></li>
-      <li class="feat"><svg class="ic"><use href="#i-graduation-cap"/></svg><b><span lang="en">Study desk</span><span lang="zh">学习台</span></b><p><span lang="en">Course materials become notes, flashcards and a quiz, with a chat that answers from them.</span><span lang="zh">课件变成笔记、闪卡和小测，旁边的对话只按这些材料回答。</span></p></li>
-      <li class="feat"><svg class="ic"><use href="#i-share-2"/></svg><b><span lang="en">Share</span><span lang="zh">分享</span></b><p><span lang="en">Turn a reply into a link page or a clean image. Addresses, names and body numbers are hidden first.</span><span lang="zh">一条回复做成链接页或干净的图片；住址、人名、身体数据先打码。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-notebook-pen"/></svg><b><span lang="en">Journal</span><span lang="zh">日志</span></b><p><span lang="en">Tell it what happened. It keeps a journal you can read by day or by Agent.</span><span lang="zh">跟它说今天发生了什么，它记成日志，按天或按 Agent 都能翻。</span></p></li>
+      <li class="feat"><svg class="ic"><use href="#i-layout-grid"/></svg><b><span lang="en">Dashboards</span><span lang="zh">看板</span></b><p><span lang="en">Each Agent lays out its own board from seven kinds of blocks. Long-press to move or hide one.</span><span lang="zh">每个 Agent 用七种积木排自己的看板；长按能挪、能藏。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-bell"/></svg><b><span lang="en">Notifications</span><span lang="zh">通知</span></b><p><span lang="en">Three levels: ring, quiet, none. Focus time holds everything until you're done.</span><span lang="zh">三档：响、静音、不推。专注时段里的全部先压着。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-smartphone"/></svg><b><span lang="en">Widgets</span><span lang="zh">小组件</span></b><p><span lang="en">Recovery, the next meal and what's next today on your Home Screen, and a countdown on your Lock Screen.</span><span lang="zh">主屏幕上看恢复分、下一餐、今天接下来是什么；锁屏上有倒计时。</span></p></li>
       <li class="feat"><svg class="ic"><use href="#i-list-todo"/></svg><b><span lang="en">Background tasks</span><span lang="zh">后台任务</span></b><p><span lang="en">Hand off a long job. A card shows its progress, and it reports back when it's done.</span><span lang="zh">长活派出去，卡片上看进度，做完回来汇报。</span></p></li>
@@ -893,6 +1048,7 @@
           <li><span lang="en">The memory tree, as notes in your vault</span><span lang="zh">世界树，也就是你库里的那些笔记</span></li>
           <li><span lang="en">Apple Health daily summaries, only if you allow it</span><span lang="zh">Apple 健康的每日汇总，你允许才同步</span></li>
           <li><span lang="en">Files, photos and voice notes you send</span><span lang="zh">你发的文件、照片和语音</span></li>
+          <li><span lang="en">Sign-in tokens for the apps you connect</span><span lang="zh">连接器的登录令牌</span></li>
         </ul>
       </div>
       <div>
@@ -901,8 +1057,10 @@
           <li><span lang="en">Messages to the model providers you set up</span><span lang="zh">发给你配置的模型服务商的消息</span></li>
           <li><span lang="en">Push notifications through Apple and Expo: a title and a short preview</span><span lang="zh">经 Apple 和 Expo 的推送：标题和一小段预览</span></li>
           <li><span lang="en">Voice notes to your transcription service (OpenAI by default, or your own Whisper)</span><span lang="zh">发给转写服务的语音（默认 OpenAI，也可以用自己的 Whisper）</span></li>
-          <li><span lang="en">Whatever you connect yourself: AI apps reading the memory tree, a friend's server, Notion</span><span lang="zh">你自己接上的：读世界树的 AI app、朋友的服务器、Notion</span></li>
-          <li><span lang="en">In the TestFlight app only, your account: email, an optional name and the claws you've connected (assistant name, server address, kind, last seen). Never tokens, chats or memory. Builds you make yourself and the web version have no account.</span><span lang="zh">只有 TestFlight 版有账号：邮箱、可选的名字、连过的 claw（助手名、服务器地址、类型、最近在线），不存令牌、对话、记忆。自己打包的版本和网页版没有账号。</span></li>
+          <li><span lang="en">Apps you connect, such as Notion: your claw reads and writes them through your server</span><span lang="zh">你接上的应用，比如 Notion：claw 经你的服务器读写它</span></li>
+          <li><span lang="en">AI apps you connect to the memory tree read and write it</span><span lang="zh">你接上世界树的 AI app 会读写它</span></li>
+          <li><span lang="en">Shares and friends: a share link shows a snapshot with private bits greyed out, and a friend's server and yours exchange signed messages</span><span lang="zh">分享和朋友：分享链接给人看的是快照，私事是灰条；加了朋友，两边服务器互发签过名的消息</span></li>
+          <li><span lang="en">In the TestFlight app only, your account: email, an optional name and the claws you've connected (assistant name, server address, the claw's kind and name, last seen). Never tokens, chats, memory, health data or connector credentials. It's kept with Supabase in the EU, and sign-in codes are sent by Resend. The web version and builds you make yourself have no account.</span><span lang="zh">只有 TestFlight 版有账号：邮箱、可选的名字、连过的 claw（助手名、服务器地址、claw 的类型和名字、最近在线时间），从不存令牌、对话、记忆、健康数据和连接器的凭据。账号放在 Supabase 欧盟区，验证码邮件由 Resend 发。网页版和自己构建的版本没有账号。</span></li>
         </ul>
         <p><a href="privacy.html"><span lang="en">Privacy policy →</span><span lang="zh">隐私政策 →</span></a></p>
       </div>
@@ -937,7 +1095,6 @@
       </div>
       <a class="btn" href="why.html"><span lang="en">Read “Muse? Claws!”</span><span lang="zh">读《Muse？Claws！》</span><svg class="ic"><use href="#i-arrow-right"/></svg></a>
     </div>
-    <p class="aside-note"><span lang="en"><strong>Not OpenMuse.</strong> Looking for an agent that browses the web and fills in forms for you? That's <a href="https://github.com/CopilotKit/openmuse">CopilotKit's OpenMuse</a>. OpenMousse builds on your own claw and focuses on your life data, proactive Agents and a memory every AI shares.</span><span lang="zh"><strong>不是 OpenMuse。</strong>想要一个替你上网、填表的 agent，那是 <a href="https://github.com/CopilotKit/openmuse">CopilotKit 的 OpenMuse</a>。OpenMousse 建在你自己的 claw 上，专注你的生活数据、会主动找你的 Agents，和一份所有 AI 共用的记忆。</span></p>
   </section>
 </main>
 
