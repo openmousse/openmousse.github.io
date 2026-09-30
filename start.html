@@ -176,7 +176,7 @@
   .claw-shortcut { margin: 18px 0 0; font-size: 16px; }
   @media (max-width: 480px) { .guide-hero h1 .nw { white-space: normal; } }
   .toc b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); font-size: 12px; }
-  .step { display: grid; grid-template-columns: 56px 1fr; gap: 0 20px; padding: 44px 0; border-top: 1px solid var(--line); }
+  .step { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 0 20px; padding: 44px 0; border-top: 1px solid var(--line); }
   .step:first-of-type { border-top: 0; }
   .step .num { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 700; font-size: 19px; }
   .step h2 { margin-top: 4px; }
@@ -206,7 +206,7 @@
   .faq details p { margin: 0 0 14px; color: var(--ink2); }
   .faq details .code { margin: 0 0 14px; }
   @media (max-width: 760px) {
-    .step { grid-template-columns: 1fr; padding: 34px 0; }
+    .step { grid-template-columns: minmax(0, 1fr); padding: 34px 0; }  /* minmax(0, …)：长命令在代码框里横滑，不把整页撑宽 */
     .step .num { margin-bottom: 10px; width: 38px; height: 38px; font-size: 17px; }
     .need, .bring { grid-template-columns: 1fr; }
     .toc { justify-content: flex-start; }
@@ -291,7 +291,7 @@
       <h2><span lang="en">Install the app and connect</span><span lang="zh">装 app，连上</span></h2>
       <ol class="seq">
         <li><span lang="en">Install OpenMousse with TestFlight. The public link goes here when it opens; until then, ask for an invite in <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a>. You can also build <code>app/</code> yourself (it needs an Apple developer account).</span><span lang="zh">用 TestFlight 装 OpenMousse。公开测试链接开放后放在这里；在那之前，到 <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a> 留言要邀请。也可以自己构建 <code>app/</code>（要 Apple 开发者账号）。</span></li>
-        <li><span lang="en">Open the app. On the connect screen, enter the <strong>Server address</strong> from step 3 and, as the <strong>Access token</strong>, the phone token from step 2.</span><span lang="zh">打开 app，在连接页填<strong>服务器地址</strong>（第 3 步给的）和<strong>接入令牌</strong>（第 2 步的手机令牌）。</span></li>
+        <li><span lang="en">Open the app and sign in with your email (it sends a 6-digit code). On the connect screen, enter the <strong>Server address</strong> from step 3 and, as the <strong>Access token</strong>, the phone token from step 2.</span><span lang="zh">打开 app，先用邮箱登录（收一个 6 位验证码）。再在连接页填<strong>服务器地址</strong>（第 3 步给的）和<strong>接入令牌</strong>（第 2 步的手机令牌）。</span></li>
         <li><span lang="en">Allow notifications. Your Agents come to you when something changes.</span><span lang="zh">允许通知。Agent 看到变化会来找你。</span></li>
       </ol>
     </div>
