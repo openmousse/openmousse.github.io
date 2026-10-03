@@ -2,414 +2,503 @@
 <html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Get started · OpenMousse</title>
-<meta name="description" content="Install OpenMousse on your own server, connect your iPhone, bring your data in and build your first Agent. Step by step.">
-<meta property="og:title" content="Get started · OpenMousse">
-<meta property="og:description" content="From zero to your first message on your phone: server, phone, data, first Agent.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Setup guide · OpenMousse</title>
+<meta name="description" content="Set up OpenMousse on your own Linux, macOS or Windows server and hold your first conversation on your phone, in six steps.">
+<meta property="og:title" content="Setup guide · OpenMousse">
+<meta property="og:description" content="Set up OpenMousse on your own Linux, macOS or Windows server and hold your first conversation on your phone, in six steps.">
 <meta property="og:image" content="https://openmousse.ai/assets/og.png">
 <meta property="og:url" content="https://openmousse.ai/start.html">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1F3F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0D10" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/icon.png">
-<script>
-  // Language: saved choice, else the browser's (zh* → 中文, anything else → English).
-  (function () {
-    var saved = null;
-    try { saved = localStorage.getItem('om-lang'); } catch (e) {}
-    var lang = saved || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
-    document.documentElement.setAttribute('data-lang', lang);
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  })();
-</script>
-<style>
-  :root {
-    --bg: #F1F3F4; --surface: #FFFFFF; --surface2: #E7EAEC; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3;
-    --gold: #9A6B16; --gold-fill: #D9AE62; --gold-soft: #F5EAD3; --cyan: #0F7A93; --cyan-soft: #DAF0F5;
-    --radius: 18px;
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
-      --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0B0D10; --surface: #14171C; --surface2: #1E2329; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33;
-    --gold: #DDB56A; --gold-soft: #30271A; --cyan: #5CCFE6; --cyan-soft: #10303A;
-    color-scheme: dark;
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
-  html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
-  a { color: var(--cyan); text-decoration: none; } a:hover { text-decoration: underline; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-  header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--ink); }
-  .brand img { width: 30px; height: 30px; border-radius: 8px; }
-  .top nav { display: flex; align-items: center; gap: 18px; font-size: 15px; }
-  .top nav a { color: var(--ink2); }
-  .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
+<script>(function(d){var r=d.documentElement,t,l;try{t=localStorage.getItem('om-theme');l=localStorage.getItem('om-lang')}catch(e){}l=l||(/^zh/i.test(navigator.language||'')?'zh':'en');r.setAttribute('data-lang',l);r.lang=l==='zh'?'zh-CN':'en';if(t==='light'||t==='dark')r.setAttribute('data-theme',t);r.classList.add('js')})(document)</script>
+<style>/* Layout: statements sit in a 1200px column; the three stories run full-bleed as sticky scroll stages; the dial opens and closes the page. */
+:root{
+  --bg:#F1F3F4;--surface:#FFFFFF;--surface2:#E7EAEC;
+  --ink:#12151A;--ink2:#4B535C;--ink3:#626A74;--line:#DCE0E3;--ink-hover:#2A2F37;
+  --gold-text:#8C6114;--gold-fill:#D9AE62;--gold-soft:#F5EAD3;
+  --cyan-text:#0E738A;--dot:#5CCFE6;--dot-edge:#0E738A;--cyan-soft:#DAF0F5;
+  --amber:#E0A03A;--amber-edge:#8A5A06;
+  --friend:#4B535C;--focus:#0E738A;
+  --tile:#121418;--tile-line:transparent;
+  --field:#14171C;--field-ink:#ECEEF0;--field-ink3:#858E98;--field-line:#2A3038;--field2:#1E2329;
+  --shadow-1:0 1px 2px rgb(16 18 22/.05),0 12px 32px -20px rgb(16 18 22/.22);
+  --card-edge:transparent;--bubble:#FFFFFF;--reply:#F5EAD3;--reply-ink:#12151A;
+  color-scheme:light;
 
-  .hero { padding: 48px 0 24px; text-align: center; }
-  .eyebrow { display: inline-block; font-size: 13px; letter-spacing: .04em; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 4px 12px; }
-  h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.12; letter-spacing: -.02em; margin: 18px auto 14px; max-width: 16em; text-wrap: balance; }
-  .nw { display: inline-block; white-space: nowrap; }
-  .lede { font-size: clamp(17px, 2.2vw, 20px); color: var(--ink2); max-width: 40em; margin: 0 auto; text-wrap: pretty; }
-  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 8px; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
-  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .btn:hover { text-decoration: none; filter: brightness(1.05); }
-  .soon { font-size: 14px; color: var(--ink2); margin-top: 6px; }
+  --display:"Host Grotesk","HG Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --zh:"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --fs-1:12px;--fs-2:14px;--fs-3:clamp(16px,.095vw + 15.63px,17px);--fs-4:clamp(18px,.19vw + 17.26px,20px);
+  --fs-5:clamp(22px,.38vw + 20.5px,26px);--fs-6:clamp(28px,1.9vw + 20.6px,48px);--fs-7:clamp(40px,3.62vw + 26px,78px);
+  --pad2:32px;--sec:160px;--hd:56px;
+  --ease:cubic-bezier(.2,.8,.2,1);--ease-io:cubic-bezier(.65,0,.35,1);--ease-spring:cubic-bezier(.34,1.4,.64,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0B0D10;--surface:#14171C;--surface2:#1E2329;
+  --ink:#ECEEF0;--ink2:#A6AEB7;--ink3:#858E98;--line:#252A31;--ink-hover:#FFFFFF;
+  --gold-text:#DDB56A;--gold-soft:#30271A;--cyan-text:#5CCFE6;--dot-edge:transparent;--cyan-soft:#10303A;
+  --amber:#E5AD4E;--amber-edge:transparent;--friend:#858E98;--focus:#5CCFE6;
+  --tile:#050607;--tile-line:#2A3038;--field:#16191E;--field2:#20252C;--field-line:#2E343C;
+  --shadow-1:none;--card-edge:#252A31;--bubble:#1B1F25;--reply:#E9E4D8;--reply-ink:#16181C;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0B0D10;--surface:#14171C;--surface2:#1E2329;
+  --ink:#ECEEF0;--ink2:#A6AEB7;--ink3:#858E98;--line:#252A31;--ink-hover:#FFFFFF;
+  --gold-text:#DDB56A;--gold-soft:#30271A;--cyan-text:#5CCFE6;--dot-edge:transparent;--cyan-soft:#10303A;
+  --amber:#E5AD4E;--amber-edge:transparent;--friend:#858E98;--focus:#5CCFE6;
+  --tile:#050607;--tile-line:#2A3038;--field:#16191E;--field2:#20252C;--field-line:#2E343C;
+  --shadow-1:none;--card-edge:#252A31;--bubble:#1B1F25;--reply:#E9E4D8;--reply-ink:#16181C;
+}
+@font-face{font-family:"HG Fallback";src:local("Arial"),local("Liberation Sans"),local("Helvetica");size-adjust:104%;ascent-override:97.6%;descent-override:30.3%;line-gap-override:0%}
+@media (max-width:1023.98px){:root{--pad2:16px;--sec:112px}}
+@media (max-width:767.98px){:root{--pad2:0px;--sec:88px}}
 
-  .shots { display: flex; gap: 22px; justify-content: center; align-items: flex-start; padding: 36px 0 12px; }
-  .phone { width: min(30%, 280px); border-radius: 36px; padding: 8px; background: #111; box-shadow: 0 24px 60px -24px rgba(0,0,0,.45); }
-  .phone img { display: block; width: 100%; border-radius: 28px; }
-  .phone picture { display: block; }
-  .phone.mid { transform: translateY(-18px); }
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--hd) + 16px)}
+body{margin:0;padding-inline:16px;background:var(--bg);color:var(--ink);font-family:var(--zh);font-size:var(--fs-3);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,ul,ol,figure,blockquote,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{font-weight:500;text-wrap:balance;word-break:keep-all;overflow-wrap:anywhere}
+h1{font-size:var(--fs-7);line-height:1.22;letter-spacing:.01em}
+h2{font-size:var(--fs-6);line-height:1.3;letter-spacing:.01em}
+h3{font-size:var(--fs-5);line-height:1.4}
+p,li,dd{text-wrap:pretty}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img,svg{display:block;max-width:100%}
+.num,.latin{font-family:var(--display);font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);font-size:var(--fs-1);letter-spacing:.02em}
+.vh,.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-96px;z-index:200;background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:999px;font-size:var(--fs-2)}
+.skip:focus{top:8px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.wrap{max-width:calc(1200px + 2 * var(--pad2));margin-inline:auto;padding-inline:var(--pad2)}
+.sec{padding-block:var(--sec) 0}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:var(--fs-2);color:var(--ink3);letter-spacing:.06em;margin-bottom:20px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--dot);box-shadow:0 0 0 .5px var(--dot-edge)}
+.lede{font-size:var(--fs-4);line-height:1.75;color:var(--ink2);max-width:30em;margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 22px;border-radius:999px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);font-size:var(--fs-2);font-weight:500;text-decoration:none;cursor:pointer;transition:background-color .22s var(--ease),transform .22s var(--ease-spring)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn svg{width:16px;height:16px}
+.btn:active{transform:scale(.97)}
+a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:transparent;border:0;cursor:pointer;color:var(--ink2)}
+.icon-btn svg{width:20px;height:20px}
+@media (hover:hover){
+  .btn:hover{background:var(--ink-hover);border-color:var(--ink-hover)}
+  .btn.ghost:hover{background:var(--surface2);border-color:var(--ink)}
+  a.link:hover{text-decoration-thickness:2px;color:var(--cyan-text)}
+  .icon-btn:hover{background:var(--surface2);color:var(--ink)}
+}
 
-  section { padding: 56px 0; }
-  h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.01em; margin: 0 0 12px; }
-  .sub { color: var(--ink2); max-width: 44em; margin: 0 0 28px; }
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .grid.three { grid-template-columns: repeat(3, 1fr); }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-  .card h3 { margin: 0 0 8px; font-size: 19px; }
-  .card p { margin: 0; color: var(--ink2); }
-  .card .dir { display: inline-block; margin-bottom: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface2);
-               color: var(--ink2); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+/* ---------- header ---------- */
+.mh{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:var(--hd);margin-inline:-16px;display:flex;align-items:center;gap:16px;padding-inline:max(16px,calc((100vw - 1200px) / 2));background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-height:44px;flex:none}
+.logo{width:30px;height:30px;flex:none}
+.logo-tile{fill:var(--tile);stroke:var(--tile-line);stroke-width:1}
+.logo-ring{fill:none;stroke:var(--gold-fill);stroke-width:3}
+.logo-dot{fill:var(--dot)}
+.logo-now,.logo-rot{transform-box:view-box;transform-origin:16px 16px}
+.logo.busy .logo-rot{animation:spin 1.3s cubic-bezier(.45,.05,.55,.95) infinite}
+.logo-rot.settle{transition:transform .9s var(--ease)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.brand-t{font-family:var(--display);font-size:16px;font-weight:500;letter-spacing:-.01em}
+.chap{display:none;align-items:center;gap:10px;min-width:0;font-size:13px;color:var(--ink3);letter-spacing:.04em}
+.chap span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chap svg{width:20px;height:20px;flex:none}
+.prog-track{fill:none;stroke:var(--line);stroke-width:3}
+.prog-arc{fill:none;stroke:var(--gold-fill);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .4s var(--ease)}
+.nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:var(--fs-2)}
+.nav a{color:var(--ink2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.nav .btn{min-height:36px;padding:0 16px;color:var(--bg)}
+@media (hover:hover){.nav a:not(.btn):hover{color:var(--ink)}}
+.mh.in-story .chap{display:flex}
+@media (min-width:1024px){.mh.in-story .chap{position:absolute;left:50%;transform:translateX(-50%)}}
+/* in a story the centred chapter label takes the middle of the bar, so the section links step aside (they collided in English at every desktop width) */
+.nav .nl{transition:opacity .3s var(--ease),visibility .3s}
+.mh.in-story .nav .nl{opacity:0;visibility:hidden}
+@media (max-width:1023.98px){
+  .nav .nl{display:none}
+  .mh.in-story .nav{display:none}
+  .mh.in-story .chap{margin-left:auto}
+  .mh .hd-theme{display:none}
+}
+@media (max-width:479.98px){.mh.in-story .brand-t{display:none}}
 
-  .how { display: grid; grid-template-columns: 1fr auto 1.4fr auto 1fr; align-items: center; gap: 12px; margin: 34px 0 0; }
-  .how .node { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; text-align: center; }
-  .how .node.home { background: var(--cyan-soft); border-color: var(--cyan); }
-  .how .node b { display: block; font-size: 16px; }
-  .how .node span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
-  .how .arrow { width: 38px; height: 16px; color: var(--ink2); }
-  .how .arrow svg { display: block; width: 100%; height: 100%; }
-  .caption { color: var(--ink2); font-size: 15px; margin: 14px 0 0; max-width: 44em; }
+/* ---------- start ---------- */
+.ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;margin-top:48px}
+.way{display:grid;gap:16px;align-content:start;justify-items:start;border-top:1px solid var(--line);padding-top:24px}
+.way p{color:var(--ink2)}
+.code{position:relative;width:100%;background:var(--field);color:var(--field-ink);border-radius:20px;padding:16px 20px 20px}
+.code-h{font-size:var(--fs-1);color:var(--field-ink3);margin-bottom:10px;padding-right:110px}
+.code pre{margin:0;font-family:var(--mono);font-size:13.5px;line-height:22px;white-space:pre-wrap;word-break:break-all}
+.copy{position:absolute;right:12px;top:10px;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--field-line);background:transparent;color:var(--field-ink);font-size:var(--fs-2);cursor:pointer}
+@media (hover:hover){.copy:hover{background:var(--field2)}}
+.copy:focus-visible{outline-color:var(--dot)}
+.steps3{display:grid;width:100%;border-top:1px solid var(--line)}
+.steps3 li{display:flex;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);color:var(--ink2)}
+.steps3 .num{color:var(--ink)}
+.start-links{display:flex;flex-wrap:wrap;gap:12px 32px;font-size:var(--fs-2);margin-top:40px}
+html[data-lang="en"] [lang="zh"],html[data-lang="zh"] [lang="en"]{display:none!important}
+html[data-lang="en"] body{line-height:1.65}
+html[data-lang="en"] body{font-family:var(--display)}
+html[data-lang="en"] .beat{letter-spacing:0}
+html[data-lang="en"] .kv dd.q{font-size:clamp(15px,1.7vw,18px)}
+html[data-lang="en"] .w-sub{font-size:12px}
+@media (max-width:767.98px){html[data-lang="en"] .w-name{font-size:19px}html[data-lang="en"] .w-sub{font-size:13.5px}html[data-lang="en"] .w-tree{font-size:16px}}
+html[data-lang="en"] .lane{grid-template-columns:76px 1fr}
+html[data-lang="en"] .stack li{grid-template-columns:70px 1fr 30px}
+html[data-lang="en"] .rows.wide li{grid-template-columns:96px 1fr}
+html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,60px);line-height:1.12}
+.lang-btn{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink2);font-size:var(--fs-2);cursor:pointer}
+@media (hover:hover){.lang-btn:hover{color:var(--ink);border-color:var(--ink3)}}
+@media (max-width:1023.98px){.mh .lang-btn{margin-left:auto}.nav{gap:12px}}
+.scrollcue{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:var(--fs-2);color:var(--ink3);text-decoration:none}
+.scrollcue svg{width:16px;height:16px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(3px)}}
+@media (hover:hover){.scrollcue:hover{color:var(--ink)}}
+.ctas .btn svg,.how-more .btn svg{width:16px;height:16px}
+.bridge{display:flex;justify-content:center;padding:8px 16px 40px;font-size:var(--fs-3)}
+.bridge a{display:inline-flex;align-items:center;gap:8px}
+.bridge svg{width:16px;height:16px}
+.howcards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:40px}
+.howcards a{position:relative;display:grid;align-content:start;gap:6px;height:100%;padding:20px 20px 52px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:var(--shadow-1);transition:border-color .2s var(--ease),transform .25s var(--ease)}
+.howcards .hn{font-size:var(--fs-1);color:var(--gold-text);letter-spacing:.06em}
+.howcards b{font-size:var(--fs-4);font-weight:500;line-height:1.4}
+.howcards .hs{font-size:var(--fs-2);color:var(--ink2);line-height:1.6}
+.howcards svg{position:absolute;left:20px;bottom:18px;width:18px;height:18px;color:var(--ink3);transition:transform .25s var(--ease),color .2s var(--ease)}
+@media (hover:hover){.howcards a:hover{border-color:var(--ink3);transform:translateY(-2px)}.howcards a:hover svg{color:var(--ink);transform:translateX(4px)}}
+.how-more{margin-top:28px}
+.close-ctas{justify-content:center;margin-top:0}
+@media (max-width:1023.98px){.howcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479.98px){.howcards{grid-template-columns:1fr}.howcards a{padding-bottom:20px;padding-right:48px}.howcards svg{left:auto;right:18px;bottom:auto;top:22px}}
+.way-k{font-size:var(--fs-1);letter-spacing:.06em;color:var(--gold-text)}
+.way h3{margin-top:-8px}
+.way-note{font-size:var(--fs-2);color:var(--ink3)}
+.devs{margin-top:72px;border-top:1px solid var(--line);padding-top:40px}
+.devs-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:12px 48px;align-items:end}
+.devs-head h3{font-size:var(--fs-6);line-height:1.3}
+.devs-head p{color:var(--ink2);max-width:32em}
+.scene{position:relative;margin-top:48px;aspect-ratio:19/10}
+.dv{position:absolute;transition:opacity .6s var(--ease),transform .7s var(--ease),filter .6s var(--ease)}
+.dv .scr{position:relative;overflow:hidden;background:var(--tile);border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.dv .img{position:relative;overflow:hidden;background:var(--surface)}
+.dv img{display:block;width:100%;height:100%;object-fit:cover;object-position:top left}
+.scene .dk{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .scene .lt{display:none}:root:not([data-theme="light"]) .scene .dk{display:block}}
+:root[data-theme="dark"] .scene .lt{display:none}
+:root[data-theme="dark"] .scene .dk{display:block}
+.lap{left:15%;width:66%;top:0}
+.lap .scr{border-radius:14px 14px 4px 4px;padding:1.1% 1.1% 0;display:grid;grid-template-rows:auto 1fr}
+.lap .img{aspect-ratio:1600/975;border-radius:2px}
+.lap .base{position:relative;height:clamp(8px,1.4vw,16px);margin:0 -6%;background:linear-gradient(var(--surface2),var(--line));border-radius:0 0 14px 14px;box-shadow:var(--shadow-1)}
+.lap .base::before{content:"";position:absolute;left:50%;top:0;width:14%;height:45%;transform:translateX(-50%);background:var(--line);border-radius:0 0 8px 8px}
+.chrome{display:flex;align-items:center;gap:10px;height:clamp(18px,2.2vw,28px);padding:0 10px;background:var(--surface2);color:var(--ink3);font-size:clamp(9px,.9vw,12px);border-radius:6px 6px 0 0;white-space:nowrap;overflow:hidden}
+.chrome>span{display:none;align-items:center;gap:6px}
+.chrome i{display:block;flex:none}
+.c-mac i,.c-web i{width:clamp(6px,.7vw,10px);height:clamp(6px,.7vw,10px);border-radius:50%;background:var(--line)}
+.c-mac i:nth-child(1){background:#E5675B}.c-mac i:nth-child(2){background:#E5B44F}.c-mac i:nth-child(3){background:#5DBE6A}
+.scene[data-os="mac"] .c-mac,.scene[data-os="web"] .c-web{display:flex}
+.scene[data-os="mac"] .c-title,.scene[data-os="lin"] .c-title{display:flex;position:absolute;left:50%;transform:translateX(-50%)}
+.scene[data-os="win"] .c-title{display:flex}
+.scene[data-os="win"] .c-win,.scene[data-os="lin"] .c-lin{display:flex;margin-left:auto}
+.scene[data-os="web"] .c-url{display:flex;flex:1;margin:0 8%;height:68%;padding:0 10px;border-radius:999px;background:var(--surface);justify-content:center}
+.c-url svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6}
+.chrome{position:relative}
+.c-win{gap:14px}
+.c-win i{width:clamp(7px,.8vw,10px);height:clamp(7px,.8vw,10px);border:1.4px solid var(--ink3)}
+.c-win .w-min{height:0;border-width:1.4px 0 0}
+.c-win .w-cls,.c-lin .w-cls{border:0;position:relative}
+.c-win .w-cls::before,.c-win .w-cls::after,.c-lin .w-cls::before,.c-lin .w-cls::after{content:"";position:absolute;left:50%;top:50%;width:120%;height:1.4px;background:var(--ink3);transform:translate(-50%,-50%) rotate(45deg)}
+.c-win .w-cls::after,.c-lin .w-cls::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.c-lin .w-cls{width:clamp(12px,1.3vw,18px);height:clamp(12px,1.3vw,18px);border-radius:50%;background:var(--line)}
+.c-lin .w-cls::before,.c-lin .w-cls::after{width:45%}
+.tab{left:2%;width:22%;bottom:0}
+.tab .scr{border-radius:clamp(14px,1.8vw,24px);padding:clamp(5px,.8vw,10px)}
+.tab .img{aspect-ratio:800/989;border-radius:clamp(8px,1vw,14px)}
+.ph .scr{padding:clamp(3px,.5vw,7px)}
+.ph .img{aspect-ratio:600/1298}
+.ph .cam{position:absolute;left:50%;top:clamp(7px,1vw,13px);transform:translateX(-50%);background:var(--tile)}
+.ios{left:64%;width:13.5%;bottom:0}
+.ios .scr{border-radius:clamp(18px,2.6vw,34px)}
+.ios .img{border-radius:clamp(14px,2.1vw,28px)}
+.ios .cam{width:30%;height:clamp(6px,.9vw,12px);border-radius:999px}
+.and{left:81%;width:12.5%;bottom:3%}
+.and .scr{border-radius:clamp(14px,1.9vw,24px)}
+.and .img{border-radius:clamp(10px,1.4vw,18px)}
+.and .cam{width:clamp(5px,.7vw,9px);height:clamp(5px,.7vw,9px);border-radius:50%}
+.scene .dv{z-index:1;filter:saturate(.35)}
+.dv .scr::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--bg);opacity:.6;pointer-events:none;transition:opacity .6s var(--ease)}
+.lap .base{transition:opacity .6s var(--ease);opacity:.4}
+.scene .dv.on{z-index:3;filter:none;transform:translateY(-2%)}
+.dv.on .scr::after{opacity:0}
+.lap.on .base{opacity:1}
+.pbar{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:40px}
+.pt{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink2);font-family:var(--display);font-size:var(--fs-2);cursor:pointer;transition:color .2s var(--ease),border-color .2s var(--ease),background-color .2s var(--ease)}
+.pt svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pt[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--surface)}
+@media (hover:hover){.pt:hover{color:var(--ink);border-color:var(--ink3)}}
+.pdesc{max-width:36em;margin:24px auto 0;text-align:center;min-height:9.5em}
+.pd-k{font-size:var(--fs-4);font-weight:500}
+.pd-t{margin-top:8px;color:var(--ink2)}
+.pd-c{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.pd-c span{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-1);color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.pd-c span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--dot)}
+@media (max-width:1023.98px){.devs-head{grid-template-columns:1fr}}
+@media (max-width:767.98px){
+  .scene{aspect-ratio:1/.84;margin-top:32px}
+  .tab{display:none}
+  .lap{left:0;width:82%}
+  .ios{left:55%;width:25%}
+  .and{left:77%;width:23%;bottom:2%}
+  .pbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .pt{justify-content:center;padding:0 10px}
+  .pdesc{min-height:12em}
+}
+@media (max-width:1023.98px){.ways{grid-template-columns:1fr}}
 
-  .chat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
-  /* Wide screens: the conversation on the left, the Agent's plan beside it. Narrow: the plan sits inline, between the two halves. */
-  .build { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 10px 24px; }
-  .build > .thread { grid-column: 1; }
-  .build > .plan { grid-column: 2; grid-row: 1 / 3; align-self: start; }
-  .thread { display: flex; flex-direction: column; gap: 10px; }
-  .msg { max-width: 88%; margin: 0; padding: 10px 14px; border-radius: 16px; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
-  .msg.me { align-self: flex-end; background: var(--ink); color: var(--bg); border-bottom-right-radius: 4px; }
-  .msg.it { align-self: flex-start; background: var(--surface2); border-bottom-left-radius: 4px; }
-  .msg.done { align-self: flex-start; background: var(--cyan-soft); border: 1px solid var(--cyan); border-bottom-left-radius: 4px; }
-  .msg.done strong { display: block; margin-bottom: 2px; }
-  .plan { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
-  .plan-title { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: var(--ink2); }
-  .plan dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
-  .plan dt { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; font-size: 15px; font-weight: 600; }
-  .plan dt::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-fill); }
-  .plan dd { margin: 0 0 0 15px; font-size: 15px; line-height: 1.55; color: var(--ink2); text-wrap: pretty; }
-  .plan ul { margin: 0; padding: 0; list-style: none; }
-  .plan li + li { margin-top: 3px; }
-  .plan b { color: var(--ink); font-weight: 600; }
-  .ideas-label { margin: 28px 0 12px; color: var(--ink2); font-size: 15px; }
-  .ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .idea { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
-  .idea b { display: block; font-size: 16px; }
-  .idea span span, .idea > span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.5; color: var(--ink2); }
+/* ---------- footer ---------- */
+.ft{margin-inline:-16px;padding-inline:16px;border-top:1px solid var(--line);padding-block:56px 36px}
+.ft-in{display:grid;grid-template-columns:1fr 2fr;gap:32px}
+.ft-brand{display:flex;align-items:center;gap:12px;align-self:start}
+.ft-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.fc-h{font-size:var(--fs-1);color:var(--ink3);margin-bottom:10px;letter-spacing:.04em}
+.fcol a{display:inline-flex;align-items:center;min-height:32px;font-size:var(--fs-2);color:var(--ink2);text-decoration:none}
+@media (hover:hover){.fcol a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}}
+.ft-bot{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--line);margin-top:24px;padding-top:20px;font-size:var(--fs-1);color:var(--ink3)}
+.ft-tools{display:flex;align-items:center;gap:12px}
+@media (max-width:767.98px){.ft-in{grid-template-columns:1fr}.ft-cols{grid-template-columns:repeat(2,minmax(0,1fr))}.fcol a{min-height:40px}}
 
-  .acts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .act { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-  .act .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .act h3 { margin: 0; font-size: 19px; }
-  .act dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; line-height: 1.55; }
-  .act dt { color: var(--ink2); font-weight: 600; white-space: nowrap; }
-  .act dd { margin: 0; }
-  .bubble { margin: auto 0 0; background: var(--surface2); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15px; line-height: 1.55; }
-  .bubble small { display: block; margin-bottom: 3px; color: var(--ink2); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .why .w-notch{opacity:1}
+}
 
-  .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .flow ul { margin: 0; padding-left: 20px; color: var(--ink2); }
-  .flow li { margin: 6px 0; }
-
-  pre { margin: 0; overflow-x: auto; padding-right: 64px; }
-  .code { position: relative; background: #0B0D10; color: #ECEEF0; border-radius: 14px; padding: 18px 20px; font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .copy { position: absolute; top: 10px; right: 10px; border: 1px solid #2A3038; background: #14171C; color: #ECEEF0; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
-  .steps { color: var(--ink2); margin-top: 16px; }
-
-  .why h2 { font-size: clamp(22px, 2.8vw, 26px); }
-  .why p { max-width: 44em; }
-  .why p + p { margin-top: 12px; }
-
-  .note { background: var(--cyan-soft); border-radius: var(--radius); padding: 20px 24px; color: var(--ink); }
-  .note p { margin: 0; }
-
-  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--ink2); font-size: 15px; }
-  footer .row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between; }
-
-  @media (max-width: 760px) {
-    .top nav a.hide-sm { display: none; }
-    .grid, .grid.three, .flow, .acts, .build { grid-template-columns: 1fr; }
-    .build { grid-template-rows: none; }
-    .build > .thread, .build > .plan { grid-column: auto; grid-row: auto; }
-    .plan { padding: 14px; }
-    .ideas { grid-template-columns: 1fr 1fr; }
-    .shots { justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -20px; padding: 28px 20px 12px; }
-    .phone { flex: 0 0 64%; width: auto; border-radius: 30px; padding: 6px; scroll-snap-align: center; }
-    .phone img { border-radius: 24px; }
-    .phone.mid { transform: none; }
-    .how { grid-template-columns: 1fr; }
-    .how .arrow { justify-self: center; transform: rotate(90deg); }
-    .code { padding: 14px 12px 50px; font-size: clamp(11px, 2.9vw, 14px); }
-    pre { padding-right: 0; }
-    .copy { top: auto; bottom: 10px; right: 10px; }
-    section { padding: 40px 0; }
-  }
-</style>
-<style>
-  /* start.html only */
-  .guide-hero { padding: 40px 0 8px; }
-  .guide-hero h1 { max-width: 18em; }
-  .toc { list-style: none; margin: 28px auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 900px; }
-  .toc a { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 15px; }
-  .toc a:hover { text-decoration: none; border-color: var(--ink2); }
-  .claw-shortcut { margin: 18px 0 0; font-size: 16px; }
-  @media (max-width: 480px) { .guide-hero h1 .nw { white-space: normal; } }
-  .toc b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gold-soft); color: var(--gold); font-size: 12px; }
-  .step { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 0 20px; padding: 44px 0; border-top: 1px solid var(--line); }
-  .step:first-of-type { border-top: 0; }
-  .step .num { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 700; font-size: 19px; }
-  .step h2 { margin-top: 4px; }
-  .step p { max-width: 46em; margin: 0 0 14px; }
-  .step .code { margin: 6px 0 16px; max-width: 46em; }
-  .need { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 900px; }
-  .need li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; color: var(--ink2); font-size: 16px; }
-  .need li b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 2px; }
-  .seq { margin: 0 0 16px; padding-left: 22px; max-width: 46em; }
-  .seq > li { margin: 0 0 12px; padding-left: 4px; }
-  .seq > li::marker { color: var(--gold); font-weight: 700; }
-  .seq .code { margin: 10px 0 4px; }
-  .tip { background: var(--gold-soft); border-radius: 14px; padding: 14px 18px; max-width: 46em; margin: 0 0 14px; }
-  .muted { color: var(--ink2); font-size: 15px; }
-  code { font: 0.9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--surface2); border-radius: 6px; padding: 1px 6px; }
-  .code code { background: none; padding: 0; font: inherit; }
-  .bring { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 900px; margin: 6px 0 16px; }
-  .bring .card p + p { margin-top: 10px; }
-  .bring .code { margin: 12px 0 0; }
-  .bring .code pre { white-space: pre-wrap; }
-  .bring .wide { grid-column: 1 / -1; }
-  .says { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
-  .says span.q { background: var(--ink); color: var(--bg); border-radius: 16px 16px 4px 16px; padding: 8px 14px; font-size: 15px; }
-  .faq details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; max-width: 900px; margin: 0 0 10px; }
-  .faq summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style-position: outside; }
-  .faq details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: 12px; }
-  .faq details p { margin: 0 0 14px; color: var(--ink2); }
-  .faq details .code { margin: 0 0 14px; }
-  @media (max-width: 760px) {
-    .step { grid-template-columns: minmax(0, 1fr); padding: 34px 0; }  /* minmax(0, …)：长命令在代码框里横滑，不把整页撑宽 */
-    .step .num { margin-bottom: 10px; width: 38px; height: 38px; font-size: 17px; }
-    .need, .bring { grid-template-columns: 1fr; }
-    .toc { justify-content: flex-start; }
-  }
+/* ---------- doc pages: contents rail on the left, a 68ch article on the right ---------- */
+.doc{padding-block:64px 0}
+.doc-head{max-width:760px}
+.doc-head h1{font-size:var(--fs-6);line-height:1.25}
+html[data-lang="en"] .doc-head h1{line-height:1.15;letter-spacing:-.01em}
+.doc-head .lede{max-width:34em}
+.doc-head .code{margin-top:28px;max-width:760px}
+.doc-head .note{max-width:760px}
+.alt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:32px;max-width:760px}
+.alt a{display:grid;gap:4px;padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:var(--shadow-1);transition:border-color .2s var(--ease)}
+.alt b{font-weight:500}
+.alt span{font-size:var(--fs-2);color:var(--ink2);line-height:1.6}
+@media (hover:hover){.alt a:hover{border-color:var(--ink3)}}
+.doc-grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:64px;margin-top:56px;align-items:start}
+.toc{position:sticky;top:calc(var(--hd) + 32px)}
+.toc p{font-size:var(--fs-1);color:var(--ink3);letter-spacing:.06em;margin-bottom:12px}
+.toc ol{display:grid;gap:2px}
+.toc a{display:grid;grid-template-columns:28px 1fr;align-items:baseline;padding:6px 0;font-size:var(--fs-2);color:var(--ink2);text-decoration:none;line-height:1.5}
+.toc a .n{font-family:var(--display);font-variant-numeric:tabular-nums;color:var(--ink3)}
+.toc a.on{color:var(--ink)}
+.toc a.on .n{color:var(--gold-text)}
+@media (hover:hover){.toc a:hover{color:var(--ink)}}
+.article{min-width:0;max-width:720px}
+.step{padding-block:40px;border-top:1px solid var(--line);scroll-margin-top:calc(var(--hd) + 16px)}
+.step:first-child{border-top:0;padding-top:0}
+.step-n{display:block;font-family:var(--display);font-variant-numeric:tabular-nums;font-size:var(--fs-2);color:var(--gold-text);letter-spacing:.04em;margin-bottom:8px}
+.step h2{font-size:var(--fs-5);line-height:1.35}
+.step h3{font-size:var(--fs-4);line-height:1.45;margin-top:28px}
+.step p,.step li{color:var(--ink2)}
+.step p{margin-top:14px}
+.step strong,.step b{color:var(--ink);font-weight:500}
+.ol{counter-reset:o;display:grid;gap:12px;margin-top:16px}
+.ol>li{counter-increment:o;display:grid;grid-template-columns:28px 1fr;align-items:baseline}
+.ol>li::before{content:counter(o);font-family:var(--display);font-variant-numeric:tabular-nums;font-size:var(--fs-2);color:var(--gold-text)}
+.ol>li>div{min-width:0}
+.ul{display:grid;gap:10px;margin-top:14px}
+.ul>li{position:relative;padding-left:18px}
+.ul>li::before{content:"";position:absolute;left:2px;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--dot)}
+.req{display:grid;gap:0;margin-top:20px;border-top:1px solid var(--line)}
+.req>li{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--line)}
+.req>li>b{font-weight:500;color:var(--ink)}
+.req>li>div{min-width:0;color:var(--ink2)}
+.os{display:grid;margin-top:12px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.os>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:12px 14px;border-top:1px solid var(--line);font-size:var(--fs-2);line-height:1.65}
+.os>div:first-child{border-top:0}
+.os>div>b{font-family:var(--display);font-weight:500;color:var(--ink)}
+.os>div>span{min-width:0;color:var(--ink2)}
+.step .code{margin-top:16px}
+.code pre+pre{margin-top:0}
+.code pre code{font:inherit}
+.code .code-h{margin-bottom:8px}
+.ic-code{font-family:var(--mono);font-size:.88em;padding:1px 6px;border-radius:6px;background:var(--surface2);color:var(--ink);overflow-wrap:anywhere;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.note{margin-top:18px;padding:14px 16px;border-left:2px solid var(--gold-fill);background:color-mix(in srgb,var(--gold-fill) 9%,transparent);border-radius:4px 12px 12px 4px;color:var(--ink2);font-size:var(--fs-2);line-height:1.7}
+.note b{color:var(--ink);font-weight:500}
+.says{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.says span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:var(--fs-2);color:var(--ink);background:var(--surface)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.rules>div{padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.rules b{display:block;font-weight:500;color:var(--ink);margin-bottom:6px}
+.rules span{font-size:var(--fs-2);line-height:1.65;color:var(--ink2)}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;cursor:pointer;color:var(--ink);font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:8px;height:8px;border-right:1.5px solid var(--ink3);border-bottom:1.5px solid var(--ink3);transform:rotate(45deg) translateY(-2px);transition:transform .25s var(--ease)}
+.faq details[open] summary::after{transform:rotate(225deg) translateY(-2px)}
+.faq details>div{padding-bottom:18px}
+.faq details>div>p:first-child{margin-top:0}
+.mail{font-family:var(--display)}
+.req>li>div>p:first-child{margin-top:0}
+.doc .code:not(:has(.code-h))>pre{padding-right:84px}
+.doc-end{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-size:var(--fs-2)}
+@media (max-width:1023.98px){
+  .doc{padding-block:40px 0}
+  .doc-grid{grid-template-columns:1fr;gap:24px;margin-top:40px}
+  .toc{position:static}
+  .toc ol{display:flex;flex-wrap:wrap;gap:8px}
+  .toc a{display:inline-flex;gap:6px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+  .rules{grid-template-columns:1fr}
+}
+@media (max-width:767.98px){
+  .alt{grid-template-columns:1fr}
+  .req>li{grid-template-columns:1fr}
+  .os>div{grid-template-columns:1fr;gap:2px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="/"><img src="assets/icon.png" alt="">OpenMousse</a>
-    <nav>
-      <a class="hide-sm" href="index.html#what"><span lang="en">What it is</span><span lang="zh">是什么</span></a>
-      <a class="hide-sm" href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a>
-      <a class="hide-sm" href="start.html" aria-current="page"><span lang="en">Get started</span><span lang="zh">新手指南</span></a>
-      <a href="https://github.com/openmousse/openmousse">GitHub</a>
-      <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
-    </nav>
-  </header>
-
-  <div class="hero guide-hero">
-    <span class="eyebrow"><span lang="en">Getting started</span><span lang="zh">新手指南</span></span>
-    <h1><span lang="en">From zero to your first message on your phone</span><span lang="zh"><span class="nw">从零开始，</span><span class="nw">到在手机上跟它说第一句话</span></span></h1>
-    <p class="lede">
-      <span lang="en">OpenMousse starts empty: there are no preset Agents, and it builds whatever you ask for. Work through the six steps below, one at a time.</span>
-      <span lang="zh">OpenMousse 一开始是空的：没有预设的 Agent，你说要什么，它就建什么。按下面六步走，每一步做完再往下。</span>
-    </p>
-    <ol class="toc">
-      <li><a href="#need"><b>1</b><span lang="en">What you need</span><span lang="zh">准备好这几样</span></a></li>
-      <li><a href="#install"><b>2</b><span lang="en">Install the server</span><span lang="zh">装服务</span></a></li>
-      <li><a href="#reach"><b>3</b><span lang="en">Reach it from your phone</span><span lang="zh">让手机连得上</span></a></li>
-      <li><a href="#app"><b>4</b><span lang="en">Install the app</span><span lang="zh">装 app，连上</span></a></li>
-      <li><a href="#data"><b>5</b><span lang="en">Bring your data in</span><span lang="zh">把你的数据带进来</span></a></li>
-      <li><a href="#first"><b>6</b><span lang="en">Say the first thing</span><span lang="zh">跟它说第一件事</span></a></li>
-      <li><a href="#faq"><b>?</b><span lang="en">FAQ</span><span lang="zh">常见问题</span></a></li>
-    </ol>
-    <p class="claw-shortcut"><a href="connect.html"><span lang="en">Already have a claw? It can do steps 2 to 4 for you: send it one sentence →</span><span lang="zh">已经有 claw 了？第 2 到 4 步它能替你做：发它一句话就行 →</span></a></p>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-tree" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" style="fill:none;stroke:var(--gold-fill);stroke-width:2.2;stroke-linecap:round"/><path d="M12 15v6M8.5 21h7" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><circle cx="12" cy="9" r="1.8" style="fill:var(--dot);stroke:var(--dot-edge);stroke-width:.8"/></symbol>
+<symbol id="i-priv" viewBox="0 0 24 24"><circle cx="12" cy="10" r="7" style="fill:none;stroke:var(--gold-fill);stroke-width:2.2;stroke-linecap:round"/><path d="M12 13v8M9 21h6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><circle cx="12" cy="10" r="2.2" style="fill:var(--dot);stroke:var(--dot-edge);stroke-width:.8"/></symbol>
+<symbol id="i-model" viewBox="0 0 24 24"><path d="M6.4 17.6 4 21l4.4-1.6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><circle cx="12" cy="11" r="8" style="fill:none;stroke:var(--gold-fill);stroke-width:2.2;stroke-linecap:round"/><circle cx="12" cy="11" r="2" style="fill:var(--dot);stroke:var(--dot-edge);stroke-width:.8"/></symbol>
+<symbol id="i-hold" viewBox="0 0 24 24"><circle cx="11" cy="13" r="7.5" style="fill:none;stroke:var(--gold-fill);stroke-width:2.2;stroke-linecap:round"/><path d="M20.5 3.5v6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><circle cx="17.6" cy="6.4" r="2.4" style="fill:var(--amber);stroke:var(--amber-edge);stroke-width:.8"/></symbol>
+<symbol id="i-sig" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" style="fill:none;stroke:var(--gold-fill);stroke-width:1.2"/><path d="M7.5 12.4l3 3 6-6.2" style="fill:none;stroke:var(--cyan-text);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"/></symbol>
+<symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><path d="M12 4a8 8 0 0 1 0 16z" style="fill:currentColor"/></symbol>
+<symbol id="i-arrow-d" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></symbol>
+<symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></symbol>
+</svg>
+<a class="skip" href="#main"><span lang="zh">跳到正文</span><span lang="en">Skip to content</span></a>
+<header class="mh" id="hd">
+  <a class="brand" href="index.html" id="brand" aria-label="OpenMousse"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g class="logo-now"><g class="logo-rot"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></g></svg><span class="brand-t">OpenMousse</span></a>
+  <nav class="nav" aria-label="Main" data-aria-zh="主导航" data-aria-en="Main">
+    <a class="nl" href="index.html#stories"><span lang="zh">三个故事</span><span lang="en">Stories</span></a><a class="nl" href="index.html#friends"><span lang="zh">朋友</span><span lang="en">Friends</span></a><a class="nl" href="index.html#privacy"><span lang="zh">隐私</span><span lang="en">Privacy</span></a><a class="nl" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a>
+    <a class="btn" href="index.html#start"><span lang="zh">开始使用</span><span lang="en">Get started</span></a>
+    <button type="button" class="lang-btn" id="lang" aria-label="Switch language / 切换语言"><span lang="zh">English</span><span lang="en">中文</span></button>
+    <button type="button" class="icon-btn hd-theme theme-btn" aria-label="Switch between light and dark" data-aria-zh="切换深浅色" data-aria-en="Switch between light and dark"><svg aria-hidden="true"><use href="#i-theme"/></svg></button>
+  </nav>
+</header>
+<main id="main" class="wrap doc">
+<div class="doc-head">
+  <p class="eyebrow"><span lang="zh">新手指南 · 自主部署</span><span lang="en">Setup guide · Self-hosted</span></p>
+  <h1><span lang="zh">在自己的服务器上安装 OpenMousse</span><span lang="en">Set up OpenMousse on your own server</span></h1>
+  <p class="lede"><span lang="zh">从准备服务器到在手机上完成第一次对话，共六步，按顺序完成即可。OpenMousse 没有预设的 Agent：你提出需要，它为你创建。</span><span lang="en">Six steps, from preparing a server to your first conversation on your phone. Work through them in order. OpenMousse has no preset agents: tell it what you need and it builds them.</span></p>
+  <div class="alt">
+    <a href="connect.html"><b><span lang="zh">已有 claw</span><span lang="en">Already have a claw?</span></b><span><span lang="zh">第 2 至 4 步可以交给它完成：发送一句话即可。</span><span lang="en">It can do steps 2 to 4 for you. Send it one sentence.</span></span></a>
+    <a href="#apply"><b><span lang="zh">不想自己部署</span><span lang="en">Rather not run a server?</span></b><span><span lang="zh">申请托管服务器：我们为你准备一台专属的云服务器，免费试用 30 天。</span><span lang="en">Apply for a hosted server: we set up a dedicated cloud server for you, free for 30 days.</span></span></a>
   </div>
-
-  <section class="step" id="need">
-    <div class="num">1</div>
-    <div>
-      <h2><span lang="en">What you need</span><span lang="zh">准备好这几样</span></h2>
-      <ul class="need">
-        <li><b><span lang="en">A Linux machine that stays on</span><span lang="zh">一台一直开着的 Linux 机器</span></b><span lang="en">A small box at home or a VPS. Ubuntu or Debian is easiest; it needs systemd, git and Python 3.11 or newer.</span><span lang="zh">家里的小主机或者一台 VPS 都行。Ubuntu / Debian 最省事，要有 systemd、git 和 Python 3.11 以上。</span></li>
-        <li><b><span lang="en">A claw, set up</span><span lang="zh">装好一个 claw</span></b><span lang="en">OpenClaw does the most: <code>openclaw onboard</code> done, the Gateway running, a model configured on your own account (a Claude or ChatGPT subscription, or an API key). <a href="https://openclaw.ai">openclaw.ai →</a> Hermes Agent, nanobot, Letta Code or any agent with an OpenAI-compatible chat API work too, with its API turned on; background tasks, approvals and scheduled jobs are OpenClaw-only.</span><span lang="zh">OpenClaw 功能最全：跑过 <code>openclaw onboard</code>，Gateway 在跑，模型用你自己的账号配好了（Claude 或 ChatGPT 的订阅，或者 API key）。<a href="https://openclaw.ai">openclaw.ai →</a> Hermes Agent、nanobot、Letta Code，或者任何有 OpenAI 兼容对话接口的 agent 也行，把它的接口打开；后台任务、执行审批、定时任务只有 OpenClaw 有。</span></li>
-        <li><b><span lang="en">An iPhone</span><span lang="zh">一部 iPhone</span></b><span lang="en">The app runs there and gets notifications when your Agents have something for you.</span><span lang="zh">app 装在上面，Agent 有事会推送到这里。</span></li>
-        <li><b><span lang="en">A Tailscale account</span><span lang="zh">一个 Tailscale 账号</span></b><span lang="en">Free. It lets your phone reach the server from anywhere without opening it to the internet. <a href="https://tailscale.com">tailscale.com →</a></span><span lang="zh">免费。手机在哪都能连上你的服务器，又不用把服务器暴露到公网。<a href="https://tailscale.com">tailscale.com →</a></span></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="step" id="install">
-    <div class="num">2</div>
-    <div>
-      <h2><span lang="en">Install the server</span><span lang="zh">装服务</span></h2>
-      <p><span lang="en">On the server, run:</span><span lang="zh">在服务器上跑这一条：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://openmousse.ai/install | bash"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://openmousse.ai/install | bash</pre></div>
-      <p><span lang="en">It asks four questions: language, your claw (Enter for OpenClaw, then the folder with <code>openclaw.json</code>, usually <code>~/.openclaw</code>; or <code>hermes</code>, <code>nanobot</code>, <code>letta</code>, or another agent's OpenAI-compatible URL), your time zone, and what to call the assistant. Then it sets up the server, the memory tree and the nightly digest, and adds a few rules and skills to your OpenClaw. It backs up <code>openclaw.json</code> before changing it, checks it afterwards, and restarts the Gateway (or tells you to).</span><span lang="zh">它会问四个问题：语言、你的 claw（回车 = OpenClaw，再问有 <code>openclaw.json</code> 的那个文件夹，一般是 <code>~/.openclaw</code>；也可以答 <code>hermes</code>、<code>nanobot</code>、<code>letta</code>，或者填别的 agent 的 OpenAI 兼容接口地址）、你的时区、助手叫什么。然后装好服务、世界树和每晚的日结，给你的 OpenClaw 加上几条规矩和 skill。改 <code>openclaw.json</code> 之前先备份，改完检查一遍，再重启 Gateway（重启不了会提示你）。</span></p>
-      <p><span lang="en">Then two more you can skip with Enter: an Obsidian vault folder that's already syncing to this server (the memory tree goes into it as notes, one per memory), and whether to open up public HTTPS through Tailscale Funnel: your other AIs (Claude, ChatGPT…) can then reach the memory tree, your shares get links, and friends can add you. No Tailscale yet? Skip it, and answer y when you run the command again in step 3.</span><span lang="zh">接着还有两个，直接回车就跳过：服务器上已经在同步的 Obsidian 库文件夹（世界树会放进去，一条记忆一篇笔记），以及开不开公网（经 Tailscale Funnel）：开了你别的 AI（Claude、ChatGPT……）能连世界树，分享能发链接，能加朋友。还没装 Tailscale 就先跳过，第 3 步重跑安装命令时再答 y。</span></p>
-      <div class="tip"><span lang="en">At the end it prints the server address and a <strong>phone token, shown only once</strong>. Copy it somewhere; you'll need it in step 4.</span><span lang="zh">最后会打印服务地址和一个<strong>手机令牌，只显示这一次</strong>。先复制下来，第 4 步要用。</span></div>
-    </div>
-  </section>
-
-  <section class="step" id="reach">
-    <div class="num">3</div>
-    <div>
-      <h2><span lang="en">Reach it from your phone</span><span lang="zh">让手机连得上</span></h2>
-      <p><span lang="en">Unless the machine is already on Tailscale, the server only listens on the machine itself at first. The easiest way in is Tailscale:</span><span lang="zh">机器还没在 Tailscale 里的话，服务一开始只听本机，外面连不上。最省事的是 Tailscale：</span></p>
-      <ol class="seq">
-        <li><span lang="en">Install Tailscale on the server and sign in:</span><span lang="zh">服务器上装 Tailscale，登录：</span>
-          <div class="code"><button class="copy" type="button" data-copy="curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up</pre></div></li>
-        <li><span lang="en">On the iPhone, install Tailscale from the App Store and sign in with the same account.</span><span lang="zh">iPhone 上从 App Store 装 Tailscale，登同一个账号。</span></li>
-        <li><span lang="en">Run the install command from step 2 again. It moves the server onto the Tailscale address and tells you what to enter in the app, something like <code>http://100.x.y.z:8080</code>.</span><span lang="zh">再跑一遍第 2 步的安装命令。它会改成听 Tailscale 地址，并告诉你 app 里填什么，像 <code>http://100.x.y.z:8080</code> 这样。</span></li>
-      </ol>
-      <p class="muted"><span lang="en">If the server was already on Tailscale in step 2, the installer used that address straight away and only the phone side is left. Rather not use Tailscale? Put <code>127.0.0.1:8080</code> behind HTTPS with Caddy, nginx or <code>tailscale serve</code>, and enter that address in the app.</span><span lang="zh">第 2 步时服务器已经在 Tailscale 里的话，安装器直接就用了这个地址，只剩手机那一头。不想用 Tailscale：用 Caddy、nginx 或 <code>tailscale serve</code> 把 <code>127.0.0.1:8080</code> 反代成 HTTPS，app 里填那个地址。</span></p>
-    </div>
-  </section>
-
-  <section class="step" id="app">
-    <div class="num">4</div>
-    <div>
-      <h2><span lang="en">Install the app and connect</span><span lang="zh">装 app，连上</span></h2>
-      <ol class="seq">
-        <li><span lang="en">Install OpenMousse with TestFlight. The public link goes here when it opens; until then, ask for an invite in <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a>. You can also build <code>app/</code> yourself (it needs an Apple developer account).</span><span lang="zh">用 TestFlight 装 OpenMousse。公开测试链接开放后放在这里；在那之前，到 <a href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a> 留言要邀请。也可以自己构建 <code>app/</code>（要 Apple 开发者账号）。</span></li>
-        <li><span lang="en">Open the app and sign in with your email (it sends a 6-digit code). On the connect screen, enter the <strong>Server address</strong> from step 3 and, as the <strong>Access token</strong>, the phone token from step 2.</span><span lang="zh">打开 app，先用邮箱登录（收一个 6 位验证码）。再在连接页填<strong>服务器地址</strong>（第 3 步给的）和<strong>接入令牌</strong>（第 2 步的手机令牌）。</span></li>
-        <li><span lang="en">Allow notifications. Your Agents come to you when something changes.</span><span lang="zh">允许通知。Agent 看到变化会来找你。</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="step" id="data">
-    <div class="num">5</div>
-    <div>
-      <h2><span lang="en">Bring your data in</span><span lang="zh">把你的数据带进来</span></h2>
-      <p><span lang="en">At first it knows nothing about you. Each of these helps it catch up. Skip any of them and come back later.</span><span lang="zh">它一开始对你一无所知。下面几样能让它快点认识你，每一样都能跳过、以后再做。</span></p>
-      <div class="bring">
-        <div class="card">
-          <h3><span lang="en">Move your memories from other AIs</span><span lang="zh">从别的 AI 搬记忆</span></h3>
-          <p><span lang="en">Send this to ChatGPT, Claude and Gemini, then paste each answer into the main chat. It files what it learns into your memory tree, which you can review and prune under Me → Memory tree.</span><span lang="zh">在 ChatGPT、Claude、Gemini 里各发一次下面这段话，把回答整段贴到主对话里。它会整理进你的世界树，在「我 → 世界树」里能看、能删。</span></p>
-          <div class="code" lang="en"><button class="copy" type="button" data-copy="List everything you remember about me, one item per line: my background, what I'm working on, my habits and preferences, and decisions I've made. Facts only, no commentary.">Copy</button><pre>List everything you remember about me, one item per line: my background, what I'm working on, my habits and preferences, and decisions I've made. Facts only, no commentary.</pre></div>
-          <div class="code" lang="zh"><button class="copy" type="button" data-copy="把你记得的关于我的事，逐条列出来：我的背景、在做的事、习惯和偏好、定过的决定。只列事实，不要评价。">复制</button><pre>把你记得的关于我的事，逐条列出来：我的背景、在做的事、习惯和偏好、定过的决定。只列事实，不要评价。</pre></div>
-        </div>
-        <div class="card">
-          <h3><span lang="en">Let it interview you</span><span lang="zh">让它问你</span></h3>
-          <p><span lang="en">In the main chat, say “Ask me a few questions to get to know me.” It asks a few at a time and remembers your answers.</span><span lang="zh">在主对话里说「问我几个问题，认识一下我」。它一次问几个，你答完它就记下来。</span></p>
-        </div>
-        <div class="card">
-          <h3><span lang="en">Apple Health</span><span lang="zh">Apple 健康</span></h3>
-          <p><span lang="en">Once connected, the app asks to read Apple Health. Allow it and the first sync reads back a year: sleep, heart rate, steps, workouts and more. Sleep reports and the recovery score come from here. Say no and everything else still works.</span><span lang="zh">连上以后，app 会请你授权读取 Apple 健康。允许的话，第一次同步往回读一年：睡眠、心率、步数、训练等等，睡眠报告和恢复分就从这里算。不允许也能用，只是这几样没有数据。</span></p>
-        </div>
-        <div class="card">
-          <h3><span lang="en">Files</span><span lang="zh">文件</span></h3>
-          <p><span lang="en">PDFs, Word files, spreadsheets, slides and photos: send them in the chat and it reads them.</span><span lang="zh">PDF、Word、表格、PPT、照片，在对话里直接发，它会读。</span></p>
-        </div>
-        <div class="card wide">
-          <h3><span lang="en">Let your other AIs share this memory</span><span lang="zh">让你别的 AI 也用这份记忆</span></h3>
-          <p><span lang="en">Claude, ChatGPT, Gemini, DeepSeek, Qwen, Kimi: anything that speaks MCP can connect to your memory tree. In the app, open Me → Memory tree → Connect your AI. Each AI gets its own address and a few steps; paste the one-line instruction into its custom instructions and it reads the tree before answering and writes back what you tell it about yourself. Whatever you mention in one of them, the others know too.</span><span lang="zh">Claude、ChatGPT、Gemini、DeepSeek、通义千问、Kimi，支持 MCP 的都能接到你的世界树。在 app 里打开「我 → 世界树 → 接到你的 AI」：每个 AI 一个地址，照着几步接上，再把那一句指令贴进它的自定义指令。之后它回答前会先读这棵树，你说起自己的新事它会写回来；在哪边说过的，别的都知道。</span></p>
-          <p><span lang="en">These apps connect from their own clouds, so the tree needs a public HTTPS address first: answer yes when the installer asks, or follow the steps the app shows.</span><span lang="zh">它们是从自己的云来连的，所以世界树先要有一个公网 HTTPS 地址：安装时问到就回答要，或者照 app 里的提示开。</span></p>
-        </div>
-      </div>
-      <p><span lang="en">Later, each time you build an Agent, it first tells you what data that Agent will keep and where it comes from.</span><span lang="zh">之后每建一个 Agent，它都会先告诉你这个 Agent 要记哪些数据、从哪来。</span></p>
-    </div>
-  </section>
-
-  <section class="step" id="first">
-    <div class="num">6</div>
-    <div>
-      <h2><span lang="en">Say the first thing</span><span lang="zh">跟它说第一件事</span></h2>
-      <p><span lang="en">There are no preset Agents. In the main chat, say what you want looked after, for example:</span><span lang="zh">这里没有预设的 Agent。在主对话里说一句你想让它管什么，比如：</span></p>
-      <div class="says" lang="en"><span class="q">Help me sleep better</span><span class="q">I'm preparing for the GRE</span><span class="q">Track my spending</span><span class="q">Keep an eye on my visa paperwork</span></div>
-      <div class="says" lang="zh"><span class="q">帮我把睡眠调好</span><span class="q">我在准备 GRE</span><span class="q">帮我记账</span><span class="q">盯着我的签证材料</span></div>
-      <p><span lang="en">It asks a few questions, then proposes a setup: what data to keep, what to connect, what goes on its dashboard, and how it works with your other Agents. Say yes and it's built. Not sure yet? When you add an Agent, tap “Not sure yet? Talk it through”.</span><span lang="zh">它会先问几个问题，再给你一份方案：记哪些数据、接哪些渠道、看板放什么、和别的 Agent 怎么配合。你点同意，它就建好。还没想好？新建 Agent 时点「还没想好？先聊聊」。</span></p>
-    </div>
-  </section>
-
-  <section class="faq" id="faq">
-    <h2><span lang="en">FAQ</span><span lang="zh">常见问题</span></h2>
-    <details>
-      <summary><span lang="en">Something isn't working</span><span lang="zh">哪里不对劲</span></summary>
-      <p><span lang="en">Run the self-check on the server. It goes through every piece (the server, reaching it from the phone, your claw and its model, the memory tree, the nightly digest, notifications) and prints ✓ or ✗ with the command that fixes each one. There are no tokens or keys in its output, so you can send all of it to whoever is helping you:</span><span lang="zh">在服务器上跑一下自检。它把每一块都查一遍（服务、手机连不连得上、你的 claw 和模型、世界树、每晚的日结、推送），打出 ✓ 或 ✗，每条后面写怎么修。输出里没有令牌和密钥，可以整段发给帮你的人：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="bash ~/.openmousse/repo/check.sh"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>bash ~/.openmousse/repo/check.sh</pre></div>
-      <p><span lang="en">Installed before this command existed? Run the install command again first; it pulls the latest version.</span><span lang="zh">装的时候还没有这个命令的话，先再跑一遍安装命令，它会拉到最新的。</span></p>
-    </details>
-    <details>
-      <summary><span lang="en">I lost the phone token</span><span lang="zh">手机令牌丢了</span></summary>
-      <p><span lang="en">Make a new one on the server. It is also shown only once:</span><span lang="zh">在服务器上生成一个新的，同样只显示一次：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2</pre></div>
-    </details>
-    <details>
-      <summary><span lang="en">The app can't connect</span><span lang="zh">app 连不上</span></summary>
-      <p><span lang="en">Check three things: Tailscale is on and signed in to the same account on both the server and the phone; the address in the app is the one the installer printed (<code>http://100.…:8080</code>, not <code>127.0.0.1</code>); and the server is running:</span><span lang="zh">看三样：服务器和手机上的 Tailscale 都开着、登的是同一个账号；app 里填的是安装器最后给的地址（<code>http://100.…:8080</code>，不是 <code>127.0.0.1</code>）；服务在跑：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="systemctl --user status openmousse-server"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>systemctl --user status openmousse-server
-journalctl --user -u openmousse-server -f</pre></div>
-    </details>
-    <details>
-      <summary><span lang="en">The installer says venv is missing</span><span lang="zh">安装时说缺 venv</span></summary>
-      <p><span lang="en">On Ubuntu or Debian, install it and run the install command again:</span><span lang="zh">Ubuntu / Debian 上装一下，再跑一遍安装命令：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="sudo apt install python3-venv"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>sudo apt install python3-venv</pre></div>
-    </details>
-    <details>
-      <summary><span lang="en">The server stops when I log out</span><span lang="zh">一登出，服务就停了</span></summary>
-      <p><span lang="en">Let your user services keep running after you log out (the installer tries this and tells you if it couldn't):</span><span lang="zh">让你的用户服务在登出后继续跑（安装器会试着开，开不了会提示）：</span></p>
-      <div class="code"><button class="copy" type="button" data-copy="sudo loginctl enable-linger $USER"><span lang="en">Copy</span><span lang="zh">复制</span></button><pre>sudo loginctl enable-linger $USER</pre></div>
-    </details>
-    <details>
-      <summary><span lang="en">How do I update?</span><span lang="zh">怎么更新</span></summary>
-      <p><span lang="en">Run the install command again. It pulls the latest code, fills in anything missing and restarts the server. Your data stays as it is.</span><span lang="zh">再跑一遍安装命令。它会拉最新的代码、补上缺的，再重启服务；你的数据不动。</span></p>
-    </details>
-    <details>
-      <summary><span lang="en">Can I change the model?</span><span lang="zh">能换模型吗</span></summary>
-      <p><span lang="en">Yes. Each chat can use its own model (top right of the chat). The default model and the fallback order live in OpenClaw; Me → Models &amp; billing in the app shows what's in use.</span><span lang="zh">能。每个对话右上角能单独换；默认模型和回退顺序在 OpenClaw 里配，app 里「我 → 模型与计费」能看到现在用的是什么。</span></p>
-    </details>
-    <details>
-      <summary><span lang="en">Where is my data?</span><span lang="zh">数据存在哪</span></summary>
-      <p><span lang="en">On your server: the app's data in <code>~/.openmousse/data</code>, the memory tree in <code>~/.mousse-tree</code>, and each Agent's memory in its OpenClaw workspace. What leaves your machine, and why, is in the <a href="privacy.html">privacy policy</a>.</span><span lang="zh">都在你的服务器上：app 的数据在 <code>~/.openmousse/data</code>，世界树在 <code>~/.mousse-tree</code>，每个 Agent 的记忆在它的 OpenClaw 工作区里。哪些会离开你的机器、为什么，见<a href="privacy.html">隐私政策</a>。</span></p>
-    </details>
-    <details>
-      <summary><span lang="en">Can ChatGPT, DeepSeek and the rest use the same memory?</span><span lang="zh">能让 ChatGPT、DeepSeek 这些也用同一份记忆吗</span></summary>
-      <p><span lang="en">Yes, any AI that speaks MCP, through the memory tree. The app walks you through it under Me → Memory tree → Connect your AI; when an app's web version can't add custom MCP servers yet (Qwen, Kimi), use its command-line tool (Qwen Code, Kimi Code) or any MCP client set up with its model. Details are in the <a href="https://github.com/openmousse/openmousse/tree/main/tree">memory tree README</a>.</span><span lang="zh">能，支持 MCP 的都行，靠世界树。app 里「我 → 世界树 → 接到你的 AI」会一步步带你接；网页版还不能加自定义 MCP 的（通义千问、Kimi），用它家的命令行工具（Qwen Code、Kimi Code），或者任何支持 MCP 的客户端配上它的模型。细节见<a href="https://github.com/openmousse/openmousse/tree/main/tree">世界树的说明</a>。</span></p>
-    </details>
-  </section>
-
-  <footer>
-    <div class="row">
-      <span>OpenMousse · AGPL-3.0 · © 2026 Leo Zhou</span>
-      <span><a href="https://github.com/openmousse/openmousse">GitHub</a> · <a href="index.html"><span lang="en">Home</span><span lang="zh">首页</span></a> · <a href="why.html"><span lang="en">Why</span><span lang="zh">为什么</span></a> · <a href="privacy.html"><span lang="en">Privacy</span><span lang="zh">隐私</span></a></span>
-    </div>
-  </footer>
 </div>
-<script>
-  document.getElementById('lang').addEventListener('click', function () {
-    var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
-    document.documentElement.setAttribute('data-lang', next);
-    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
-    try { localStorage.setItem('om-lang', next); } catch (e) {}
+<div class="doc-grid">
+<nav class="toc" aria-label="Contents" data-aria-zh="目录" data-aria-en="Contents"><p><span lang="zh">目录</span><span lang="en">Contents</span></p><ol><li><a href="#need"><span class="n">01</span><span><span lang="zh">准备</span><span lang="en">What you need</span></span></a></li><li><a href="#install"><span class="n">02</span><span><span lang="zh">安装服务</span><span lang="en">Install the server</span></span></a></li><li><a href="#reach"><span class="n">03</span><span><span lang="zh">从手机访问</span><span lang="en">Reach it from your phone</span></span></a></li><li><a href="#app"><span class="n">04</span><span><span lang="zh">安装 app 并连接</span><span lang="en">Install the app and connect</span></span></a></li><li><a href="#data"><span class="n">05</span><span><span lang="zh">导入你的数据</span><span lang="en">Bring your data in</span></span></a></li><li><a href="#first"><span class="n">06</span><span><span lang="zh">开始第一次对话</span><span lang="en">Start your first conversation</span></span></a></li><li><a href="#tree"><span class="n">07</span><span><span lang="zh">只安装世界树</span><span lang="en">Install only the memory tree</span></span></a></li><li><a href="#faq"><span class="n">?</span><span><span lang="zh">常见问题</span><span lang="en">FAQ</span></span></a></li></ol></nav>
+<div class="article">
+<section class="step" id="need" aria-labelledby="need-h"><span class="step-n">01</span><h2 id="need-h"><span lang="zh">准备</span><span lang="en">What you need</span></h2><ul class="req"><li><b><span lang="zh">一台长期开机的服务器</span><span lang="en">A server that stays on</span></b><div><p><span lang="zh">Linux、macOS 或 Windows 均可，例如家中的一台电脑、Mac mini 或云服务器。需要 git 与 Python 3.11 或更高版本。</span><span lang="en">Linux, macOS or Windows: a computer at home, a Mac mini or a cloud server. It needs git and Python 3.11 or newer.</span></p><div class="os"><div><b>Linux</b><span><span lang="zh">推荐 Ubuntu 或 Debian，需带 systemd。</span><span lang="en">Ubuntu or Debian is easiest; it needs systemd.</span></span></div><div><b>macOS</b><span><span lang="zh">用 Homebrew 安装：<code class="ic-code">brew install git python</code>。在「系统设置」中关闭自动睡眠，让 Mac 保持在线。</span><span lang="en">Install with Homebrew: <code class="ic-code">brew install git python</code>. Turn off automatic sleep in System Settings so the Mac stays online.</span></span></div><div><b>Windows</b><span><span lang="zh">在 PowerShell 中运行 <code class="ic-code">wsl --install</code>，安装 WSL 2 与 Ubuntu。之后的命令都在 Ubuntu 终端中运行。</span><span lang="en">Run <code class="ic-code">wsl --install</code> in PowerShell to set up WSL 2 with Ubuntu. Run every later command in the Ubuntu terminal.</span></span></div></div></div></li><li><b><span lang="zh">一个 claw</span><span lang="en">A claw</span></b><div><p><span lang="zh">claw 是运行在服务器上的开源 AI Agent 程序。OpenClaw 功能最完整：完成 <code class="ic-code">openclaw onboard</code>，Gateway 正在运行，并用你自己的账号配置好模型（Claude 或 ChatGPT 的订阅，或 API 密钥）。<a class="link" href="https://openclaw.ai">openclaw.ai ↗</a></span><span lang="en">A claw is an open-source AI agent that runs on your server. OpenClaw is the most complete: <code class="ic-code">openclaw onboard</code> done, the Gateway running, and a model set up on your own account (a Claude or ChatGPT subscription, or an API key). <a class="link" href="https://openclaw.ai">openclaw.ai ↗</a></span></p><p><span lang="zh">Hermes Agent、nanobot、Letta Code，或任何提供 OpenAI 兼容对话接口的 Agent 也可以使用，需先开启其接口。后台任务、执行审批与定时任务需要 OpenClaw。</span><span lang="en">Hermes Agent, nanobot, Letta Code or any agent with an OpenAI-compatible chat API also work, once that API is on. Background tasks, approvals and scheduled jobs require OpenClaw.</span></p></div></li><li><b><span lang="zh">一部手机</span><span lang="en">A phone</span></b><div><p><span lang="zh">iPhone 或 Android 手机。app 安装在手机上，Agent 的通知会送达这里。</span><span lang="en">An iPhone or an Android phone. The app runs there, and your agents’ notifications arrive there.</span></p></div></li><li><b><span lang="zh">一个 Tailscale 账号</span><span lang="en">A Tailscale account</span></b><div><p><span lang="zh">免费。手机在任何网络下都能访问你的服务器，服务器无需暴露在公网。<a class="link" href="https://tailscale.com">tailscale.com ↗</a></span><span lang="en">Free. Your phone reaches the server from any network, and the server stays off the public internet. <a class="link" href="https://tailscale.com">tailscale.com ↗</a></span></p></div></li></ul></section>
+<section class="step" id="install" aria-labelledby="install-h"><span class="step-n">02</span><h2 id="install-h"><span lang="zh">安装服务</span><span lang="en">Install the server</span></h2>
+<p><span lang="zh">在服务器的终端中运行下面这条命令（Windows 在 Ubuntu 终端中运行）：</span><span lang="en">Run this in a terminal on the server (on Windows, in the Ubuntu terminal):</span></p>
+<div class="code"><pre><code>curl -fsSL https://openmousse.ai/install | bash</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div>
+<p><span lang="zh">安装程序会询问四项：语言；你的 claw（直接回车表示 OpenClaw，随后填写 openclaw.json 所在的文件夹，通常是 ~/.openclaw；也可以填写 hermes、nanobot、letta，或其他 Agent 的 OpenAI 兼容接口地址）；时区；助手的名称。随后，它会安装服务、世界树与每日归档，并为 OpenClaw 添加规则与 skill。修改 openclaw.json 之前会先备份，修改后自动校验，再重启 Gateway（无法重启时会提示你）。</span><span lang="en">The installer asks four questions: your language; your claw (press Enter for OpenClaw, then give the folder that holds openclaw.json, usually ~/.openclaw; or answer hermes, nanobot, letta, or another agent’s OpenAI-compatible URL); your time zone; and the assistant’s name. It then sets up the server, the memory tree and the daily archive, and adds rules and skills to OpenClaw. It backs up openclaw.json before changing it, checks the result and restarts the Gateway (or tells you to).</span></p>
+<p><span lang="zh">另有两项可以直接回车跳过：服务器上已在同步的 Obsidian 库文件夹（世界树会写入其中，每条记忆一篇笔记）；以及是否通过 Tailscale Funnel 开放公网 HTTPS。开放后，其他 AI 可以连接世界树，分享可以生成链接，好友也可以添加你。尚未安装 Tailscale 时可以先跳过，在第 3 步重新运行安装命令时再开启。</span><span lang="en">Two more you can skip with Enter: an Obsidian vault folder that already syncs to this server (the memory tree goes into it, one note per memory), and whether to open public HTTPS through Tailscale Funnel. With it, your other AIs can reach the memory tree, shares get links and friends can add you. No Tailscale yet? Skip it, and turn it on when you run the install command again in step 3.</span></p>
+<p class="note"><span lang="zh">安装结束时，程序会显示服务器地址与<b>手机令牌</b>。令牌只显示一次，请先保存，第 4 步会用到。</span><span lang="en">When it finishes, the installer prints the server address and a <b>phone token</b>. The token is shown only once; save it for step 4.</span></p></section>
+<section class="step" id="reach" aria-labelledby="reach-h"><span class="step-n">03</span><h2 id="reach-h"><span lang="zh">从手机访问</span><span lang="en">Reach it from your phone</span></h2>
+<p><span lang="zh">服务器加入 Tailscale 之前，服务只在本机监听，手机无法访问。先在服务器上安装 Tailscale。Linux 与 WSL：</span><span lang="en">Until the server joins Tailscale, the service listens only on the machine itself, so your phone can’t reach it. Install Tailscale on the server first. On Linux and WSL:</span></p>
+<div class="code"><pre><code>curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div>
+<p><span lang="zh">macOS：从 App Store 安装 Tailscale 并登录，或运行 <code class="ic-code">brew install --cask tailscale</code>。</span><span lang="en">On macOS: install Tailscale from the App Store and sign in, or run <code class="ic-code">brew install --cask tailscale</code>.</span></p>
+<ol class="ol"><li><div><span lang="zh">在手机上安装 Tailscale，并登录同一个账号。</span><span lang="en">Install Tailscale on your phone and sign in with the same account.</span></div></li>
+<li><div><span lang="zh">重新运行第 2 步的安装命令。服务会改为监听 Tailscale 地址，并显示 app 中要填写的地址，形如 http://100.x.y.z:8080。</span><span lang="en">Run the install command from step 2 again. The server moves to its Tailscale address and prints what to enter in the app, such as http://100.x.y.z:8080.</span></div></li></ol>
+<p><span lang="zh">如果第 2 步时服务器已经在 Tailscale 中，安装程序会直接使用这个地址，只需完成手机端。不使用 Tailscale 时，可以用 Caddy、nginx 或 tailscale serve 将 127.0.0.1:8080 反向代理为 HTTPS 地址，并在 app 中填写这个地址。</span><span lang="en">If the server was already on Tailscale in step 2, the installer used that address straight away and only the phone is left. To go without Tailscale, put 127.0.0.1:8080 behind HTTPS with Caddy, nginx or tailscale serve, and enter that address in the app.</span></p></section>
+<section class="step" id="app" aria-labelledby="app-h"><span class="step-n">04</span><h2 id="app-h"><span lang="zh">安装 app 并连接</span><span lang="en">Install the app and connect</span></h2>
+<ol class="ol"><li><div><span lang="zh">获取 app。app 通过邀请分发：发送邮件至 <a class="link mail" href="mailto:hello@openmousse.ai?subject=%E7%94%B3%E8%AF%B7%20OpenMousse%20app">hello@openmousse.ai</a> 申请，注明你使用 iPhone 还是 Android 手机；也可以在 <a class="link" href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a> 留言。开发者也可以自行构建仓库中的 app/（iOS 需要 Apple 开发者账号）。</span><span lang="en">Get the app. It is available by invitation: email <a class="link mail" href="mailto:hello@openmousse.ai?subject=OpenMousse%20app%20request">hello@openmousse.ai</a> and say whether you use an iPhone or an Android phone, or leave a message in <a class="link" href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a>. Developers can also build app/ from the repository (iOS needs an Apple developer account).</span></div></li>
+<li><div><span lang="zh">打开 app，用邮箱登录（会收到一个 6 位验证码）。在连接页填写<b>服务器地址</b>（第 3 步）与<b>接入令牌</b>（第 2 步的手机令牌）。</span><span lang="en">Open the app and sign in with your email (you receive a 6-digit code). On the Connect screen, enter the <b>server address</b> from step 3 and, as the <b>access token</b>, the phone token from step 2.</span></div></li>
+<li><div><span lang="zh">允许通知。Agent 发现需要你处理的事项时，会通过通知告诉你。</span><span lang="en">Allow notifications. Your agents use them when something needs you.</span></div></li></ol></section>
+<section class="step" id="data" aria-labelledby="data-h"><span class="step-n">05</span><h2 id="data-h"><span lang="zh">导入你的数据</span><span lang="en">Bring your data in</span></h2>
+<p><span lang="zh">初始时，它对你一无所知。以下几项能帮助它更快了解你；每一项都可以跳过，之后再做。</span><span lang="en">At first it knows nothing about you. Each of these helps it catch up; skip any of them and come back later.</span></p>
+<h3><span lang="zh">从其他 AI 迁移记忆</span><span lang="en">Move your memories from other AIs</span></h3><p><span lang="zh">在 ChatGPT、Claude 与 Gemini 中分别发送下面这段话，再把回答完整粘贴到主对话。它会整理进你的世界树，你可以在「我 → 世界树」中查看与删除。</span><span lang="en">Send this to ChatGPT, Claude and Gemini, then paste each answer into the main chat. It files what it learns into your memory tree, where you can review and delete it under Me → Memory tree.</span></p><div class="code"><pre lang="zh"><code>请逐条列出你记得的关于我的信息：我的背景、正在做的事、习惯与偏好，以及我做过的决定。只列事实，不作评价。</code></pre><pre lang="en"><code>List everything you remember about me, one item per line: my background, what I’m working on, my habits and preferences, and decisions I’ve made. Facts only, no commentary.</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div><h3><span lang="zh">让它向你提问</span><span lang="en">Let it interview you</span></h3><p><span lang="zh">在主对话中说「问我几个问题，了解一下我」。它每次提出几个问题，并记下你的回答。</span><span lang="en">In the main chat, say “Ask me a few questions to get to know me.” It asks a few at a time and remembers your answers.</span></p><h3><span lang="zh">健康数据</span><span lang="en">Health data</span></h3><p><span lang="zh">连接后，app 会请求读取 Apple 健康（Android 为 Health Connect）的权限。授权后，首次同步会读取过去一年的睡眠、心率、步数与训练等数据，睡眠报告与恢复分数据此计算。不授权也可以正常使用，只是这些数据为空。</span><span lang="en">Once connected, the app asks to read Apple Health (Health Connect on Android). Allow it and the first sync reads back a year of sleep, heart rate, steps, workouts and more; sleep reports and the recovery score come from here. Without it, everything else still works.</span></p><h3><span lang="zh">文件</span><span lang="en">Files</span></h3><p><span lang="zh">PDF、Word、表格、演示文稿与照片，直接在对话中发送即可。</span><span lang="en">PDFs, Word files, spreadsheets, slides and photos: send them in the chat and it reads them.</span></p><h3><span lang="zh">让其他 AI 共用这份记忆</span><span lang="en">Let your other AIs share this memory</span></h3><p><span lang="zh">Claude、ChatGPT、Gemini、DeepSeek、通义千问与 Kimi 等支持 MCP 的 AI，都可以连接你的世界树。在 app 中打开「我 → 世界树 → 接入你的 AI」：每个 AI 有独立的地址与步骤；再把一句指令粘贴到它的自定义指令中。此后，它会在回答前读取世界树，并写回你提到的新信息。</span><span lang="en">Claude, ChatGPT, Gemini, DeepSeek, Qwen, Kimi and any other AI that speaks MCP can connect to your memory tree. In the app, open Me → Memory tree → Connect your AI. Each AI gets its own address and steps; paste the one-line instruction into its custom instructions. From then on it reads the tree before answering and writes back what you tell it about yourself.</span></p><p><span lang="zh">这些 AI 从各自的云端连接，因此世界树需要一个公网 HTTPS 地址：安装时选择开放，或按 app 中的提示开启。</span><span lang="en">These apps connect from their own clouds, so the tree needs a public HTTPS address first: say yes when the installer asks, or follow the steps in the app.</span></p>
+<p><span lang="zh">之后每创建一个 Agent，它都会先说明这个 Agent 需要记录哪些数据、数据来自哪里。</span><span lang="en">Later, each time you build an agent, it first tells you what data that agent will keep and where it comes from.</span></p></section>
+<section class="step" id="first" aria-labelledby="first-h"><span class="step-n">06</span><h2 id="first-h"><span lang="zh">开始第一次对话</span><span lang="en">Start your first conversation</span></h2>
+<p><span lang="zh">OpenMousse 没有预设的 Agent。在主对话中说出你希望它负责的事，例如：</span><span lang="en">OpenMousse has no preset agents. In the main chat, say what you want looked after, for example:</span></p>
+<div class="says" lang="zh"><span>帮我改善睡眠</span><span>我在准备 GRE 考试</span><span>帮我记账</span><span>跟进我的签证材料</span></div>
+<div class="says" lang="en"><span>Help me sleep better</span><span>I’m preparing for the GRE</span><span>Track my spending</span><span>Keep track of my visa paperwork</span></div>
+<p><span lang="zh">它会先提几个问题，再给出方案：记录哪些数据、接入哪些渠道、看板展示什么，以及与其他 Agent 如何协作。你同意后，它会完成创建。还没有想法时，在新建 Agent 时选择「还没想好？先聊聊」。</span><span lang="en">It asks a few questions, then proposes a setup: what data to keep, what to connect, what goes on its dashboard and how it works with your other agents. Approve it and the agent is built. Not sure yet? When you add an agent, choose <b>Not sure yet? Talk it through</b>.</span></p></section>
+<section class="step" id="tree" aria-labelledby="tree-h"><span class="step-n">07</span><h2 id="tree-h"><span lang="zh">只安装世界树</span><span lang="en">Install only the memory tree</span></h2>
+<p><span lang="zh">不安装完整的 OpenMousse，也可以单独安装世界树，让你常用的 AI 共用同一份记忆。需要 Python 3.11 或更高版本：</span><span lang="en">You can install the memory tree on its own, without the rest of OpenMousse, so the AIs you already use share one memory. It needs Python 3.11 or newer:</span></p>
+<div class="code"><pre lang="zh"><code>pipx install &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;
+mousse-tree init --lang zh
+mousse-tree install-service</code></pre><pre lang="en"><code>pipx install &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;
+mousse-tree init --lang en
+mousse-tree install-service</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div>
+<p><span lang="zh">世界树默认只在本机的 127.0.0.1:8787 监听；install-service 会让它开机启动（Linux 与 WSL 使用 systemd，macOS 使用 launchd）。接入各个 AI 平台、开放公网地址与改用 Markdown 笔记存储，见<a class="link" href="https://github.com/openmousse/openmousse/blob/main/tree/README.zh-CN.md">世界树的说明</a>。</span><span lang="en">The tree listens only on 127.0.0.1:8787 by default; install-service starts it at boot (systemd on Linux and WSL, launchd on macOS). Connecting each AI platform, giving it a public address and storing memories as Markdown notes are covered in the <a class="link" href="https://github.com/openmousse/openmousse/blob/main/tree/README.md">memory tree README</a>.</span></p></section>
+<section class="step faq" id="faq" aria-labelledby="faq-h"><span class="step-n">?</span><h2 id="faq-h"><span lang="zh">常见问题</span><span lang="en">FAQ</span></h2>
+<details id="check"><summary><span lang="zh">出现问题时</span><span lang="en">Something isn’t working</span></summary><div><p><span lang="zh">在服务器上运行自检。它会逐项检查服务、手机能否访问、你的 claw 与模型、世界树、每日归档与通知，每项显示 ✓ 或 ✗，并附上修复方法。输出中不含令牌与密钥，可以完整发给协助你的人：</span><span lang="en">Run the self-check on the server. It goes through every piece (the server, reaching it from the phone, your claw and its model, the memory tree, the daily archive and notifications) and prints ✓ or ✗ with the fix for each. Its output contains no tokens or keys, so you can send all of it to whoever is helping you:</span></p><div class="code"><pre><code>bash ~/.openmousse/repo/check.sh</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div><p><span lang="zh">如果安装时还没有这条命令，先重新运行一次安装命令，它会更新到最新版本。</span><span lang="en">Installed before this command existed? Run the install command again first; it pulls the latest version.</span></p></div></details><details id="token"><summary><span lang="zh">手机令牌丢失</span><span lang="en">I lost the phone token</span></summary><div><p><span lang="zh">在服务器上生成一个新的令牌。新令牌同样只显示一次：</span><span lang="en">Create a new one on the server. It is also shown only once:</span></p><div class="code"><pre><code>~/.openmousse/venv/bin/python ~/.openmousse/repo/server/tokens.py add phone2</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div></div></details><details id="reach"><summary><span lang="zh">app 无法连接</span><span lang="en">The app can’t connect</span></summary><div><p><span lang="zh">依次检查三项：服务器与手机上的 Tailscale 都已开启，并登录同一个账号；app 中填写的是安装程序最后显示的地址（形如 http://100.…:8080，而不是 127.0.0.1）；服务正在运行：</span><span lang="en">Check three things: Tailscale is on and signed in to the same account on both the server and the phone; the address in the app is the one the installer printed (http://100.…:8080, not 127.0.0.1); and the server is running:</span></p><div class="os"><div><b>Linux · WSL</b><span><span lang="zh"><code class="ic-code">systemctl --user status openmousse-server</code>，日志：<code class="ic-code">journalctl --user -u openmousse-server -f</code></span><span lang="en"><code class="ic-code">systemctl --user status openmousse-server</code>; logs: <code class="ic-code">journalctl --user -u openmousse-server -f</code></span></span></div><div><b>macOS</b><span><span lang="zh"><code class="ic-code">launchctl print gui/$(id -u)/ai.openmousse.server</code>，日志：<code class="ic-code">tail -f ~/.openmousse/logs/server.log</code></span><span lang="en"><code class="ic-code">launchctl print gui/$(id -u)/ai.openmousse.server</code>; logs: <code class="ic-code">tail -f ~/.openmousse/logs/server.log</code></span></span></div></div></div></details><details id="venv"><summary><span lang="zh">安装时提示缺少 venv</span><span lang="en">The installer says venv is missing</span></summary><div><p><span lang="zh">Ubuntu 与 Debian（包括 WSL）需要单独安装，之后重新运行安装命令：</span><span lang="en">On Ubuntu and Debian (WSL included), install it, then run the install command again:</span></p><div class="code"><pre><code>sudo apt install python3-venv</code></pre><button type="button" class="copy"><span class="cp-l"><span lang="zh">复制</span><span lang="en">Copy</span></span><span class="cp-ok" hidden><span lang="zh">已复制</span><span lang="en">Copied</span></span><span class="cp-sel" hidden><span lang="zh">已选中，按 ⌘C / Ctrl+C 复制</span><span lang="en">Selected. Press ⌘C / Ctrl+C to copy</span></span></button></div></div></details><details id="always"><summary><span lang="zh">保持服务一直运行</span><span lang="en">Keeping the server running</span></summary><div><div class="os"><div><b>Linux</b><span><span lang="zh">退出登录后服务仍需运行时，执行一次 <code class="ic-code">sudo loginctl enable-linger $USER</code>（安装程序会尝试自动开启）。</span><span lang="en">To keep it running after you log out, run <code class="ic-code">sudo loginctl enable-linger $USER</code> once (the installer tries this for you).</span></span></div><div><b>macOS</b><span><span lang="zh">服务随你的账号登录启动，并在后台保持运行。在「系统设置」中关闭自动睡眠。</span><span lang="en">The server starts when you log in and keeps running in the background. Turn off automatic sleep in System Settings.</span></span></div><div><b>Windows</b><span><span lang="zh">WSL 不会随 Windows 自动启动：开机后打开一次 Ubuntu 终端，或在「任务计划程序」中添加登录时运行 <code class="ic-code">wsl.exe -d Ubuntu --exec true</code> 的任务。</span><span lang="en">WSL doesn’t start with Windows on its own: open the Ubuntu terminal once after startup, or add a Task Scheduler task that runs <code class="ic-code">wsl.exe -d Ubuntu --exec true</code> at logon.</span></span></div></div></div></details><details id="update"><summary><span lang="zh">如何更新</span><span lang="en">How do I update?</span></summary><div><p><span lang="zh">重新运行安装命令。它会拉取最新代码、补齐缺少的部分并重启服务；你的数据保持不变。</span><span lang="en">Run the install command again. It pulls the latest code, fills in anything missing and restarts the server. Your data stays as it is.</span></p></div></details><details id="model"><summary><span lang="zh">能否更换模型</span><span lang="en">Can I change the model?</span></summary><div><p><span lang="zh">可以。每个对话都能在右上角单独选择模型；默认模型与回退顺序在 OpenClaw 中设置，app 的「我 → 模型与计费」中可以查看当前使用的模型。</span><span lang="en">Yes. Each chat can use its own model (top right of the chat). The default model and the fallback order are set in OpenClaw; Me → Models &amp; billing in the app shows what is in use.</span></p></div></details><details id="data"><summary><span lang="zh">数据存放在哪里</span><span lang="en">Where is my data?</span></summary><div><p><span lang="zh">都在你的服务器上：app 的数据在 ~/.openmousse/data，世界树在 ~/.mousse-tree，每个 Agent 的记忆在它的 OpenClaw 工作区中。哪些数据会离开你的服务器、原因是什么，见<a class="link" href="privacy.html">隐私政策</a>。</span><span lang="en">On your server: the app’s data in ~/.openmousse/data, the memory tree in ~/.mousse-tree, and each agent’s memory in its OpenClaw workspace. What leaves your server, and why, is in the <a class="link" href="privacy.html">privacy policy</a>.</span></p></div></details><details id="web"><summary><span lang="zh">能否在浏览器中使用</span><span lang="en">Can I use it in a browser?</span></summary><div><p><span lang="zh">可以。网页版需要在服务器上构建一次（需要 Node.js）：在 ~/openmousse/app 中运行 <code class="ic-code">npm install &amp;&amp; npm run web:build</code>，之后在浏览器中打开服务器地址即可。</span><span lang="en">Yes. The web app needs to be built once on the server (Node.js required): in ~/openmousse/app, run <code class="ic-code">npm install &amp;&amp; npm run web:build</code>, then open the server address in a browser.</span></p></div></details><details id="apply"><summary><span lang="zh">如何申请 app 或托管服务器</span><span lang="en">How do I get the app or a hosted server?</span></summary><div><p><span lang="zh">发送邮件至 <a class="link mail" href="mailto:hello@openmousse.ai?subject=%E7%94%B3%E8%AF%B7%20OpenMousse">hello@openmousse.ai</a>，注明你需要的是 app（iOS 或 Android）还是托管服务器；也可以在 <a class="link" href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a> 留言。</span><span lang="en">Email <a class="link mail" href="mailto:hello@openmousse.ai?subject=OpenMousse%20request">hello@openmousse.ai</a> and say whether you need the app (iOS or Android) or a hosted server, or leave a message in <a class="link" href="https://github.com/openmousse/openmousse/discussions">GitHub Discussions</a>.</span></p></div></details></section>
+</div>
+</div>
+</main>
+<footer class="ft">
+  <div class="wrap ft-in">
+    <div class="ft-brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g class="logo-now"><g class="logo-rot"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></g></svg><span class="brand-t">OpenMousse</span></div>
+    <div class="ft-cols">
+      <div class="fcol"><p class="fc-h"><span lang="zh">产品</span><span lang="en">Product</span></p><ul><li><a href="connect.html"><span lang="zh">接入 claw</span><span lang="en">Connect a claw</span></a></li><li><a href="start.html"><span lang="zh">新手指南</span><span lang="en">Setup guide</span></a></li><li><a href="start.html#tree"><span lang="zh">只安装世界树</span><span lang="en">Memory tree only</span></a></li></ul></div>
+      <div class="fcol"><p class="fc-h"><span lang="zh">了解</span><span lang="en">Learn</span></p><ul><li><a href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a></li><li><a href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></li><li><a href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></li></ul></div>
+      <div class="fcol"><p class="fc-h"><span lang="zh">开源</span><span lang="en">Open source</span></p><ul><li><a href="https://github.com/openmousse/openmousse">GitHub ↗</a></li><li><a href="https://github.com/openmousse/openmousse/blob/main/LICENSE">AGPL-3.0 ↗</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><p><span lang="zh">有问题或建议，写信给 </span><span lang="en">Questions or feedback: </span><a class="link mail" href="mailto:hello@openmousse.ai">hello@openmousse.ai</a></p><p class="ft-tools"><span><span lang="zh">此刻</span><span lang="en">Now</span> <span class="now-t num">--:--</span></span><button type="button" class="icon-btn theme-btn" aria-label="Switch between light and dark" data-aria-zh="切换深浅色" data-aria-en="Switch between light and dark"><svg aria-hidden="true"><use href="#i-theme"/></svg></button></p></div>
+  </div>
+</footer>
+<script>(function(){
+  var root=document.documentElement;
+  function $(s,c){return (c||document).querySelector(s);}
+  function $$(s,c){return [].slice.call((c||document).querySelectorAll(s));}
+  function L(){return root.getAttribute('data-lang')==='en'?'en':'zh';}
+  function pad(n){return (n<10?'0':'')+n;}
+  /* theme */
+  $$('.theme-btn').forEach(function(b){b.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark';root.setAttribute('data-theme',next);try{localStorage.setItem('om-theme',next)}catch(e){}
+  });});
+  /* the logo's dot and the footer readout keep the visitor's time */
+  var logos=$$('.logo-now');
+  function tick(){var d=new Date(),m=d.getHours()*60+d.getMinutes();logos.forEach(function(g){g.style.transform='rotate('+(m/4)+'deg)';});
+    $$('.now-t').forEach(function(x){x.textContent=pad(d.getHours())+':'+pad(d.getMinutes());});}
+  tick();setInterval(tick,30000);
+  /* language: same switch and key (om-lang) as the rest of openmousse.ai */
+  function ariaL(){$$('[data-aria-zh]').forEach(function(x){x.setAttribute('aria-label',x.getAttribute(L()==='en'?'data-aria-en':'data-aria-zh'));});}
+  ariaL();
+  $('#lang').addEventListener('click',function(){
+    var next=L()==='en'?'zh':'en';root.setAttribute('data-lang',next);root.lang=next==='zh'?'zh-CN':'en';
+    try{localStorage.setItem('om-lang',next)}catch(e){}
+    ariaL();
   });
-  document.querySelectorAll('.copy').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var text = b.getAttribute('data-copy');
-      var done = function () { var t = b.innerHTML; b.textContent = '✓'; setTimeout(function () { b.innerHTML = t; }, 1200); };
-      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done); else done();
+  /* copy buttons: copy the command shown in the current language */
+  $$('.code').forEach(function(box){
+    var btn=$('.copy',box);if(!btn)return;
+    function pre(){var ps=$$('pre',box);for(var i=0;i<ps.length;i++){if(ps[i].getClientRects().length)return ps[i];}return ps[0];}
+    function show(w){['cp-l','cp-ok','cp-sel'].forEach(function(c){$('.'+c,btn).hidden=c!==w;});}
+    function select(){var r=document.createRange();r.selectNodeContents(pre());var s=getSelection();s.removeAllRanges();s.addRange(r);show('cp-sel');}
+    btn.addEventListener('click',function(){
+      var t=pre().textContent;
+      try{navigator.clipboard.writeText(t).then(function(){show('cp-ok');setTimeout(function(){show('cp-l');},2200);},select);}catch(e){select();}
     });
   });
-</script>
+  /* contents rail: mark the section being read */
+  var links=$$('.toc a'),secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function spy(){var y=innerHeight*0.3,cur=0;secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=y)cur=i;});links.forEach(function(a,i){a.classList.toggle('on',i===cur);});}
+  if(links.length){window.addEventListener('scroll',function(){requestAnimationFrame(spy);},{passive:true});spy();}
+  /* open a FAQ item when the address points at it */
+  function openHash(){var t=location.hash&&document.getElementById(location.hash.slice(1));if(t&&t.tagName==='DETAILS')t.open=true;}
+  openHash();window.addEventListener('hashchange',openHash);
+})();</script>
 </body>
 </html>
