@@ -130,7 +130,8 @@ a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
 .mh.in-story .nav .nl{opacity:0;visibility:hidden}
 @media (max-width:1023.98px){
   .nav .nl{display:none}
-  .mh.in-story .nav{display:none}
+  .mh.in-story .nav{margin-left:12px}
+  .mh.in-story .nav .lang-btn{display:none}
   .mh.in-story .chap{margin-left:auto}
   .mh .hd-theme{display:none}
 }
@@ -142,6 +143,7 @@ a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
 .way p{color:var(--ink2)}
 .code{position:relative;width:100%;background:var(--field);color:var(--field-ink);border-radius:20px;padding:16px 20px 20px}
 .code-h{font-size:var(--fs-1);color:var(--field-ink3);margin-bottom:10px;padding-right:110px}
+.way .code-h{color:var(--field-ink3)}
 .code pre{margin:0;font-family:var(--mono);font-size:13.5px;line-height:22px;white-space:pre-wrap;word-break:break-all}
 .copy{position:absolute;right:12px;top:10px;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--field-line);background:transparent;color:var(--field-ink);font-size:var(--fs-2);cursor:pointer}
 @media (hover:hover){.copy:hover{background:var(--field2)}}
@@ -257,11 +259,12 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
 .pd-c span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--dot)}
 @media (max-width:1023.98px){.devs-head{grid-template-columns:1fr}}
 @media (max-width:767.98px){
-  .scene{aspect-ratio:1/.84;margin-top:32px}
-  .tab{display:none}
-  .lap{left:0;width:82%}
-  .ios{left:55%;width:25%}
-  .and{left:77%;width:23%;bottom:2%}
+  /* one device at a time, large enough to read; the platform buttons switch it, and the height stays fixed so nothing below jumps */
+  .scene{aspect-ratio:auto;height:min(118vw,470px);margin-top:28px;display:grid;place-items:center}
+  .scene .dv{position:relative;left:auto;top:auto;bottom:auto;grid-area:1/1}
+  .scene .dv:not(.on),.scene .tab{display:none}
+  .lap{width:88%}
+  .ios,.and{width:min(46vw,210px)}
   .pbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
   .pt{justify-content:center;padding:0 10px}
   .pdesc{min-height:12em}
