@@ -477,6 +477,25 @@ html[data-lang="en"] .hero h1{max-width:13em}
 .lang-btn{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink2);font-size:var(--fs-2);cursor:pointer}
 @media (hover:hover){.lang-btn:hover{color:var(--ink);border-color:var(--ink3)}}
 @media (max-width:1023.98px){.mh .lang-btn{margin-left:auto}.nav{gap:12px}}
+.scrollcue{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:var(--fs-2);color:var(--ink3);text-decoration:none}
+.scrollcue svg{width:16px;height:16px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(3px)}}
+@media (hover:hover){.scrollcue:hover{color:var(--ink)}}
+.ctas .btn svg,.how-more .btn svg{width:16px;height:16px}
+.bridge{display:flex;justify-content:center;padding:8px 16px 40px;font-size:var(--fs-3)}
+.bridge a{display:inline-flex;align-items:center;gap:8px}
+.bridge svg{width:16px;height:16px}
+.howcards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:40px}
+.howcards a{position:relative;display:grid;align-content:start;gap:6px;height:100%;padding:20px 20px 52px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);text-decoration:none;box-shadow:var(--shadow-1);transition:border-color .2s var(--ease),transform .25s var(--ease)}
+.howcards .hn{font-size:var(--fs-1);color:var(--gold-text);letter-spacing:.06em}
+.howcards b{font-size:var(--fs-4);font-weight:500;line-height:1.4}
+.howcards .hs{font-size:var(--fs-2);color:var(--ink2);line-height:1.6}
+.howcards svg{position:absolute;left:20px;bottom:18px;width:18px;height:18px;color:var(--ink3);transition:transform .25s var(--ease),color .2s var(--ease)}
+@media (hover:hover){.howcards a:hover{border-color:var(--ink3);transform:translateY(-2px)}.howcards a:hover svg{color:var(--ink);transform:translateX(4px)}}
+.how-more{margin-top:28px}
+.close-ctas{justify-content:center;margin-top:0}
+@media (max-width:1023.98px){.howcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479.98px){.howcards{grid-template-columns:1fr}.howcards a{padding-bottom:20px;padding-right:48px}.howcards svg{left:auto;right:18px;bottom:auto;top:22px}}
 .way-k{font-size:var(--fs-1);letter-spacing:.06em;color:var(--gold-text)}
 .way h3{margin-top:-8px}
 .way-note{font-size:var(--fs-2);color:var(--ink3)}
@@ -601,7 +620,7 @@ html[data-lang="en"] .hero h1{max-width:13em}
   <a class="brand" href="#top" id="brand" aria-label="OpenMousse"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g class="logo-now"><g class="logo-rot"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></g></svg><span class="brand-t">OpenMousse</span></a>
   <div class="chap" aria-hidden="true"><span id="chap"></span><svg viewBox="0 0 24 24"><circle class="prog-track" cx="12" cy="12" r="9"/><circle class="prog-arc" id="prog" cx="12" cy="12" r="9" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 12 12)"/></svg></div>
   <nav class="nav" aria-label="主导航" data-aria-zh="主导航" data-aria-en="Main">
-    <a class="nl" href="#stories"><span lang="zh">三个故事</span><span lang="en">Stories</span></a><a class="nl" href="#friends"><span lang="zh">朋友</span><span lang="en">Friends</span></a><a class="nl" href="#privacy"><span lang="zh">隐私</span><span lang="en">Privacy</span></a><a class="nl" href="more.html"><span lang="zh">了解更多</span><span lang="en">Learn more</span></a>
+    <a class="nl" href="#stories"><span lang="zh">三个故事</span><span lang="en">Stories</span></a><a class="nl" href="#friends"><span lang="zh">朋友</span><span lang="en">Friends</span></a><a class="nl" href="#privacy"><span lang="zh">隐私</span><span lang="en">Privacy</span></a><a class="nl" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a>
     <a class="btn" href="#start"><span lang="zh">开始使用</span><span lang="en">Get started</span></a>
     <button type="button" class="lang-btn" id="lang" aria-label="Switch language / 切换语言"><span lang="zh">English</span><span lang="en">中文</span></button>
     <button type="button" class="icon-btn hd-theme theme-btn" aria-label="切换深浅色" data-aria-zh="切换深浅色" data-aria-en="Switch light and dark"><svg aria-hidden="true"><use href="#i-theme"/></svg></button>
@@ -613,7 +632,8 @@ html[data-lang="en"] .hero h1{max-width:13em}
   <div>
     <h1 id="h1"><span lang="zh"><span class="nw">越用越懂你的</span><span class="nw">私人助手</span></span><span lang="en">A personal assistant that knows you better every day</span></h1>
     <p class="lede"><span lang="zh">你与它交流得越多，它对你的理解就越深：你的日常、你所学的知识，以及你看待世界的方式。它运行在一台只属于你的云服务器上。</span><span lang="en">The more you talk with it, the better it understands you: your days, what you learn and how you see the world. It runs on a cloud server that is yours alone.</span></p>
-    <div class="ctas"><a class="btn" href="#start"><span lang="zh">开始使用</span><span lang="en">Get started</span></a><a class="btn ghost" href="#stories"><span lang="zh">阅读三个故事</span><span lang="en">Read three stories</span><svg aria-hidden="true"><use href="#i-arrow-d"/></svg></a></div>
+    <div class="ctas"><a class="btn" href="#start"><span lang="zh">开始使用</span><span lang="en">Get started</span></a><a class="btn ghost" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></div>
+    <a class="scrollcue" href="#stories"><svg aria-hidden="true"><use href="#i-arrow-d"/></svg><span lang="zh">向下滑动，阅读三个故事</span><span lang="en">Scroll down for three stories</span></a>
   </div>
   <div class="dialbox" role="img" aria-label="24 小时表盘，青点停在此刻" data-aria-zh="24 小时表盘，青点停在此刻" data-aria-en="A 24-hour dial; the cyan dot marks the current time"><svg class="dial" viewBox="-30 -30 460 460" aria-hidden="true"><g class="ticks"><line class="tk maj" x1="200.0" y1="24.0" x2="200.0" y2="6.0"/><line class="tk" x1="246.85" y1="25.17" x2="248.92" y2="17.44"/><line class="tk" x1="290.5" y1="43.25" x2="294.5" y2="36.32"/><line class="tk" x1="327.99" y1="72.01" x2="333.64" y2="66.36"/><line class="tk" x1="356.75" y1="109.5" x2="363.68" y2="105.5"/><line class="tk" x1="374.83" y1="153.15" x2="382.56" y2="151.08"/><line class="tk maj" x1="376.0" y1="200.0" x2="394.0" y2="200.0"/><line class="tk" x1="374.83" y1="246.85" x2="382.56" y2="248.92"/><line class="tk" x1="356.75" y1="290.5" x2="363.68" y2="294.5"/><line class="tk" x1="327.99" y1="327.99" x2="333.64" y2="333.64"/><line class="tk" x1="290.5" y1="356.75" x2="294.5" y2="363.68"/><line class="tk" x1="246.85" y1="374.83" x2="248.92" y2="382.56"/><line class="tk maj" x1="200.0" y1="376.0" x2="200.0" y2="394.0"/><line class="tk" x1="153.15" y1="374.83" x2="151.08" y2="382.56"/><line class="tk" x1="109.5" y1="356.75" x2="105.5" y2="363.68"/><line class="tk" x1="72.01" y1="327.99" x2="66.36" y2="333.64"/><line class="tk" x1="43.25" y1="290.5" x2="36.32" y2="294.5"/><line class="tk" x1="25.17" y1="246.85" x2="17.44" y2="248.92"/><line class="tk maj" x1="24.0" y1="200.0" x2="6.0" y2="200.0"/><line class="tk" x1="25.17" y1="153.15" x2="17.44" y2="151.08"/><line class="tk" x1="43.25" y1="109.5" x2="36.32" y2="105.5"/><line class="tk" x1="72.01" y1="72.01" x2="66.36" y2="66.36"/><line class="tk" x1="109.5" y1="43.25" x2="105.5" y2="36.32"/><line class="tk" x1="153.15" y1="25.17" x2="151.08" y2="17.44"/></g><text class="dn" x="200.0" y="-14.0">0</text><text class="dn" x="414.0" y="200.0">6</text><text class="dn" x="200.0" y="414.0">12</text><text class="dn" x="-14.0" y="200.0">18</text><circle class="d-base" cx="200" cy="200" r="168"/><circle class="d-arc" id="heroArc" cx="200" cy="200" r="168" pathLength="1440" transform="rotate(-90 200 200)" stroke-dasharray="0 1440"/><g class="d-dotg" id="heroDot"><circle class="d-halo" cx="200" cy="32" r="16"/><circle class="d-dot" cx="200" cy="32" r="9"/></g></svg><div class="dial-c" aria-hidden="true"><span class="dc-l"><span lang="zh">此刻</span><span lang="en">Now</span></span><span class="dc-t now-t">--:--</span></div></div>
 </section>
@@ -761,6 +781,8 @@ html[data-lang="en"] .hero h1{max-width:13em}
     </div>
   </div>
 </section>
+<p class="bridge"><a class="link" href="how.html#views"><span lang="zh">故事背后：Zen 与播客如何运作</span><span lang="en">Behind the story: how Zen and podcasts work</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></p>
+
 
 <!-- ============ 故事二 ============ -->
 <div class="between" data-label="故事二 · 学习" data-label-en="Story two · Learning"><span class="eb"><span lang="zh">故事二</span><span lang="en">Story two</span></span><h2><span lang="zh">学习</span><span lang="en">Learning</span></h2></div>
@@ -907,6 +929,8 @@ html[data-lang="en"] .hero h1{max-width:13em}
     </div>
   </div>
 </section>
+<p class="bridge"><a class="link" href="how.html#learning"><span lang="zh">故事背后：学习如何成为它对你的理解</span><span lang="en">Behind the story: how learning becomes understanding</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></p>
+
 
 <!-- ============ 故事三 ============ -->
 <div class="between" data-label="故事三 · 一个决定" data-label-en="Story three · A decision"><span class="eb"><span lang="zh">故事三</span><span lang="en">Story three</span></span><h2><span lang="zh">一个决定</span><span lang="en">A decision</span></h2></div>
@@ -995,6 +1019,8 @@ html[data-lang="en"] .hero h1{max-width:13em}
     </div>
   </div>
 </section>
+<p class="bridge"><a class="link" href="how.html#memory-tree"><span lang="zh">故事背后：世界树如何接住散落各处的对话</span><span lang="en">Behind the story: how the memory tree gathers scattered conversations</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></p>
+
 
 
 
@@ -1049,6 +1075,14 @@ html[data-lang="en"] .hero h1{max-width:13em}
     <li><svg aria-hidden="true"><use href="#i-hold"/></svg><b><span lang="zh">关键操作由你批准</span><span lang="en">You approve what matters</span></b><span><span lang="zh">付款、提交、对外发送与登录，都会先转为确认卡；代办 <span class="latin">Agent</span> 只能经 Doorman 访问外部网站。</span><span lang="en">Payments, submissions, outgoing messages and sign-ins wait for your approval first. The errand <span class="latin">agent</span> reaches outside websites only through Doorman.</span></span></li>
   </ul>
   <div class="promise"><p><span lang="zh">我们不投放广告，不出售数据，也不用你的数据训练模型。代码以 <span class="latin">AGPL-3.0</span> 开源，任何人都可以审阅。</span><span lang="en">We don’t run ads, we don’t sell data and we never train models on your data. The code is open source under <span class="latin">AGPL-3.0</span>, so anyone can review it.</span></p><a class="link" href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></div>
+</section>
+
+<section class="sec wrap" id="how" aria-labelledby="how-h">
+  <p class="eyebrow"><span lang="zh">如何工作</span><span lang="en">How it works</span></p>
+  <h2 id="how-h"><span lang="zh">三个故事的背后，是同一套机制</span><span lang="en">Behind the three stories is one system</span></h2>
+  <p class="lede"><span lang="zh">它从哪里了解你，如何理解你的观点，怎样与朋友一起思考，替你做事时如何先问你，以及你的数据放在哪里。</span><span lang="en">Where it learns about you, how it understands your views, how it thinks with your friends, how it asks before it acts, and where your data lives.</span></p>
+  <ol class="howcards"><li><a href="how.html#context"><span class="hn num">01</span><b><span lang="zh">上下文从哪里来</span><span lang="en">Where context comes from</span></b><span class="hs"><span lang="zh">世界树、日常数据与学习</span><span lang="en">The memory tree, daily data and learning</span></span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="how.html#views"><span class="hn num">02</span><b><span lang="zh">你怎么看待世界</span><span lang="en">How you see the world</span></b><span class="hs"><span lang="zh">Zen，以及观点如何写进世界树</span><span lang="en">Zen, and how views reach the memory tree</span></span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="how.html#friends"><span class="hn num">03</span><b><span lang="zh">和朋友一起</span><span lang="en">With friends</span></b><span class="hs"><span lang="zh">分享、讨论、播客与名片 Agent</span><span lang="en">Sharing, discussion, podcasts and card agents</span></span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="how.html#errands"><span class="hn num">04</span><b><span lang="zh">替你做事，但先问你</span><span lang="en">It acts, but asks first</span></b><span class="hs"><span lang="zh">多个 Agent 分工，Doorman 守门</span><span lang="en">Agents share the work; Doorman guards the door</span></span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="how.html#trust"><span class="hn num">05</span><b><span lang="zh">信任</span><span lang="en">Trust</span></b><span class="hs"><span lang="zh">数据在哪里、经过哪里</span><span lang="en">Where your data lives and where it goes</span></span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li></ol>
+  <p class="how-more"><a class="btn" href="how.html"><span lang="zh">阅读完整介绍</span><span lang="en">Read the full overview</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></p>
 </section>
 
 <span id="install"></span>
@@ -1110,14 +1144,14 @@ html[data-lang="en"] .hero h1{max-width:13em}
       <p class="pd-c" id="devC"><span>Apple 健康</span><span>通知</span><span>语音记录</span></p>
     </div>
   </div>
-  <p class="start-links"><a class="link" href="connect.html"><span lang="zh">只安装世界树</span><span lang="en">Install only the memory tree</span></a><a class="link" href="more.html"><span lang="zh">了解更多</span><span lang="en">Learn more</span></a><a class="link" href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></p>
+  <p class="start-links"><a class="link" href="connect.html"><span lang="zh">只安装世界树</span><span lang="en">Install only the memory tree</span></a><a class="link" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a><a class="link" href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></p>
 </section>
 
 <section class="wrap close" id="close" aria-labelledby="cl-h">
   <div class="closebox" aria-hidden="true"><svg class="dial" viewBox="-30 -30 460 460" aria-hidden="true"><g class="ticks"><line class="tk maj" x1="200.0" y1="24.0" x2="200.0" y2="6.0"/><line class="tk" x1="246.85" y1="25.17" x2="248.92" y2="17.44"/><line class="tk" x1="290.5" y1="43.25" x2="294.5" y2="36.32"/><line class="tk" x1="327.99" y1="72.01" x2="333.64" y2="66.36"/><line class="tk" x1="356.75" y1="109.5" x2="363.68" y2="105.5"/><line class="tk" x1="374.83" y1="153.15" x2="382.56" y2="151.08"/><line class="tk maj" x1="376.0" y1="200.0" x2="394.0" y2="200.0"/><line class="tk" x1="374.83" y1="246.85" x2="382.56" y2="248.92"/><line class="tk" x1="356.75" y1="290.5" x2="363.68" y2="294.5"/><line class="tk" x1="327.99" y1="327.99" x2="333.64" y2="333.64"/><line class="tk" x1="290.5" y1="356.75" x2="294.5" y2="363.68"/><line class="tk" x1="246.85" y1="374.83" x2="248.92" y2="382.56"/><line class="tk maj" x1="200.0" y1="376.0" x2="200.0" y2="394.0"/><line class="tk" x1="153.15" y1="374.83" x2="151.08" y2="382.56"/><line class="tk" x1="109.5" y1="356.75" x2="105.5" y2="363.68"/><line class="tk" x1="72.01" y1="327.99" x2="66.36" y2="333.64"/><line class="tk" x1="43.25" y1="290.5" x2="36.32" y2="294.5"/><line class="tk" x1="25.17" y1="246.85" x2="17.44" y2="248.92"/><line class="tk maj" x1="24.0" y1="200.0" x2="6.0" y2="200.0"/><line class="tk" x1="25.17" y1="153.15" x2="17.44" y2="151.08"/><line class="tk" x1="43.25" y1="109.5" x2="36.32" y2="105.5"/><line class="tk" x1="72.01" y1="72.01" x2="66.36" y2="66.36"/><line class="tk" x1="109.5" y1="43.25" x2="105.5" y2="36.32"/><line class="tk" x1="153.15" y1="25.17" x2="151.08" y2="17.44"/></g><text class="dn" x="200.0" y="-14.0">0</text><text class="dn" x="414.0" y="200.0">6</text><text class="dn" x="200.0" y="414.0">12</text><text class="dn" x="-14.0" y="200.0">18</text><circle class="d-base" cx="200" cy="200" r="168"/><circle class="d-arc" id="closeArc" cx="200" cy="200" r="168" pathLength="1440" transform="rotate(-90 200 200)" stroke-dasharray="0 1440"/><g class="d-dotg" id="closeDot"><circle class="d-halo" cx="200" cy="32" r="16"/><circle class="d-dot" cx="200" cy="32" r="9"/></g></svg><div class="dial-c"><span class="dc-t" style="font-size:clamp(40px,5vw,56px)">04:00</span><span class="dc-s"><span lang="zh">归档</span><span lang="en">Archive</span></span></div></div>
   <h2 id="cl-h"><span lang="zh">明天，它会更了解你。</span><span lang="en">Tomorrow, it will know you a little better.</span></h2>
   <p class="lede"><span lang="zh">每天 04:00，当天的对话自动归档，要点写入世界树。</span><span lang="en">Every day at 04:00, the day’s conversation is archived and what matters is written to the memory tree.</span></p>
-  <a class="btn" href="#start"><span lang="zh">开始使用 OpenMousse</span><span lang="en">Get started with OpenMousse</span></a>
+  <div class="ctas close-ctas"><a class="btn" href="#start"><span lang="zh">开始使用 OpenMousse</span><span lang="en">Get started with OpenMousse</span></a><a class="btn ghost" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></div>
 </section>
 </main>
 
@@ -1126,7 +1160,7 @@ html[data-lang="en"] .hero h1{max-width:13em}
     <div class="ft-brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g class="logo-now"><g class="logo-rot"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></g></svg><span class="brand-t">OpenMousse</span></div>
     <div class="ft-cols">
       <div class="fcol"><p class="fc-h"><span lang="zh">产品</span><span lang="en">Product</span></p><ul><li><a href="connect.html"><span lang="zh">接入 claw</span><span lang="en">Connect a claw</span></a></li><li><a href="start.html"><span lang="zh">托管服务器</span><span lang="en">Hosted server</span></a></li><li><a href="connect.html"><span lang="zh">只安装世界树</span><span lang="en">Memory tree only</span></a></li></ul></div>
-      <div class="fcol"><p class="fc-h"><span lang="zh">了解</span><span lang="en">Learn</span></p><ul><li><a href="more.html"><span lang="zh">了解更多</span><span lang="en">Learn more</span></a></li><li><a href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></li><li><a href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></li></ul></div>
+      <div class="fcol"><p class="fc-h"><span lang="zh">了解</span><span lang="en">Learn</span></p><ul><li><a href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a></li><li><a href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></li><li><a href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></li></ul></div>
       <div class="fcol"><p class="fc-h"><span lang="zh">开源</span><span lang="en">Open source</span></p><ul><li><a href="https://github.com/openmousse/openmousse">GitHub ↗</a></li><li><a href="https://github.com/openmousse/openmousse/blob/main/LICENSE">AGPL-3.0 ↗</a></li></ul></div>
     </div>
     <div class="ft-bot"><p><span lang="zh">本页时间均为 24 小时制。故事和界面为示意。</span><span lang="en">Times use the 24-hour clock. Stories and screens are illustrative.</span></p><p class="ft-tools"><span><span lang="zh">此刻</span><span lang="en">Now</span> <span class="now-t num">--:--</span></span><button type="button" class="icon-btn theme-btn" aria-label="切换深浅色" data-aria-zh="切换深浅色" data-aria-en="Switch light and dark"><svg aria-hidden="true"><use href="#i-theme"/></svg></button></p></div>
