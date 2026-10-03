@@ -121,7 +121,7 @@ a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
 .prog-arc{fill:none;stroke:var(--gold-fill);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .4s var(--ease)}
 .nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:var(--fs-2)}
 .nav a{color:var(--ink2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
-.nav .btn{min-height:36px;padding:0 16px;color:var(--bg)}
+.nav .btn{min-height:36px;padding:0 16px;color:var(--bg);white-space:nowrap}
 @media (hover:hover){.nav a:not(.btn):hover{color:var(--ink)}}
 .mh.in-story .chap{display:flex}
 @media (min-width:1024px){.mh.in-story .chap{position:absolute;left:50%;transform:translateX(-50%)}}
@@ -151,6 +151,18 @@ a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
 .steps3{display:grid;width:100%;border-top:1px solid var(--line)}
 .steps3 li{display:flex;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);color:var(--ink2)}
 .steps3 .num{color:var(--ink)}
+.wl{display:grid;gap:10px;width:100%}
+.way .wl-k{font-size:var(--fs-2);color:var(--ink2)}
+.wl-row{display:flex;flex-wrap:wrap;gap:10px;width:100%}
+.wl-row input{flex:1 1 220px;min-width:0;min-height:44px;padding:0 18px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:var(--fs-2)}
+.wl-row input::placeholder{color:var(--ink3)}
+.wl-row input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.way .wl-msg{min-height:1.6em;font-size:var(--fs-2);color:var(--ink)}
+.way .wl-msg.err{color:var(--gold-text)}
+.way .wl-note{font-size:var(--fs-1);color:var(--ink3)}
+.wl.done .wl-row{display:none}
+.wl-row .btn[disabled]{opacity:.6;cursor:default}
 .start-links{display:flex;flex-wrap:wrap;gap:12px 32px;font-size:var(--fs-2);margin-top:40px}
 html[data-lang="en"] [lang="zh"],html[data-lang="zh"] [lang="en"]{display:none!important}
 html[data-lang="en"] body{line-height:1.65}
