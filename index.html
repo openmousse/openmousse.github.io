@@ -125,6 +125,9 @@ a.link{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;
 @media (hover:hover){.nav a:not(.btn):hover{color:var(--ink)}}
 .mh.in-story .chap{display:flex}
 @media (min-width:1024px){.mh.in-story .chap{position:absolute;left:50%;transform:translateX(-50%)}}
+/* in a story the centred chapter label takes the middle of the bar, so the section links step aside (they collided in English at every desktop width) */
+.nav .nl{transition:opacity .3s var(--ease),visibility .3s}
+.mh.in-story .nav .nl{opacity:0;visibility:hidden}
 @media (max-width:1023.98px){
   .nav .nl{display:none}
   .mh.in-story .nav{display:none}
