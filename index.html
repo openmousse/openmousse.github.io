@@ -605,7 +605,93 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
   .why .w-notch{opacity:1}
-}</style>
+}
+/* ---------- ideas (preview, not live): the memory tree ring, flip cards, the closing icon ---------- */
+.why.idea{align-items:start}
+.why-run{height:calc(100vh + 5 * 32vh)}
+.why-pin{position:sticky;top:max(calc(var(--hd) + 16px),calc(50vh - 290px));display:grid;justify-items:center;gap:0}
+.why.idea .wfig{justify-self:center;width:min(100%,500px)}
+.w-arc{fill:none;stroke:var(--gold-fill);stroke-width:5;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .9s var(--ease)}
+.w-arc.on{stroke-dashoffset:0}
+.why.idea .w-ring{opacity:.2;transition:opacity .6s var(--ease)}
+.why.idea.closed .w-ring{opacity:0}
+.why.idea .w-node{transition:fill .4s var(--ease),stroke .4s var(--ease)}
+.why.idea .w-node.on{fill:var(--dot);stroke:var(--dot-edge)}
+.why.idea .w-line{transition:stroke .4s var(--ease)}
+.why.idea .w-line.on{stroke:var(--gold-fill)}
+.why.idea .w-notch{opacity:0;transition:opacity .4s var(--ease) .45s}
+.why.idea .w-notch.on{opacity:1}
+.why.idea .w-dot.fly{animation:wfly .9s var(--ease) both}
+.w-top{fill:var(--dot);stroke:var(--bg);stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3);transition:opacity .35s var(--ease) .55s,transform .6s var(--ease-spring) .55s}
+.why.closed .w-top{opacity:1;transform:none}
+.why-cap{position:relative;width:min(100%,500px);min-height:7.4em}
+.wc{position:absolute;inset:0 0 auto;display:grid;justify-items:center;gap:6px;text-align:center;opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.wc.on{opacity:1;transform:none}
+.wc b{font-size:var(--fs-2);font-weight:500;letter-spacing:.06em;color:var(--gold-text)}
+.wc-t{font-size:var(--fs-4);line-height:1.6;color:var(--ink);max-width:24em;text-wrap:balance}
+@media (min-width:1024px){.why.idea .why-t{position:sticky;top:max(calc(var(--hd) + 16px),calc(50vh - 190px))}}
+@media (max-width:1023.98px){
+  .why-run{height:calc(100vh + 5 * 30vh);height:calc(100svh + 5 * 30svh)}
+  .why-pin{top:max(calc(var(--hd) + 8px),calc(50vh - 240px));top:max(calc(var(--hd) + 8px),calc(50svh - 240px))}
+  .why.idea .wfig{width:min(100%,calc(52svh * 1.17))}
+  .why-cap{min-height:8.6em}
+  .wc-t{font-size:var(--fs-3)}
+}
+html:not(.js) .why-run{height:auto}
+html:not(.js) .why-pin{position:static}
+html:not(.js) .w-arc{stroke-dashoffset:0}
+html:not(.js) .why-cap{min-height:0}
+html:not(.js) .wc{position:static;opacity:1;transform:none;margin-top:16px}
+
+.facts.flips{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px;border-top:0}
+.facts.flips li{display:block;padding:0;border:0}
+.facts.flips span{grid-column:auto;color:inherit}
+.flip{perspective:1600px}
+.fl-in{display:grid;height:100%;transform-style:preserve-3d;transition:transform .75s var(--ease)}
+.flip.on .fl-in{transform:rotateY(180deg)}
+.fl-face{grid-area:1/1;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:22px 24px 20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow-1);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.fl-b{transform:rotateY(180deg)}
+.fl-h{display:flex;align-items:center;gap:12px}
+.facts.flips .fl-h svg{width:24px;height:24px;margin:0;color:var(--ink2)}
+.fl-h b{font-size:var(--fs-4);font-weight:500}
+.facts.flips .fl-t{color:var(--ink2)}
+.fl-btn{margin-top:auto;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 16px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);font-size:var(--fs-2);cursor:pointer;transition:border-color .2s var(--ease),background-color .2s var(--ease)}
+.facts.flips .fl-btn svg.fl-ic{width:16px;height:16px;margin:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;color:var(--gold-text)}
+@media (hover:hover){.fl-btn:hover{border-color:var(--ink3);background:var(--surface2)}}
+.fl-k{font-size:var(--fs-2);font-weight:500;letter-spacing:.04em;color:var(--gold-text)}
+.fl-dl{display:grid;gap:10px;width:100%;margin:0}
+.fl-dl>div{display:grid;grid-template-columns:5em minmax(0,1fr);gap:14px;padding-top:10px;border-top:1px solid var(--line)}
+.fl-dl dt{font-size:var(--fs-2);color:var(--ink3)}
+.fl-dl dd{margin:0;font-size:var(--fs-2);line-height:1.65;color:var(--ink)}
+html[data-lang="en"] .fl-dl>div{grid-template-columns:8.8em minmax(0,1fr)}
+.pv-links{display:flex;flex-wrap:wrap;gap:12px 28px}
+@media (max-width:767.98px){
+  .facts.flips{grid-template-columns:1fr}.fl-face{padding:20px}
+  /* one column: no shared height, so the card swaps faces and takes the height of the side that shows */
+  .fl-in{display:block;transform:none!important}
+  .fl-face{-webkit-backface-visibility:visible;backface-visibility:visible}
+  .fl-b{transform:none}
+  .flip:not(.on) .fl-b,.flip.on .fl-f{display:none}
+  .fl-face.in{animation:flipin .45s var(--ease)}
+}
+@keyframes flipin{from{opacity:0;transform:perspective(900px) rotateY(-60deg)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .flip.on .fl-in,.fl-b{transform:none}
+  .flip:not(.on) .fl-b,.flip.on .fl-f{visibility:hidden}
+}
+
+.close.idea .closebox{width:min(72vw,300px,40vh)}
+.c-icon{position:absolute;left:14%;top:14%;width:72%;height:72%;opacity:0;transform:scale(.82);transition:opacity .6s var(--ease) .2s,transform .9s var(--ease-spring) .2s}
+.close.idea .dial{transform-origin:50% 50%;transition:transform .8s var(--ease),opacity .5s var(--ease) .3s}
+.close.idea .ticks,.close.idea .dn{transition:opacity .35s var(--ease)}
+.close.idea .dial-c{transition:opacity .3s var(--ease)}
+.close.idea .cl-l,.close.idea .cl-s{opacity:0;transition:opacity .3s var(--ease)}
+.closebox.at-now .cl-l,.closebox.at-end .cl-s{opacity:1}
+.closebox.icon .ticks,.closebox.icon .dn{opacity:0}
+.closebox.icon .dial{transform:scale(.64);opacity:0}
+.closebox.icon .dial-c{opacity:0}
+.closebox.icon .c-icon{opacity:1;transform:none}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -642,13 +728,15 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
 </section>
 
 <span id="what"></span>
-<section class="sec wrap why" id="why" aria-labelledby="why-h">
-  <div>
+<section class="sec wrap why idea" id="why" aria-labelledby="why-h">
+  <div class="why-t">
     <p class="eyebrow"><span lang="zh">世界树</span><span lang="en">Memory tree</span></p>
     <h2 id="why-h"><span lang="zh">模型会越来越像。真正属于你的，是它对你的理解。</span><span lang="en">Models are growing more alike. What’s truly yours is its understanding of you.</span></h2>
     <p class="lede"><span lang="zh">你在其他 <span class="latin">AI</span> 平台上的对话、日常数据、学习内容与个人观点，都汇聚到同一棵世界树。世界树是 OpenMousse 关于你的长期记忆。</span><span lang="en">Your conversations on other <span class="latin">AI</span> platforms, your daily data, what you learn and the views you hold all grow into one memory tree: OpenMousse’s long-term memory of you.</span></p>
   </div>
-  <svg class="wfig" viewBox="-44 -12 488 418" aria-hidden="true"><line class="w-line" x1="200.0" y1="54.0" x2="200.0" y2="116.0"/><circle class="w-node" cx="200.0" cy="40.0" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:200.0px;--y0:40.0px;--x1:200.0px;--y1:116.0px;--i:0"/><circle class="w-notch" cx="200.0" cy="126.0" r="4" style="--i:0"/><text class="w-name" x="200.0" y="0.0" lang="zh">其他 AI</text><text class="w-name" x="200.0" y="0.0" lang="en">Other AIs</text><text class="w-sub" x="200.0" y="20.0" lang="zh">ChatGPT · Claude · Notion</text><text class="w-sub" x="200.0" y="20.0" lang="en">ChatGPT · Claude · Notion</text><line class="w-line" x1="329.34" y1="147.97" x2="270.38" y2="167.13"/><circle class="w-node" cx="342.66" cy="143.65" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:342.66px;--y0:143.65px;--x1:270.38px;--y1:167.13px;--i:1"/><circle class="w-notch" cx="260.87" cy="170.22" r="4" style="--i:1"/><text class="w-name" x="342.66" y="175.65" lang="zh">日常</text><text class="w-name" x="342.66" y="175.65" lang="en">Daily life</text><text class="w-sub" x="342.66" y="195.65" lang="zh">健康 · 日程 · 邮件</text><text class="w-sub" x="342.66" y="195.65" lang="en">Health · Calendar · Mail</text><line class="w-line" x1="279.94" y1="300.03" x2="243.5" y2="249.87"/><circle class="w-node" cx="288.17" cy="311.35" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:288.17px;--y0:311.35px;--x1:243.5px;--y1:249.87px;--i:2"/><circle class="w-notch" cx="237.62" cy="241.78" r="4" style="--i:2"/><text class="w-name" x="288.17" y="343.35" lang="zh">学习</text><text class="w-name" x="288.17" y="343.35" lang="en">Learning</text><text class="w-sub" x="288.17" y="363.35" lang="zh">课件 · 复述 · 卡住的地方</text><text class="w-sub" x="288.17" y="363.35" lang="en">Courses · Recaps</text><line class="w-line" x1="120.06" y1="300.03" x2="156.5" y2="249.87"/><circle class="w-node" cx="111.83" cy="311.35" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:111.83px;--y0:311.35px;--x1:156.5px;--y1:249.87px;--i:3"/><circle class="w-notch" cx="162.38" cy="241.78" r="4" style="--i:3"/><text class="w-name" x="111.83" y="343.35" lang="zh">观点</text><text class="w-name" x="111.83" y="343.35" lang="en">Views</text><text class="w-sub" x="111.83" y="363.35" lang="zh">Zen 里的想法</text><text class="w-sub" x="111.83" y="363.35" lang="en">Ideas in Zen</text><line class="w-line" x1="70.66" y1="147.97" x2="129.62" y2="167.13"/><circle class="w-node" cx="57.34" cy="143.65" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:57.34px;--y0:143.65px;--x1:129.62px;--y1:167.13px;--i:4"/><circle class="w-notch" cx="139.13" cy="170.22" r="4" style="--i:4"/><text class="w-name" x="57.34" y="175.65" lang="zh">朋友</text><text class="w-name" x="57.34" y="175.65" lang="en">Friends</text><text class="w-sub" x="57.34" y="195.65" lang="zh">讨论 · 播客</text><text class="w-sub" x="57.34" y="195.65" lang="en">Discussions · Podcasts</text><circle class="w-ring" cx="200" cy="190" r="64"/><text class="w-tree" x="200" y="196" lang="zh">世界树</text><text class="w-tree" x="200" y="196" lang="en">Memory tree</text></svg>
+  <div class="why-run" id="whyRun">
+    <div class="why-pin" id="whyPin"><svg class="wfig" viewBox="-44 -12 488 418" aria-hidden="true"><line class="w-line" x1="200.0" y1="54.0" x2="200.0" y2="116.0"/><circle class="w-node" cx="200.0" cy="40.0" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:200.0px;--y0:40.0px;--x1:200.0px;--y1:116.0px;--i:0"/><circle class="w-notch" cx="200.0" cy="126.0" r="4" style="--i:0"/><text class="w-name" x="200.0" y="0.0" lang="zh">其他 AI</text><text class="w-name" x="200.0" y="0.0" lang="en">Other AIs</text><text class="w-sub" x="200.0" y="20.0" lang="zh">ChatGPT · Claude · Notion</text><text class="w-sub" x="200.0" y="20.0" lang="en">ChatGPT · Claude · Notion</text><line class="w-line" x1="329.34" y1="147.97" x2="270.38" y2="167.13"/><circle class="w-node" cx="342.66" cy="143.65" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:342.66px;--y0:143.65px;--x1:270.38px;--y1:167.13px;--i:1"/><circle class="w-notch" cx="260.87" cy="170.22" r="4" style="--i:1"/><text class="w-name" x="342.66" y="175.65" lang="zh">日常</text><text class="w-name" x="342.66" y="175.65" lang="en">Daily life</text><text class="w-sub" x="342.66" y="195.65" lang="zh">健康 · 日程 · 邮件</text><text class="w-sub" x="342.66" y="195.65" lang="en">Health · Calendar · Mail</text><line class="w-line" x1="279.94" y1="300.03" x2="243.5" y2="249.87"/><circle class="w-node" cx="288.17" cy="311.35" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:288.17px;--y0:311.35px;--x1:243.5px;--y1:249.87px;--i:2"/><circle class="w-notch" cx="237.62" cy="241.78" r="4" style="--i:2"/><text class="w-name" x="288.17" y="343.35" lang="zh">学习</text><text class="w-name" x="288.17" y="343.35" lang="en">Learning</text><text class="w-sub" x="288.17" y="363.35" lang="zh">课件 · 复述 · 卡住的地方</text><text class="w-sub" x="288.17" y="363.35" lang="en">Courses · Recaps</text><line class="w-line" x1="120.06" y1="300.03" x2="156.5" y2="249.87"/><circle class="w-node" cx="111.83" cy="311.35" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:111.83px;--y0:311.35px;--x1:156.5px;--y1:249.87px;--i:3"/><circle class="w-notch" cx="162.38" cy="241.78" r="4" style="--i:3"/><text class="w-name" x="111.83" y="343.35" lang="zh">观点</text><text class="w-name" x="111.83" y="343.35" lang="en">Views</text><text class="w-sub" x="111.83" y="363.35" lang="zh">Zen 里的想法</text><text class="w-sub" x="111.83" y="363.35" lang="en">Ideas in Zen</text><line class="w-line" x1="70.66" y1="147.97" x2="129.62" y2="167.13"/><circle class="w-node" cx="57.34" cy="143.65" r="7"/><circle class="w-dot" r="5" cx="0" cy="0" style="--x0:57.34px;--y0:143.65px;--x1:129.62px;--y1:167.13px;--i:4"/><circle class="w-notch" cx="139.13" cy="170.22" r="4" style="--i:4"/><text class="w-name" x="57.34" y="175.65" lang="zh">朋友</text><text class="w-name" x="57.34" y="175.65" lang="en">Friends</text><text class="w-sub" x="57.34" y="195.65" lang="zh">讨论 · 播客</text><text class="w-sub" x="57.34" y="195.65" lang="en">Discussions · Podcasts</text><g class="w-arcs"><path class="w-arc" d="M200.0 126.0 A64 64 0 0 1 260.87 170.22" pathLength="1"/><path class="w-arc" d="M260.87 170.22 A64 64 0 0 1 237.62 241.78" pathLength="1"/><path class="w-arc" d="M237.62 241.78 A64 64 0 0 1 162.38 241.78" pathLength="1"/><path class="w-arc" d="M162.38 241.78 A64 64 0 0 1 139.13 170.22" pathLength="1"/><path class="w-arc" d="M139.13 170.22 A64 64 0 0 1 200.0 126.0" pathLength="1"/><circle class="w-top" cx="200.0" cy="126.0" r="8"/></g><circle class="w-ring" cx="200" cy="190" r="64"/><text class="w-tree" x="200" y="196" lang="zh">世界树</text><text class="w-tree" x="200" y="196" lang="en">Memory tree</text></svg><div class="why-cap"><p class="wc" data-k="0"><b><span lang="zh">其他 AI</span><span lang="en">Other AIs</span></b><span class="wc-t"><span lang="zh">散落在 ChatGPT、Claude 等平台上的对话，汇入同一处。</span><span lang="en">Conversations scattered across ChatGPT, Claude and other platforms come together in one place.</span></span></p><p class="wc" data-k="1"><b><span lang="zh">日常</span><span lang="en">Daily life</span></b><span class="wc-t"><span lang="zh">健康、日程与邮件，让它了解你每天的状态。</span><span lang="en">Your health data, calendar and mail show OpenMousse how your days actually go.</span></span></p><p class="wc" data-k="2"><b><span lang="zh">学习</span><span lang="en">Learning</span></b><span class="wc-t"><span lang="zh">课件、你用自己的话复述过的内容，以及曾经卡住的地方，它都记得。</span><span lang="en">OpenMousse remembers your course materials, what you explained in your own words and where you got stuck.</span></span></p><p class="wc" data-k="3"><b><span lang="zh">观点</span><span lang="en">Views</span></b><span class="wc-t"><span lang="zh">记在 Zen 里的想法，逐渐形成你的观点。</span><span lang="en">The ideas you keep in Zen gradually take shape as your views.</span></span></p><p class="wc" data-k="4"><b><span lang="zh">朋友</span><span lang="en">Friends</span></b><span class="wc-t"><span lang="zh">与好友的讨论和一起录的播客，让它理解你在意的人。</span><span lang="en">Discussions with friends and the podcasts you record together help OpenMousse understand the people who matter to you.</span></span></p><p class="wc" data-k="5"><b><span lang="zh">世界树</span><span lang="en">Memory tree</span></b><span class="wc-t"><span lang="zh">五个来源汇成一棵世界树：这是它对你的理解，只属于你。</span><span lang="en">The five sources grow into one memory tree: an understanding of you that is yours alone.</span></span></p></div></div>
+  </div>
 </section>
 
 <!-- ============ 故事一 ============ -->
@@ -1071,13 +1159,8 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
   <p class="eyebrow"><span lang="zh">隐私与安全</span><span lang="en">Privacy and security</span></p>
   <h2 id="pv-h"><span lang="zh">运行在一台只属于你的云服务器上</span><span lang="en">It runs on a cloud server that is yours alone</span></h2>
   <p class="lede"><span lang="zh">每一位用户都有一台独立的云服务器，可以是你自己的，也可以由我们托管。对话、记忆与健康数据只保存在这台服务器上。</span><span lang="en">You get a dedicated cloud server, either your own or one we host for you. Your conversations, memory and health data are stored there and nowhere else.</span></p>
-  <ul class="facts">
-    <li><svg aria-hidden="true"><use href="#i-priv"/></svg><b><span lang="zh">独立运行</span><span lang="en">Dedicated</span></b><span><span lang="zh">不与其他用户共用服务器。app 与网页版通过加密连接直达你的服务器。</span><span lang="en">Your server is never shared with other users. The apps and the web app reach it directly over an encrypted connection.</span></span></li>
-    <li><svg aria-hidden="true"><use href="#i-model"/></svg><b><span lang="zh">模型由你选择</span><span lang="en">Your choice of model</span></b><span><span lang="zh">使用你已订阅的模型服务或自有 <span class="latin">API</span> 密钥，随时可以更换。每条回复都标明由哪个模型回答。</span><span lang="en">Use a model subscription you already have or your own <span class="latin">API</span> key, and switch whenever you like. Every reply shows which model wrote it.</span></span></li>
-    <li><svg aria-hidden="true"><use href="#i-tree"/></svg><b><span lang="zh">记忆可查看、可带走</span><span lang="en">Memory you can see and take with you</span></b><span><span lang="zh">世界树以笔记的形式保存，每一条都能打开、修改和删除。整台服务器可以随时迁移，也可以一键清空。</span><span lang="en">The memory tree is stored as notes you can open, edit and delete. Move the whole server at any time, or erase it in one step.</span></span></li>
-    <li><svg aria-hidden="true"><use href="#i-hold"/></svg><b><span lang="zh">关键操作由你批准</span><span lang="en">You approve what matters</span></b><span><span lang="zh">付款、提交、对外发送与登录，都会先转为确认卡；代办 <span class="latin">Agent</span> 只能经 Doorman 访问外部网站。</span><span lang="en">Payments, submissions, outgoing messages and sign-ins wait for your approval. The Errands <span class="latin">agent</span> reaches outside websites only through Doorman.</span></span></li>
-  </ul>
-  <div class="promise"><p><span lang="zh">我们不投放广告，不出售数据，也不用你的数据训练模型。代码以 <span class="latin">AGPL-3.0</span> 开源，任何人都可以审阅。</span><span lang="en">We don’t show ads, sell your data or train models on it. The code is open source under <span class="latin">AGPL-3.0</span>, so anyone can review it.</span></p><a class="link" href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></div>
+  <ul class="facts flips"><li class="flip"><div class="fl-in"><div class="fl-face fl-f"><div class="fl-h"><svg aria-hidden="true"><use href="#i-priv"/></svg><b><span lang="zh">独立运行</span><span lang="en">Dedicated</span></b></div><span class="fl-t"><span lang="zh">不与其他用户共用服务器。app 与网页版通过加密连接直达你的服务器。</span><span lang="en">Your server is never shared with other users. The apps and the web app reach it directly over an encrypted connection.</span></span><button type="button" class="fl-btn" aria-expanded="false" aria-controls="flb1"><span lang="zh">数据存在哪里</span><span lang="en">Where your data lives</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div><div class="fl-face fl-b" id="flb1" inert><p class="fl-k"><span lang="zh">对话与附件</span><span lang="en">Conversations and attachments</span></p><dl class="fl-dl"><div><dt><span lang="zh">存放位置</span><span lang="en">Stored in</span></dt><dd><span lang="zh">你服务器上的数据库与文件夹</span><span lang="en">A database and folders on your server</span></dd></div><div><dt><span lang="zh">谁能读取</span><span lang="en">Readable by</span></dt><dd><span lang="zh">你配对过的设备，以及服务器上你的 Agent</span><span lang="en">Devices you have paired, and your agents on the server</span></dd></div><div><dt><span lang="zh">如何删除</span><span lang="en">To delete</span></dt><dd><span lang="zh">在 app 中删除，或在设置中清空全部数据</span><span lang="en">Delete them in the app, or erase everything in Settings</span></dd></div></dl><button type="button" class="fl-btn fl-back"><span lang="zh">返回</span><span lang="en">Back</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div></div></li><li class="flip"><div class="fl-in"><div class="fl-face fl-f"><div class="fl-h"><svg aria-hidden="true"><use href="#i-model"/></svg><b><span lang="zh">模型由你选择</span><span lang="en">Your choice of model</span></b></div><span class="fl-t"><span lang="zh">使用你已订阅的模型服务或自有 <span class="latin">API</span> 密钥，随时可以更换。每条回复都标明由哪个模型回答。</span><span lang="en">Use a model subscription you already have or your own <span class="latin">API</span> key, and switch whenever you like. Every reply shows which model wrote it.</span></span><button type="button" class="fl-btn" aria-expanded="false" aria-controls="flb2"><span lang="zh">数据发往哪里</span><span lang="en">Where your data goes</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div><div class="fl-face fl-b" id="flb2" inert><p class="fl-k"><span lang="zh">每一轮对话</span><span lang="en">Each turn of a conversation</span></p><dl class="fl-dl"><div><dt><span lang="zh">发往</span><span lang="en">Where it goes</span></dt><dd><span lang="zh">你选择的模型服务，包括你设置的备用模型</span><span lang="en">The model services you choose, including any fallback models you set</span></dd></div><div><dt><span lang="zh">发送内容</span><span lang="en">What is sent</span></dt><dd><span lang="zh">这一轮的消息，以及回答所需的记忆</span><span lang="en">This turn’s messages and the memory needed to answer</span></dd></div><div><dt><span lang="zh">你的控制</span><span lang="en">How you control it</span></dt><dd><span lang="zh">随时更换模型服务，或改用自有 <span class="latin">API</span> 密钥</span><span lang="en">Switch services at any time, or use your own <span class="latin">API</span> key</span></dd></div></dl><button type="button" class="fl-btn fl-back"><span lang="zh">返回</span><span lang="en">Back</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div></div></li><li class="flip"><div class="fl-in"><div class="fl-face fl-f"><div class="fl-h"><svg aria-hidden="true"><use href="#i-tree"/></svg><b><span lang="zh">记忆可查看、可带走</span><span lang="en">Memory you can see and take with you</span></b></div><span class="fl-t"><span lang="zh">世界树以笔记的形式保存，每一条都能打开、修改和删除。整台服务器可以随时迁移，也可以一键清空。</span><span lang="en">The memory tree is stored as notes you can open, edit and delete. Move the whole server at any time, or erase it in one step.</span></span><button type="button" class="fl-btn" aria-expanded="false" aria-controls="flb3"><span lang="zh">数据存在哪里</span><span lang="en">Where your data lives</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div><div class="fl-face fl-b" id="flb3" inert><p class="fl-k"><span lang="zh">世界树</span><span lang="en">Memory tree</span></p><dl class="fl-dl"><div><dt><span lang="zh">存放位置</span><span lang="en">Stored in</span></dt><dd><span lang="zh">你服务器上的 Markdown 笔记，一条记忆一篇</span><span lang="en">Markdown notes on your server, one per memory</span></dd></div><div><dt><span lang="zh">谁能读取</span><span lang="en">Readable by</span></dt><dd><span lang="zh">你，以及你接入的 AI 平台；每个平台各用一条可以撤销的私密地址</span><span lang="en">You, and the AI platforms you connect, each through its own private address you can revoke</span></dd></div><div><dt><span lang="zh">如何删除</span><span lang="en">To delete</span></dt><dd><span lang="zh">在 app 中让它遗忘某一条，或直接删除笔记</span><span lang="en">In the app, ask OpenMousse to forget a memory, or delete the note itself</span></dd></div></dl><button type="button" class="fl-btn fl-back"><span lang="zh">返回</span><span lang="en">Back</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div></div></li><li class="flip"><div class="fl-in"><div class="fl-face fl-f"><div class="fl-h"><svg aria-hidden="true"><use href="#i-hold"/></svg><b><span lang="zh">关键操作由你批准</span><span lang="en">You approve what matters</span></b></div><span class="fl-t"><span lang="zh">付款、提交、对外发送与登录，都会先转为确认卡；代办 <span class="latin">Agent</span> 只能经 Doorman 访问外部网站。</span><span lang="en">Payments, submissions, outgoing messages and sign-ins wait for your approval. The Errands <span class="latin">agent</span> reaches outside websites only through Doorman.</span></span><button type="button" class="fl-btn" aria-expanded="false" aria-controls="flb4"><span lang="zh">密码如何保管</span><span lang="en">How passwords are kept</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div><div class="fl-face fl-b" id="flb4" inert><p class="fl-k"><span lang="zh">密码与确认卡</span><span lang="en">Passwords and approvals</span></p><dl class="fl-dl"><div><dt><span lang="zh">保管</span><span lang="en">Kept by</span></dt><dd><span lang="zh">Doorman 单独保管；代办 Agent 只拿到占位符</span><span lang="en">Doorman, in a separate store; the Errands agent only ever holds a placeholder</span></dd></div><div><dt><span lang="zh">使用时机</span><span lang="en">Swapped in</span></dt><dd><span lang="zh">请求离开服务器的那一刻才换成真值，且只发往对应的网站</span><span lang="en">Only as the request leaves your server, and only for the site the password belongs to</span></dd></div><div><dt><span lang="zh">由谁批准</span><span lang="en">Approved by</span></dt><dd><span lang="zh">你本人：确认卡只出现在你的收件箱，代办 Agent 看不到，也无法代你批准</span><span lang="en">You, on an approval card that appears only in your inbox; the Errands agent can neither see the card nor approve it</span></dd></div></dl><button type="button" class="fl-btn fl-back"><span lang="zh">返回</span><span lang="en">Back</span><svg class="fl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 0 1 12.9-5.2L19.5 9M19.5 4v5h-5M19.5 12a7.5 7.5 0 0 1-12.9 5.2L4.5 15M4.5 20v-5h5"/></svg></button></div></div></li></ul>
+  <div class="promise"><p><span lang="zh">我们不投放广告，不出售数据，也不用你的数据训练模型。代码以 <span class="latin">AGPL-3.0</span> 开源，任何人都可以审阅。</span><span lang="en">We don’t show ads, sell your data or train models on it. The code is open source under <span class="latin">AGPL-3.0</span>, so anyone can review it.</span></p><p class="pv-links"><a class="link" href="security.html"><span lang="zh">数据如何受到保护</span><span lang="en">How your data is protected</span></a><a class="link" href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></p></div>
 </section>
 
 <section class="sec wrap" id="how" aria-labelledby="how-h">
@@ -1150,8 +1233,8 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
   <p class="start-links"><a class="link" href="start.html#tree"><span lang="zh">只安装世界树</span><span lang="en">Install only the memory tree</span></a><a class="link" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a><a class="link" href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></p>
 </section>
 
-<section class="wrap close" id="close" aria-labelledby="cl-h">
-  <div class="closebox" aria-hidden="true"><svg class="dial" viewBox="-30 -30 460 460" aria-hidden="true"><g class="ticks"><line class="tk maj" x1="200.0" y1="24.0" x2="200.0" y2="6.0"/><line class="tk" x1="246.85" y1="25.17" x2="248.92" y2="17.44"/><line class="tk" x1="290.5" y1="43.25" x2="294.5" y2="36.32"/><line class="tk" x1="327.99" y1="72.01" x2="333.64" y2="66.36"/><line class="tk" x1="356.75" y1="109.5" x2="363.68" y2="105.5"/><line class="tk" x1="374.83" y1="153.15" x2="382.56" y2="151.08"/><line class="tk maj" x1="376.0" y1="200.0" x2="394.0" y2="200.0"/><line class="tk" x1="374.83" y1="246.85" x2="382.56" y2="248.92"/><line class="tk" x1="356.75" y1="290.5" x2="363.68" y2="294.5"/><line class="tk" x1="327.99" y1="327.99" x2="333.64" y2="333.64"/><line class="tk" x1="290.5" y1="356.75" x2="294.5" y2="363.68"/><line class="tk" x1="246.85" y1="374.83" x2="248.92" y2="382.56"/><line class="tk maj" x1="200.0" y1="376.0" x2="200.0" y2="394.0"/><line class="tk" x1="153.15" y1="374.83" x2="151.08" y2="382.56"/><line class="tk" x1="109.5" y1="356.75" x2="105.5" y2="363.68"/><line class="tk" x1="72.01" y1="327.99" x2="66.36" y2="333.64"/><line class="tk" x1="43.25" y1="290.5" x2="36.32" y2="294.5"/><line class="tk" x1="25.17" y1="246.85" x2="17.44" y2="248.92"/><line class="tk maj" x1="24.0" y1="200.0" x2="6.0" y2="200.0"/><line class="tk" x1="25.17" y1="153.15" x2="17.44" y2="151.08"/><line class="tk" x1="43.25" y1="109.5" x2="36.32" y2="105.5"/><line class="tk" x1="72.01" y1="72.01" x2="66.36" y2="66.36"/><line class="tk" x1="109.5" y1="43.25" x2="105.5" y2="36.32"/><line class="tk" x1="153.15" y1="25.17" x2="151.08" y2="17.44"/></g><text class="dn" x="200.0" y="-14.0">0</text><text class="dn" x="414.0" y="200.0">6</text><text class="dn" x="200.0" y="414.0">12</text><text class="dn" x="-14.0" y="200.0">18</text><circle class="d-base" cx="200" cy="200" r="168"/><circle class="d-arc" id="closeArc" cx="200" cy="200" r="168" pathLength="1440" transform="rotate(-90 200 200)" stroke-dasharray="0 1440"/><g class="d-dotg" id="closeDot"><circle class="d-halo" cx="200" cy="32" r="16"/><circle class="d-dot" cx="200" cy="32" r="9"/></g></svg><div class="dial-c"><span class="dc-t" style="font-size:clamp(40px,5vw,56px)">04:00</span><span class="dc-s"><span lang="zh">归档</span><span lang="en">Archive</span></span></div></div>
+<section class="wrap close idea" id="close" aria-labelledby="cl-h">
+  <div class="closebox" id="closeBox" aria-hidden="true"><svg class="c-icon" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g style="transform-box:view-box;transform-origin:16px 16px;transform:rotate(60deg)"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></svg><svg class="dial" viewBox="-30 -30 460 460" aria-hidden="true"><g class="ticks"><line class="tk maj" x1="200.0" y1="24.0" x2="200.0" y2="6.0"/><line class="tk" x1="246.85" y1="25.17" x2="248.92" y2="17.44"/><line class="tk" x1="290.5" y1="43.25" x2="294.5" y2="36.32"/><line class="tk" x1="327.99" y1="72.01" x2="333.64" y2="66.36"/><line class="tk" x1="356.75" y1="109.5" x2="363.68" y2="105.5"/><line class="tk" x1="374.83" y1="153.15" x2="382.56" y2="151.08"/><line class="tk maj" x1="376.0" y1="200.0" x2="394.0" y2="200.0"/><line class="tk" x1="374.83" y1="246.85" x2="382.56" y2="248.92"/><line class="tk" x1="356.75" y1="290.5" x2="363.68" y2="294.5"/><line class="tk" x1="327.99" y1="327.99" x2="333.64" y2="333.64"/><line class="tk" x1="290.5" y1="356.75" x2="294.5" y2="363.68"/><line class="tk" x1="246.85" y1="374.83" x2="248.92" y2="382.56"/><line class="tk maj" x1="200.0" y1="376.0" x2="200.0" y2="394.0"/><line class="tk" x1="153.15" y1="374.83" x2="151.08" y2="382.56"/><line class="tk" x1="109.5" y1="356.75" x2="105.5" y2="363.68"/><line class="tk" x1="72.01" y1="327.99" x2="66.36" y2="333.64"/><line class="tk" x1="43.25" y1="290.5" x2="36.32" y2="294.5"/><line class="tk" x1="25.17" y1="246.85" x2="17.44" y2="248.92"/><line class="tk maj" x1="24.0" y1="200.0" x2="6.0" y2="200.0"/><line class="tk" x1="25.17" y1="153.15" x2="17.44" y2="151.08"/><line class="tk" x1="43.25" y1="109.5" x2="36.32" y2="105.5"/><line class="tk" x1="72.01" y1="72.01" x2="66.36" y2="66.36"/><line class="tk" x1="109.5" y1="43.25" x2="105.5" y2="36.32"/><line class="tk" x1="153.15" y1="25.17" x2="151.08" y2="17.44"/></g><text class="dn" x="200.0" y="-14.0">0</text><text class="dn" x="414.0" y="200.0">6</text><text class="dn" x="200.0" y="414.0">12</text><text class="dn" x="-14.0" y="200.0">18</text><circle class="d-base" cx="200" cy="200" r="168"/><circle class="d-arc" id="closeArc" cx="200" cy="200" r="168" pathLength="1440" transform="rotate(-90 200 200)" stroke-dasharray="0 1440"/><g class="d-dotg" id="closeDot"><circle class="d-halo" cx="200" cy="32" r="16"/><circle class="d-dot" cx="200" cy="32" r="9"/></g></svg><div class="dial-c"><span class="dc-l cl-l"><span lang="zh">此刻</span><span lang="en">Now</span></span><span class="dc-t" id="closeT" style="font-size:clamp(40px,5vw,56px)">04:00</span><span class="dc-s cl-s"><span lang="zh">归档</span><span lang="en">Archive</span></span></div></div>
   <h2 id="cl-h"><span lang="zh">明天，它会更了解你。</span><span lang="en">Tomorrow, it will know you a little better.</span></h2>
   <p class="lede"><span lang="zh">每天 04:00，当天的对话自动归档，要点写入世界树。</span><span lang="en">Every day at 04:00, the day’s conversation is archived and what matters is written to your memory tree.</span></p>
   <div class="ctas close-ctas"><a class="btn" href="#start"><span lang="zh">开始使用 OpenMousse</span><span lang="en">Get started with OpenMousse</span></a><a class="btn ghost" href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></a></div>
@@ -1163,7 +1246,7 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
     <div class="ft-brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-tile" x=".5" y=".5" width="31" height="31" rx="7.5"/><g class="logo-now"><g class="logo-rot"><circle class="logo-ring" cx="16" cy="16" r="10"/><circle class="logo-dot" cx="16" cy="6" r="2.6"/></g></g></svg><span class="brand-t">OpenMousse</span></div>
     <div class="ft-cols">
       <div class="fcol"><p class="fc-h"><span lang="zh">产品</span><span lang="en">Product</span></p><ul><li><a href="connect.html"><span lang="zh">接入 claw</span><span lang="en">Connect a claw</span></a></li><li><a href="start.html#apply"><span lang="zh">托管服务器</span><span lang="en">Hosted server</span></a></li><li><a href="start.html#tree"><span lang="zh">只安装世界树</span><span lang="en">Memory tree only</span></a></li></ul></div>
-      <div class="fcol"><p class="fc-h"><span lang="zh">了解</span><span lang="en">Learn</span></p><ul><li><a href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a></li><li><a href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></li><li><a href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></li></ul></div>
+      <div class="fcol"><p class="fc-h"><span lang="zh">了解</span><span lang="en">Learn</span></p><ul><li><a href="how.html"><span lang="zh">如何工作</span><span lang="en">How it works</span></a></li><li><a href="why.html"><span lang="zh">为什么做 OpenMousse</span><span lang="en">Why OpenMousse</span></a></li><li><a href="security.html"><span lang="zh">数据与安全</span><span lang="en">Security</span></a></li><li><a href="privacy.html"><span lang="zh">隐私政策</span><span lang="en">Privacy policy</span></a></li></ul></div>
       <div class="fcol"><p class="fc-h"><span lang="zh">开源</span><span lang="en">Open source</span></p><ul><li><a href="https://github.com/openmousse/openmousse">GitHub ↗</a></li><li><a href="https://github.com/openmousse/openmousse/blob/main/LICENSE">AGPL-3.0 ↗</a></li></ul></div>
     </div>
     <div class="ft-bot"><p><span lang="zh">本页时间均为 24 小时制。故事和界面为示意。</span><span lang="en">Times use the 24-hour clock. Stories and screens are illustrative.</span></p><p class="ft-tools"><span><span lang="zh">此刻</span><span lang="en">Now</span> <span class="now-t num">--:--</span></span><button type="button" class="icon-btn theme-btn" aria-label="切换深浅色" data-aria-zh="切换深浅色" data-aria-en="Switch between light and dark"><svg aria-hidden="true"><use href="#i-theme"/></svg></button></p></div>
@@ -1225,15 +1308,8 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();fn();}});},{threshold:th||.35});
     io.observe(el);
   }
-  onSeen($('#why'),function(){$('#why').classList.add('go');});
-  var closeDot=document.getElementById('closeDot'),closeArc=document.getElementById('closeArc');
-  closeDot.style.transform='rotate(60deg)';
-  closeArc.setAttribute('transform','rotate(-30 200 200)');
-  onSeen($('#close'),function(){
-    if(reduce){closeArc.style.strokeDasharray='1440 0.001';closeDot.style.transform='rotate(420deg)';return;}
-    closeArc.style.transition='stroke-dasharray 2.2s cubic-bezier(.65,0,.35,1)';closeDot.style.transition='transform 2.2s cubic-bezier(.65,0,.35,1)';
-    requestAnimationFrame(function(){closeArc.style.strokeDasharray='1440 0.001';closeDot.style.transform='rotate(420deg)';});
-  },.5);
+  
+
 
   /* ---- friends: four steps, played once when seen, then yours to click ---- */
   var frFig=$('#frFig'),frBtns=$$('#frSteps .step'),frTimer=null;
@@ -1356,6 +1432,68 @@ html[data-lang="en"] .hero h1{max-width:13em;font-size:clamp(36px,2.6vw + 22px,6
   window.addEventListener('resize',refresh);
   stories.forEach(measure);onScroll();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refresh);
+})();
+(function(){
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s,c){return (c||document).querySelector(s);}
+  function $$(s,c){return [].slice.call((c||document).querySelectorAll(s));}
+  function clamp(x){return x<0?0:x>1?1:x;}
+  function pad(n){return (n<10?'0':'')+n;}
+
+  /* ---- memory tree: one source per scroll step; after the fifth the gold ring closes ---- */
+  var why=$('#why'),run=$('#whyRun'),pin=$('#whyPin');
+  var W={arcs:$$('.w-arc',why),dots:$$('.w-dot',why),nodes:$$('.w-node',why),lines:$$('.w-line',why),notches:$$('.w-notch',why),caps:$$('.wc',why),cur:-2};
+  function whySet(k){
+    if(k===W.cur)return;var prev=W.cur;W.cur=k;
+    [W.arcs,W.nodes,W.lines,W.notches].forEach(function(list){list.forEach(function(x,i){x.classList.toggle('on',i<=k);});});
+    W.dots.forEach(function(d,i){if(i>k){d.classList.remove('fly');return;}if(i>prev){d.classList.remove('fly');void d.getBoundingClientRect();d.classList.add('fly');}});
+    W.caps.forEach(function(c,i){c.classList.toggle('on',i===k);});
+    why.classList.toggle('closed',k>=5);
+  }
+  function whyScroll(){
+    var vh=innerHeight,r=run.getBoundingClientRect();
+    if(r.top>vh*0.72||r.bottom<0){if(r.top>vh*0.72)whySet(-1);return;}
+    var top=parseFloat(getComputedStyle(pin).top)||0,total=Math.max(1,run.offsetHeight-pin.offsetHeight);
+    whySet(Math.min(5,Math.max(0,Math.floor((top-r.top)/total*6))));
+  }
+
+  /* ---- privacy: each card turns over to show where its data lives ---- */
+  $$('.flip').forEach(function(card){
+    var f=$('.fl-f',card),bk=$('.fl-b',card),open=$('.fl-btn',f),back=$('.fl-btn',bk);
+    function set(on){
+      card.classList.toggle('on',on);open.setAttribute('aria-expanded',on?'true':'false');
+      (on?f:bk).setAttribute('inert','');(on?bk:f).removeAttribute('inert');
+      var shown=on?bk:f;shown.classList.remove('in');void shown.offsetWidth;shown.classList.add('in');
+      setTimeout(function(){(on?back:open).focus({preventScroll:true});},reduce?0:380);
+    }
+    open.addEventListener('click',function(){set(true);});
+    back.addEventListener('click',function(){set(false);});
+  });
+
+  /* ---- close: as it scrolls in, the dial runs from now to 04:00; once archived it folds into the app icon ---- */
+  var box=$('#closeBox'),arc=document.getElementById('closeArc'),dot=document.getElementById('closeDot'),cT=$('#closeT'),A=240;
+  arc.setAttribute('transform','rotate(-30 200 200)');
+  arc.style.transition='none';dot.style.transition='none';
+  function mins(){var d=new Date();return d.getHours()*60+d.getMinutes();}
+  function closeSet(p){
+    var L0=(mins()-A+1440)%1440,q=clamp(p/0.8),e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2;
+    var L=L0+(1440-L0)*e,m=Math.round(A+L)%1440;
+    arc.style.strokeDasharray=L+' '+(1440-L+0.001);
+    dot.style.transform='rotate('+((A+L)/4)+'deg)';
+    cT.textContent=pad(Math.floor(m/60))+':'+pad(m%60);
+    box.classList.toggle('at-now',q<=0);
+    box.classList.toggle('at-end',q>=1);
+    box.classList.toggle('icon',!reduce&&p>=1);
+  }
+  function closeScroll(){var vh=innerHeight,r=box.getBoundingClientRect();closeSet(clamp((vh-r.top)/(vh*0.62)));}
+
+  function onScroll(){whyScroll();if(!reduce)closeScroll();}
+  var ticking=false;
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;onScroll();});}},{passive:true});
+  window.addEventListener('resize',onScroll);
+  if(reduce)closeSet(0.8);
+  onScroll();
+  setInterval(function(){if(!reduce)closeScroll();},30000);
 })();</script>
 
 </body>
