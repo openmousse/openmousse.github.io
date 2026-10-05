@@ -194,13 +194,13 @@ html:not(.js) .w-notch{opacity:1}
 .beat{font-size:clamp(22px,3.2vw,31px);line-height:1.5;font-weight:500;margin:0 0 28px;text-wrap:balance;letter-spacing:.01em}
 .beat.lead{font-size:clamp(27px,4.4vw,44px);line-height:1.32}
 .beat.jump{margin-top:72px}
-.beat.final{font-size:clamp(26px,4vw,41px);line-height:1.32}
+.beat.final{font-size:clamp(26px,3.2vw,41px);line-height:1.32}
 .beat.final em{font-style:normal;color:var(--gold-text)}
 html[data-lang="zh"] .beat{word-break:keep-all;overflow-wrap:anywhere}
 .story .visual,.skips{display:none}
 html.js .story{max-width:none;margin:0 -16px;padding:0;height:calc(var(--n,16) * 66vh + 100vh);height:calc(var(--n,16) * 66svh + 100svh)}
 html.js .stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:center;gap:clamp(24px,4vw,64px);padding:calc(var(--hd) + 16px) clamp(20px,5vw,80px) 40px;overflow:hidden}
-html.js .text{position:relative;height:min(62svh,560px);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 24%,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 24%,#000 80%,transparent 100%)}
+html.js .text{position:relative;height:min(62svh,560px);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 18%,#000 90%,transparent 100%)}
 html.js .lines{position:absolute;left:0;right:0;top:0;transition:transform .8s var(--ease);will-change:transform}
 html.js .beat{opacity:0;transition:opacity .6s var(--ease),color .6s var(--ease)}
 html.js .beat.prev{opacity:.26}
@@ -789,7 +789,7 @@ html[data-lang="en"] .fl-dl>div{grid-template-columns:8.8em minmax(0,1fr)}
         <p class="beat jump" data-rot="2160"><span lang="zh">半年后，你申请一家创业加速器。申请表的第一题是：为什么不先工作几年？</span><span lang="en">Six months later, you apply to a startup accelerator. The first question on the application: why not work for a few years first?</span></p>
         <p class="beat"><span lang="zh">它起草回答时，把你在播客里的那段话放在了第一段。</span><span lang="en">When it drafts your answer, it opens with what you said on the podcast.</span></p>
         <p class="beat final jump"><span lang="zh">它记住的不只是你的日程，</span><span lang="en">It remembers more than your schedule.</span></p>
-        <p class="beat final"><span lang="zh">还有<em>你怎么想</em>。</span><span lang="en">It remembers <em>how you think</em>.</span></p>
+        <p class="beat final"><span lang="zh">还有<em>你为什么这样选</em>。</span><span lang="en">It remembers <em>why you chose this path</em>.</span></p>
       </div>
       <div class="hint"><i></i><span lang="zh">向下滑动，读完这个故事</span><span lang="en">Scroll to read the story</span></div>
     </div>
@@ -925,7 +925,7 @@ html[data-lang="en"] .fl-dl>div{grid-template-columns:8.8em minmax(0,1fr)}
         <p class="beat"><span lang="zh">你没有追买去年的第一名，而是分散投资了一只覆盖整个市场的指数基金。</span><span lang="en">You don’t chase last year’s winner. You put the money into an index fund that covers the whole market.</span></p>
         <p class="beat jump" data-rot="1080"><span lang="zh">一年后，那只基金回到了中游。<span class="sr">去年第 1 名，今年第 41 名，共 80 只。</span></span><span lang="en">A year later, that fund is back in the middle of the pack.<span class="sr">No. 1 last year; 41st of 80 this year.</span></span></p>
         <p class="beat final jump"><span lang="zh">课本上的定义，谁都查得到。</span><span lang="en">Anyone can look up the textbook definition.</span></p>
-        <p class="beat final"><span lang="zh">你自己想通的那句话，<em>只有它记得</em>。</span><span lang="en"><em>Only it remembers</em> what you worked out for yourself.</span></p>
+        <p class="beat final"><span lang="zh">你自己想通的那句话，<em>会在你需要的时候回来</em>。</span><span lang="en">The line you worked out for yourself <em>comes back when you need it</em>.</span></p>
       </div>
     </div>
 
@@ -1431,7 +1431,10 @@ html[data-lang="en"] .fl-dl>div{grid-template-columns:8.8em minmax(0,1fr)}
     var prev=st.cur;st.cur=i;
     var b=st.beats,gap=b[i].classList.contains('jump'),f=st.first,inFinal=f>=0&&i>f&&b[i].classList.contains('final');
     b.forEach(function(x,k){var keep=inFinal&&k>=f&&k<i;toggle(x,'cur',k===i);toggle(x,'keep',keep);toggle(x,'prev',k===i-1&&!gap&&!keep);});
-    st.lines.style.transform='translateY('+Math.round(st.text.clientHeight*(narrow.matches?0.06:0.42)-st.offsets[inFinal?f:i])+'px)';
+    var H=st.text.clientHeight,base=inFinal?f:i,top;
+    if(narrow.matches)top=H*0.06;
+    else{var blk=b[i].offsetTop+b[i].offsetHeight-st.offsets[base];top=Math.max(H*0.2,Math.min(H*0.42,H*0.9-blk-8));}  /* desktop: lift a long line or a two-part ending so its last line clears the bottom fade */
+    st.lines.style.transform='translateY('+Math.round(top-st.offsets[base])+'px)';
     st.items.forEach(function(o){toggle(o.el,'on',inR(o.r,i));});
     st.ins.forEach(function(o){toggle(o.el,'in',i>=o.k);});
     st.cls.forEach(function(o){toggle(st.vis,o.c,inR(o.r,i));});

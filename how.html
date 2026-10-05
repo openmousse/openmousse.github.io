@@ -1468,8 +1468,38 @@ html.vt-lang::view-transition-new(root){animation:fade-in var(--t-ui) var(--ease
 .anchor{display:block;position:relative;top:calc(-1 * var(--hd, 56px));visibility:hidden}
 .how-top{padding-top:calc(var(--s-6, 64px) + 24px)}
 .how-top h1{margin-top:var(--s-3, 16px)}
-.how-top .lede{max-width:34em}
+.how-top .lede{max-width:34em;margin-top:var(--s-4, 24px)}
 .how-back{margin-top:var(--s-4, 24px)}
+.how-map{margin:var(--s-6, 48px) 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.hm-server{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) 56px minmax(0,.75fr) 56px minmax(0,.85fr) auto;align-items:center;padding:52px 0 28px 24px;border:1px solid var(--line);border-radius:24px;background:var(--surface)}
+.hm-k{position:absolute;left:24px;top:18px;margin:0;font-size:var(--fs-1, 12px);letter-spacing:.06em;color:var(--ink3)}
+.hm-src{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hm-src a,.hm-agents{display:grid;gap:2px;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--ink);text-decoration:none;transition:border-color .2s var(--ease, ease)}
+.hm-n{font-size:var(--fs-1, 12px);color:var(--gold-text)}
+.how-map b{font-weight:500;line-height:1.4}
+.hm-s{font-size:var(--fs-1, 12px);color:var(--ink2);line-height:1.5}
+.hm-tree{display:grid;justify-items:center;gap:2px;text-align:center;color:var(--ink);text-decoration:none}
+.hm-ring{width:56px;height:56px;margin-bottom:6px}
+.hm-arr{position:relative;display:block;height:2px;margin:0 10px;background:var(--gold-fill)}
+.hm-arr::after{content:"";position:absolute;right:0;top:50%;width:8px;height:8px;border-top:2px solid var(--gold-fill);border-right:2px solid var(--gold-fill);transform:translateY(-50%) rotate(45deg)}
+.hm-gate{align-self:stretch;display:grid;align-content:center;gap:4px;width:172px;margin:-24px 0 -28px 20px;padding:16px 18px 16px 22px;border-left:4px solid var(--amber);color:var(--ink);text-decoration:none}
+.hm-out{margin:0 0 0 16px;font-size:var(--fs-2, 14px);color:var(--ink3);white-space:nowrap}
+.hm-out::before{content:"→ "}
+.hm-note{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:var(--s-3, 16px)!important;font-size:var(--fs-2, 14px);color:var(--ink2)}
+@media (hover:hover){.hm-src a:hover,.hm-agents:hover{border-color:var(--ink3)}.hm-tree:hover b,.hm-gate:hover b{color:var(--cyan-text)}}
+@media (max-width:1023.98px){
+.how-map{grid-template-columns:1fr}
+.hm-server{grid-template-columns:1fr;padding:48px 16px 0}
+.hm-src{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.hm-src a{padding:10px 12px}
+.hm-arr{justify-self:center;width:2px;height:28px;margin:10px 0}
+.hm-arr::after{right:auto;left:50%;top:auto;bottom:0;transform:translateX(-50%) rotate(135deg)}
+.hm-agents{justify-self:center;min-width:min(100%,240px);text-align:center;justify-items:center}
+.hm-gate{width:auto;margin:18px -16px 0;padding:14px 16px;border-left:0;border-top:4px solid var(--amber);border-radius:0 0 23px 23px;text-align:center;justify-items:center}
+.hm-out{margin:10px 0 0;text-align:center}
+.hm-out::before{content:"↓ "}
+}
+@media (max-width:479.98px){.hm-src .hm-s{display:none}}
 .how-index{list-style:none;margin:var(--s-6, 48px) 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .how-index a{position:relative;display:grid;align-content:start;gap:6px;height:100%;padding:20px 20px 52px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);text-decoration:none}
 .how-index .hi-n{color:var(--gold-text)}
@@ -1547,11 +1577,23 @@ r.classList.add('js');try{if(matchMedia('(prefers-reduced-motion: no-preference)
 <div class="grid">
  <p class="folio"><span class="vh"><span lang="zh">第 00 部分，如何工作</span><span lang="en">Part 00, How it works</span></span><span class="fo" aria-hidden="true"><span class="fo-n num">00</span><span class="fo-name mono"><span lang="zh">如何工作</span><span lang="en">How it works</span></span></span></p>
  <div class="how-copy c3-11">
-  <h1 id="h1" tabindex="-1"><span lang="zh">三个故事的背后，<br>是同一套机制</span><span lang="en">One system behind all three stories</span></h1>
-  <p class="lede"><span lang="zh">OpenMousse 从你的日常、学习与对话中积累对你的理解，记住你自己的观点，与朋友一起思考，并在你同意后替你做事。它运行在一台只属于你的云<span class="nw">服务器</span>上。</span><span lang="en">OpenMousse builds its understanding of you from your routines, your learning and your conversations. It remembers your own views, thinks with your friends and acts for you once you approve. It runs on a cloud server that is yours alone.</span></p>
+  <h1 id="h1" tabindex="-1"><span lang="zh">从了解你，<br>到替你做事</span><span lang="en">From knowing you to acting for you</span></h1>
+  <p class="lede"><span lang="zh">OpenMousse 从你的日常、学习与对话中积累对你的理解，记住你自己的观点，与朋友一起思考，并在你同意后替你做事。</span><span lang="en">OpenMousse builds its understanding of you from your routines, your learning and your conversations. It remembers your own views, thinks with your friends and acts for you once you approve.</span></p>
   <p class="how-back"><a class="link" href="index.html#stories"><span lang="zh">← 回到三个故事</span><span lang="en">← Back to the three stories</span></a></p>
  </div>
- <ol class="how-index c3-12"><li><a href="#context"><span class="hi-n mono">01</span><b><span lang="zh">上下文从哪里来</span><span lang="en">Where context comes from</span></b><span class="hi-s"><span lang="zh"><span class="nw">世界树</span>、日常数据与学习</span><span lang="en">The memory tree, daily data and learning</span></span><svg class="ic hi-ar" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="#views"><span class="hi-n mono">02</span><b><span lang="zh">你怎么看待世界</span><span lang="en">How you see the world</span></b><span class="hi-s"><span lang="zh">Zen，以及观点如何写进<span class="nw">世界树</span></span><span lang="en">Zen, and how your views reach the memory tree</span></span><svg class="ic hi-ar" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="#friends"><span class="hi-n mono">03</span><b><span lang="zh">和朋友一起</span><span lang="en">With friends</span></b><span class="hi-s"><span lang="zh">分享、讨论、播客与<span class="nw">名片 Agent</span></span><span lang="en">Sharing, discussion, podcasts and card agents</span></span><svg class="ic hi-ar" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="#errands"><span class="hi-n mono">04</span><b><span lang="zh">替你做事，但先问你</span><span lang="en">It acts, but asks first</span></b><span class="hi-s"><span lang="zh">多个 Agent 分工，Doorman 守门</span><span lang="en">Agents share the work; Doorman guards the door</span></span><svg class="ic hi-ar" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li><li><a href="#trust"><span class="hi-n mono">05</span><b><span lang="zh">信任</span><span lang="en">Trust</span></b><span class="hi-s"><span lang="zh">数据在哪里、经过哪里</span><span lang="en">Where your data lives and where it goes</span></span><svg class="ic hi-ar" aria-hidden="true"><use href="#i-arrow-r"/></svg></a></li></ol>
+ <nav class="how-map c3-12" aria-label="The five parts of this page" data-aria-zh="本页的五个部分" data-aria-en="The five parts of this page">
+  <div class="hm-server">
+   <p class="hm-k mono"><span lang="zh">你的<span class="nw">服务器</span></span><span lang="en">Your server</span></p>
+   <ol class="hm-src"><li><a href="#context"><span class="hm-n mono">01</span><b><span lang="zh">日常与学习</span><span lang="en">Daily life and learning</span></b><span class="hm-s"><span lang="zh">健康、日程、邮件与课程</span><span lang="en">Health, calendar, mail and courses</span></span></a></li><li><a href="#views"><span class="hm-n mono">02</span><b><span lang="zh">你的观点</span><span lang="en">Your views</span></b><span class="hm-s"><span lang="zh">记在 Zen 里的想法</span><span lang="en">Ideas you keep in Zen</span></span></a></li><li><a href="#friends"><span class="hm-n mono">03</span><b><span lang="zh">朋友</span><span lang="en">Friends</span></b><span class="hm-s"><span lang="zh">讨论与播客</span><span lang="en">Discussions and podcasts</span></span></a></li></ol>
+   <i class="hm-arr" aria-hidden="true"></i>
+   <a class="hm-tree" href="#memory-tree"><svg class="om-ring hm-ring" data-state="idle" viewBox="0 0 24 24" width="56" height="56" aria-hidden="true"><circle class="r-tr" cx="12" cy="12" r="8"/><circle class="r-arc" cx="12" cy="12" r="8" pathLength="100"/><circle class="r-rip" cx="12" cy="12" r="10"/><g class="r-dotg"><circle class="r-dot" cx="12" cy="4" r="2.6"/></g><path class="r-ok" d="M8.6 12.2l2.3 2.3 4.6-4.8" pathLength="1"/></svg><b><span lang="zh"><span class="nw">世界树</span></span><span lang="en">Memory tree</span></b><span class="hm-s"><span lang="zh">它对你的理解</span><span lang="en">Its understanding of you</span></span></a>
+   <i class="hm-arr" aria-hidden="true"></i>
+   <a class="hm-agents" href="#errands"><span class="hm-n mono">04</span><b><span lang="zh">多个 Agent</span><span lang="en">Agents</span></b><span class="hm-s"><span lang="zh">分工替你做事</span><span lang="en">Share the work for you</span></span></a>
+   <a class="hm-gate" href="#errands"><b>Doorman</b><span class="hm-s"><span lang="zh">付款、提交、发送与登录，先等你批准</span><span lang="en">Payments, submissions, messages and sign-ins wait for your approval</span></span></a>
+  </div>
+  <p class="hm-out"><span lang="zh">外部网站</span><span lang="en">Outside websites</span></p>
+ </nav>
+ <p class="hm-note c3-12"><span lang="zh">框里的一切都在你的<span class="nw">服务器</span>上。</span><span lang="en">Everything inside the frame stays on your server.</span><a class="link" href="#trust"><span class="mono">05</span> <span lang="zh">信任：数据在哪里、经过哪里 →</span><span lang="en">Trust: where your data lives and goes →</span></a></p>
 </div>
 </section>
 <span id="context" class="anchor"></span><section id="memory" class="sec" data-time="240" data-idx="01" aria-labelledby="memory-h"><div class="grid">
