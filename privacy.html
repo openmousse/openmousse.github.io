@@ -41,7 +41,7 @@
 
   <div lang="en">
     <h1>Privacy</h1>
-    <p class="updated">Last updated: October 4, 2026</p>
+    <p class="updated">Last updated: October 13, 2026</p>
 
     <p>OpenMousse is open-source software that you run on your own server. The OpenMousse iPhone app is a client for that server; it is published by Leo Zhou. Your server also serves a web version of the same app. This page explains what happens to your data.</p>
 
@@ -67,7 +67,8 @@
       <li><strong>Voice notes.</strong> Transcribed by the service set in your server's configuration: OpenAI by default, or your own Whisper-compatible server.</li>
       <li><strong>Memory tree (optional).</strong> If you connect Claude.ai, ChatGPT, Gemini or Notion to your memory tree, those services read and write it through the endpoint you set up.</li>
       <li><strong>Connectors (optional).</strong> If you connect an app such as Notion under Settings → Connectors, your server keeps its sign-in token, and your claw reads or writes that app through your server.</li>
-      <li><strong>Shares and friends (optional).</strong> A share link shows a snapshot of what you chose to share to anyone who has the link; private details such as addresses and family names are greyed out. If you add friends, your server exchanges signed messages with theirs.</li>
+      <li><strong>Nutrition lookups.</strong> When you log a food that isn’t in your own food library, your server looks up its name or barcode in Open Food Facts and USDA FoodData Central. The request carries only the food name or barcode, nothing about you, and the results are cached on your server.</li>
+      <li><strong>Shares and friends (optional).</strong> A share link shows a snapshot of what you chose to share to anyone who has the link; private details such as addresses and family names are greyed out. If you add friends, your server exchanges signed, end-to-end encrypted messages with theirs. When a server has no public address, these messages pass through the OpenMousse relay (relay.openmousse.ai, which runs on Cloudflare). The relay sees only which server a message is for, its size and when it was sent; it can’t read the content and stores nothing. Cloudflare may keep standard request logs, such as IP addresses.</li>
     </ul>
 
     <h2>Your account (TestFlight app)</h2>
@@ -107,7 +108,7 @@
 
   <div lang="zh">
     <h1>隐私政策</h1>
-    <p class="updated">最后更新：2026 年 10 月 4 日</p>
+    <p class="updated">最后更新：2026 年 10 月 13 日</p>
 
     <p>OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是这个服务器的客户端，由 Leo Zhou 发布；你的服务器也提供同一个 app 的网页版。本页说明你的数据会怎样被处理。</p>
 
@@ -133,7 +134,8 @@
       <li><strong>语音。</strong>由服务器配置里的转写服务处理：默认 OpenAI，也可以换成你自己的 Whisper 兼容服务。</li>
       <li><strong>世界树（可选）。</strong>如果你把 Claude.ai、ChatGPT、Gemini 或 Notion 接到世界树，这些服务会通过你设置的地址读写它。</li>
       <li><strong>连接器（可选）。</strong>你在「设置 → 连接器」里接了 Notion 这类应用的话，它的登录令牌存在你的服务器上，你的 claw 经你的服务器读写那个应用。</li>
-      <li><strong>分享和朋友（可选）。</strong>分享链接会把你选中内容的快照给有链接的人看，住址、家人名字这类私事显示成灰条。加了朋友的话，你的服务器和朋友的服务器之间互发签过名的消息。</li>
+      <li><strong>营养查询。</strong>记录饮食时，如果某样食物不在你自己的食物库里，你的服务器会用它的名称或条码向 Open Food Facts 和 USDA FoodData Central 查询。请求里只有食物名称或条码，不含你的任何信息；查到的结果缓存在你的服务器上。</li>
+      <li><strong>分享和朋友（可选）。</strong>分享链接会把你选中内容的快照给有链接的人看，住址、家人名字这类私事显示成灰条。加了朋友的话，你的服务器和朋友的服务器之间互发签过名、端到端加密的消息。服务器没有公网地址时，这些消息经 OpenMousse 中继（relay.openmousse.ai，运行在 Cloudflare 上）转发：中继只看得到消息发给哪台服务器、大小和时间，读不到内容，也不保存。Cloudflare 可能保留常规的访问记录，比如 IP 地址。</li>
     </ul>
 
     <h2>你的账号（TestFlight 版）</h2>
