@@ -78,6 +78,11 @@ html{scroll-padding-top:72px}
 .om-endcta:hover{border-color:#5CCFE6;background:rgba(11,13,16,.85)}
 .om-flinks{display:flex;flex-wrap:wrap;align-items:center}
 .om-flinks a+a::before{content:'·';margin:0 8px;color:#4A525C}
+/* the sticky screens centre their content in the space below the top bar */
+@media (min-width:761px){[data-sec="system"] .om-stick>.om-wrap{padding-top:72px !important}.om-story .om-stick>.om-wrap{padding-top:84px !important}}
+/* tablets and small laptops: keep the system section side by side so it fits one screen; stacked in portrait with a shorter figure */
+@media (min-width:761px) and (max-width:1100px){.om-systext{flex-basis:380px !important}[data-anchor="system"]{flex-basis:340px !important}}
+@media (min-width:761px) and (max-width:1100px) and (orientation:portrait){[data-anchor="system"]{height:380px !important;flex-basis:100% !important}}
 @media (max-width:760px){
 html{scroll-snap-type:none}
 .om-nav{gap:16px !important;font-size:13px !important}
@@ -597,7 +602,7 @@ canvas[data-pf="story"]{opacity:.4}
 <div class="om-stick" style="position: sticky; top: 0; height: 900px; overflow: clip">
 <canvas data-pf="system" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none"></canvas>
 <div class="om-wrap" style="height: 100%; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; align-content: center">
-<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div class="om-systext" style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
 <div style="display: flex; flex-direction: column; gap: 14px">
 <span style="font-size: 14px; letter-spacing: 0.06em; color: #858E98; display: flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 3px; background: #5CCFE6; flex: none"></span>系统机制</span>
 <h2 class="om-h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 500">四个故事的背后，是同一套系统在运转。</h2>
@@ -1263,7 +1268,7 @@ The next-generation personal OS where human intuition and autonomous agents conv
 <div class="om-stick" style="position: sticky; top: 0; height: 900px; overflow: clip">
 <canvas data-pf="system" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none"></canvas>
 <div class="om-wrap" style="height: 100%; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; align-content: center">
-<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div class="om-systext" style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
 <div style="display: flex; flex-direction: column; gap: 14px">
 <span style="font-size: 14px; letter-spacing: 0.06em; color: #858E98; display: flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 3px; background: #5CCFE6; flex: none"></span>How It Works</span>
 <h2 class="om-h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 500">Behind all four stories, the same system is at work.</h2>
@@ -1666,7 +1671,7 @@ The next-generation personal OS where human intuition and autonomous agents conv
 <div class="om-stick" style="position: sticky; top: 0; height: {{sysVh}}px; overflow: clip">
 <canvas data-pf="system" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none"></canvas>
 <div class="om-wrap" style="height: 100%; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; align-content: center">
-<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div class="om-systext" style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
 <div style="display: flex; flex-direction: column; gap: 14px">
 <span style="font-size: 14px; letter-spacing: 0.06em; color: #858E98; display: flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 3px; background: #5CCFE6; flex: none"></span>系统机制</span>
 <h2 class="om-h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 500">四个故事的背后，是同一套系统在运转。</h2>
@@ -2047,7 +2052,7 @@ The next-generation personal OS where human intuition and autonomous agents conv
 <div class="om-stick" style="position: sticky; top: 0; height: {{sysVh}}px; overflow: clip">
 <canvas data-pf="system" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none"></canvas>
 <div class="om-wrap" style="height: 100%; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; align-content: center">
-<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div class="om-systext" style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
 <div style="display: flex; flex-direction: column; gap: 14px">
 <span style="font-size: 14px; letter-spacing: 0.06em; color: #858E98; display: flex; align-items: center; gap: 10px"><span style="width: 6px; height: 6px; border-radius: 3px; background: #5CCFE6; flex: none"></span>How It Works</span>
 <h2 class="om-h2" style="margin: 0; font-size: 40px; line-height: 1.3; font-weight: 500">Behind all four stories, the same system is at work.</h2>

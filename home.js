@@ -642,7 +642,7 @@ class Component extends DCLogic {
   }
   drawLive(t) {
     const cv = document.querySelector('canvas[data-live]'); if (!cv) return;
-    const W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, navigator.maxTouchPoints > 0 ? 1.5 : 2);  // tablets: a lighter full-window canvas
     if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
     let L = this.L;
     if (!L) {
