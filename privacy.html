@@ -1,185 +1,136 @@
 <!doctype html>
-<html lang="en" data-lang="en">
+<html lang="en" data-lang="en" data-mode="human" data-title-zh="隐私政策 · OpenMousse 文档" data-title-en="Privacy Policy · OpenMousse Docs" data-slug="privacy" data-docs="docs/" data-root="">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy · OpenMousse</title>
-<meta name="description" content="How the OpenMousse app and server handle your data.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy · OpenMousse Docs</title>
+<meta name="description" content="Terms regarding local server data storage, model providers, transcription services, and account data.">
+<link rel="canonical" href="https://openmousse.ai/docs/privacy.html">
+<link rel="alternate" type="text/markdown" href="docs/privacy.md" title="Markdown">
+<link rel="alternate" type="text/markdown" hreflang="zh-CN" href="docs/privacy.zh-CN.md" title="Markdown (中文)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Privacy Policy · OpenMousse Docs">
+<meta property="og:description" content="Terms regarding local server data storage, model providers, transcription services, and account data.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/docs/privacy.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0D10">
 <link rel="icon" href="assets/icon.png">
-<script>
-  (function () {
-    var saved = null;
-    try { saved = localStorage.getItem('om-lang'); } catch (e) {}
-    var lang = saved || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
-    document.documentElement.setAttribute('data-lang', lang);
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  })();
-</script>
-<style>
-  :root { --bg: #F1F3F4; --surface: #FFFFFF; --ink: #12151A; --ink2: #4B535C; --line: #DADFE3; --cyan: #0F7A93; color-scheme: light; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #0B0D10; --surface: #14171C; --ink: #ECEEF0; --ink2: #A6AEB7; --line: #262C33; --cyan: #5CCFE6; color-scheme: dark; } }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
-  html[data-lang="en"] [lang="zh"], html[data-lang="zh"] [lang="en"] { display: none !important; }
-  a { color: var(--cyan); }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
-  header { display: flex; justify-content: space-between; align-items: center; padding: 18px 0 8px; }
-  header a.brand { color: var(--ink); font-weight: 700; text-decoration: none; }
-  .lang { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 14px; cursor: pointer; }
-  h1 { font-size: 34px; margin: 24px 0 4px; } .updated { color: var(--ink2); margin: 0 0 24px; }
-  h2 { font-size: 21px; margin: 32px 0 8px; }
-  li { margin: 6px 0; }
-</style>
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
+<link rel="stylesheet" href="docs/docs.css">
+<script>(function(d){var r=d.documentElement,l,m;try{l=localStorage.getItem('om-lang');m=localStorage.getItem('om-docs-mode')}catch(e){}var q=/[?&]view=(agent|human)/.exec(location.search);if(q){m=q[1];try{localStorage.setItem('om-docs-mode',m)}catch(e){}}l=l||(/^zh/i.test(navigator.language||'')?'zh':'en');r.setAttribute('data-lang',l);r.lang=l==='zh'?'zh-CN':'en';if(m==='agent'||m==='human')r.setAttribute('data-mode',m);r.classList.add('js');var t=r.getAttribute('data-title-'+l);if(t)d.title=t})(document)</script>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <a class="brand" href="/">OpenMousse</a>
-    <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span lang="en">中文</span><span lang="zh">English</span></button>
-  </header>
-
-  <div lang="en">
-    <h1>Privacy</h1>
-    <p class="updated">Last updated: October 13, 2026</p>
-
-    <p>OpenMousse is open-source software that you run on your own server. The OpenMousse iPhone app is a client for that server; it is published by Leo Zhou. Your server also serves a web version of the same app. This page explains what happens to your data.</p>
-
-    <h2>The short version</h2>
-    <ul>
-      <li>Your conversations, memory and health summaries are stored on your server, under your control. We never receive them.</li>
-      <li>The TestFlight app asks you to sign in with your email. That account holds your email, an optional name and the list of claws you connect, and nothing else. The web version and builds you make yourself have no account.</li>
-      <li>No ads, no analytics or tracking SDKs in the app.</li>
-    </ul>
-
-    <h2>What the app sends to your server</h2>
-    <ul>
-      <li>Messages, photos, files and voice notes you send in chat.</li>
-      <li>Apple Health daily summaries (activity, sleep, heart-rate measures and similar), only if you grant access. The app reads Health data; it never writes to it and never requests reproductive-health data. Health data is never used for advertising and is not shared with anyone by OpenMousse.</li>
-      <li>A push notification token, so your server can notify you when a reply is ready.</li>
-      <li>Your interface language, so the server can answer in it.</li>
-    </ul>
-
-    <h2>What leaves your server, by design</h2>
-    <ul>
-      <li><strong>Model providers.</strong> Your messages go to the AI model providers configured in your OpenClaw (for example Anthropic, OpenAI or Google), under your own accounts and their terms.</li>
-      <li><strong>Push notifications.</strong> Sent through Expo's push service and Apple Push Notification service. A notification carries a short title and a preview (for a chat reply: the conversation name and the first 140 characters).</li>
-      <li><strong>Voice notes.</strong> Transcribed by the service set in your server's configuration: OpenAI by default, or your own Whisper-compatible server.</li>
-      <li><strong>Memory tree (optional).</strong> If you connect Claude.ai, ChatGPT, Gemini or Notion to your memory tree, those services read and write it through the endpoint you set up.</li>
-      <li><strong>Connectors (optional).</strong> If you connect an app such as Notion under Settings → Connectors, your server keeps its sign-in token, and your claw reads or writes that app through your server.</li>
-      <li><strong>Nutrition lookups.</strong> When you log a food that isn’t in your own food library, your server looks up its name or barcode in Open Food Facts and USDA FoodData Central. The request carries only the food name or barcode, nothing about you, and the results are cached on your server.</li>
-      <li><strong>Shares and friends (optional).</strong> A share link shows a snapshot of what you chose to share to anyone who has the link; private details such as addresses and family names are greyed out. If you add friends, your server exchanges signed, end-to-end encrypted messages with theirs. When a server has no public address, these messages pass through the OpenMousse relay (relay.openmousse.ai, which runs on Cloudflare). The relay sees only which server a message is for, its size and when it was sent; it can’t read the content and stores nothing. Cloudflare may keep standard request logs, such as IP addresses.</li>
-    </ul>
-
-    <h2>Your account (TestFlight app)</h2>
-    <p>The OpenMousse app from TestFlight asks you to sign in once, with a 6-digit code sent to your email. The account lets the project see who uses the app and with which claws.</p>
-    <ul>
-      <li><strong>What it holds.</strong> Your email address, an optional name, and the claws you connect: the assistant's name, the server address, the claw's kind and name, and when it was last seen. Never tokens, chats, memory, health data or connector credentials.</li>
-      <li><strong>Who handles it.</strong> Supabase hosts the account in the EU (Ireland); Resend sends the sign-in code email. Supabase also keeps standard sign-in records, such as sign-in times and IP addresses.</li>
-      <li><strong>How long.</strong> Until you delete the account: Settings → your account → Delete account removes it and its list of claws. Nothing on your server changes. You can also email us for a copy of what we hold, or to delete it for you.</li>
-      <li><strong>No account.</strong> The web version and builds you make yourself don't sign in to anything; they talk only to your server.</li>
-    </ul>
-
-    <h2>The hosted-service waitlist</h2>
-    <p>If you join the waitlist on openmousse.ai, we keep your email address, the language of the page and when you joined. We use it only to tell you when the hosted service opens. Supabase stores it in the EU (Ireland). To be removed, email <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>.</p>
-    <h2>Other services the app uses</h2>
-    <ul>
-      <li><strong>App updates.</strong> The app checks Expo's update service for new versions of its code. This request contains app and platform version details, not your content.</li>
-      <li><strong>TestFlight.</strong> If you install the TestFlight build, Apple may share crash reports and any feedback you choose to send with the developer, under TestFlight's terms.</li>
-    </ul>
-
-    <h2>Demo server</h2>
-    <p>A demo server used for Apple's app review holds no personal data. Chat there is answered by a demo assistant without tools; anything sent to it is deleted when the review ends.</p>
-
-    <h2>Your choices</h2>
-    <ul>
-      <li>Turn Apple Health access off in iOS Settings at any time; the app stops syncing.</li>
-      <li>Delete conversations, journal entries and memories in the app, or remove the server's data directory.</li>
-      <li>Use your own transcription server, or don't use voice input.</li>
-      <li>Delete your account in the app: Settings → your account → Delete account.</li>
-    </ul>
-
-    <h2>Children</h2>
-    <p>OpenMousse is not directed to children under 13.</p>
-
-    <h2>Contact</h2>
-    <p><a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>. Changes to this page are tracked in the <a href="https://github.com/openmousse/openmousse.github.io">website repository</a>.</p>
-  </div>
-
-  <div lang="zh">
-    <h1>隐私政策</h1>
-    <p class="updated">最后更新：2026 年 10 月 13 日</p>
-
-    <p>OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是这个服务器的客户端，由 Leo Zhou 发布；你的服务器也提供同一个 app 的网页版。本页说明你的数据会怎样被处理。</p>
-
-    <h2>简单说</h2>
-    <ul>
-      <li>你的对话、记忆和健康汇总都存在你自己的服务器上，由你控制，我们收不到。</li>
-      <li>TestFlight 版的 app 会请你用邮箱登录。账号里只有你的邮箱、可选的名字和你连过的 claw 列表。网页版和自己构建的版本没有账号。</li>
-      <li>没有广告，app 里没有统计或追踪 SDK。</li>
-    </ul>
-
-    <h2>app 发给你服务器的内容</h2>
-    <ul>
-      <li>你在对话里发的消息、照片、文件和语音。</li>
-      <li>Apple 健康的每日汇总（活动、睡眠、心率类指标等），只在你授权后同步。app 只读健康数据，从不写入，也从不申请生殖健康类数据。OpenMousse 不会把健康数据用于广告，也不会分享给任何人。</li>
-      <li>推送令牌，用来在回复好了时通知你。</li>
-      <li>你的界面语言，服务器按它回话。</li>
-    </ul>
-
-    <h2>按设计会离开你服务器的内容</h2>
-    <ul>
-      <li><strong>模型服务商。</strong>你的消息会发给你在 OpenClaw 里配置的模型服务商（比如 Anthropic、OpenAI、Google），用的是你自己的账号，遵循它们的条款。</li>
-      <li><strong>推送通知。</strong>经 Expo 推送服务和 Apple 推送服务发送。一条通知包含简短的标题和预览（对话回复就是对话名和回复的前 140 个字）。</li>
-      <li><strong>语音。</strong>由服务器配置里的转写服务处理：默认 OpenAI，也可以换成你自己的 Whisper 兼容服务。</li>
-      <li><strong>世界树（可选）。</strong>如果你把 Claude.ai、ChatGPT、Gemini 或 Notion 接到世界树，这些服务会通过你设置的地址读写它。</li>
-      <li><strong>连接器（可选）。</strong>你在「设置 → 连接器」里接了 Notion 这类应用的话，它的登录令牌存在你的服务器上，你的 claw 经你的服务器读写那个应用。</li>
-      <li><strong>营养查询。</strong>记录饮食时，如果某样食物不在你自己的食物库里，你的服务器会用它的名称或条码向 Open Food Facts 和 USDA FoodData Central 查询。请求里只有食物名称或条码，不含你的任何信息；查到的结果缓存在你的服务器上。</li>
-      <li><strong>分享和朋友（可选）。</strong>分享链接会把你选中内容的快照给有链接的人看，住址、家人名字这类私事显示成灰条。加了朋友的话，你的服务器和朋友的服务器之间互发签过名、端到端加密的消息。服务器没有公网地址时，这些消息经 OpenMousse 中继（relay.openmousse.ai，运行在 Cloudflare 上）转发：中继只看得到消息发给哪台服务器、大小和时间，读不到内容，也不保存。Cloudflare 可能保留常规的访问记录，比如 IP 地址。</li>
-    </ul>
-
-    <h2>你的账号（TestFlight 版）</h2>
-    <p>从 TestFlight 装的 OpenMousse app 会请你登录一次：往你的邮箱发一个 6 位验证码。有了账号，项目才知道谁在用这个 app、接的是哪些 claw。</p>
-    <ul>
-      <li><strong>存什么。</strong>你的邮箱、可选的名字，和你连过的 claw：助手名、服务器地址、claw 的类型和名字、最近在线的时间。从不存令牌、对话、记忆、健康数据和连接器的凭据。</li>
-      <li><strong>谁经手。</strong>账号放在 Supabase 的欧盟区（爱尔兰）；登录验证码的邮件由 Resend 发出。Supabase 还会留常规的登录记录，比如登录时间和 IP 地址。</li>
-      <li><strong>存多久。</strong>一直到你删掉账号：「设置 → 账号 → 删除账号」会删掉账号和它记着的 claw 列表，你服务器上的东西一样不动。也可以发邮件给我们，要一份我们存的内容，或者让我们替你删。</li>
-      <li><strong>没有账号的。</strong>网页版和你自己构建的版本不登录任何东西，只连你自己的服务器。</li>
-    </ul>
-
-    <h2>托管服务等候名单</h2>
-    <p>在 openmousse.ai 加入等候名单时，我们保存你的邮箱、页面语言和加入时间，只用于在托管服务开放时通知你。数据由 Supabase 保存在欧盟（爱尔兰）。如需删除，请写信至 <a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>。</p>
-    <h2>app 用到的其他服务</h2>
-    <ul>
-      <li><strong>app 更新。</strong>app 会向 Expo 的更新服务查询新版本代码，请求里只有 app 和系统版本之类的信息，不含你的内容。</li>
-      <li><strong>TestFlight。</strong>如果你装的是 TestFlight 版本，Apple 可能按 TestFlight 的条款，把崩溃报告和你主动提交的反馈分享给开发者。</li>
-    </ul>
-
-    <h2>演示服务器</h2>
-    <p>给 Apple 审核用的演示服务器不存任何个人数据。那里的对话由一个不带工具的演示助手回答，发给它的内容在审核结束后删除。</p>
-
-    <h2>你可以做的</h2>
-    <ul>
-      <li>随时在 iOS 设置里关掉 Apple 健康授权，app 就停止同步。</li>
-      <li>在 app 里删除对话、日志和记忆，或者直接删掉服务器的数据目录。</li>
-      <li>换成自己的转写服务，或者不用语音输入。</li>
-      <li>在 app 里删掉账号：「设置 → 账号 → 删除账号」。</li>
-    </ul>
-
-    <h2>儿童</h2>
-    <p>OpenMousse 不面向 13 岁以下儿童。</p>
-
-    <h2>联系</h2>
-    <p><a href="mailto:hello@openmousse.ai">hello@openmousse.ai</a>。本页的修改记录在<a href="https://github.com/openmousse/openmousse.github.io">网站仓库</a>里。</p>
-  </div>
+<a class="gb-skip" href="#gb-main"><span data-l="zh">跳到正文</span><span data-l="en">Skip to content</span></a>
+<header class="gb-head">
+<div class="gb-bar">
+<button type="button" class="gb-ctl gb-burger" data-act="nav" aria-controls="gb-side" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+<a class="gb-brand" href="index.html"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10" fill="none" stroke="#D9AE62" stroke-width="3"></circle><circle cx="23.07" cy="8.93" r="2.6" fill="#5CCFE6"></circle></svg><span>OpenMousse</span></a>
+<button type="button" class="gb-ctl gb-lang" data-act="lang"><span data-l="zh" lang="en">English</span><span data-l="en" lang="zh-CN">中文</span></button>
+<span class="gb-seg" role="group" aria-label="Reader mode"><button type="button" class="gb-ctl" data-act="mode" data-v="human"><span data-l="zh">给人看</span><span data-l="en">For humans</span></button><button type="button" class="gb-ctl" data-act="mode" data-v="agent"><span data-l="zh">给 agent 看</span><span data-l="en">For agents</span></button></span>
+<span class="gb-grow"></span>
+<button type="button" class="gb-ctl gb-search" data-act="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><span class="gb-search-t"><span data-l="zh">搜索…</span><span data-l="en">Search…</span></span><kbd class="gb-mono">⌘K</kbd></button>
+<span class="gb-grow gb-grow2"></span>
+<nav class="gb-links"><a href="index.html"><span data-l="zh">官网</span><span data-l="en">Website</span></a><a href="https://github.com/openmousse/openmousse">GitHub</a></nav>
 </div>
-<script>
-  document.getElementById('lang').addEventListener('click', function () {
-    var next = document.documentElement.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
-    document.documentElement.setAttribute('data-lang', next);
-    document.documentElement.lang = next === 'zh' ? 'zh-CN' : 'en';
-    try { localStorage.setItem('om-lang', next); } catch (e) {}
-  });
-</script>
+</header>
+<div class="gb-body"><aside class="gb-side" id="gb-side"><div class="gb-sgrp gb-agent-only"><span class="gb-sgname"><span data-l="zh">索引</span><span data-l="en">Index</span></span><a class="gb-sitem" href="docs/llms.html">llms.txt</a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">概览</span><span data-l="en">Overview</span></span><a class="gb-sitem" href="docs/welcome.html"><span data-l="zh">欢迎使用 OpenMousse</span><span data-l="en">Welcome to OpenMousse</span></a><a class="gb-sitem" href="docs/quickstart.html"><span data-l="zh">快速开始</span><span data-l="en">Getting Started</span></a><a class="gb-sitem" href="docs/maintenance.html"><span data-l="zh">版本更新与故障自检</span><span data-l="en">Updates and Troubleshooting</span></a><a class="gb-sitem" href="docs/roadmap.html"><span data-l="zh">路线图</span><span data-l="en">Roadmap</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">指南</span><span data-l="en">Guides</span></span><a class="gb-sitem" href="docs/connect-ai.html"><span data-l="zh">把你常用的 AI 接进世界树</span><span data-l="en">Connect Your AIs to the Memory Tree</span></a><a class="gb-sitem" href="docs/agent-install.html"><span data-l="zh">让正在运行的 agent 安装 OpenMousse</span><span data-l="en">Install OpenMousse via an Existing Agent</span></a><a class="gb-sitem" href="docs/standalone-tree.html"><span data-l="zh">仅安装世界树服务</span><span data-l="en">Install the Standalone Memory Tree</span></a><a class="gb-sitem" href="docs/create-agent.html"><span data-l="zh">建立并管理功能 Agent</span><span data-l="en">Create and Manage Functional Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">功能</span><span data-l="en">Features</span></span><a class="gb-sitem" href="docs/memory.html"><span data-l="zh">世界树</span><span data-l="en">Memory Tree</span></a><a class="gb-sitem" href="docs/agents.html"><span data-l="zh">Agents</span><span data-l="en">Agents</span></a><a class="gb-sitem" href="docs/day.html"><span data-l="zh">今天页与 04:00 日结</span><span data-l="en">Today View and 04:00 Settlement</span></a><a class="gb-sitem" href="docs/approvals.html"><span data-l="zh">先问你（收件箱）</span><span data-l="en">Approvals (Inbox)</span></a><a class="gb-sitem" href="docs/zen.html"><span data-l="zh">Zen</span><span data-l="en">Zen</span></a><a class="gb-sitem" href="docs/errands.html"><span data-l="zh">代办与 Doorman</span><span data-l="en">Errands and Doorman</span></a><a class="gb-sitem" href="docs/friends.html"><span data-l="zh">好友与播客</span><span data-l="en">Friends and Podcasts</span></a><a class="gb-sitem" href="docs/security.html"><span data-l="zh">数据与安全</span><span data-l="en">Data and Security</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">开发</span><span data-l="en">Developer</span></span><a class="gb-sitem" href="docs/engine.html"><span data-l="zh">内核（agent harness）</span><span data-l="en">Engine (Agent Harness)</span></a><a class="gb-sitem" href="docs/api.html"><span data-l="zh">程序调用接口</span><span data-l="en">Programmatic API</span></a><a class="gb-sitem" href="docs/agent-guide.html"><span data-l="zh">给 agent 的安装说明</span><span data-l="en">Install Guide for Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">法律</span><span data-l="en">Legal</span></span><a class="gb-sitem on" href="docs/privacy.html" aria-current=page><span data-l="zh">隐私政策</span><span data-l="en">Privacy Policy</span></a><a class="gb-sitem" href="docs/license.html"><span data-l="zh">开源许可</span><span data-l="en">Open-Source License</span></a></div></aside><div class="gb-scrim" data-act="nav" aria-hidden="true"></div><main class="gb-main" id="gb-main"><div class="gb-human"><div class="gb-cols"><article class="gb-art" data-l="zh" lang="zh-CN"><div class="gb-notice"><span class="gb-notice-t">完整的文档索引见<a href="llms.txt">llms.txt</a>。在网址后加<span class="gb-mono gb-ink2">.md</span>可以拿到 Markdown 版本；本页的 Markdown 版本是<a class="gb-mono" href="docs/privacy.zh-CN.md">privacy.zh-CN.md</a>。</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="复制" data-l-done="已复制"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>复制</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="更多" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>复制页面</span><span>把这一页的 Markdown 复制给 AI</span></button><a role="menuitem" class="gb-hov" href="docs/privacy.zh-CN.md" target="_blank" rel="noopener"><span>以 Markdown 查看</span><span>打开这一页的 .md 版本</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>复制给 AI</span><span>连同 llms.txt 的地址一起复制</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>导出 PDF</span><span>把这一页存成 PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">法律</span><h1 class="gb-h1">隐私政策</h1><p class="gb-desc">关于本地服务器数据存储、模型服务商、转写服务与账号数据的条款说明。</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">最后更新：2026 年 10 月 19 日</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是该服务器的客户端，由 Leo Zhou 发布；你的服务器同时提供同一客户端的网页版。本页说明你的数据如何被处理。</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-overview">概览</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>你的对话、记忆与健康数据汇总均保存在你自己的服务器上，由你控制，我们无法获取。</span></li><li><span class="gb-mk">•</span><span>TestFlight 版本的 app 会要求你使用邮箱登录。账号仅记录你的邮箱、可选的称呼以及你连接过的服务（claw）列表。网页版与自行构建的版本不设账号。</span></li><li><span class="gb-mk">•</span><span>没有广告，app 内不包含任何统计或追踪 SDK。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-data-sent-from-the-client-to-your-server">客户端发送至你服务器的数据</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>对话内容</strong>：你在对话中发送的消息、照片、文件与语音。</span></li><li><span class="gb-mk">•</span><span><strong>Apple 健康数据</strong>：每日汇总指标（活动、睡眠、心率类指标等），仅在你授权后同步。app 仅读取健康数据，从不写入，也不申请生殖健康类数据。OpenMousse 不会将健康数据用于广告，也不会分享给任何第三方。</span></li><li><span class="gb-mk">•</span><span><strong>推送令牌</strong>：用于在回复生成后向你的设备发送通知。</span></li><li><span class="gb-mk">•</span><span><strong>界面语言</strong>：服务器据此使用对应的语言回复。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-data-that-leaves-your-server-by-design">按设计会离开你服务器的数据</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>模型服务商</strong>：每一轮对话发往你所选的模型服务（如 Anthropic、OpenAI、Google，含备用模型），内容为该轮消息与回答所需的记忆，使用你自己的账号或 API 密钥，并适用对应服务商的条款。</span></li><li><span class="gb-mk">•</span><span><strong>推送通知</strong>：经由 Expo 推送服务与 Apple 推送服务（APNs）发送。单条通知包含简短标题与预览（对话回复的通知内容为对话名称及回复的前 140 个字符）。</span></li><li><span class="gb-mk">•</span><span><strong>语音转写</strong>：由服务器配置的转写服务处理，默认为 OpenAI，也可替换为你自己的 Whisper 兼容服务。</span></li><li><span class="gb-mk">•</span><span><strong>世界树（可选）</strong>：若你将 Claude.ai、ChatGPT、Gemini 或 Notion 接入世界树，这些服务会通过你配置的专属地址读写世界树。</span></li><li><span class="gb-mk">•</span><span><strong>连接器（可选）</strong>：若你在「设置 → 连接器」中接入了 Notion 等外部应用，其登录令牌保存在你的服务器上，系统经由你的服务器读写该应用。</span></li><li><span class="gb-mk">•</span><span><strong>营养查询</strong>：记录饮食时，若某项食物不在你本地的食物库中，服务器会使用食物名称或条码向 Open Food Facts 与 USDA FoodData Central 发起查询。请求仅包含食物名称或条码，不含任何个人信息；查询结果缓存在你的服务器上。</span></li><li><span class="gb-mk">•</span><span><strong>分享与好友（可选）</strong>：分享链接会将你选中内容的快照展示给持有链接的人，住址、家人姓名等隐私信息会遮盖为灰条。添加好友后，你的服务器与好友的服务器之间直接收发附带签名、端到端加密的消息。若服务器无公网地址，消息经由 OpenMousse 中继（<code>relay.openmousse.ai</code>，运行于 Cloudflare）转发；中继仅能获取收件服务器地址、数据大小与发送时间，看不到消息内容，也不保存任何消息。Cloudflare 可能会保留常规访问日志（如 IP 地址）。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-accounts-and-cloud-services">账号与云端服务</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>TestFlight 版账号</strong>：从 TestFlight 安装的 app 会向你的邮箱发送 6 位验证码以完成登录。账号保存你的邮箱、可选的称呼，以及连接过的服务列表（助手名称、服务器地址、类型与名称、最近在线时间），从不保存令牌、对话、记忆、健康数据与连接器凭据。账号数据存储于 Supabase 欧盟区（爱尔兰），验证码邮件由 Resend 发送；Supabase 会保留登录时间与 IP 地址等常规日志。账号数据将保留至你主动删除为止。</span></li><li><span class="gb-mk">•</span><span><strong>托管专属云服务器</strong>：如果你使用我们托管的专属云服务器，只有你为排查问题明确授权时，运维人员才会登录，并留下你能查看的记录。</span></li><li><span class="gb-mk">•</span><span><strong>托管服务等候名单</strong>：在 <code>openmousse.ai</code> 加入等候名单时，我们会保存你的邮箱、页面语言与加入时间，仅用于在托管服务开放时通知你。数据由 Supabase 保存在欧盟区（爱尔兰）。</span></li><li><span class="gb-mk">•</span><span><strong>其他客户端服务</strong>：app 会向 Expo 更新服务查询新版本代码（仅包含 app 与系统版本信息，不含个人内容）。若使用 TestFlight 版本，Apple 可能会按其条款将崩溃报告与你主动提交的反馈分享给开发者。</span></li><li><span class="gb-mk">•</span><span><strong>演示服务器</strong>：供 Apple 审核使用的演示服务器不保存任何个人数据，对话由不带工具的演示助手回答，相关内容在审核结束后删除。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-your-controls-and-contact-information">你的控制权与联系方式</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>你可以随时在 iOS 设置中关闭 Apple 健康授权。</span></li><li><span class="gb-mk">•</span><span>你可以将语音转写换成自己的转写服务，或者不使用语音输入。</span></li><li><span class="gb-mk">•</span><span>你可以在 app 内删除对话、日志与记忆，或直接删除服务器的数据目录。</span></li><li><span class="gb-mk">•</span><span>你可以在 app 中通过「设置 → 账号 → 删除账号」删除账号及连接列表（你服务器上的数据不受影响），或致信 <code>hello@openmousse.ai</code> 获取、删除我们在等候名单或账号中保存的信息。</span></li><li><span class="gb-mk">•</span><span>OpenMousse 不面向 13 岁以下儿童。本页的修改记录保存在网站代码仓库中。</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">最后更新于 2026-10-19</span><span class="gb-helpful"><span>这一页有帮助吗？</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">有</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">没有</button><span class="gb-thanks" hidden>谢谢你的反馈</span></span></div><nav class="gb-pager" aria-label="上一页 / 下一页"><a class="gb-card gb-prev" href="docs/agent-guide.html"><span>上一页</span><span>← 给 agent 的安装说明</span></a><a class="gb-card gb-next" href="docs/license.html"><span>下一页</span><span>开源许可 →</span></a></nav></div></article><article class="gb-art" data-l="en" lang="en"><div class="gb-notice"><span class="gb-notice-t">For a complete index of the docs, see <a href="llms.txt">llms.txt</a>. Append <span class="gb-mono gb-ink2">.md</span> to any URL for the Markdown version; this page&#x27;s Markdown is at <a class="gb-mono" href="docs/privacy.md">privacy.md</a>.</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="Copy" data-l-done="Copied"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>Copy</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="More" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>Copy page</span><span>Copy this page as Markdown for AI</span></button><a role="menuitem" class="gb-hov" href="docs/privacy.md" target="_blank" rel="noopener"><span>View as Markdown</span><span>Open the .md version of this page</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>Copy for AI</span><span>Copy with the llms.txt URL</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>Export PDF</span><span>Save this page as a PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">Legal</span><h1 class="gb-h1">Privacy Policy</h1><p class="gb-desc">Terms regarding local server data storage, model providers, transcription services, and account data.</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">Last updated: October 19, 2026</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">OpenMousse is open-source software that runs on your own server. The OpenMousse iPhone app is a client for that server, published by Leo Zhou; your server also serves a web app version of the same client. This page explains how your data is handled.</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="overview">Overview</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>Your conversations, memories, and health data summaries are stored on your own server under your control; OpenMousse has no access to them.</span></li><li><span class="gb-mk">•</span><span>The TestFlight build of the app asks you to sign in with your email address. Your account records only your email address, an optional display name, and the list of services (claws) you have connected. The web app and self-built versions have no account system.</span></li><li><span class="gb-mk">•</span><span>There are no ads, and the app contains no analytics or tracking SDKs.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="data-sent-from-the-client-to-your-server">Data Sent from the Client to Your Server</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Conversation content</strong>: Messages, photos, files, and voice recordings you send in conversations.</span></li><li><span class="gb-mk">•</span><span><strong>Apple Health data</strong>: Daily summary metrics (activity, sleep, heart-rate metrics, and similar), synced only after you grant permission. The app only reads health data, never writes to Apple Health, and never requests reproductive health data. OpenMousse never uses health data for advertising and never shares it with any third party.</span></li><li><span class="gb-mk">•</span><span><strong>Push token</strong>: Used to send notifications to your device after a reply is generated.</span></li><li><span class="gb-mk">•</span><span><strong>Interface language</strong>: Used by the server to reply in the corresponding language.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="data-that-leaves-your-server-by-design">Data That Leaves Your Server by Design</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Model providers</strong>: Each turn of conversation is sent to your chosen model provider (such as Anthropic, OpenAI, or Google, including fallback models), containing that turn&#x27;s message and the memories needed to answer, using your own account or API key and governed by that provider&#x27;s terms.</span></li><li><span class="gb-mk">•</span><span><strong>Push notifications</strong>: Sent via the Expo Push Service and Apple Push Notification service (APNs). Each notification contains a short title and preview (for conversation replies, the notification contains the conversation name and the first 140 characters of the reply).</span></li><li><span class="gb-mk">•</span><span><strong>Voice transcription</strong>: Processed by the transcription service configured on your server—OpenAI by default, or replaceable with your own Whisper-compatible service.</span></li><li><span class="gb-mk">•</span><span><strong>Memory tree (optional)</strong>: If you connect Claude.ai, ChatGPT, Gemini, or Notion to the memory tree, those services read and write the memory tree through the dedicated URL you configured.</span></li><li><span class="gb-mk">•</span><span><strong>Connectors (optional)</strong>: If you connect external apps such as Notion in <strong>Settings → Connector</strong>, their login tokens are stored on your server, and the system reads and writes those apps through your server.</span></li><li><span class="gb-mk">•</span><span><strong>Nutrition lookup</strong>: When logging meals, if a food item is not in your local food database, your server queries Open Food Facts and USDA FoodData Central using the food name or barcode. Requests contain only the food name or barcode and no personal information; query results are cached on your server.</span></li><li><span class="gb-mk">•</span><span><strong>Sharing and friends (optional)</strong>: A share link shows a snapshot of your selected content to anyone holding the link, with private details such as home addresses and family members&#x27; names masked as gray bars. After you add a friend, your server and your friend&#x27;s server exchange signed, end-to-end encrypted messages directly. If neither server has a public address, messages are forwarded through the OpenMousse relay (<code>relay.openmousse.ai</code>, running on Cloudflare); the relay sees only the recipient server address, payload size, and timestamp, cannot read message content, and stores no messages. Cloudflare may retain standard access logs (such as IP addresses).</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="accounts-and-cloud-services">Accounts and Cloud Services</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>TestFlight account</strong>: The app installed from TestFlight sends a 6-digit verification code to your email address to sign in. Your account stores your email address, an optional display name, and your list of connected services (assistant name, server URL, type and name, and last online time); it never stores tokens, conversations, memories, health data, or connector credentials. Account data is stored in Supabase&#x27;s EU region (Ireland), and verification emails are sent via Resend; Supabase retains standard logs such as sign-in time and IP address. Account data is retained until you delete it.</span></li><li><span class="gb-mk">•</span><span><strong>Hosted dedicated cloud server</strong>: If you use a dedicated cloud server hosted by OpenMousse, operations staff log in only when you explicitly authorize access for troubleshooting, and leave an audit log you can inspect.</span></li><li><span class="gb-mk">•</span><span><strong>Hosted service waitlist</strong>: When you join the waitlist on <code>openmousse.ai</code>, we store your email address, page language, and signup time solely to notify you when the hosted service opens. This data is stored by Supabase in the EU region (Ireland).</span></li><li><span class="gb-mk">•</span><span><strong>Other client services</strong>: The app queries the Expo Updates service for new code bundles (sending only app and OS version information, with no personal content). If you use the TestFlight build, Apple may share crash reports and feedback you actively submit with the developer under Apple&#x27;s terms.</span></li><li><span class="gb-mk">•</span><span><strong>Demo server</strong>: The demo server provided for Apple App Review stores no personal data, answers conversations using a demo assistant with no tools attached, and deletes all related content after review is complete.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="your-controls-and-contact-information">Your Controls and Contact Information</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>You can turn off Apple Health permissions at any time in iOS Settings.</span></li><li><span class="gb-mk">•</span><span>You can switch voice transcription to your own transcription service, or choose not to use voice input.</span></li><li><span class="gb-mk">•</span><span>You can delete conversations, journals, and memories inside the app, or delete the data directory on your server directly.</span></li><li><span class="gb-mk">•</span><span>You can delete your account and connection list in the app via <strong>Settings → Account → Delete account</strong> (data on your server is unaffected), or email <code>hello@openmousse.ai</code> to request or delete the information stored in the waitlist or your account.</span></li><li><span class="gb-mk">•</span><span>OpenMousse is not directed to children under 13. The revision history of this page is maintained in the website code repository.</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">Last updated 2026-10-19</span><span class="gb-helpful"><span>Was this page helpful?</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">Yes</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">No</button><span class="gb-thanks" hidden>Thanks for your feedback</span></span></div><nav class="gb-pager" aria-label="Previous / Next"><a class="gb-card gb-prev" href="docs/agent-guide.html"><span>Previous</span><span>← Install Guide for Agents</span></a><a class="gb-card gb-next" href="docs/license.html"><span>Next</span><span>Open-Source License →</span></a></nav></div></article><nav class="gb-toc" data-l="zh" aria-label="本页目录"><span class="gb-toc-t">本页目录</span><a href="#zh-overview" data-toc="zh-overview">概览</a><a href="#zh-data-sent-from-the-client-to-your-server" data-toc="zh-data-sent-from-the-client-to-your-server">客户端发送至你服务器的数据</a><a href="#zh-data-that-leaves-your-server-by-design" data-toc="zh-data-that-leaves-your-server-by-design">按设计会离开你服务器的数据</a><a href="#zh-accounts-and-cloud-services" data-toc="zh-accounts-and-cloud-services">账号与云端服务</a><a href="#zh-your-controls-and-contact-information" data-toc="zh-your-controls-and-contact-information">你的控制权与联系方式</a></nav><nav class="gb-toc" data-l="en" aria-label="On this page"><span class="gb-toc-t">On this page</span><a href="#overview" data-toc="overview">Overview</a><a href="#data-sent-from-the-client-to-your-server" data-toc="data-sent-from-the-client-to-your-server">Data Sent from the Client to Your Server</a><a href="#data-that-leaves-your-server-by-design" data-toc="data-that-leaves-your-server-by-design">Data That Leaves Your Server by Design</a><a href="#accounts-and-cloud-services" data-toc="accounts-and-cloud-services">Accounts and Cloud Services</a><a href="#your-controls-and-contact-information" data-toc="your-controls-and-contact-information">Your Controls and Contact Information</a></nav></div></div><div class="gb-agent"><p class="gb-agent-note"><span data-l="zh">这一页给 agent 读的版本：在网址后加 .md 就是下面这份纯文本，和给人看的那页由同一份内容生成。</span><span data-l="en">Agent-readable version of this page: append .md to the URL to get the plain text below, generated from the same source as the human view.</span></p><div class="gb-pane"><div class="gb-pane-bar"><span class="gb-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gb-mono gb-url"></span><span class="gb-mono gb-type"></span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="agent" data-l-copy-zh="复制" data-l-done-zh="已复制" data-l-copy-en="Copy" data-l-done-en="Copied">Copy</button></div><div class="gb-mono gb-md" aria-live="polite"></div></div></div></main></div><div class="gb-sdlg" role="dialog" aria-modal="true" hidden><div class="gb-sbox"><div class="gb-sinput"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input type="search" autocomplete="off" spellcheck="false" data-ph-zh="搜索文档" data-ph-en="Search docs" aria-label="Search docs"><kbd class="gb-mono">Esc</kbd></div><div class="gb-sres" role="listbox"></div><div class="gb-shint"><span data-l="zh">按 Esc 关闭</span><span data-l="en">Press Esc to close</span></div></div></div><span hidden id="gb-strings" data-none-zh="没有找到相关内容" data-none-en="No results found" data-fail-zh="暂时无法搜索，请稍后再试" data-fail-en="Search is unavailable right now. Please try again later." data-menu-zh="目录" data-menu-en="Menu" data-close-zh="关闭目录" data-close-en="Close menu"></span><script type="text/plain" id="md-zh" data-url="openmousse.ai/docs/privacy.zh-CN.md" data-type="text/markdown">完整的文档索引见 [llms.txt](https://openmousse.ai/llms.txt)。在网址后加 `.md` 可以拿到 Markdown 版本；本页的 Markdown 版本在 `https://openmousse.ai/docs/privacy.zh-CN.md`。
+
+# 隐私政策
+关于本地服务器数据存储、模型服务商、转写服务与账号数据的条款说明。
+
+最后更新：2026 年 10 月 19 日
+
+OpenMousse 是开源软件，运行在你自己的服务器上。OpenMousse iPhone app 是该服务器的客户端，由 Leo Zhou 发布；你的服务器同时提供同一客户端的网页版。本页说明你的数据如何被处理。
+
+## 概览
+
+- 你的对话、记忆与健康数据汇总均保存在你自己的服务器上，由你控制，我们无法获取。
+- TestFlight 版本的 app 会要求你使用邮箱登录。账号仅记录你的邮箱、可选的称呼以及你连接过的服务（claw）列表。网页版与自行构建的版本不设账号。
+- 没有广告，app 内不包含任何统计或追踪 SDK。
+
+## 客户端发送至你服务器的数据
+
+- **对话内容**：你在对话中发送的消息、照片、文件与语音。
+- **Apple 健康数据**：每日汇总指标（活动、睡眠、心率类指标等），仅在你授权后同步。app 仅读取健康数据，从不写入，也不申请生殖健康类数据。OpenMousse 不会将健康数据用于广告，也不会分享给任何第三方。
+- **推送令牌**：用于在回复生成后向你的设备发送通知。
+- **界面语言**：服务器据此使用对应的语言回复。
+
+## 按设计会离开你服务器的数据
+
+- **模型服务商**：每一轮对话发往你所选的模型服务（如 Anthropic、OpenAI、Google，含备用模型），内容为该轮消息与回答所需的记忆，使用你自己的账号或 API 密钥，并适用对应服务商的条款。
+- **推送通知**：经由 Expo 推送服务与 Apple 推送服务（APNs）发送。单条通知包含简短标题与预览（对话回复的通知内容为对话名称及回复的前 140 个字符）。
+- **语音转写**：由服务器配置的转写服务处理，默认为 OpenAI，也可替换为你自己的 Whisper 兼容服务。
+- **世界树（可选）**：若你将 Claude.ai、ChatGPT、Gemini 或 Notion 接入世界树，这些服务会通过你配置的专属地址读写世界树。
+- **连接器（可选）**：若你在「设置 → 连接器」中接入了 Notion 等外部应用，其登录令牌保存在你的服务器上，系统经由你的服务器读写该应用。
+- **营养查询**：记录饮食时，若某项食物不在你本地的食物库中，服务器会使用食物名称或条码向 Open Food Facts 与 USDA FoodData Central 发起查询。请求仅包含食物名称或条码，不含任何个人信息；查询结果缓存在你的服务器上。
+- **分享与好友（可选）**：分享链接会将你选中内容的快照展示给持有链接的人，住址、家人姓名等隐私信息会遮盖为灰条。添加好友后，你的服务器与好友的服务器之间直接收发附带签名、端到端加密的消息。若服务器无公网地址，消息经由 OpenMousse 中继（`relay.openmousse.ai`，运行于 Cloudflare）转发；中继仅能获取收件服务器地址、数据大小与发送时间，看不到消息内容，也不保存任何消息。Cloudflare 可能会保留常规访问日志（如 IP 地址）。
+
+## 账号与云端服务
+
+- **TestFlight 版账号**：从 TestFlight 安装的 app 会向你的邮箱发送 6 位验证码以完成登录。账号保存你的邮箱、可选的称呼，以及连接过的服务列表（助手名称、服务器地址、类型与名称、最近在线时间），从不保存令牌、对话、记忆、健康数据与连接器凭据。账号数据存储于 Supabase 欧盟区（爱尔兰），验证码邮件由 Resend 发送；Supabase 会保留登录时间与 IP 地址等常规日志。账号数据将保留至你主动删除为止。
+- **托管专属云服务器**：如果你使用我们托管的专属云服务器，只有你为排查问题明确授权时，运维人员才会登录，并留下你能查看的记录。
+- **托管服务等候名单**：在 `openmousse.ai` 加入等候名单时，我们会保存你的邮箱、页面语言与加入时间，仅用于在托管服务开放时通知你。数据由 Supabase 保存在欧盟区（爱尔兰）。
+- **其他客户端服务**：app 会向 Expo 更新服务查询新版本代码（仅包含 app 与系统版本信息，不含个人内容）。若使用 TestFlight 版本，Apple 可能会按其条款将崩溃报告与你主动提交的反馈分享给开发者。
+- **演示服务器**：供 Apple 审核使用的演示服务器不保存任何个人数据，对话由不带工具的演示助手回答，相关内容在审核结束后删除。
+
+## 你的控制权与联系方式
+
+- 你可以随时在 iOS 设置中关闭 Apple 健康授权。
+- 你可以将语音转写换成自己的转写服务，或者不使用语音输入。
+- 你可以在 app 内删除对话、日志与记忆，或直接删除服务器的数据目录。
+- 你可以在 app 中通过「设置 → 账号 → 删除账号」删除账号及连接列表（你服务器上的数据不受影响），或致信 `hello@openmousse.ai` 获取、删除我们在等候名单或账号中保存的信息。
+- OpenMousse 不面向 13 岁以下儿童。本页的修改记录保存在网站代码仓库中。
+</script><script type="text/plain" id="md-en" data-url="openmousse.ai/docs/privacy.md" data-type="text/markdown">The full documentation index is at [llms.txt](https://openmousse.ai/llms.txt). Append `.md` to a docs URL to get its Markdown; this page's Markdown is at `https://openmousse.ai/docs/privacy.md`.
+
+# Privacy Policy
+Terms regarding local server data storage, model providers, transcription services, and account data.
+
+Last updated: October 19, 2026
+
+OpenMousse is open-source software that runs on your own server. The OpenMousse iPhone app is a client for that server, published by Leo Zhou; your server also serves a web app version of the same client. This page explains how your data is handled.
+
+## Overview
+
+- Your conversations, memories, and health data summaries are stored on your own server under your control; OpenMousse has no access to them.
+- The TestFlight build of the app asks you to sign in with your email address. Your account records only your email address, an optional display name, and the list of services (claws) you have connected. The web app and self-built versions have no account system.
+- There are no ads, and the app contains no analytics or tracking SDKs.
+
+## Data Sent from the Client to Your Server
+
+- **Conversation content**: Messages, photos, files, and voice recordings you send in conversations.
+- **Apple Health data**: Daily summary metrics (activity, sleep, heart-rate metrics, and similar), synced only after you grant permission. The app only reads health data, never writes to Apple Health, and never requests reproductive health data. OpenMousse never uses health data for advertising and never shares it with any third party.
+- **Push token**: Used to send notifications to your device after a reply is generated.
+- **Interface language**: Used by the server to reply in the corresponding language.
+
+## Data That Leaves Your Server by Design
+
+- **Model providers**: Each turn of conversation is sent to your chosen model provider (such as Anthropic, OpenAI, or Google, including fallback models), containing that turn's message and the memories needed to answer, using your own account or API key and governed by that provider's terms.
+- **Push notifications**: Sent via the Expo Push Service and Apple Push Notification service (APNs). Each notification contains a short title and preview (for conversation replies, the notification contains the conversation name and the first 140 characters of the reply).
+- **Voice transcription**: Processed by the transcription service configured on your server—OpenAI by default, or replaceable with your own Whisper-compatible service.
+- **Memory tree (optional)**: If you connect Claude.ai, ChatGPT, Gemini, or Notion to the memory tree, those services read and write the memory tree through the dedicated URL you configured.
+- **Connectors (optional)**: If you connect external apps such as Notion in **Settings → Connector**, their login tokens are stored on your server, and the system reads and writes those apps through your server.
+- **Nutrition lookup**: When logging meals, if a food item is not in your local food database, your server queries Open Food Facts and USDA FoodData Central using the food name or barcode. Requests contain only the food name or barcode and no personal information; query results are cached on your server.
+- **Sharing and friends (optional)**: A share link shows a snapshot of your selected content to anyone holding the link, with private details such as home addresses and family members' names masked as gray bars. After you add a friend, your server and your friend's server exchange signed, end-to-end encrypted messages directly. If neither server has a public address, messages are forwarded through the OpenMousse relay (`relay.openmousse.ai`, running on Cloudflare); the relay sees only the recipient server address, payload size, and timestamp, cannot read message content, and stores no messages. Cloudflare may retain standard access logs (such as IP addresses).
+
+## Accounts and Cloud Services
+
+- **TestFlight account**: The app installed from TestFlight sends a 6-digit verification code to your email address to sign in. Your account stores your email address, an optional display name, and your list of connected services (assistant name, server URL, type and name, and last online time); it never stores tokens, conversations, memories, health data, or connector credentials. Account data is stored in Supabase's EU region (Ireland), and verification emails are sent via Resend; Supabase retains standard logs such as sign-in time and IP address. Account data is retained until you delete it.
+- **Hosted dedicated cloud server**: If you use a dedicated cloud server hosted by OpenMousse, operations staff log in only when you explicitly authorize access for troubleshooting, and leave an audit log you can inspect.
+- **Hosted service waitlist**: When you join the waitlist on `openmousse.ai`, we store your email address, page language, and signup time solely to notify you when the hosted service opens. This data is stored by Supabase in the EU region (Ireland).
+- **Other client services**: The app queries the Expo Updates service for new code bundles (sending only app and OS version information, with no personal content). If you use the TestFlight build, Apple may share crash reports and feedback you actively submit with the developer under Apple's terms.
+- **Demo server**: The demo server provided for Apple App Review stores no personal data, answers conversations using a demo assistant with no tools attached, and deletes all related content after review is complete.
+
+## Your Controls and Contact Information
+
+- You can turn off Apple Health permissions at any time in iOS Settings.
+- You can switch voice transcription to your own transcription service, or choose not to use voice input.
+- You can delete conversations, journals, and memories inside the app, or delete the data directory on your server directly.
+- You can delete your account and connection list in the app via **Settings → Account → Delete account** (data on your server is unaffected), or email `hello@openmousse.ai` to request or delete the information stored in the waitlist or your account.
+- OpenMousse is not directed to children under 13. The revision history of this page is maintained in the website code repository.
+</script><script src="docs/docs.js" defer></script>
 </body>
 </html>

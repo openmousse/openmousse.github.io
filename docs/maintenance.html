@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-mode="human" data-title-zh="版本更新与故障自检 · OpenMousse 文档" data-title-en="Updates and Troubleshooting · OpenMousse Docs" data-slug="maintenance" data-docs="" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Updates and Troubleshooting · OpenMousse Docs</title>
+<meta name="description" content="Update your server with the latest code or run `check.sh` to diagnose issues.">
+<link rel="canonical" href="https://openmousse.ai/docs/maintenance.html">
+<link rel="alternate" type="text/markdown" href="maintenance.md" title="Markdown">
+<link rel="alternate" type="text/markdown" hreflang="zh-CN" href="maintenance.zh-CN.md" title="Markdown (中文)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Updates and Troubleshooting · OpenMousse Docs">
+<meta property="og:description" content="Update your server with the latest code or run `check.sh` to diagnose issues.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/docs/maintenance.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0D10">
+<link rel="icon" href="../assets/icon.png">
+<link rel="apple-touch-icon" href="../assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
+<link rel="stylesheet" href="docs.css">
+<script>(function(d){var r=d.documentElement,l,m;try{l=localStorage.getItem('om-lang');m=localStorage.getItem('om-docs-mode')}catch(e){}var q=/[?&]view=(agent|human)/.exec(location.search);if(q){m=q[1];try{localStorage.setItem('om-docs-mode',m)}catch(e){}}l=l||(/^zh/i.test(navigator.language||'')?'zh':'en');r.setAttribute('data-lang',l);r.lang=l==='zh'?'zh-CN':'en';if(m==='agent'||m==='human')r.setAttribute('data-mode',m);r.classList.add('js');var t=r.getAttribute('data-title-'+l);if(t)d.title=t})(document)</script>
+</head>
+<body>
+<a class="gb-skip" href="#gb-main"><span data-l="zh">跳到正文</span><span data-l="en">Skip to content</span></a>
+<header class="gb-head">
+<div class="gb-bar">
+<button type="button" class="gb-ctl gb-burger" data-act="nav" aria-controls="gb-side" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+<a class="gb-brand" href="../index.html"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10" fill="none" stroke="#D9AE62" stroke-width="3"></circle><circle cx="23.07" cy="8.93" r="2.6" fill="#5CCFE6"></circle></svg><span>OpenMousse</span></a>
+<button type="button" class="gb-ctl gb-lang" data-act="lang"><span data-l="zh" lang="en">English</span><span data-l="en" lang="zh-CN">中文</span></button>
+<span class="gb-seg" role="group" aria-label="Reader mode"><button type="button" class="gb-ctl" data-act="mode" data-v="human"><span data-l="zh">给人看</span><span data-l="en">For humans</span></button><button type="button" class="gb-ctl" data-act="mode" data-v="agent"><span data-l="zh">给 agent 看</span><span data-l="en">For agents</span></button></span>
+<span class="gb-grow"></span>
+<button type="button" class="gb-ctl gb-search" data-act="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><span class="gb-search-t"><span data-l="zh">搜索…</span><span data-l="en">Search…</span></span><kbd class="gb-mono">⌘K</kbd></button>
+<span class="gb-grow gb-grow2"></span>
+<nav class="gb-links"><a href="../index.html"><span data-l="zh">官网</span><span data-l="en">Website</span></a><a href="https://github.com/openmousse/openmousse">GitHub</a></nav>
+</div>
+</header>
+<div class="gb-body"><aside class="gb-side" id="gb-side"><div class="gb-sgrp gb-agent-only"><span class="gb-sgname"><span data-l="zh">索引</span><span data-l="en">Index</span></span><a class="gb-sitem" href="llms.html">llms.txt</a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">概览</span><span data-l="en">Overview</span></span><a class="gb-sitem" href="welcome.html"><span data-l="zh">欢迎使用 OpenMousse</span><span data-l="en">Welcome to OpenMousse</span></a><a class="gb-sitem" href="quickstart.html"><span data-l="zh">快速开始</span><span data-l="en">Getting Started</span></a><a class="gb-sitem on" href="maintenance.html" aria-current=page><span data-l="zh">版本更新与故障自检</span><span data-l="en">Updates and Troubleshooting</span></a><a class="gb-sitem" href="roadmap.html"><span data-l="zh">路线图</span><span data-l="en">Roadmap</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">指南</span><span data-l="en">Guides</span></span><a class="gb-sitem" href="connect-ai.html"><span data-l="zh">把你常用的 AI 接进世界树</span><span data-l="en">Connect Your AIs to the Memory Tree</span></a><a class="gb-sitem" href="agent-install.html"><span data-l="zh">让正在运行的 agent 安装 OpenMousse</span><span data-l="en">Install OpenMousse via an Existing Agent</span></a><a class="gb-sitem" href="standalone-tree.html"><span data-l="zh">仅安装世界树服务</span><span data-l="en">Install the Standalone Memory Tree</span></a><a class="gb-sitem" href="create-agent.html"><span data-l="zh">建立并管理功能 Agent</span><span data-l="en">Create and Manage Functional Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">功能</span><span data-l="en">Features</span></span><a class="gb-sitem" href="memory.html"><span data-l="zh">世界树</span><span data-l="en">Memory Tree</span></a><a class="gb-sitem" href="agents.html"><span data-l="zh">Agents</span><span data-l="en">Agents</span></a><a class="gb-sitem" href="day.html"><span data-l="zh">今天页与 04:00 日结</span><span data-l="en">Today View and 04:00 Settlement</span></a><a class="gb-sitem" href="approvals.html"><span data-l="zh">先问你（收件箱）</span><span data-l="en">Approvals (Inbox)</span></a><a class="gb-sitem" href="zen.html"><span data-l="zh">Zen</span><span data-l="en">Zen</span></a><a class="gb-sitem" href="errands.html"><span data-l="zh">代办与 Doorman</span><span data-l="en">Errands and Doorman</span></a><a class="gb-sitem" href="friends.html"><span data-l="zh">好友与播客</span><span data-l="en">Friends and Podcasts</span></a><a class="gb-sitem" href="security.html"><span data-l="zh">数据与安全</span><span data-l="en">Data and Security</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">开发</span><span data-l="en">Developer</span></span><a class="gb-sitem" href="engine.html"><span data-l="zh">内核（agent harness）</span><span data-l="en">Engine (Agent Harness)</span></a><a class="gb-sitem" href="api.html"><span data-l="zh">程序调用接口</span><span data-l="en">Programmatic API</span></a><a class="gb-sitem" href="agent-guide.html"><span data-l="zh">给 agent 的安装说明</span><span data-l="en">Install Guide for Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">法律</span><span data-l="en">Legal</span></span><a class="gb-sitem" href="privacy.html"><span data-l="zh">隐私政策</span><span data-l="en">Privacy Policy</span></a><a class="gb-sitem" href="license.html"><span data-l="zh">开源许可</span><span data-l="en">Open-Source License</span></a></div></aside><div class="gb-scrim" data-act="nav" aria-hidden="true"></div><main class="gb-main" id="gb-main"><div class="gb-human"><div class="gb-cols"><article class="gb-art" data-l="zh" lang="zh-CN"><div class="gb-notice"><span class="gb-notice-t">完整的文档索引见<a href="../llms.txt">llms.txt</a>。在网址后加<span class="gb-mono gb-ink2">.md</span>可以拿到 Markdown 版本；本页的 Markdown 版本是<a class="gb-mono" href="maintenance.zh-CN.md">maintenance.zh-CN.md</a>。</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="复制" data-l-done="已复制"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>复制</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="更多" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>复制页面</span><span>把这一页的 Markdown 复制给 AI</span></button><a role="menuitem" class="gb-hov" href="maintenance.zh-CN.md" target="_blank" rel="noopener"><span>以 Markdown 查看</span><span>打开这一页的 .md 版本</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>复制给 AI</span><span>连同 llms.txt 的地址一起复制</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>导出 PDF</span><span>把这一页存成 PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">概览</span><h1 class="gb-h1">版本更新与故障自检</h1><p class="gb-desc">拉取最新代码更新服务器，或运行 `check.sh` 排查运行故障。</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">本页说明如何将 OpenMousse 服务器（及单独安装的世界树服务）更新至最新版本，以及在连接中断或工具异常时如何使用自检脚本排查故障。</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-1-update-the-openmousse-server">1. 更新 OpenMousse 服务器</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">在运行 OpenMousse 的服务器终端中，重新执行安装命令：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">curl -fsSL https://openmousse.ai/install | bash</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">安装程序会自动拉取最新代码、补齐缺失的组件与依赖，并重启系统服务。</p></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>数据保留</strong>：你的对话记录、世界树记忆、各功能 Agent 的独立记忆与看板数据、已配对设备的令牌均保持不变，无需重新配对客户端。</span></li><li><span class="gb-mk">•</span><span><strong>单独安装的世界树服务</strong>：如果你仅安装了 <code>mousse-tree</code> 而未部署完整的 OpenMousse，请使用 <code>pipx upgrade openmousse-tree</code>（或重新运行 <code>pip install --user --upgrade &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</code>）更新代码，随后重启 <code>mousse-tree</code> 服务。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-2-run-the-troubleshooting-self-check-check-sh">2. 运行故障自检（<code>check.sh</code>）</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">当手机 app 无法连接服务器、模型未响应或 MCP 工具调用失败时，在服务器终端运行自检脚本：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">bash ~/openmousse/check.sh</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">脚本会逐项检查以下十个部分，并在每一项前显示 <code>✓</code>（正常）或 <code>✗</code>（异常）以及对应的修复命令：</p></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>系统、版本和仓库；</span></li><li><span class="gb-mk">•</span><span>OpenMousse 服务；</span></li><li><span class="gb-mk">•</span><span>手机怎么连（Tailscale）；</span></li><li><span class="gb-mk">•</span><span>你的 claw；</span></li><li><span class="gb-mk">•</span><span>模型能不能回话；</span></li><li><span class="gb-mk">•</span><span>MCP 入口；</span></li><li><span class="gb-mk">•</span><span>世界树；</span></li><li><span class="gb-mk">•</span><span>分享和好友（中继）；</span></li><li><span class="gb-mk">•</span><span>每晚日结和推送设备；</span></li><li><span class="gb-mk">•</span><span>磁盘剩余。</span></li></ul></div><div class="gb-blk gb-blk-hint"><div class="gb-hint gb-hint-info" role="note"><span class="gb-hint-m" aria-hidden="true">i</span><div class="gb-hint-b"><span class="gb-hint-t">提示：自检输出不含密钥</span><p class="gb-p"><code>check.sh</code> 的输出不会包含任何令牌、API 密钥或配置文件中的敏感字段（如 <code>~/.openmousse/server.json</code>、<code>openclaw.json</code> 或 <code>.env</code> 的内容）。你可以直接复制终端输出，交由协助排查的人员或你正在使用的外部 agent 查看。</p></div></div></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-3-check-memory-tree-notes-directly-mousse-tree-check">3. 单独检查世界树笔记（<code>mousse-tree check</code>）</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">如果你将世界树配置为 Markdown 笔记文件夹存储（例如与 Obsidian 同步的目录），并在外部编辑器中手动修改过笔记，可以运行以下命令检查笔记格式：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">mousse-tree check</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>检查损坏的属性</strong>：命令会列出属性（front matter）格式有误的笔记。格式损坏的笔记会被检索跳过，其余笔记照常工作；修复后服务会自动重新收录。</span></li><li><span class="gb-mk">•</span><span><strong>手动重建索引</strong>：在 Markdown 存储模式下，服务每 5 秒自动检测文件变更并更新 <code>index.db</code> 检索索引。如需立即全量重建索引，可运行：</span></li></ul></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">mousse-tree rebuild</span></code></pre></div></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-4-common-situations">4. 常见情况说明</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>更换模型是否影响记忆</strong>：不会。世界树与各功能 Agent 的记忆均保存在你的服务器上，与所选模型服务无关。</span></li><li><span class="gb-mk">•</span><span><strong>Hermes 接入过程中的 `✗` 提示</strong>：如果你正由聊天窗口内的 Hermes Agent 自动安装 OpenMousse，在你在聊天中发送 <code>/restart</code> 重启网关之前，<code>check.sh</code> 中「你的 claw」一项显示 <code>✗</code> 属于正常现象；重启网关后再次运行 <code>check.sh</code> 即会变为 <code>✓</code>。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-see-also">另见</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>快速开始</strong>：查看初次安装与配对流程。</span></li><li><span class="gb-mk">•</span><span><strong>让正在运行的 agent 安装 OpenMousse</strong>：查看外部 agent 自动安装与排查的步骤。</span></li><li><span class="gb-mk">•</span><span><strong>仅安装世界树服务</strong>：查看 <code>mousse-tree</code> 的独立维护命令。</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">最后更新于 2026-10-19</span><span class="gb-helpful"><span>这一页有帮助吗？</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">有</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">没有</button><span class="gb-thanks" hidden>谢谢你的反馈</span></span></div><nav class="gb-pager" aria-label="上一页 / 下一页"><a class="gb-card gb-prev" href="quickstart.html"><span>上一页</span><span>← 快速开始</span></a><a class="gb-card gb-next" href="roadmap.html"><span>下一页</span><span>路线图 →</span></a></nav></div></article><article class="gb-art" data-l="en" lang="en"><div class="gb-notice"><span class="gb-notice-t">For a complete index of the docs, see <a href="../llms.txt">llms.txt</a>. Append <span class="gb-mono gb-ink2">.md</span> to any URL for the Markdown version; this page&#x27;s Markdown is at <a class="gb-mono" href="maintenance.md">maintenance.md</a>.</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="Copy" data-l-done="Copied"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>Copy</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="More" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>Copy page</span><span>Copy this page as Markdown for AI</span></button><a role="menuitem" class="gb-hov" href="maintenance.md" target="_blank" rel="noopener"><span>View as Markdown</span><span>Open the .md version of this page</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>Copy for AI</span><span>Copy with the llms.txt URL</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>Export PDF</span><span>Save this page as a PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">Overview</span><h1 class="gb-h1">Updates and Troubleshooting</h1><p class="gb-desc">Update your server with the latest code or run `check.sh` to diagnose issues.</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">This page explains how to update an OpenMousse server (and a standalone memory tree installation) to the latest release, and how to run the self-check script when connections drop or tools fail.</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="1-update-the-openmousse-server">1. Update the OpenMousse Server</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">In the terminal on the server running OpenMousse, re-run the install command:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">curl -fsSL https://openmousse.ai/install | bash</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">The installer pulls the latest code, installs any missing components or dependencies, and restarts the system services.</p></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Data preservation</strong>: Your conversation history, memory tree leaves, functional agents&#x27; independent memories and boards, and paired device tokens all remain intact; you do not need to re-pair your clients.</span></li><li><span class="gb-mk">•</span><span><strong>Standalone memory tree service</strong>: If you only installed <code>mousse-tree</code> without deploying the full OpenMousse system, run <code>pipx upgrade openmousse-tree</code> (or re-run <code>pip install --user --upgrade &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</code>) to update the code, then restart the <code>mousse-tree</code> service.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="2-run-the-troubleshooting-self-check-check-sh">2. Run the Troubleshooting Self-Check (<code>check.sh</code>)</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">When the mobile app cannot reach the server, the model does not respond, or MCP tool calls fail, run the self-check script in the server terminal:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">bash ~/openmousse/check.sh</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">The script checks ten areas in order and prints <code>✓</code> (healthy) or <code>✗</code> (failing) before each item along with the command to fix it:</p></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>System, version, and repository;</span></li><li><span class="gb-mk">•</span><span>OpenMousse service;</span></li><li><span class="gb-mk">•</span><span>Phone connectivity (Tailscale);</span></li><li><span class="gb-mk">•</span><span>Your claw;</span></li><li><span class="gb-mk">•</span><span>Model response check;</span></li><li><span class="gb-mk">•</span><span>MCP endpoint;</span></li><li><span class="gb-mk">•</span><span>Memory tree;</span></li><li><span class="gb-mk">•</span><span>Sharing and friends (relay);</span></li><li><span class="gb-mk">•</span><span>Nightly settlement and push devices;</span></li><li><span class="gb-mk">•</span><span>Free disk space.</span></li></ul></div><div class="gb-blk gb-blk-hint"><div class="gb-hint gb-hint-info" role="note"><span class="gb-hint-m" aria-hidden="true">i</span><div class="gb-hint-b"><span class="gb-hint-t">Note: Self-Check Output Contains No Secrets</span><p class="gb-p">The output of <code>check.sh</code> never includes tokens, API keys, or sensitive fields from configuration files (such as <code>~/.openmousse/server.json</code>, <code>openclaw.json</code>, or <code>.env</code>). You can safely copy and paste the terminal output to share with someone helping you troubleshoot or with your external agent.</p></div></div></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="3-check-memory-tree-notes-directly-mousse-tree-check">3. Check Memory Tree Notes Directly (<code>mousse-tree check</code>)</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">If you configured the memory tree to store leaves as a folder of Markdown notes (for example, a folder synced with Obsidian) and edited notes in an external editor, run the following command to validate note formatting:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">mousse-tree check</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Inspect malformed front matter</strong>: The command lists any notes whose front matter is malformed. Malformed notes are skipped during search while all other notes continue to work normally; once fixed, they are automatically indexed again.</span></li><li><span class="gb-mk">•</span><span><strong>Rebuild the index manually</strong>: In Markdown storage mode, the service detects file changes every 5 seconds and updates the <code>index.db</code> search index automatically. To force an immediate full rebuild of the index, run:</span></li></ul></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">mousse-tree rebuild</span></code></pre></div></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="4-common-situations">4. Common Situations</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Does switching models affect memory?</strong> No. Both the memory tree and each functional agent&#x27;s memory are stored on your server and are independent of the model provider you select.</span></li><li><span class="gb-mk">•</span><span><strong>`✗` during Hermes setup</strong>: If a Hermes Agent inside a chat window is installing OpenMousse for you, seeing <code>✗</code> next to &quot;Your claw&quot; in <code>check.sh</code> before you send <code>/restart</code> in the chat to restart the gateway is expected; re-running <code>check.sh</code> after the gateway restarts will show <code>✓</code>.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="see-also">See Also</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Getting Started</strong>: Review the initial installation and pairing flow.</span></li><li><span class="gb-mk">•</span><span><strong>Install OpenMousse via an Existing Agent</strong>: Review the steps for automated installation and troubleshooting through an external agent.</span></li><li><span class="gb-mk">•</span><span><strong>Install the Standalone Memory Tree</strong>: Review standalone maintenance commands for <code>mousse-tree</code>.</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">Last updated 2026-10-19</span><span class="gb-helpful"><span>Was this page helpful?</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">Yes</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">No</button><span class="gb-thanks" hidden>Thanks for your feedback</span></span></div><nav class="gb-pager" aria-label="Previous / Next"><a class="gb-card gb-prev" href="quickstart.html"><span>Previous</span><span>← Getting Started</span></a><a class="gb-card gb-next" href="roadmap.html"><span>Next</span><span>Roadmap →</span></a></nav></div></article><nav class="gb-toc" data-l="zh" aria-label="本页目录"><span class="gb-toc-t">本页目录</span><a href="#zh-1-update-the-openmousse-server" data-toc="zh-1-update-the-openmousse-server">1. 更新 OpenMousse 服务器</a><a href="#zh-2-run-the-troubleshooting-self-check-check-sh" data-toc="zh-2-run-the-troubleshooting-self-check-check-sh">2. 运行故障自检（check.sh）</a><a href="#zh-3-check-memory-tree-notes-directly-mousse-tree-check" data-toc="zh-3-check-memory-tree-notes-directly-mousse-tree-check">3. 单独检查世界树笔记（mousse-tree check）</a><a href="#zh-4-common-situations" data-toc="zh-4-common-situations">4. 常见情况说明</a><a href="#zh-see-also" data-toc="zh-see-also">另见</a></nav><nav class="gb-toc" data-l="en" aria-label="On this page"><span class="gb-toc-t">On this page</span><a href="#1-update-the-openmousse-server" data-toc="1-update-the-openmousse-server">1. Update the OpenMousse Server</a><a href="#2-run-the-troubleshooting-self-check-check-sh" data-toc="2-run-the-troubleshooting-self-check-check-sh">2. Run the Troubleshooting Self-Check (check.sh)</a><a href="#3-check-memory-tree-notes-directly-mousse-tree-check" data-toc="3-check-memory-tree-notes-directly-mousse-tree-check">3. Check Memory Tree Notes Directly (mousse-tree check)</a><a href="#4-common-situations" data-toc="4-common-situations">4. Common Situations</a><a href="#see-also" data-toc="see-also">See Also</a></nav></div></div><div class="gb-agent"><p class="gb-agent-note"><span data-l="zh">这一页给 agent 读的版本：在网址后加 .md 就是下面这份纯文本，和给人看的那页由同一份内容生成。</span><span data-l="en">Agent-readable version of this page: append .md to the URL to get the plain text below, generated from the same source as the human view.</span></p><div class="gb-pane"><div class="gb-pane-bar"><span class="gb-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gb-mono gb-url"></span><span class="gb-mono gb-type"></span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="agent" data-l-copy-zh="复制" data-l-done-zh="已复制" data-l-copy-en="Copy" data-l-done-en="Copied">Copy</button></div><div class="gb-mono gb-md" aria-live="polite"></div></div></div></main></div><div class="gb-sdlg" role="dialog" aria-modal="true" hidden><div class="gb-sbox"><div class="gb-sinput"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input type="search" autocomplete="off" spellcheck="false" data-ph-zh="搜索文档" data-ph-en="Search docs" aria-label="Search docs"><kbd class="gb-mono">Esc</kbd></div><div class="gb-sres" role="listbox"></div><div class="gb-shint"><span data-l="zh">按 Esc 关闭</span><span data-l="en">Press Esc to close</span></div></div></div><span hidden id="gb-strings" data-none-zh="没有找到相关内容" data-none-en="No results found" data-fail-zh="暂时无法搜索，请稍后再试" data-fail-en="Search is unavailable right now. Please try again later." data-menu-zh="目录" data-menu-en="Menu" data-close-zh="关闭目录" data-close-en="Close menu"></span><script type="text/plain" id="md-zh" data-url="openmousse.ai/docs/maintenance.zh-CN.md" data-type="text/markdown">完整的文档索引见 [llms.txt](https://openmousse.ai/llms.txt)。在网址后加 `.md` 可以拿到 Markdown 版本；本页的 Markdown 版本在 `https://openmousse.ai/docs/maintenance.zh-CN.md`。
+
+# 版本更新与故障自检
+拉取最新代码更新服务器，或运行 `check.sh` 排查运行故障。
+
+本页说明如何将 OpenMousse 服务器（及单独安装的世界树服务）更新至最新版本，以及在连接中断或工具异常时如何使用自检脚本排查故障。
+
+## 1. 更新 OpenMousse 服务器
+
+在运行 OpenMousse 的服务器终端中，重新执行安装命令：
+
+```bash
+curl -fsSL https://openmousse.ai/install | bash
+```
+
+安装程序会自动拉取最新代码、补齐缺失的组件与依赖，并重启系统服务。
+
+- **数据保留**：你的对话记录、世界树记忆、各功能 Agent 的独立记忆与看板数据、已配对设备的令牌均保持不变，无需重新配对客户端。
+- **单独安装的世界树服务**：如果你仅安装了 `mousse-tree` 而未部署完整的 OpenMousse，请使用 `pipx upgrade openmousse-tree`（或重新运行 `pip install --user --upgrade "git+https://github.com/openmousse/openmousse#subdirectory=tree"`）更新代码，随后重启 `mousse-tree` 服务。
+
+## 2. 运行故障自检（`check.sh`）
+
+当手机 app 无法连接服务器、模型未响应或 MCP 工具调用失败时，在服务器终端运行自检脚本：
+
+```bash
+bash ~/openmousse/check.sh
+```
+
+脚本会逐项检查以下十个部分，并在每一项前显示 `✓`（正常）或 `✗`（异常）以及对应的修复命令：
+
+- 系统、版本和仓库；
+- OpenMousse 服务；
+- 手机怎么连（Tailscale）；
+- 你的 claw；
+- 模型能不能回话；
+- MCP 入口；
+- 世界树；
+- 分享和好友（中继）；
+- 每晚日结和推送设备；
+- 磁盘剩余。
+
+> **提示：自检输出不含密钥**
+> `check.sh` 的输出不会包含任何令牌、API 密钥或配置文件中的敏感字段（如 `~/.openmousse/server.json`、`openclaw.json` 或 `.env` 的内容）。你可以直接复制终端输出，交由协助排查的人员或你正在使用的外部 agent 查看。
+
+## 3. 单独检查世界树笔记（`mousse-tree check`）
+
+如果你将世界树配置为 Markdown 笔记文件夹存储（例如与 Obsidian 同步的目录），并在外部编辑器中手动修改过笔记，可以运行以下命令检查笔记格式：
+
+```bash
+mousse-tree check
+```
+
+- **检查损坏的属性**：命令会列出属性（front matter）格式有误的笔记。格式损坏的笔记会被检索跳过，其余笔记照常工作；修复后服务会自动重新收录。
+- **手动重建索引**：在 Markdown 存储模式下，服务每 5 秒自动检测文件变更并更新 `index.db` 检索索引。如需立即全量重建索引，可运行：
+
+```bash
+mousse-tree rebuild
+```
+
+## 4. 常见情况说明
+
+- **更换模型是否影响记忆**：不会。世界树与各功能 Agent 的记忆均保存在你的服务器上，与所选模型服务无关。
+- **Hermes 接入过程中的 `✗` 提示**：如果你正由聊天窗口内的 Hermes Agent 自动安装 OpenMousse，在你在聊天中发送 `/restart` 重启网关之前，`check.sh` 中「你的 claw」一项显示 `✗` 属于正常现象；重启网关后再次运行 `check.sh` 即会变为 `✓`。
+
+## 另见
+
+- **快速开始**：查看初次安装与配对流程。
+- **让正在运行的 agent 安装 OpenMousse**：查看外部 agent 自动安装与排查的步骤。
+- **仅安装世界树服务**：查看 `mousse-tree` 的独立维护命令。
+</script><script type="text/plain" id="md-en" data-url="openmousse.ai/docs/maintenance.md" data-type="text/markdown">The full documentation index is at [llms.txt](https://openmousse.ai/llms.txt). Append `.md` to a docs URL to get its Markdown; this page's Markdown is at `https://openmousse.ai/docs/maintenance.md`.
+
+# Updates and Troubleshooting
+Update your server with the latest code or run `check.sh` to diagnose issues.
+
+This page explains how to update an OpenMousse server (and a standalone memory tree installation) to the latest release, and how to run the self-check script when connections drop or tools fail.
+
+## 1. Update the OpenMousse Server
+
+In the terminal on the server running OpenMousse, re-run the install command:
+
+```bash
+curl -fsSL https://openmousse.ai/install | bash
+```
+
+The installer pulls the latest code, installs any missing components or dependencies, and restarts the system services.
+
+- **Data preservation**: Your conversation history, memory tree leaves, functional agents' independent memories and boards, and paired device tokens all remain intact; you do not need to re-pair your clients.
+- **Standalone memory tree service**: If you only installed `mousse-tree` without deploying the full OpenMousse system, run `pipx upgrade openmousse-tree` (or re-run `pip install --user --upgrade "git+https://github.com/openmousse/openmousse#subdirectory=tree"`) to update the code, then restart the `mousse-tree` service.
+
+## 2. Run the Troubleshooting Self-Check (`check.sh`)
+
+When the mobile app cannot reach the server, the model does not respond, or MCP tool calls fail, run the self-check script in the server terminal:
+
+```bash
+bash ~/openmousse/check.sh
+```
+
+The script checks ten areas in order and prints `✓` (healthy) or `✗` (failing) before each item along with the command to fix it:
+
+- System, version, and repository;
+- OpenMousse service;
+- Phone connectivity (Tailscale);
+- Your claw;
+- Model response check;
+- MCP endpoint;
+- Memory tree;
+- Sharing and friends (relay);
+- Nightly settlement and push devices;
+- Free disk space.
+
+> **Note: Self-Check Output Contains No Secrets**
+> The output of `check.sh` never includes tokens, API keys, or sensitive fields from configuration files (such as `~/.openmousse/server.json`, `openclaw.json`, or `.env`). You can safely copy and paste the terminal output to share with someone helping you troubleshoot or with your external agent.
+
+## 3. Check Memory Tree Notes Directly (`mousse-tree check`)
+
+If you configured the memory tree to store leaves as a folder of Markdown notes (for example, a folder synced with Obsidian) and edited notes in an external editor, run the following command to validate note formatting:
+
+```bash
+mousse-tree check
+```
+
+- **Inspect malformed front matter**: The command lists any notes whose front matter is malformed. Malformed notes are skipped during search while all other notes continue to work normally; once fixed, they are automatically indexed again.
+- **Rebuild the index manually**: In Markdown storage mode, the service detects file changes every 5 seconds and updates the `index.db` search index automatically. To force an immediate full rebuild of the index, run:
+
+```bash
+mousse-tree rebuild
+```
+
+## 4. Common Situations
+
+- **Does switching models affect memory?** No. Both the memory tree and each functional agent's memory are stored on your server and are independent of the model provider you select.
+- **`✗` during Hermes setup**: If a Hermes Agent inside a chat window is installing OpenMousse for you, seeing `✗` next to "Your claw" in `check.sh` before you send `/restart` in the chat to restart the gateway is expected; re-running `check.sh` after the gateway restarts will show `✓`.
+
+## See Also
+
+- **Getting Started**: Review the initial installation and pairing flow.
+- **Install OpenMousse via an Existing Agent**: Review the steps for automated installation and troubleshooting through an external agent.
+- **Install the Standalone Memory Tree**: Review standalone maintenance commands for `mousse-tree`.
+</script><script src="docs.js" defer></script>
+</body>
+</html>

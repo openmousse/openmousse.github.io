@@ -1,0 +1,49 @@
+# OpenMousse
+
+## 中文
+
+- [欢迎使用 OpenMousse](https://openmousse.ai/docs/welcome.zh-CN.md): 了解 OpenMousse 的核心组件、数据归属与运行边界。
+- [快速开始](https://openmousse.ai/docs/quickstart.zh-CN.md): 部署 OpenMousse，配对手机或网页端，导入记忆并完成第一次交办。
+- [版本更新与故障自检](https://openmousse.ai/docs/maintenance.zh-CN.md): 拉取最新代码更新服务器，或运行 `check.sh` 排查运行故障。
+- [路线图](https://openmousse.ai/docs/roadmap.zh-CN.md): 查看正在开发与即将上线的功能模块。
+- [把你常用的 AI 接进世界树](https://openmousse.ai/docs/connect-ai.zh-CN.md): 将 Claude、ChatGPT、Gemini、Notion 与 Claude Code 接入世界树共用同一份长期记忆。
+- [让正在运行的 agent 安装 OpenMousse](https://openmousse.ai/docs/agent-install.zh-CN.md): 将安装指令发给正在使用的 OpenClaw 或 Hermes，由它完成环境检查、安装、工具接入与配对。
+- [仅安装世界树服务](https://openmousse.ai/docs/standalone-tree.zh-CN.md): 不部署完整的 OpenMousse，单独运行 `mousse-tree` 为外部 AI 应用同步记忆。
+- [建立并管理功能 Agent](https://openmousse.ai/docs/create-agent.zh-CN.md): 在主对话中通过方案卡或在 app 内新建功能 Agent，并为它配置职责与模型。
+- [世界树](https://openmousse.ai/docs/memory.zh-CN.md): 将事实、偏好、决定与成熟的观点存为带出处的叶子，保存在 SQLite 数据库或 Markdown 笔记库中。
+- [Agents](https://openmousse.ai/docs/agents.zh-CN.md): 了解主对话、功能 Agent、会议纪要、群聊、赛博与管家的分工和边界。
+- [今天页与 04:00 日结](https://openmousse.ai/docs/day.zh-CN.md): 查看待处理、日程与报告，了解 03:45 日结与 04:00 会话重置的运作机制。
+- [先问你（收件箱）](https://openmousse.ai/docs/approvals.zh-CN.md): 付款、对外发送、提交与登录等撤不回的操作先生成确认卡并锁定参数，等你批准后再执行。
+- [Zen](https://openmousse.ai/docs/zen.zh-CN.md): 先把想法记下而不触发回复，准备好后再与 AI 推敲，将成熟的观点写入世界树。
+- [代办与 Doorman](https://openmousse.ai/docs/errands.zh-CN.md): 在隔离的沙箱中完成比价、填表与预订，经由 Doorman 隔离凭证并管控出网请求。
+- [好友与播客](https://openmousse.ai/docs/friends.zh-CN.md): 使用端到端加密聊天、经隐私遮盖的分享卡、按关系档位回复的管家，以及区分发言人的当面播客录音。
+- [数据与安全](https://openmousse.ai/docs/security.zh-CN.md): 查看数据存储位置、按设计会离开服务器或由客户端发出的请求范围，以及外部应用的隔离边界。
+- [内核（agent harness）](https://openmousse.ai/docs/engine.zh-CN.md) [即将推出]: 了解 Python 运行时的发言方权限分档、工具执行三档与备用模型切换机制。
+- [程序调用接口](https://openmousse.ai/docs/api.zh-CN.md) [即将推出]: 通过兼容 OpenAI 的 API 或 ACP 协议将 OpenMousse 作为模型或 agent 直接调用。
+- [给 agent 的安装说明](https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.zh-CN.md): 供外部 agent 读取并自动执行环境检查、非交互安装、工具配置与配对的完整指令。
+- [隐私政策](https://openmousse.ai/docs/privacy.zh-CN.md): 关于本地服务器数据存储、模型服务商、转写服务与账号数据的条款说明。
+- [开源许可](https://github.com/openmousse/openmousse): AGPL-3.0 开源仓库与许可条款。
+
+## English
+
+- [Welcome to OpenMousse](https://openmousse.ai/docs/welcome.md): Learn about OpenMousse's core components, data ownership model, and operating boundaries.
+- [Getting Started](https://openmousse.ai/docs/quickstart.md): Deploy OpenMousse, pair your phone or web client, import memory, and run your first request.
+- [Updates and Troubleshooting](https://openmousse.ai/docs/maintenance.md): Update your server with the latest code or run `check.sh` to diagnose issues.
+- [Roadmap](https://openmousse.ai/docs/roadmap.md): View features currently in development and upcoming releases.
+- [Connect Your AIs to the Memory Tree](https://openmousse.ai/docs/connect-ai.md): Connect Claude, ChatGPT, Gemini, Notion, and Claude Code to share the same long-term memory tree.
+- [Install OpenMousse via an Existing Agent](https://openmousse.ai/docs/agent-install.md): Send an install prompt to a running OpenClaw or Hermes instance to verify the environment, install, wire tools, and pair.
+- [Install the Standalone Memory Tree](https://openmousse.ai/docs/standalone-tree.md): Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.
+- [Create and Manage Functional Agents](https://openmousse.ai/docs/create-agent.md): Create functional agents via proposal cards in main chat or directly in the app, and configure their roles and models.
+- [Memory Tree](https://openmousse.ai/docs/memory.md): Store facts, preferences, decisions, and distilled opinions as provenance-tracked leaves in SQLite or a Markdown vault.
+- [Agents](https://openmousse.ai/docs/agents.md): Understand the roles and boundaries of main chat, functional agents, meeting minutes, group chats, Cybers, and the Butler.
+- [Today View and 04:00 Settlement](https://openmousse.ai/docs/day.md): Explore To do, Schedule, and Reports in the Today view, along with the 03:45 daily settlement and 04:00 session reset.
+- [Approvals (Inbox)](https://openmousse.ai/docs/approvals.md): Hold irreversible actions like payments, external messages, submissions, and logins in parameter-locked approval cards until you approve.
+- [Zen](https://openmousse.ai/docs/zen.md): Capture thoughts without triggering AI replies, refine them when ready, and save distilled opinions to the memory tree.
+- [Errands and Doorman](https://openmousse.ai/docs/errands.md): Compare prices, fill forms, and book in an isolated sandbox while Doorman isolates credentials and governs outbound requests.
+- [Friends and Podcasts](https://openmousse.ai/docs/friends.md): Use end-to-end encrypted chat, privacy-redacted share cards, relationship-tiered Butler replies, and speaker-diarized in-person podcasts.
+- [Data and Security](https://openmousse.ai/docs/security.md): Review data storage locations, requests that leave your server or originate from the client by design, and isolation boundaries for external apps.
+- [Engine (Agent Harness)](https://openmousse.ai/docs/engine.md) [Coming soon]: Learn how the Python runtime enforces speaker permission tiers, three-tier tool execution, and model fallback.
+- [Programmatic API](https://openmousse.ai/docs/api.md) [Coming soon]: Call OpenMousse directly as a model or agent via the OpenAI-compatible API or ACP protocol.
+- [Install Guide for Agents](https://raw.githubusercontent.com/openmousse/openmousse/main/docs/connect.md): Step-by-step instructions for an external agent to verify the environment, run non-interactive setup, wire MCP tools, and return a pairing link.
+- [Privacy Policy](https://openmousse.ai/docs/privacy.md): Terms regarding local server data storage, model providers, transcription services, and account data.
+- [Open-Source License](https://github.com/openmousse/openmousse): AGPL-3.0 open-source repository and license terms.

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-mode="human" data-title-zh="仅安装世界树服务 · OpenMousse 文档" data-title-en="Install the Standalone Memory Tree · OpenMousse Docs" data-slug="standalone-tree" data-docs="" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Install the Standalone Memory Tree · OpenMousse Docs</title>
+<meta name="description" content="Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.">
+<link rel="canonical" href="https://openmousse.ai/docs/standalone-tree.html">
+<link rel="alternate" type="text/markdown" href="standalone-tree.md" title="Markdown">
+<link rel="alternate" type="text/markdown" hreflang="zh-CN" href="standalone-tree.zh-CN.md" title="Markdown (中文)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install the Standalone Memory Tree · OpenMousse Docs">
+<meta property="og:description" content="Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.">
+<meta property="og:image" content="https://openmousse.ai/assets/og.png">
+<meta property="og:url" content="https://openmousse.ai/docs/standalone-tree.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0D10">
+<link rel="icon" href="../assets/icon.png">
+<link rel="apple-touch-icon" href="../assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&display=swap">
+<link rel="stylesheet" href="docs.css">
+<script>(function(d){var r=d.documentElement,l,m;try{l=localStorage.getItem('om-lang');m=localStorage.getItem('om-docs-mode')}catch(e){}var q=/[?&]view=(agent|human)/.exec(location.search);if(q){m=q[1];try{localStorage.setItem('om-docs-mode',m)}catch(e){}}l=l||(/^zh/i.test(navigator.language||'')?'zh':'en');r.setAttribute('data-lang',l);r.lang=l==='zh'?'zh-CN':'en';if(m==='agent'||m==='human')r.setAttribute('data-mode',m);r.classList.add('js');var t=r.getAttribute('data-title-'+l);if(t)d.title=t})(document)</script>
+</head>
+<body>
+<a class="gb-skip" href="#gb-main"><span data-l="zh">跳到正文</span><span data-l="en">Skip to content</span></a>
+<header class="gb-head">
+<div class="gb-bar">
+<button type="button" class="gb-ctl gb-burger" data-act="nav" aria-controls="gb-side" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+<a class="gb-brand" href="../index.html"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10" fill="none" stroke="#D9AE62" stroke-width="3"></circle><circle cx="23.07" cy="8.93" r="2.6" fill="#5CCFE6"></circle></svg><span>OpenMousse</span></a>
+<button type="button" class="gb-ctl gb-lang" data-act="lang"><span data-l="zh" lang="en">English</span><span data-l="en" lang="zh-CN">中文</span></button>
+<span class="gb-seg" role="group" aria-label="Reader mode"><button type="button" class="gb-ctl" data-act="mode" data-v="human"><span data-l="zh">给人看</span><span data-l="en">For humans</span></button><button type="button" class="gb-ctl" data-act="mode" data-v="agent"><span data-l="zh">给 agent 看</span><span data-l="en">For agents</span></button></span>
+<span class="gb-grow"></span>
+<button type="button" class="gb-ctl gb-search" data-act="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><span class="gb-search-t"><span data-l="zh">搜索…</span><span data-l="en">Search…</span></span><kbd class="gb-mono">⌘K</kbd></button>
+<span class="gb-grow gb-grow2"></span>
+<nav class="gb-links"><a href="../index.html"><span data-l="zh">官网</span><span data-l="en">Website</span></a><a href="https://github.com/openmousse/openmousse">GitHub</a></nav>
+</div>
+</header>
+<div class="gb-body"><aside class="gb-side" id="gb-side"><div class="gb-sgrp gb-agent-only"><span class="gb-sgname"><span data-l="zh">索引</span><span data-l="en">Index</span></span><a class="gb-sitem" href="llms.html">llms.txt</a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">概览</span><span data-l="en">Overview</span></span><a class="gb-sitem" href="welcome.html"><span data-l="zh">欢迎使用 OpenMousse</span><span data-l="en">Welcome to OpenMousse</span></a><a class="gb-sitem" href="quickstart.html"><span data-l="zh">快速开始</span><span data-l="en">Getting Started</span></a><a class="gb-sitem" href="maintenance.html"><span data-l="zh">版本更新与故障自检</span><span data-l="en">Updates and Troubleshooting</span></a><a class="gb-sitem" href="roadmap.html"><span data-l="zh">路线图</span><span data-l="en">Roadmap</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">指南</span><span data-l="en">Guides</span></span><a class="gb-sitem" href="connect-ai.html"><span data-l="zh">把你常用的 AI 接进世界树</span><span data-l="en">Connect Your AIs to the Memory Tree</span></a><a class="gb-sitem" href="agent-install.html"><span data-l="zh">让正在运行的 agent 安装 OpenMousse</span><span data-l="en">Install OpenMousse via an Existing Agent</span></a><a class="gb-sitem on" href="standalone-tree.html" aria-current=page><span data-l="zh">仅安装世界树服务</span><span data-l="en">Install the Standalone Memory Tree</span></a><a class="gb-sitem" href="create-agent.html"><span data-l="zh">建立并管理功能 Agent</span><span data-l="en">Create and Manage Functional Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">功能</span><span data-l="en">Features</span></span><a class="gb-sitem" href="memory.html"><span data-l="zh">世界树</span><span data-l="en">Memory Tree</span></a><a class="gb-sitem" href="agents.html"><span data-l="zh">Agents</span><span data-l="en">Agents</span></a><a class="gb-sitem" href="day.html"><span data-l="zh">今天页与 04:00 日结</span><span data-l="en">Today View and 04:00 Settlement</span></a><a class="gb-sitem" href="approvals.html"><span data-l="zh">先问你（收件箱）</span><span data-l="en">Approvals (Inbox)</span></a><a class="gb-sitem" href="zen.html"><span data-l="zh">Zen</span><span data-l="en">Zen</span></a><a class="gb-sitem" href="errands.html"><span data-l="zh">代办与 Doorman</span><span data-l="en">Errands and Doorman</span></a><a class="gb-sitem" href="friends.html"><span data-l="zh">好友与播客</span><span data-l="en">Friends and Podcasts</span></a><a class="gb-sitem" href="security.html"><span data-l="zh">数据与安全</span><span data-l="en">Data and Security</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">开发</span><span data-l="en">Developer</span></span><a class="gb-sitem" href="engine.html"><span data-l="zh">内核（agent harness）</span><span data-l="en">Engine (Agent Harness)</span></a><a class="gb-sitem" href="api.html"><span data-l="zh">程序调用接口</span><span data-l="en">Programmatic API</span></a><a class="gb-sitem" href="agent-guide.html"><span data-l="zh">给 agent 的安装说明</span><span data-l="en">Install Guide for Agents</span></a></div><div class="gb-sgrp"><span class="gb-sgname"><span data-l="zh">法律</span><span data-l="en">Legal</span></span><a class="gb-sitem" href="privacy.html"><span data-l="zh">隐私政策</span><span data-l="en">Privacy Policy</span></a><a class="gb-sitem" href="license.html"><span data-l="zh">开源许可</span><span data-l="en">Open-Source License</span></a></div></aside><div class="gb-scrim" data-act="nav" aria-hidden="true"></div><main class="gb-main" id="gb-main"><div class="gb-human"><div class="gb-cols"><article class="gb-art" data-l="zh" lang="zh-CN"><div class="gb-notice"><span class="gb-notice-t">完整的文档索引见<a href="../llms.txt">llms.txt</a>。在网址后加<span class="gb-mono gb-ink2">.md</span>可以拿到 Markdown 版本；本页的 Markdown 版本是<a class="gb-mono" href="standalone-tree.zh-CN.md">standalone-tree.zh-CN.md</a>。</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="复制" data-l-done="已复制"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>复制</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="更多" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>复制页面</span><span>把这一页的 Markdown 复制给 AI</span></button><a role="menuitem" class="gb-hov" href="standalone-tree.zh-CN.md" target="_blank" rel="noopener"><span>以 Markdown 查看</span><span>打开这一页的 .md 版本</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>复制给 AI</span><span>连同 llms.txt 的地址一起复制</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>导出 PDF</span><span>把这一页存成 PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">指南</span><h1 class="gb-h1">仅安装世界树服务</h1><p class="gb-desc">不部署完整的 OpenMousse，单独运行 `mousse-tree` 为外部 AI 应用同步记忆。</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">完成本指南后，你的服务器上将单独运行轻量级的世界树服务（<code>mousse-tree</code>），为 Claude、ChatGPT、Gemini、Notion、Claude Code 及 OpenClaw 提供共用的长期记忆。本指南适用于不需要部署完整 OpenMousse 客户端与多 Agent 系统、仅需跨平台统一记忆的用户。</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-prerequisites">前提条件</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>一台具备 Python 3.11 以上版本与 <code>git</code> 的 Linux、macOS 或 Windows WSL 2 机器。</span></li><li><span class="gb-mk">•</span><span>若需接入 Claude 网页版、ChatGPT、Gemini 或 Notion，机器需具备公网 HTTPS 访问能力（推荐使用免费的 Tailscale Funnel）。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-privacy">隐私说明</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>不调用模型、不产生额外模型费用</strong>：<code>mousse-tree</code> 仅负责记忆的存储、全文检索（FTS5 trigram）与 MCP 接口响应，本身不发起任何 LLM 调用；各平台的对话仍使用你原有的订阅。</span></li><li><span class="gb-mk">•</span><span><strong>数据留在本地</strong>：所有记忆保存在你服务器的 <code>~/.mousse-tree/tree.db</code>（SQLite）或你指定的本地 Markdown 文件夹中。软链接与隐藏文件不会被收录，MCP 工具无法访问笔记文件夹以外的路径。</span></li><li><span class="gb-mk">•</span><span><strong>可审计的遗忘机制</strong>：调用 <code>forget</code> 删除记忆时，系统会清空正文、将空壳移入归档并删除检索索引，仅保留不含正文的 ID 与操作时间记录；若笔记文件夹开启了第三方云同步（如 iCloud、Obsidian Sync 或 git），其历史版本中可能仍留存旧内容，需在对应同步工具中清理。</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-steps">步骤</h2></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="zh-1-install-and-initialize-the-background-service">1. 安装并初始化常驻服务</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">在服务器终端依次运行以下命令（将称呼与时区替换为你的实际信息）：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">pipx install &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</span><span class="">mousse-tree init --name 你的称呼 --tz UTC --lang zh</span><span class="">mousse-tree install-service</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>第一行也可使用 <code>pip install --user &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</code>。</span></li><li><span class="gb-mk">•</span><span><code>install-service</code> 会配置开机常驻服务（Linux 使用 systemd，macOS 使用 launchd），默认仅监听本机 <code>127.0.0.1:8787</code>。</span></li><li><span class="gb-mk">•</span><span>若本机同时运行 OpenClaw，可运行 <code>mousse-tree install-openclaw &amp;&amp; systemctl --user restart openclaw-gateway</code>，将世界树导出目录加入 OpenClaw 的检索路径。</span></li></ul></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="zh-2-choose-a-storage-backend-optionally-switch-to-a-markdown-v">2. 选择存储方式（可选切换为 Markdown 笔记库）</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">服务默认使用 SQLite 存储（<code>~/.mousse-tree/tree.db</code>）。如果你希望将每条记忆存为一篇独立的 Markdown 笔记（例如放入 Obsidian 笔记库以便在手机上查看和编辑），可运行迁移命令：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">mousse-tree migrate markdown --notes ~/vault/世界树 --profile-note 档案.md</span><span class="">systemctl --user restart mousse-tree</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>迁移后，笔记文件成为数据源，SQLite（<code>index.db</code>）仅作为检索索引；你在笔记软件中直接新建或修改笔记后，服务会在 5 秒内自动同步索引。</span></li><li><span class="gb-mk">•</span><span>被新记忆取代（<code>supersedes</code>）或你手动移入 <code>归档/</code>（英文为 <code>Archive/</code>）子目录的笔记不再参与检索。</span></li><li><span class="gb-mk">•</span><span>如需切回 SQLite 存储，运行 <code>mousse-tree migrate sqlite</code> 并重启服务即可。</span></li></ul></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="zh-3-expose-public-paths-with-tailscale-funnel">3. 使用 Tailscale Funnel 开放公网路径</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">云端 AI 平台需要通过公网 HTTPS 访问世界树。使用 Tailscale Funnel 仅对外暴露 <code>/t</code> 与 <code>/m</code> 两个 MCP 路径前缀：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">tailscale funnel --bg --set-path=/t http://127.0.0.1:8787/t</span><span class="">tailscale funnel --bg --set-path=/m http://127.0.0.1:8787/m</span><span class="">mousse-tree init --host &lt;你的机器名&gt;.&lt;tailnet&gt;.ts.net</span><span class="">systemctl --user restart mousse-tree</span></code></pre></div></div><div class="gb-blk gb-blk-hint"><div class="gb-hint gb-hint-warning" role="note"><span class="gb-hint-m" aria-hidden="true">!</span><div class="gb-hint-b"><span class="gb-hint-t">注意：请勿公开管理页</span><p class="gb-p">切勿使用 Funnel 暴露 <code>/ui</code> 管理页路径。管理页（含记忆浏览、修改、待确认审批与档案编辑）应仅通过本机、<code>tailscale serve</code>（仅限局域网内设备）或 SSH 隧道访问。如需让外部平台写入的内容先进入「待确认」，可在 <code>~/.mousse-tree/config.json</code> 中设置 <code>&quot;require_confirm&quot;: true</code>。</p></div></div></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="zh-4-view-endpoint-urls-and-connect-your-platforms">4. 查看接入地址并连接各平台</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">在服务器终端运行以下命令，打印各平台的专属接入地址与本地管理页链接：</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">终端</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="复制" data-l-done="已复制">复制</button></div><pre class="gb-code"><code><span class="">mousse-tree urls</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">复制对应平台的地址，按照指南「把你常用的 AI 接进世界树」第 2、3 步的表格说明，将地址与自定义指令填入 Claude、ChatGPT、Gemini、Notion 或 Claude Code 中。</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-verification">成功的标志</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">当以下各项均成立时，说明独立世界树服务已正常运行：</p></div><div class="gb-blk gb-blk-checks"><ul class="gb-checks"><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>运行 <code>mousse-tree stats</code> 可正常输出当前记忆统计信息。</span></button></li><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>通过 SSH 隧道或局域网打开 <code>mousse-tree urls</code> 给出的 <code>/ui#key=…</code> 链接，可正常打开管理页并编辑个人档案。</span></button></li><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>在已接入的外部 AI 应用中写入一条新偏好后，运行 <code>mousse-tree recent --days 7</code>（或在 Markdown 笔记目录中）可以看到该条记录。</span></button></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="zh-next-steps">下一步</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>把你常用的 AI 接进世界树</strong>：查看各平台连接器的具体配置路径与自定义指令原文。</span></li><li><span class="gb-mk">•</span><span><strong>世界树</strong>：了解世界树的设计细节与五类记忆来源。</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">最后更新于 2026-10-19</span><span class="gb-helpful"><span>这一页有帮助吗？</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">有</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">没有</button><span class="gb-thanks" hidden>谢谢你的反馈</span></span></div><nav class="gb-pager" aria-label="上一页 / 下一页"><a class="gb-card gb-prev" href="agent-install.html"><span>上一页</span><span>← 让正在运行的 agent 安装 OpenMousse</span></a><a class="gb-card gb-next" href="create-agent.html"><span>下一页</span><span>建立并管理功能 Agent →</span></a></nav></div></article><article class="gb-art" data-l="en" lang="en"><div class="gb-notice"><span class="gb-notice-t">For a complete index of the docs, see <a href="../llms.txt">llms.txt</a>. Append <span class="gb-mono gb-ink2">.md</span> to any URL for the Markdown version; this page&#x27;s Markdown is at <a class="gb-mono" href="standalone-tree.md">standalone-tree.md</a>.</span><span class="gb-copywrap"><span class="gb-copygrp"><button type="button" class="gb-ctl gb-hov gb-copypage" data-copy="page" data-l-copy="Copy" data-l-done="Copied"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span>Copy</span></button><button type="button" class="gb-ctl gb-hov gb-menubtn" aria-label="More" aria-haspopup="menu" aria-expanded="false">▾</button></span><span class="gb-menu" role="menu" hidden><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-page"><span>Copy page</span><span>Copy this page as Markdown for AI</span></button><a role="menuitem" class="gb-hov" href="standalone-tree.md" target="_blank" rel="noopener"><span>View as Markdown</span><span>Open the .md version of this page</span></a><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="copy-ai"><span>Copy for AI</span><span>Copy with the llms.txt URL</span></button><button type="button" role="menuitem" class="gb-ctl gb-hov" data-act="print"><span>Export PDF</span><span>Save this page as a PDF</span></button></span></span></div><div class="gb-titleblk"><span class="gb-group">Guides</span><h1 class="gb-h1">Install the Standalone Memory Tree</h1><p class="gb-desc">Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.</p></div><div class="gb-blk gb-blk-p"><p class="gb-p">After completing this guide, your server will run the lightweight standalone memory tree service (<code>mousse-tree</code>), providing a shared long-term memory for Claude, ChatGPT, Gemini, Notion, Claude Code, and OpenClaw. This guide is for users who want unified cross-platform memory without deploying the full OpenMousse client and multi-agent system.</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="prerequisites">Prerequisites</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>A Linux, macOS, or Windows WSL 2 machine with Python 3.11 or later and <code>git</code>.</span></li><li><span class="gb-mk">•</span><span>Public HTTPS access to the machine if you want to connect Claude on the web, ChatGPT, Gemini, or Notion (free Tailscale Funnel is recommended).</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="privacy">Privacy</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>No model calls or extra model costs</strong>: <code>mousse-tree</code> only handles memory storage, full-text search (FTS5 trigram), and MCP endpoint responses. It makes no LLM calls of its own; conversations on each platform continue to use your existing subscriptions.</span></li><li><span class="gb-mk">•</span><span><strong>Data stays local</strong>: All memories are stored on your server in <code>~/.mousse-tree/tree.db</code> (SQLite) or in a local Markdown folder you specify. Symlinks and hidden files are ignored, and MCP tools cannot access paths outside the notes folder.</span></li><li><span class="gb-mk">•</span><span><strong>Auditable forgetting</strong>: Calling <code>forget</code> to delete a memory clears the body, moves the empty shell to the archive, and deletes the search index entry, retaining only the bodyless ID and timestamp record. If third-party cloud sync (such as iCloud, Obsidian Sync, or git) is enabled on your notes folder, older versions may still retain the previous content and must be purged in that sync tool.</span></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="steps">Steps</h2></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="1-install-and-initialize-the-background-service">1. Install and initialize the background service</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">Run the following commands in order on your server terminal (replace the name and time zone with your own):</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">pipx install &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</span><span class="">mousse-tree init --name YourName --tz UTC --lang zh</span><span class="">mousse-tree install-service</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>For the first line, you can also use <code>pip install --user &quot;git+https://github.com/openmousse/openmousse#subdirectory=tree&quot;</code>.</span></li><li><span class="gb-mk">•</span><span><code>install-service</code> configures a background service that starts on boot (systemd on Linux, launchd on macOS) and listens only on <code>127.0.0.1:8787</code> by default.</span></li><li><span class="gb-mk">•</span><span>If OpenClaw is running on the same machine, run <code>mousse-tree install-openclaw &amp;&amp; systemctl --user restart openclaw-gateway</code> to add the memory tree export directory to OpenClaw&#x27;s search path.</span></li></ul></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="2-choose-a-storage-backend-optionally-switch-to-a-markdown-v">2. Choose a storage backend (optionally switch to a Markdown vault)</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">By default, the service stores data in SQLite (<code>~/.mousse-tree/tree.db</code>). If you want each memory stored as a separate Markdown note (for example, inside an Obsidian vault so you can view and edit notes on your phone), run the migration command:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">mousse-tree migrate markdown --notes ~/vault/世界树 --profile-note 档案.md</span><span class="">systemctl --user restart mousse-tree</span></code></pre></div></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span>After migration, the note files become the source of truth and SQLite (<code>index.db</code>) serves only as the search index. When you create or edit notes directly in your note-taking app, the service syncs the index automatically within 5 seconds.</span></li><li><span class="gb-mk">•</span><span>Notes replaced by a newer memory (<code>supersedes</code>) or moved manually into the <code>归档/</code> (<code>Archive/</code> in English) subdirectory are excluded from search.</span></li><li><span class="gb-mk">•</span><span>To switch back to SQLite storage, run <code>mousse-tree migrate sqlite</code> and restart the service.</span></li></ul></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="3-expose-public-paths-with-tailscale-funnel">3. Expose public paths with Tailscale Funnel</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">Cloud AI platforms need public HTTPS access to reach the memory tree. Use Tailscale Funnel to expose only the <code>/t</code> and <code>/m</code> MCP path prefixes:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">tailscale funnel --bg --set-path=/t http://127.0.0.1:8787/t</span><span class="">tailscale funnel --bg --set-path=/m http://127.0.0.1:8787/m</span><span class="">mousse-tree init --host &lt;your-machine&gt;.&lt;tailnet&gt;.ts.net</span><span class="">systemctl --user restart mousse-tree</span></code></pre></div></div><div class="gb-blk gb-blk-hint"><div class="gb-hint gb-hint-warning" role="note"><span class="gb-hint-m" aria-hidden="true">!</span><div class="gb-hint-b"><span class="gb-hint-t">Important: Do not expose the admin UI publicly</span><p class="gb-p">Never expose the <code>/ui</code> admin path via Funnel. The admin page (which includes memory browsing, editing, approval of <strong>Needs your approval</strong> items, and profile editing) should only be accessed from localhost, via <code>tailscale serve</code> (restricted to devices on your tailnet), or over an SSH tunnel. To hold writes from external platforms in <strong>Needs your approval</strong> first, set <code>&quot;require_confirm&quot;: true</code> in <code>~/.mousse-tree/config.json</code>.</p></div></div></div><div class="gb-blk gb-blk-h3"><h3 class="gb-h3" id="4-view-endpoint-urls-and-connect-your-platforms">4. View endpoint URLs and connect your platforms</h3></div><div class="gb-blk gb-blk-p"><p class="gb-p">Run the following command in your server terminal to print the dedicated endpoint URLs for each platform and the local admin page link:</p></div><div class="gb-blk gb-blk-code"><div class="gb-codebox"><div class="gb-codehead"><span class="gb-mono">Terminal</span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="code" data-l-copy="Copy" data-l-done="Copied">Copy</button></div><pre class="gb-code"><code><span class="">mousse-tree urls</span></code></pre></div></div><div class="gb-blk gb-blk-p"><p class="gb-p">Copy the URL for each platform and follow the tables in steps 2 and 3 of &quot;Connect Your AIs to the Memory Tree&quot; to enter the URL and custom instructions into Claude, ChatGPT, Gemini, Notion, or Claude Code.</p></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="verification">Verification</h2></div><div class="gb-blk gb-blk-p"><p class="gb-p">The standalone memory tree service is running properly when all of the following are true:</p></div><div class="gb-blk gb-blk-checks"><ul class="gb-checks"><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>Running <code>mousse-tree stats</code> outputs current memory statistics without error.</span></button></li><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>Opening the <code>/ui#key=…</code> link from <code>mousse-tree urls</code> over an SSH tunnel or local network opens the admin page and allows you to edit your profile.</span></button></li><li><button type="button" class="gb-ctl gb-check" aria-pressed="false"><span class="gb-box" aria-hidden="true"></span><span>After you save a new preference in a connected external AI app, running <code>mousse-tree recent --days 7</code> (or checking your Markdown notes directory) shows the new entry.</span></button></li></ul></div><div class="gb-blk gb-blk-h2"><h2 class="gb-h2" id="next-steps">Next steps</h2></div><div class="gb-blk gb-blk-ul"><ul class="gb-list"><li><span class="gb-mk">•</span><span><strong>Connect Your AIs to the Memory Tree</strong>: View the exact connector configuration paths and custom instructions for each platform.</span></li><li><span class="gb-mk">•</span><span><strong>Memory Tree</strong>: Learn about the design of the memory tree and its five memory sources.</span></li></ul></div><div class="gb-foot"><div class="gb-foot-row"><span class="gb-grow">Last updated 2026-10-19</span><span class="gb-helpful"><span>Was this page helpful?</span><button type="button" class="gb-ctl gb-pill" data-act="helpful">Yes</button><button type="button" class="gb-ctl gb-pill" data-act="helpful">No</button><span class="gb-thanks" hidden>Thanks for your feedback</span></span></div><nav class="gb-pager" aria-label="Previous / Next"><a class="gb-card gb-prev" href="agent-install.html"><span>Previous</span><span>← Install OpenMousse via an Existing Agent</span></a><a class="gb-card gb-next" href="create-agent.html"><span>Next</span><span>Create and Manage Functional Agents →</span></a></nav></div></article><nav class="gb-toc" data-l="zh" aria-label="本页目录"><span class="gb-toc-t">本页目录</span><a href="#zh-prerequisites" data-toc="zh-prerequisites">前提条件</a><a href="#zh-privacy" data-toc="zh-privacy">隐私说明</a><a href="#zh-steps" data-toc="zh-steps">步骤</a><a href="#zh-verification" data-toc="zh-verification">成功的标志</a><a href="#zh-next-steps" data-toc="zh-next-steps">下一步</a></nav><nav class="gb-toc" data-l="en" aria-label="On this page"><span class="gb-toc-t">On this page</span><a href="#prerequisites" data-toc="prerequisites">Prerequisites</a><a href="#privacy" data-toc="privacy">Privacy</a><a href="#steps" data-toc="steps">Steps</a><a href="#verification" data-toc="verification">Verification</a><a href="#next-steps" data-toc="next-steps">Next steps</a></nav></div></div><div class="gb-agent"><p class="gb-agent-note"><span data-l="zh">这一页给 agent 读的版本：在网址后加 .md 就是下面这份纯文本，和给人看的那页由同一份内容生成。</span><span data-l="en">Agent-readable version of this page: append .md to the URL to get the plain text below, generated from the same source as the human view.</span></p><div class="gb-pane"><div class="gb-pane-bar"><span class="gb-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="gb-mono gb-url"></span><span class="gb-mono gb-type"></span><button type="button" class="gb-ctl gb-mono gb-copy" data-copy="agent" data-l-copy-zh="复制" data-l-done-zh="已复制" data-l-copy-en="Copy" data-l-done-en="Copied">Copy</button></div><div class="gb-mono gb-md" aria-live="polite"></div></div></div></main></div><div class="gb-sdlg" role="dialog" aria-modal="true" hidden><div class="gb-sbox"><div class="gb-sinput"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input type="search" autocomplete="off" spellcheck="false" data-ph-zh="搜索文档" data-ph-en="Search docs" aria-label="Search docs"><kbd class="gb-mono">Esc</kbd></div><div class="gb-sres" role="listbox"></div><div class="gb-shint"><span data-l="zh">按 Esc 关闭</span><span data-l="en">Press Esc to close</span></div></div></div><span hidden id="gb-strings" data-none-zh="没有找到相关内容" data-none-en="No results found" data-fail-zh="暂时无法搜索，请稍后再试" data-fail-en="Search is unavailable right now. Please try again later." data-menu-zh="目录" data-menu-en="Menu" data-close-zh="关闭目录" data-close-en="Close menu"></span><script type="text/plain" id="md-zh" data-url="openmousse.ai/docs/standalone-tree.zh-CN.md" data-type="text/markdown">完整的文档索引见 [llms.txt](https://openmousse.ai/llms.txt)。在网址后加 `.md` 可以拿到 Markdown 版本；本页的 Markdown 版本在 `https://openmousse.ai/docs/standalone-tree.zh-CN.md`。
+
+# 仅安装世界树服务
+不部署完整的 OpenMousse，单独运行 `mousse-tree` 为外部 AI 应用同步记忆。
+
+完成本指南后，你的服务器上将单独运行轻量级的世界树服务（`mousse-tree`），为 Claude、ChatGPT、Gemini、Notion、Claude Code 及 OpenClaw 提供共用的长期记忆。本指南适用于不需要部署完整 OpenMousse 客户端与多 Agent 系统、仅需跨平台统一记忆的用户。
+
+## 前提条件
+
+- 一台具备 Python 3.11 以上版本与 `git` 的 Linux、macOS 或 Windows WSL 2 机器。
+- 若需接入 Claude 网页版、ChatGPT、Gemini 或 Notion，机器需具备公网 HTTPS 访问能力（推荐使用免费的 Tailscale Funnel）。
+
+## 隐私说明
+
+- **不调用模型、不产生额外模型费用**：`mousse-tree` 仅负责记忆的存储、全文检索（FTS5 trigram）与 MCP 接口响应，本身不发起任何 LLM 调用；各平台的对话仍使用你原有的订阅。
+- **数据留在本地**：所有记忆保存在你服务器的 `~/.mousse-tree/tree.db`（SQLite）或你指定的本地 Markdown 文件夹中。软链接与隐藏文件不会被收录，MCP 工具无法访问笔记文件夹以外的路径。
+- **可审计的遗忘机制**：调用 `forget` 删除记忆时，系统会清空正文、将空壳移入归档并删除检索索引，仅保留不含正文的 ID 与操作时间记录；若笔记文件夹开启了第三方云同步（如 iCloud、Obsidian Sync 或 git），其历史版本中可能仍留存旧内容，需在对应同步工具中清理。
+
+## 步骤
+
+### 1. 安装并初始化常驻服务
+
+在服务器终端依次运行以下命令（将称呼与时区替换为你的实际信息）：
+
+```bash
+pipx install "git+https://github.com/openmousse/openmousse#subdirectory=tree"
+mousse-tree init --name 你的称呼 --tz UTC --lang zh
+mousse-tree install-service
+```
+
+- 第一行也可使用 `pip install --user "git+https://github.com/openmousse/openmousse#subdirectory=tree"`。
+- `install-service` 会配置开机常驻服务（Linux 使用 systemd，macOS 使用 launchd），默认仅监听本机 `127.0.0.1:8787`。
+- 若本机同时运行 OpenClaw，可运行 `mousse-tree install-openclaw && systemctl --user restart openclaw-gateway`，将世界树导出目录加入 OpenClaw 的检索路径。
+
+### 2. 选择存储方式（可选切换为 Markdown 笔记库）
+
+服务默认使用 SQLite 存储（`~/.mousse-tree/tree.db`）。如果你希望将每条记忆存为一篇独立的 Markdown 笔记（例如放入 Obsidian 笔记库以便在手机上查看和编辑），可运行迁移命令：
+
+```bash
+mousse-tree migrate markdown --notes ~/vault/世界树 --profile-note 档案.md
+systemctl --user restart mousse-tree
+```
+
+- 迁移后，笔记文件成为数据源，SQLite（`index.db`）仅作为检索索引；你在笔记软件中直接新建或修改笔记后，服务会在 5 秒内自动同步索引。
+- 被新记忆取代（`supersedes`）或你手动移入 `归档/`（英文为 `Archive/`）子目录的笔记不再参与检索。
+- 如需切回 SQLite 存储，运行 `mousse-tree migrate sqlite` 并重启服务即可。
+
+### 3. 使用 Tailscale Funnel 开放公网路径
+
+云端 AI 平台需要通过公网 HTTPS 访问世界树。使用 Tailscale Funnel 仅对外暴露 `/t` 与 `/m` 两个 MCP 路径前缀：
+
+```bash
+tailscale funnel --bg --set-path=/t http://127.0.0.1:8787/t
+tailscale funnel --bg --set-path=/m http://127.0.0.1:8787/m
+mousse-tree init --host <你的机器名>.<tailnet>.ts.net
+systemctl --user restart mousse-tree
+```
+
+> **注意：请勿公开管理页**
+> 切勿使用 Funnel 暴露 `/ui` 管理页路径。管理页（含记忆浏览、修改、待确认审批与档案编辑）应仅通过本机、`tailscale serve`（仅限局域网内设备）或 SSH 隧道访问。如需让外部平台写入的内容先进入「待确认」，可在 `~/.mousse-tree/config.json` 中设置 `"require_confirm": true`。
+
+### 4. 查看接入地址并连接各平台
+
+在服务器终端运行以下命令，打印各平台的专属接入地址与本地管理页链接：
+
+```bash
+mousse-tree urls
+```
+
+复制对应平台的地址，按照指南「把你常用的 AI 接进世界树」第 2、3 步的表格说明，将地址与自定义指令填入 Claude、ChatGPT、Gemini、Notion 或 Claude Code 中。
+
+## 成功的标志
+
+当以下各项均成立时，说明独立世界树服务已正常运行：
+
+- [ ] 运行 `mousse-tree stats` 可正常输出当前记忆统计信息。
+- [ ] 通过 SSH 隧道或局域网打开 `mousse-tree urls` 给出的 `/ui#key=…` 链接，可正常打开管理页并编辑个人档案。
+- [ ] 在已接入的外部 AI 应用中写入一条新偏好后，运行 `mousse-tree recent --days 7`（或在 Markdown 笔记目录中）可以看到该条记录。
+
+## 下一步
+
+- **把你常用的 AI 接进世界树**：查看各平台连接器的具体配置路径与自定义指令原文。
+- **世界树**：了解世界树的设计细节与五类记忆来源。
+</script><script type="text/plain" id="md-en" data-url="openmousse.ai/docs/standalone-tree.md" data-type="text/markdown">The full documentation index is at [llms.txt](https://openmousse.ai/llms.txt). Append `.md` to a docs URL to get its Markdown; this page's Markdown is at `https://openmousse.ai/docs/standalone-tree.md`.
+
+# Install the Standalone Memory Tree
+Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.
+
+After completing this guide, your server will run the lightweight standalone memory tree service (`mousse-tree`), providing a shared long-term memory for Claude, ChatGPT, Gemini, Notion, Claude Code, and OpenClaw. This guide is for users who want unified cross-platform memory without deploying the full OpenMousse client and multi-agent system.
+
+## Prerequisites
+
+- A Linux, macOS, or Windows WSL 2 machine with Python 3.11 or later and `git`.
+- Public HTTPS access to the machine if you want to connect Claude on the web, ChatGPT, Gemini, or Notion (free Tailscale Funnel is recommended).
+
+## Privacy
+
+- **No model calls or extra model costs**: `mousse-tree` only handles memory storage, full-text search (FTS5 trigram), and MCP endpoint responses. It makes no LLM calls of its own; conversations on each platform continue to use your existing subscriptions.
+- **Data stays local**: All memories are stored on your server in `~/.mousse-tree/tree.db` (SQLite) or in a local Markdown folder you specify. Symlinks and hidden files are ignored, and MCP tools cannot access paths outside the notes folder.
+- **Auditable forgetting**: Calling `forget` to delete a memory clears the body, moves the empty shell to the archive, and deletes the search index entry, retaining only the bodyless ID and timestamp record. If third-party cloud sync (such as iCloud, Obsidian Sync, or git) is enabled on your notes folder, older versions may still retain the previous content and must be purged in that sync tool.
+
+## Steps
+
+### 1. Install and initialize the background service
+
+Run the following commands in order on your server terminal (replace the name and time zone with your own):
+
+```bash
+pipx install "git+https://github.com/openmousse/openmousse#subdirectory=tree"
+mousse-tree init --name YourName --tz UTC --lang zh
+mousse-tree install-service
+```
+
+- For the first line, you can also use `pip install --user "git+https://github.com/openmousse/openmousse#subdirectory=tree"`.
+- `install-service` configures a background service that starts on boot (systemd on Linux, launchd on macOS) and listens only on `127.0.0.1:8787` by default.
+- If OpenClaw is running on the same machine, run `mousse-tree install-openclaw && systemctl --user restart openclaw-gateway` to add the memory tree export directory to OpenClaw's search path.
+
+### 2. Choose a storage backend (optionally switch to a Markdown vault)
+
+By default, the service stores data in SQLite (`~/.mousse-tree/tree.db`). If you want each memory stored as a separate Markdown note (for example, inside an Obsidian vault so you can view and edit notes on your phone), run the migration command:
+
+```bash
+mousse-tree migrate markdown --notes ~/vault/世界树 --profile-note 档案.md
+systemctl --user restart mousse-tree
+```
+
+- After migration, the note files become the source of truth and SQLite (`index.db`) serves only as the search index. When you create or edit notes directly in your note-taking app, the service syncs the index automatically within 5 seconds.
+- Notes replaced by a newer memory (`supersedes`) or moved manually into the `归档/` (`Archive/` in English) subdirectory are excluded from search.
+- To switch back to SQLite storage, run `mousse-tree migrate sqlite` and restart the service.
+
+### 3. Expose public paths with Tailscale Funnel
+
+Cloud AI platforms need public HTTPS access to reach the memory tree. Use Tailscale Funnel to expose only the `/t` and `/m` MCP path prefixes:
+
+```bash
+tailscale funnel --bg --set-path=/t http://127.0.0.1:8787/t
+tailscale funnel --bg --set-path=/m http://127.0.0.1:8787/m
+mousse-tree init --host <your-machine>.<tailnet>.ts.net
+systemctl --user restart mousse-tree
+```
+
+> **Important: Do not expose the admin UI publicly**
+> Never expose the `/ui` admin path via Funnel. The admin page (which includes memory browsing, editing, approval of **Needs your approval** items, and profile editing) should only be accessed from localhost, via `tailscale serve` (restricted to devices on your tailnet), or over an SSH tunnel. To hold writes from external platforms in **Needs your approval** first, set `"require_confirm": true` in `~/.mousse-tree/config.json`.
+
+### 4. View endpoint URLs and connect your platforms
+
+Run the following command in your server terminal to print the dedicated endpoint URLs for each platform and the local admin page link:
+
+```bash
+mousse-tree urls
+```
+
+Copy the URL for each platform and follow the tables in steps 2 and 3 of "Connect Your AIs to the Memory Tree" to enter the URL and custom instructions into Claude, ChatGPT, Gemini, Notion, or Claude Code.
+
+## Verification
+
+The standalone memory tree service is running properly when all of the following are true:
+
+- [ ] Running `mousse-tree stats` outputs current memory statistics without error.
+- [ ] Opening the `/ui#key=…` link from `mousse-tree urls` over an SSH tunnel or local network opens the admin page and allows you to edit your profile.
+- [ ] After you save a new preference in a connected external AI app, running `mousse-tree recent --days 7` (or checking your Markdown notes directory) shows the new entry.
+
+## Next steps
+
+- **Connect Your AIs to the Memory Tree**: View the exact connector configuration paths and custom instructions for each platform.
+- **Memory Tree**: Learn about the design of the memory tree and its five memory sources.
+</script><script src="docs.js" defer></script>
+</body>
+</html>

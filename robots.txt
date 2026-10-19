@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://openmousse.ai/sitemap.xml
