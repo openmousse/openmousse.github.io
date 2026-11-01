@@ -17,7 +17,7 @@ When you hand an external task to the Errands agent, the system protects your se
 
 ## Doorman's Other Responsibilities
 
-In addition to governing outbound requests and password substitution for the Errands agent, Doorman also reviews outbound replies from the **Butler**: when a friend or a friend's Butler asks your Butler a question, every reply your Butler generates must be inspected by Doorman before it is sent. If Doorman finds inappropriate content in a reply (such as personal information you have not shared), it holds the reply back and lets you decide whether to send it as is, edit it, or discard it.
+In addition to governing outbound requests and password substitution for the Errands agent, Doorman also reviews outbound replies from **Reception**: when a friend or a friend's Reception asks your Reception a question, every reply your Reception generates must be inspected by Doorman before it is sent. If Doorman finds inappropriate content in a reply (such as personal information you have not shared), it holds the reply back and lets you decide whether to send it as is, edit it, or discard it.
 
 ## What Is Not Here
 
@@ -28,4 +28,4 @@ In addition to governing outbound requests and password substitution for the Err
 
 - **Approvals (Inbox)**: Learn how parameter locking and the approval flow work for approval cards.
 - **Data and Security**: Review the full list of external connections across the system and how incoming external information is isolated.
-- **Friends and Podcasts**: Learn how Doorman reviews the Butler's outbound replies.
+- **Friends and Podcasts**: Learn how Doorman reviews Reception's outbound replies.

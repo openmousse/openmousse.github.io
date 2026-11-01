@@ -53,6 +53,6 @@ Your new functional agent is ready for use when all of the following are true:
 
 ## Next steps
 
-- **Agents**: Understand the permission boundaries across main chat, functional agents, group chats, Cybers, and the Butler.
+- **Agents**: Understand the permission boundaries across main chat, functional agents, group chats, Cybers, and Reception.
 - **Approvals (Inbox)**: Learn about the three-tier permission model for tool calls and how approval cards work.
 - **Today View and 04:00 Settlement**: Learn how functional agents deliver reports to Today and complete the nightly settlement.

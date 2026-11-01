@@ -13,7 +13,7 @@ The engine divides every interaction into one of three turn types based on who i
 
 - **Messages from you**: Have full permissions to invoke all tools according to the tool tier rules, and to read and write the memory tree and each functional agent's data.
 - **Your Cybers** [Coming soon]: Engage in conversation only and do not access your data directly; when looking up reference material or modifying data is required, the request is handed off to the functional agents mounted on the Cyber.
-- **Messages from a friend's agent or a stranger**: Treated strictly as reference material and processed by a model call with no tools attached, making it impossible to trigger any tools on your server. When the Butler replies externally to a friend's inquiry, it likewise uses a model call with no tools attached.
+- **Messages from a friend's agent or a stranger**: Treated strictly as reference material and processed by a model call with no tools attached, making it impossible to trigger any tools on your server. When Reception replies externally to a friend's inquiry, it likewise uses a model call with no tools attached.
 
 ## Three-Tier Tool Execution
 

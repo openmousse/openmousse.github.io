@@ -35,12 +35,12 @@
 - [Install the Standalone Memory Tree](https://openmousse.ai/docs/standalone-tree.md): Run `mousse-tree` on its own to sync memory across external AI apps without deploying the full system.
 - [Create and Manage Functional Agents](https://openmousse.ai/docs/create-agent.md): Create functional agents via proposal cards in main chat or directly in the app, and configure their roles and models.
 - [Memory Tree](https://openmousse.ai/docs/memory.md): Store facts, preferences, decisions, and distilled opinions as provenance-tracked leaves in SQLite or a Markdown vault.
-- [Agents](https://openmousse.ai/docs/agents.md): Understand the roles and boundaries of main chat, functional agents, meeting minutes, group chats, Cybers, and the Butler.
+- [Agents](https://openmousse.ai/docs/agents.md): Understand the roles and boundaries of main chat, functional agents, meeting minutes, group chats, Cybers, and Reception.
 - [Today View and 04:00 Settlement](https://openmousse.ai/docs/day.md): Explore To do, Schedule, and Reports in the Today view, along with the 03:45 daily settlement and 04:00 session reset.
 - [Approvals (Inbox)](https://openmousse.ai/docs/approvals.md): Hold irreversible actions like payments, external messages, submissions, and logins in parameter-locked approval cards until you approve.
 - [Zen](https://openmousse.ai/docs/zen.md): Capture thoughts without triggering AI replies, refine them when ready, and save distilled opinions to the memory tree.
 - [Errands and Doorman](https://openmousse.ai/docs/errands.md): Compare prices, fill forms, and book in an isolated sandbox while Doorman isolates credentials and governs outbound requests.
-- [Friends and Podcasts](https://openmousse.ai/docs/friends.md): Use end-to-end encrypted chat, privacy-redacted share cards, relationship-tiered Butler replies, and speaker-diarized in-person podcasts.
+- [Friends and Podcasts](https://openmousse.ai/docs/friends.md): Use end-to-end encrypted chat, privacy-redacted share cards, relationship-tiered Reception replies, and speaker-diarized in-person podcasts.
 - [Data and Security](https://openmousse.ai/docs/security.md): Review data storage locations, requests that leave your server or originate from the client by design, and isolation boundaries for external apps.
 - [Engine (Agent Harness)](https://openmousse.ai/docs/engine.md) [Coming soon]: Learn how the Python runtime enforces speaker permission tiers, three-tier tool execution, and model fallback.
 - [Programmatic API](https://openmousse.ai/docs/api.md) [Coming soon]: Call OpenMousse directly as a model or agent via the OpenAI-compatible API or ACP protocol.

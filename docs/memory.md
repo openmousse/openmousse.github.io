@@ -37,11 +37,11 @@ The following data is also stored on your server (or remains in its original loc
 - **Unsaved thoughts in Zen**: Quick thoughts jotted down in Zen, or notes saved by tapping **private note** during a discussion, are stored only as local Markdown notes; they are not sent to models and are not automatically written to the memory tree during the nightly settlement.
 - **Full chat logs from external AI platforms**: External AIs connected to the memory tree write only facts about you to the memory tree; full conversation transcripts remain on each platform.
 - **Dedicated memories and chat histories of functional agents**: Each functional agent has its own chat, board, and dedicated memory stored separately from the memory tree.
-- **What the Butler can see**: When answering inquiries from friends on your behalf, the Butler cannot see the memory tree at all; it sees only the schedule, recent status, shared items, study notes, or address that you explicitly expose for that relationship tier.
+- **What Reception can see**: When answering inquiries from friends on your behalf, Reception cannot see the memory tree at all; it sees only the schedule, recent status, shared items, study notes, or address that you explicitly expose for that relationship tier.
 
 ## See also
 
 - **Connect Your AIs to the Memory Tree**: Get your dedicated MCP URLs and configure external AI apps.
-- **Agents**: Learn how permissions are divided among main chat, functional agents, Cybers, and the Butler.
+- **Agents**: Learn how permissions are divided among main chat, functional agents, Cybers, and Reception.
 - **Zen**: Learn how thoughts are refined and saved to the memory tree.
 - **Data and Security**: Learn where server data is stored and how privacy boundaries are enforced.

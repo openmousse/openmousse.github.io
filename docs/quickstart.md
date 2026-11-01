@@ -65,7 +65,7 @@ Open **Main chat** and try any of the following requests:
 
 - **Connect Your AIs to the Memory Tree**: Configure memory tree MCP URLs for Claude, ChatGPT, Gemini, Notion, and Claude Code.
 - **Memory Tree**: Learn about leaves, provenance tracking, and SQLite versus Markdown vault storage.
-- **Agents**: Understand how main chat, functional agents, meeting minutes, Cybers, and the Butler divide work.
+- **Agents**: Understand how main chat, functional agents, meeting minutes, Cybers, and Reception divide work.
 - **Approvals (Inbox)**: Learn how tool tiers, parameter locking, and approval cards work.
 
 > **Note: Updates and Self-Checks**
